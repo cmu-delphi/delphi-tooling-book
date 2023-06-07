@@ -1,0 +1,25 @@
+Package: delphitoolingbook
+Title: Delphi Tooling
+Version: 0.0.0.9999
+Authors@R: c(
+    person("Daniel", "McDonald", "J.", "daniel@stat.ubc.ca", role = c("cre", "aut"),
+    person("Logan", "Brooks", role = c("cre","aut"),
+    person("Rachel", "Lobay", role = "aut"))
+    person("Ryan", "Tibshirani", "J.", "ryantibs@berkeley.edu", role = "aut"),
+Description: 
+  | This book is a longform introduction to analysing and forecasting epidemiological data.
+License: MIT + file LICENSE
+Imports:
+    covidcast,
+    epidatr,
+    epipredict,
+    epiprocess,
+    hardhat,
+    ranger,
+    xgboost
+Suggests:
+    servr
+Remotes:
+    cmu-delphi/epidatr,
+    cmu-delphi/epiprocess@dev,
+    cmu-delphi/epipredict

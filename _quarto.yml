@@ -1,0 +1,30 @@
+project:
+  type: book
+
+editor: visual
+
+execute:
+  freeze: auto
+
+book:
+  title: "Introduction to Epidemiological Forecasting\n"
+  subtitle: "Delphi Tools, Data, and Lessons"
+  author: Daniel J. McDonald, Logan C. Brooks, Rachel Lobay, and Ryan J. Tibshirani
+  date: last-modified
+  date-format: DD MMMM YYYY
+  page-footer:
+    center: |
+      These Delphi Epitooling Materials were written by Daniel J. McDonald,
+      Logan C. Brooks, and Ryan J. Tibshirani.
+  chapters:
+    - index.qmd
+    - preprocessing-and-models.qmd
+    - sliding-forecasters.qmd
+    - references.qmd
+
+bibliography: [packages.bib, references.bib]
+
+format:
+  html:
+    theme: [cosmo, delphi-epitools.scss]
+
