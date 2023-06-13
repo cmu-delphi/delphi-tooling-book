@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Introduction to Epidemiological Forecasting - 4&nbsp; Regression in Tidymodels</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./preprocessing-and-models.html" rel="next">
+<link href="./tidymodels-intro.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tidymodels-regression.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression in Tidymodels</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Introduction to Epidemiological Forecasting</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./why-this-package.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Motivation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./flatline-forecaster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tidymodels-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tidymodels-regression.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression in Tidymodels</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preprocessing-and-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Examples of Preprocessing and Models</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sliding-forecasters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Demonstrations of sliding AR and ARX forecasters</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#libraries" id="toc-libraries" class="nav-link active" data-scroll-target="#libraries"><span class="header-section-number">4.1</span> Libraries</a></li>
+  <li><a href="#simple-linear-regression" id="toc-simple-linear-regression" class="nav-link" data-scroll-target="#simple-linear-regression"><span class="header-section-number">4.2</span> Simple linear regression</a></li>
+  <li><a href="#multiple-linear-regression" id="toc-multiple-linear-regression" class="nav-link" data-scroll-target="#multiple-linear-regression"><span class="header-section-number">4.3</span> Multiple linear regression</a></li>
+  <li><a href="#checking-model-assumptions" id="toc-checking-model-assumptions" class="nav-link" data-scroll-target="#checking-model-assumptions"><span class="header-section-number">4.4</span> Checking model assumptions</a></li>
+  <li><a href="#interaction-terms" id="toc-interaction-terms" class="nav-link" data-scroll-target="#interaction-terms"><span class="header-section-number">4.5</span> Interaction terms</a></li>
+  <li><a href="#non-linear-transformations-of-the-predictors" id="toc-non-linear-transformations-of-the-predictors" class="nav-link" data-scroll-target="#non-linear-transformations-of-the-predictors"><span class="header-section-number">4.6</span> Non-linear transformations of the predictors</a></li>
+  <li><a href="#attribution" id="toc-attribution" class="nav-link" data-scroll-target="#attribution"><span class="header-section-number">4.7</span> Attribution</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression in Tidymodels</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>This vignette is a gentle introduction into performing simple and multiple linear regression using <code>tidymodels</code>. Model fitting will be done using <a href="https://www.tidymodels.org/start/models/">parsnip</a>, which provides a unifying interface for model fitting and the resulting output. This means that parsnip provides a single interface with standardized argument names for each class of models so that you don’t have to directly deal with the different interfaces for different functions that aim to do the same thing (like linear regression). See <a href="https://www.tidymodels.org/find/parsnip/">here</a> for a list of models that <code>parsnip</code> currently supports.</p>
+<section id="libraries" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="libraries"><span class="header-section-number">4.1</span> Libraries</h2>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-2_c218b57d0deb7d370f6db0ec7ab00ddc">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="simple-linear-regression" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="simple-linear-regression"><span class="header-section-number">4.2</span> Simple linear regression</h2>
+<p>The key steps to perform linear regression in <code>tidymodels</code> are to first specify the model type and then to specify the model form and the data to be used to construct it.</p>
+<p>To illustrate, we shall look to <code>penguins</code> dataset from the <code>tidymodels</code>’ <code>modeldata</code> package. This dataset contains measurements for 344 penguins from three islands in Palmer Archipelago, Antarctica, and includes information on their species, island home, size (flipper length, body mass, bill dimensions), and sex.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-3_69cac1d7a4c6822cd87af3724b4adc3f">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/palmer_penguin_species.png" class="img-fluid figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-4_94d6f8cb513b12787b8fdc5a15b7059a">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's inspect the data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 6 × 7
+#&gt;   species island    bill_length_mm bill_depth_mm flipper_length_mm
+#&gt;   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;
+#&gt; 1 Adelie  Torgersen           39.1          18.7               181
+#&gt; 2 Adelie  Torgersen           39.5          17.4               186
+#&gt; 3 Adelie  Torgersen           40.3          18                 195
+#&gt; 4 Adelie  Torgersen           NA            NA                  NA
+#&gt; 5 Adelie  Torgersen           36.7          19.3               193
+#&gt; 6 Adelie  Torgersen           39.3          20.6               190
+#&gt; # ℹ 2 more variables: body_mass_g &lt;int&gt;, sex &lt;fct&gt;</code></pre>
+</div>
+</div>
+<p>One thing you may have spotted is that there’s missing data in this dataset in the fourth row. For simplicity, we will only work with the complete cases. This reduces the number of rows in our dataset to 333.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-5_453483d0ed16f910f90f3352c2d693fd">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(.))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 6 × 7
+#&gt;   species island    bill_length_mm bill_depth_mm flipper_length_mm
+#&gt;   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;
+#&gt; 1 Adelie  Torgersen           39.1          18.7               181
+#&gt; 2 Adelie  Torgersen           39.5          17.4               186
+#&gt; 3 Adelie  Torgersen           40.3          18                 195
+#&gt; 4 Adelie  Torgersen           36.7          19.3               193
+#&gt; 5 Adelie  Torgersen           39.3          20.6               190
+#&gt; 6 Adelie  Torgersen           38.9          17.8               181
+#&gt; # ℹ 2 more variables: body_mass_g &lt;int&gt;, sex &lt;fct&gt;</code></pre>
+</div>
+</div>
+<p>Much better! We will now build a simple linear regression model to model bill length as a function of bill depth.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-6_f3ab24f7363530b1951b9fa49687c6d8">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/bill_length_depth.png" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In <code>parsnip</code>, the model specification is broken down into small functions such as <code>set_mode()</code> and <code>set_engine()</code> to make the interface more flexible and readable. The general structure is to first specify a mode (regression or classification) and then an engine to indicate what software (or implementation of the algorithm) will be used to fit the model. For our purposes, the mode is <code>regression</code> and the engine is <code>lm</code> for ordinary least squares. You may note that setting the mode is unnecessary for linear regression, but we include it here as it is a good practice.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-7_45ffd7a67d47180cefb127d8bd4968cb">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>lm_spec <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"regression"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The above specification does not actually carry out the regression, rather it just states what we would like to do.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-8_4637342a1045d9d555977d6518e7a13e">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>lm_spec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Linear Regression Model Specification (regression)
+#&gt; 
+#&gt; Computational engine: lm</code></pre>
+</div>
+</div>
+<p>Once we have such a blueprint, we may fit a model by inputting data and a formula. Recall that in R, a formula takes the form <code>y ~ x</code> where <code>y</code> ix the response and <code>x</code> is the predictor variable. For our example, where the response of bill length and predictor of bill depth, we would write the formula as <code>bill_length_mm ~ bill_depth_mm</code>. Note that the names used in a formula must be identical to the variable names in the dataset.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-9_8870d65f436f9418143f38e6f470be7d">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> lm_spec <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(bill_length_mm <span class="sc">~</span> bill_depth_mm, <span class="at">data =</span> penguins)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>lm_fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; parsnip model object
+#&gt; 
+#&gt; 
+#&gt; Call:
+#&gt; stats::lm(formula = bill_length_mm ~ bill_depth_mm, data = data)
+#&gt; 
+#&gt; Coefficients:
+#&gt;   (Intercept)  bill_depth_mm  
+#&gt;       54.8909        -0.6349</code></pre>
+</div>
+</div>
+<p>The resulting <code>parsnip</code> object includes basic information about the fit such as the model coefficients. To access the underlying fit object, we could use the standard <code>lm_fit$fit</code> or with <code>purrr</code>’s <code>pluck()</code> function.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-10_3a87742039ad46889434564da74ddb0b">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">"fit"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; 
+#&gt; Call:
+#&gt; stats::lm(formula = bill_length_mm ~ bill_depth_mm, data = data)
+#&gt; 
+#&gt; Coefficients:
+#&gt;   (Intercept)  bill_depth_mm  
+#&gt;       54.8909        -0.6349</code></pre>
+</div>
+</div>
+<p>To get additional information about the fit (such as standard errors, and goodness-of-fit statistics), we can get a summary of the model fit as follows:</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-11_b4e76e5334fe0ebb2832d309f4331051">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">"fit"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; 
+#&gt; Call:
+#&gt; stats::lm(formula = bill_length_mm ~ bill_depth_mm, data = data)
+#&gt; 
+#&gt; Residuals:
+#&gt;      Min       1Q   Median       3Q      Max 
+#&gt; -12.9498  -3.9530  -0.3657   3.7327  15.5025 
+#&gt; 
+#&gt; Coefficients:
+#&gt;               Estimate Std. Error t value Pr(&gt;|t|)    
+#&gt; (Intercept)    54.8909     2.5673  21.380  &lt; 2e-16 ***
+#&gt; bill_depth_mm  -0.6349     0.1486  -4.273 2.53e-05 ***
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; 
+#&gt; Residual standard error: 5.332 on 331 degrees of freedom
+#&gt; Multiple R-squared:  0.05227,    Adjusted R-squared:  0.04941 
+#&gt; F-statistic: 18.26 on 1 and 331 DF,  p-value: 2.528e-05</code></pre>
+</div>
+</div>
+<p>To get a tidy summary of the model parameter estimates, simply use the tidy function from the <a href="https://broom.tidymodels.org/">broom</a> package on the model fit. To extract model statistics, <code>glance()</code> can be used.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-12_a189880dd1519eb2319f01a279f425d0">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 2 × 5
+#&gt;   term          estimate std.error statistic  p.value
+#&gt;   &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1 (Intercept)     54.9       2.57      21.4  2.54e-64
+#&gt; 2 bill_depth_mm   -0.635     0.149     -4.27 2.53e- 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 1 × 12
+#&gt;   r.squared adj.r.squared sigma statistic   p.value    df logLik   AIC   BIC
+#&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1    0.0523        0.0494  5.33      18.3 0.0000253     1 -1029. 2064. 2075.
+#&gt; # ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
+</div>
+</div>
+<p>Now, to make predictions, we simply use <code>predict()</code> on the parnsip model object. In there, we must specify the dataset we want to predict on in the <code>new_data</code> argument. Note that this may be a different dataset than we used for fitting the model, but this input data must include all predictor variables that were used to fit the model.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-13_7508d053154dfaff60f899420ac1af51">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lm_fit, <span class="at">new_data =</span> penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 333 × 1
+#&gt;   .pred
+#&gt;   &lt;dbl&gt;
+#&gt; 1  43.0
+#&gt; 2  43.8
+#&gt; 3  43.5
+#&gt; 4  42.6
+#&gt; 5  41.8
+#&gt; 6  43.6
+#&gt; # ℹ 327 more rows</code></pre>
+</div>
+</div>
+<p>For parnsip models, the predictions are always outputted in a tibble.</p>
+<p>To specify the type of prediction made, modify <code>type</code> argument. If we set <code>type = "conf_int"</code>, we get a 95% confidence interval.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-14_da1905720ecac194a0f6a2e7d5e2e74b">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lm_fit, <span class="at">new_data =</span> penguins, <span class="at">type =</span> <span class="st">"conf_int"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 333 × 2
+#&gt;   .pred_lower .pred_upper
+#&gt;         &lt;dbl&gt;       &lt;dbl&gt;
+#&gt; 1        42.3        43.7
+#&gt; 2        43.3        44.4
+#&gt; 3        42.8        44.1
+#&gt; 4        41.8        43.5
+#&gt; 5        40.7        43.0
+#&gt; 6        43.0        44.2
+#&gt; # ℹ 327 more rows</code></pre>
+</div>
+</div>
+<p>To evaluate model predictive performance, it is logical to compare the each of the observed and predicted values. To see these values side-by-side we simply bind the two vectors of interest.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-15_22ac23d4b11e589c317d86d9b7980aaa">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_cols</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">predict</span>(lm_fit, <span class="at">new_data =</span> penguins),</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  penguins</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(bill_length_mm, .pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 333 × 2
+#&gt;   bill_length_mm .pred
+#&gt;            &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1           39.1  43.0
+#&gt; 2           39.5  43.8
+#&gt; 3           40.3  43.5
+#&gt; 4           36.7  42.6
+#&gt; 5           39.3  41.8
+#&gt; 6           38.9  43.6
+#&gt; # ℹ 327 more rows</code></pre>
+</div>
+</div>
+<p>A simpler way to do this is to use the nifty <code>argument()</code> function.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-16_9c626abab979bae9f3de7fdfb7171883">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(lm_fit, <span class="at">new_data =</span> penguins) <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(bill_length_mm, .pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 333 × 2
+#&gt;   bill_length_mm .pred
+#&gt;            &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1           39.1  43.0
+#&gt; 2           39.5  43.8
+#&gt; 3           40.3  43.5
+#&gt; 4           36.7  42.6
+#&gt; 5           39.3  41.8
+#&gt; 6           38.9  43.6
+#&gt; # ℹ 327 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="multiple-linear-regression" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="multiple-linear-regression"><span class="header-section-number">4.3</span> Multiple linear regression</h2>
+<p>The only difference about fitting a multiple linear regression model in comparison to a simple linear regression model lies the formula. For multiple linear regression, the predictors are specified in the formula expression, separated by <code>+</code>. For example, if we have a response variable <code>y</code> and three predictors, <code>x1, x2,</code> and <code>x3</code>, we would write the formula as, <code>y ~ x1 + x2 + x3</code>.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-17_0507bee718c498c77603d9a4789b090f">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>lm_fit2 <span class="ot">&lt;-</span> lm_spec <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(bill_length_mm <span class="sc">~</span> bill_depth_mm <span class="sc">+</span> flipper_length_mm <span class="sc">+</span> body_mass_g, <span class="at">data =</span> penguins)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>lm_fit2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; parsnip model object
+#&gt; 
+#&gt; 
+#&gt; Call:
+#&gt; stats::lm(formula = bill_length_mm ~ bill_depth_mm + flipper_length_mm + 
+#&gt;     body_mass_g, data = data)
+#&gt; 
+#&gt; Coefficients:
+#&gt;       (Intercept)      bill_depth_mm  flipper_length_mm        body_mass_g  
+#&gt;        -2.571e+01          6.131e-01          2.872e-01          3.472e-04</code></pre>
+</div>
+</div>
+<p>Everything else proceeds much the same as before. Such as obtaining parameter estimates</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-18_b9a383e74e2918ee279e3d2e425738f6">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(lm_fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 4 × 5
+#&gt;   term                estimate std.error statistic  p.value
+#&gt;   &lt;chr&gt;                  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1 (Intercept)       -25.7       6.72        -3.83  1.55e- 4
+#&gt; 2 bill_depth_mm       0.613     0.138        4.43  1.26e- 5
+#&gt; 3 flipper_length_mm   0.287     0.0351       8.18  6.28e-15
+#&gt; 4 body_mass_g         0.000347  0.000566     0.614 5.40e- 1</code></pre>
+</div>
+</div>
+<p>as well as predicting new values.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-19_5ebfc51169b03a1a4ece6143bd53ed68">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lm_fit2, <span class="at">new_data =</span> penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 333 × 1
+#&gt;   .pred
+#&gt;   &lt;dbl&gt;
+#&gt; 1  39.0
+#&gt; 2  39.7
+#&gt; 3  42.5
+#&gt; 4  42.8
+#&gt; 5  42.8
+#&gt; 6  38.4
+#&gt; # ℹ 327 more rows</code></pre>
+</div>
+</div>
+<p>If you would like to use all variables aside from your response as predictors, a shortcut is to use the formula form <code>y ~ .</code></p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-20_5e8319fb016f6262b71f0a7d249ea3c1">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>lm_fit3 <span class="ot">&lt;-</span> lm_spec <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(bill_length_mm <span class="sc">~</span> ., <span class="at">data =</span> penguins)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>lm_fit3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; parsnip model object
+#&gt; 
+#&gt; 
+#&gt; Call:
+#&gt; stats::lm(formula = bill_length_mm ~ ., data = data)
+#&gt; 
+#&gt; Coefficients:
+#&gt;       (Intercept)   speciesChinstrap      speciesGentoo        islandDream  
+#&gt;         15.343291           9.835502           6.117675          -0.503815  
+#&gt;   islandTorgersen      bill_depth_mm  flipper_length_mm        body_mass_g  
+#&gt;         -0.127431           0.300670           0.069257           0.001081  
+#&gt;           sexmale  
+#&gt;          2.047859</code></pre>
+</div>
+</div>
+</section>
+<section id="checking-model-assumptions" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="checking-model-assumptions"><span class="header-section-number">4.4</span> Checking model assumptions</h2>
+<p>After fitting a model, it is good to check whether the assumptions of linear regression are met. For this, we will use the <code>performance</code> package, in particular the <code>check_model()</code> function to produce several helpful plots we may use to check the assumptions for our first multiple linear regression model.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-21_c35bf6aff06ad863bea12459724590fd">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>lm_fit2 <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_fit_engine</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">check_model</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="tidymodels-regression_files/figure-html/unnamed-chunk-21-1.svg" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Notice that on each plot it says what we should expect to see if the model assumption is met.</p>
+<p>We shall now briefly walk you through what each plot means.</p>
+<p>The first two plots help us to examine the linearity of the errors versus the fitted values. Ideally, we want this error to be relatively flat and horizontal. The third plot is for checking homogeneity of the variance, where we want the points to be roughly the same distance from the line as this indicates similar dispersion. The fourth plot helps us to see if there are high leverage points - points that have command or influence over the model fit. As a result, these can have a great effect on the model predictions. So the removal of such points or modifications to the model may be necessary to deal with them. The fifth plot helps us to discern collinearity, which is when predictors are highly correlated. Since independent variables should be independent, this can throw off simple regression models (in standard error of coefficient estimates and the estimates themselves, which would likely be sensitive to changes in the predictors that are included in the model). The last plot enables us to check the normality of residuals. If the distribution of the model error is non-normal, then that suggests a linear model may not be appropriate. For a QQ plot, we want the points to fall along a straight diagonal line.</p>
+<p>For our example, we observe that there’s a pretty high correlation between <code>body_mass_g</code> and <code>flipper_length_mm</code> (not quite in the red-zone of 10 and above, but close enough for concern). That is indicative of multicollinearity between them. Intuitively, it makes sense for the body mass and flipper length variables - we’d expect that as once increases, so should the other.</p>
+<p>We can take a closer look at the correlation by whipping up a correlation matrix by using base R’s <code>cor()</code> function. Since for collinearity we’re only usually interested in the numerical predictors, we’ll only include the four numeric variables.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-22_d9863a9ed86c903182402ab4160316b1">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>penguins_corr <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(body_mass_g, <span class="fu">ends_with</span>(<span class="st">"_mm"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>()</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>penguins_corr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;                   body_mass_g bill_length_mm bill_depth_mm flipper_length_mm
+#&gt; body_mass_g         1.0000000      0.5894511    -0.4720157         0.8729789
+#&gt; bill_length_mm      0.5894511      1.0000000    -0.2286256         0.6530956
+#&gt; bill_depth_mm      -0.4720157     -0.2286256     1.0000000        -0.5777917
+#&gt; flipper_length_mm   0.8729789      0.6530956    -0.5777917         1.0000000</code></pre>
+</div>
+</div>
+<p>Indeed <code>body_mass_g</code> and <code>flipper_length_mm</code> are highly positively correlated. To deal with this problem, we’ll re-fit the model without <code>body_mass_g</code>.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-23_541162589eaa9f9ba3499f9169c13c00">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>lm_fit2<span class="fl">.5</span> <span class="ot">&lt;-</span> lm_spec <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(bill_length_mm <span class="sc">~</span> bill_depth_mm <span class="sc">+</span> flipper_length_mm, <span class="at">data =</span> penguins)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>lm_fit2<span class="fl">.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; parsnip model object
+#&gt; 
+#&gt; 
+#&gt; Call:
+#&gt; stats::lm(formula = bill_length_mm ~ bill_depth_mm + flipper_length_mm, 
+#&gt;     data = data)
+#&gt; 
+#&gt; Coefficients:
+#&gt;       (Intercept)      bill_depth_mm  flipper_length_mm  
+#&gt;          -27.9762             0.6200             0.3052</code></pre>
+</div>
+</div>
+<p>and then check again to see whether the assumptions are met.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-24_244240610deb4c6c08ab82f423d7ad7e">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>lm_fit2<span class="fl">.5</span> <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_fit_engine</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">check_model</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="tidymodels-regression_files/figure-html/unnamed-chunk-24-1.svg" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Overall, the plots look pretty good. For details on how to interpret each of these plots and more details about model assumptions please see <a href="https://easystats.github.io/see/articles/performance.html">here</a> and <a href="https://rdrr.io/cran/performance/man/check_model.html">here</a>.</p>
+</section>
+<section id="interaction-terms" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="interaction-terms"><span class="header-section-number">4.5</span> Interaction terms</h2>
+<p>In general, the syntax to add an interaction term to a formula is as follows:</p>
+<ul>
+<li><code>x:y</code> denotes an interaction term between <code>x</code> and <code>y</code>.</li>
+<li><code>x*y</code> denotes the interaction between <code>x</code> and <code>y</code> as well as <code>x</code> and <code>y</code>; that is, <code>x + y + x*y</code>.</li>
+</ul>
+<p>It is important to note that this syntax is not compatible with all engines. Thus, we shall explain how to bypass this issue by adding an interaction term in a recipe later on. For now, let’s start simple by adding an interaction term between <code>species</code> and <code>bill_length_mm</code>, which allows for a species-specific slope.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-25_f242299b2b26cb902569a9ed33d64840">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>lm_fit4 <span class="ot">&lt;-</span> lm_spec <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(bill_length_mm <span class="sc">~</span> species <span class="sc">*</span> bill_depth_mm, <span class="at">data =</span> penguins)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>lm_fit4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; parsnip model object
+#&gt; 
+#&gt; 
+#&gt; Call:
+#&gt; stats::lm(formula = bill_length_mm ~ species * bill_depth_mm, 
+#&gt;     data = data)
+#&gt; 
+#&gt; Coefficients:
+#&gt;                    (Intercept)                speciesChinstrap  
+#&gt;                        23.3668                         -9.9389  
+#&gt;                  speciesGentoo                   bill_depth_mm  
+#&gt;                        -6.6966                          0.8425  
+#&gt; speciesChinstrap:bill_depth_mm     speciesGentoo:bill_depth_mm  
+#&gt;                         1.0796                          1.2178</code></pre>
+</div>
+</div>
+<p>Using recipes, the interaction term is specified by using <code>step_interact()</code>. Then we construct a workflow object, where we add the linear regression model specification and recipe. Finally, we fit the model as we did for a <code>parsnip</code> model. Note that the workflow object does not need the variables that were specified in the recipe to be specified again.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-26_d92d6825b494ecc512eb8f3fcee9ae47">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>rec_spec_interact <span class="ot">&lt;-</span> <span class="fu">recipe</span>(bill_length_mm <span class="sc">~</span> species <span class="sc">+</span> bill_depth_mm, <span class="at">data =</span> penguins) <span class="sc">%&gt;%</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_interact</span>(<span class="sc">~</span> species<span class="sc">:</span>bill_depth_mm)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>lm_wf_interact <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(lm_spec) <span class="sc">%&gt;%</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(rec_spec_interact)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>lm_wf_interact <span class="sc">%&gt;%</span> <span class="fu">fit</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; ══ Workflow [trained] ═══════════════════════════════════════════════════════
+#&gt; Preprocessor: Recipe
+#&gt; Model: linear_reg()
+#&gt; 
+#&gt; ── Preprocessor ─────────────────────────────────────────────────────────────
+#&gt; 1 Recipe Step
+#&gt; 
+#&gt; • step_interact()
+#&gt; 
+#&gt; ── Model ────────────────────────────────────────────────────────────────────
+#&gt; 
+#&gt; Call:
+#&gt; stats::lm(formula = ..y ~ ., data = data)
+#&gt; 
+#&gt; Coefficients:
+#&gt;                      (Intercept)                  speciesChinstrap  
+#&gt;                          23.3668                           -9.9389  
+#&gt;                    speciesGentoo                     bill_depth_mm  
+#&gt;                          -6.6966                            0.8425  
+#&gt; speciesChinstrap_x_bill_depth_mm     speciesGentoo_x_bill_depth_mm  
+#&gt;                           1.0796                            1.2178</code></pre>
+</div>
+</div>
+<p>Notice the variable name for the interaction term is not the same as it is in base R (which is simply of the form <code>x:y</code>). In <code>step_interact()</code>, the default separator between the variable names is <code>_x_</code>. You can change this default by specifying the <code>sep</code> argument in the function.</p>
+<p>To read more about formula syntax, see <a href="https://rdrr.io/r/stats/formula.html">?formula</a>.</p>
+</section>
+<section id="non-linear-transformations-of-the-predictors" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="non-linear-transformations-of-the-predictors"><span class="header-section-number">4.6</span> Non-linear transformations of the predictors</h2>
+<p>Similar to how we were able to add an interaction term using recipes, we can also perform a transformation as a pre-processing step. The function used for this is <code>step_mutate()</code> (which acts like <code>dplyr</code>’s <code>mutate</code>).</p>
+<p>Note that, in general, if you are specifying a recipe aim to keep as much of the pre-processing in your recipe specification as possible. This helps to ensure that the transformation will be applied to new data consistently.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-27_a125e0cf8fefc55450474b68959e0e5d">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>rec_spec_pow2 <span class="ot">&lt;-</span> <span class="fu">recipe</span>(bill_length_mm <span class="sc">~</span> bill_depth_mm, <span class="at">data =</span> penguins) <span class="sc">%&gt;%</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_mutate</span>(<span class="at">bill_depth_mm2 =</span> bill_depth_mm<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>lm_wf_pow2 <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(lm_spec) <span class="sc">%&gt;%</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(rec_spec_pow2)</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>lm_wf_pow2 <span class="sc">%&gt;%</span> <span class="fu">fit</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; ══ Workflow [trained] ═══════════════════════════════════════════════════════
+#&gt; Preprocessor: Recipe
+#&gt; Model: linear_reg()
+#&gt; 
+#&gt; ── Preprocessor ─────────────────────────────────────────────────────────────
+#&gt; 1 Recipe Step
+#&gt; 
+#&gt; • step_mutate()
+#&gt; 
+#&gt; ── Model ────────────────────────────────────────────────────────────────────
+#&gt; 
+#&gt; Call:
+#&gt; stats::lm(formula = ..y ~ ., data = data)
+#&gt; 
+#&gt; Coefficients:
+#&gt;    (Intercept)   bill_depth_mm  bill_depth_mm2  
+#&gt;        95.2558         -5.4431          0.1413</code></pre>
+</div>
+</div>
+<p>There are many transformations already built into recipes such as <code>step_log()</code>. So, for basic transformations, there’s often no need to make your own transformation from scratch. See <a href="https://recipes.tidymodels.org/reference/#section-step-functions-individual-transformations">here</a> for a comprehensive list of the transformations that are offered in recipes.</p>
+<div class="cell" data-layout-align="center" data-hash="tidymodels-regression_cache/html/unnamed-chunk-28_a5ee911e23e781a4ce62d77c3d7c1e05">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>rec_spec_log <span class="ot">&lt;-</span> <span class="fu">recipe</span>(bill_length_mm <span class="sc">~</span> bill_depth_mm, <span class="at">data =</span> penguins) <span class="sc">%&gt;%</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_log</span>(bill_depth_mm)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>lm_wf_log <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(lm_spec) <span class="sc">%&gt;%</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(rec_spec_log)</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>lm_wf_log <span class="sc">%&gt;%</span> <span class="fu">fit</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; ══ Workflow [trained] ═══════════════════════════════════════════════════════
+#&gt; Preprocessor: Recipe
+#&gt; Model: linear_reg()
+#&gt; 
+#&gt; ── Preprocessor ─────────────────────────────────────────────────────────────
+#&gt; 1 Recipe Step
+#&gt; 
+#&gt; • step_log()
+#&gt; 
+#&gt; ── Model ────────────────────────────────────────────────────────────────────
+#&gt; 
+#&gt; Call:
+#&gt; stats::lm(formula = ..y ~ ., data = data)
+#&gt; 
+#&gt; Coefficients:
+#&gt;   (Intercept)  bill_depth_mm  
+#&gt;         74.95         -10.91</code></pre>
+</div>
+</div>
+<p><br>
+<br>
+🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧</p>
+</section>
+<section id="attribution" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="attribution"><span class="header-section-number">4.7</span> Attribution</h2>
+<p>This vignette was largely adapted from <a href="https://emilhvitfeldt.github.io/ISLR-tidymodels-labs/03-linear-regression.html">Chapter 3 of ISLR tidymodels labs</a>. Checking linear regression assumptions was founded on <a href="https://quantifyinghealth.com/linear-regression-in-r-tidymodels/">this article</a>. Performance plot descriptions are based on <a href="https://www.business-science.io/r/2021/07/13/easystats-performance-check-model.html">this easystats tutorial</a> for investigating model performance. The artwork used is by <a href="https://twitter.com/allison_horst">Allison Horst</a>.</p>
+<p>🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./tidymodels-intro.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./preprocessing-and-models.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Examples of Preprocessing and Models</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">These Delphi Epitooling Materials were written by Daniel J. McDonald, Logan C. Brooks, and Ryan J. Tibshirani.</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>
