@@ -1,0 +1,278 @@
+# Regression in Tidymodels
+
+```{r}
+#| echo: false
+source("_common.R")
+```
+
+This vignette is a gentle introduction into performing simple and multiple linear regression using `tidymodels`. Model fitting will be done using [parsnip](https://www.tidymodels.org/start/models/), which provides a unifying interface for model fitting and the resulting output. This means that parsnip provides a single interface with standardized argument names for each class of models so that you don't have to directly deal with the different interfaces for different functions that aim to do the same thing (like linear regression). See [here](https://www.tidymodels.org/find/parsnip/) for a list of models that `parsnip` currently supports.
+
+## Libraries
+
+```{r, message = FALSE}
+library(tidymodels)
+library(broom)
+library(performance)
+```
+
+## Simple linear regression
+
+The key steps to perform linear regression in `tidymodels` are to first specify the model type and then to specify the model form and the data to be used to construct it.
+
+To illustrate, we shall look to `penguins` dataset from the `tidymodels`' `modeldata` package. This dataset contains measurements for 344 penguins from three islands in Palmer Archipelago, Antarctica, and includes information on their species, island home, size (flipper length, body mass, bill dimensions), and sex.
+
+```{r, echo = FALSE, out.width = "75%", fig.align = "center"}
+knitr::include_graphics("img/palmer_penguin_species.png")
+```
+
+```{r, message = FALSE}
+# Let's inspect the data
+head(penguins)
+```
+
+One thing you may have spotted is that there's missing data in this dataset in the fourth row. For simplicity, we will only work with the complete cases. This reduces the number of rows in our dataset to 333.
+
+```{r}
+penguins <- penguins %>%
+  filter(complete.cases(.))
+
+head(penguins)
+```
+
+Much better! We will now build a simple linear regression model to model bill length as a function of bill depth.
+
+```{r, echo = FALSE, out.width = "60%", fig.align = "center"}
+knitr::include_graphics("img/bill_length_depth.png")
+```
+
+In `parsnip`, the model specification is broken down into small functions such as `set_mode()` and `set_engine()` to make the interface more flexible and readable. The general structure is to first specify a mode (regression or classification) and then an engine to indicate what software (or implementation of the algorithm) will be used to fit the model. For our purposes, the mode is `regression` and the engine is `lm` for ordinary least squares. You may note that setting the mode is unnecessary for linear regression, but we include it here as it is a good practice.
+
+```{r}
+lm_spec <- linear_reg() %>% 
+  set_mode("regression") %>% 
+  set_engine("lm")
+```
+
+The above specification does not actually carry out the regression, rather it just states what we would like to do.
+
+```{r}
+lm_spec
+```
+
+Once we have such a blueprint, we may fit a model by inputting data and a formula. Recall that in R, a formula takes the form `y ~ x` where `y` ix the response and `x` is the predictor variable. For our example, where the response of bill length and predictor of bill depth, we would write the formula as `bill_length_mm ~ bill_depth_mm`. Note that the names used in a formula must be identical to the variable names in the dataset.
+
+```{r}
+lm_fit <- lm_spec %>%
+  fit(bill_length_mm ~ bill_depth_mm, data = penguins)
+
+lm_fit
+```
+
+The resulting `parsnip` object includes basic information about the fit such as the model coefficients. To access the underlying fit object, we could use the standard `lm_fit$fit` or with `purrr`'s `pluck()` function.
+
+```{r}
+lm_fit %>% 
+  pluck("fit")
+```
+
+To get additional information about the fit (such as standard errors, and goodness-of-fit statistics), we can get a summary of the model fit as follows:
+
+```{r}
+lm_fit %>% 
+  pluck("fit") %>%
+  summary()
+```
+
+To get a tidy summary of the model parameter estimates, simply use the tidy function from the [broom](https://broom.tidymodels.org/) package on the model fit. To extract model statistics, `glance()` can be used.
+
+```{r}
+tidy(lm_fit) 
+glance(lm_fit) 
+```
+
+Now, to make predictions, we simply use `predict()` on the parnsip model object. In there, we must specify the dataset we want to predict on in the `new_data` argument. Note that this may be a different dataset than we used for fitting the model, but this input data must include all predictor variables that were used to fit the model.
+
+```{r}
+predict(lm_fit, new_data = penguins)
+```
+
+For parnsip models, the predictions are always outputted in a tibble.
+
+To specify the type of prediction made, modify `type` argument. If we set `type = "conf_int"`, we get a 95% confidence interval.
+
+```{r}
+predict(lm_fit, new_data = penguins, type = "conf_int")
+```
+
+To evaluate model predictive performance, it is logical to compare the each of the observed and predicted values. To see these values side-by-side we simply bind the two vectors of interest.
+
+```{r}
+bind_cols(
+  predict(lm_fit, new_data = penguins),
+  penguins
+) %>%
+  select(bill_length_mm, .pred)
+```
+
+A simpler way to do this is to use the nifty `argument()` function.
+
+```{r}
+augment(lm_fit, new_data = penguins) %>% 
+  select(bill_length_mm, .pred)
+```
+
+## Multiple linear regression
+
+The only difference about fitting a multiple linear regression model in comparison to a simple linear regression model lies the formula. For multiple linear regression, the predictors are specified in the formula expression, separated by `+`. For example, if we have a response variable `y` and three predictors, `x1, x2,` and `x3`, we would write the formula as, `y ~ x1 + x2 + x3`.
+
+```{r}
+lm_fit2 <- lm_spec %>% 
+  fit(bill_length_mm ~ bill_depth_mm + flipper_length_mm + body_mass_g, data = penguins)
+
+lm_fit2
+```
+
+Everything else proceeds much the same as before. Such as obtaining parameter estimates
+
+```{r}
+tidy(lm_fit2)
+```
+
+as well as predicting new values.
+
+```{r}
+predict(lm_fit2, new_data = penguins)
+```
+
+If you would like to use all variables aside from your response as predictors, a shortcut is to use the formula form `y ~ .`
+
+```{r}
+lm_fit3 <- lm_spec %>% 
+  fit(bill_length_mm ~ ., data = penguins)
+
+lm_fit3
+```
+
+## Checking model assumptions
+
+After fitting a model, it is good to check whether the assumptions of linear regression are met. For this, we will use the `performance` package, in particular the `check_model()` function to produce several helpful plots we may use to check the assumptions for our first multiple linear regression model.
+
+```{r}
+#| fig-height: 8
+#| fig-align: center
+lm_fit2 %>% 
+  extract_fit_engine() %>%  
+  check_model()
+```
+
+Notice that on each plot it says what we should expect to see if the model assumption is met.
+
+We shall now briefly walk you through what each plot means.
+
+The first two plots help us to examine the linearity of the errors versus the fitted values. Ideally, we want this error to be relatively flat and horizontal. The third plot is for checking homogeneity of the variance, where we want the points to be roughly the same distance from the line as this indicates similar dispersion. The fourth plot helps us to see if there are high leverage points - points that have command or influence over the model fit. As a result, these can have a great effect on the model predictions. So the removal of such points or modifications to the model may be necessary to deal with them. The fifth plot helps us to discern collinearity, which is when predictors are highly correlated. Since independent variables should be independent, this can throw off simple regression models (in standard error of coefficient estimates and the estimates themselves, which would likely be sensitive to changes in the predictors that are included in the model). The last plot enables us to check the normality of residuals. If the distribution of the model error is non-normal, then that suggests a linear model may not be appropriate. For a QQ plot, we want the points to fall along a straight diagonal line.
+
+For our example, we observe that there's a pretty high correlation between `body_mass_g` and `flipper_length_mm` (not quite in the red-zone of 10 and above, but close enough for concern). That is indicative of multicollinearity between them. Intuitively, it makes sense for the body mass and flipper length variables - we'd expect that as once increases, so should the other.
+
+We can take a closer look at the correlation by whipping up a correlation matrix by using base R's `cor()` function. Since for collinearity we're only usually interested in the numerical predictors, we'll only include the four numeric variables.
+
+```{r}
+penguins_corr <- penguins %>%
+  select(body_mass_g, ends_with("_mm")) %>%
+  cor()
+penguins_corr
+```
+
+Indeed `body_mass_g` and `flipper_length_mm` are highly positively correlated. To deal with this problem, we'll re-fit the model without `body_mass_g`.
+
+```{r}
+lm_fit2.5 <- lm_spec %>% 
+  fit(bill_length_mm ~ bill_depth_mm + flipper_length_mm, data = penguins)
+
+lm_fit2.5
+```
+
+and then check again to see whether the assumptions are met.
+
+```{r}
+#| fig-height: 8
+#| fig-align: center
+lm_fit2.5 %>% 
+  extract_fit_engine() %>%  
+  check_model()
+```
+
+Overall, the plots look pretty good. For details on how to interpret each of these plots and more details about model assumptions please see [here](https://easystats.github.io/see/articles/performance.html) and [here](https://rdrr.io/cran/performance/man/check_model.html).
+
+## Interaction terms
+
+In general, the syntax to add an interaction term to a formula is as follows:
+
+-   `x:y` denotes an interaction term between `x` and `y`.
+-   `x*y` denotes the interaction between `x` and `y` as well as `x` and `y`; that is, `x + y + x*y`.
+
+It is important to note that this syntax is not compatible with all engines. Thus, we shall explain how to bypass this issue by adding an interaction term in a recipe later on. For now, let's start simple by adding an interaction term between `species` and `bill_length_mm`, which allows for a species-specific slope.
+
+```{r}
+lm_fit4 <- lm_spec %>%
+  fit(bill_length_mm ~ species*bill_depth_mm, data = penguins)
+
+lm_fit4
+```
+
+Using recipes, the interaction term is specified by using `step_interact()`. Then we construct a workflow object, where we add the linear regression model specification and recipe. Finally, we fit the model as we did for a `parsnip` model. Note that the workflow object does not need the variables that were specified in the recipe to be specified again.
+
+```{r}
+rec_spec_interact <- recipe(bill_length_mm ~ species + bill_depth_mm, data = penguins) %>%
+  step_interact(~ species:bill_depth_mm)
+
+lm_wf_interact <- workflow() %>%
+  add_model(lm_spec) %>%
+  add_recipe(rec_spec_interact)
+
+lm_wf_interact %>% fit(penguins)
+```
+
+Notice the variable name for the interaction term is not the same as it is in base R (which is simply of the form `x:y`). In `step_interact()`, the default separator between the variable names is `_x_`. You can change this default by specifying the `sep` argument in the function.
+
+To read more about formula syntax, see [?formula](https://rdrr.io/r/stats/formula.html).
+
+## Non-linear transformations of the predictors
+
+Similar to how we were able to add an interaction term using recipes, we can also perform a transformation as a pre-processing step. The function used for this is `step_mutate()` (which acts like `dplyr`'s `mutate`).
+
+Note that, in general, if you are specifying a recipe aim to keep as much of the pre-processing in your recipe specification as possible. This helps to ensure that the transformation will be applied to new data consistently.
+
+```{r}
+rec_spec_pow2 <- recipe(bill_length_mm ~ bill_depth_mm, data = penguins) %>%
+  step_mutate(bill_depth_mm2 = bill_depth_mm^2)
+
+lm_wf_pow2 <- workflow() %>%
+  add_model(lm_spec) %>%
+  add_recipe(rec_spec_pow2)
+
+lm_wf_pow2 %>% fit(penguins)
+```
+
+There are many transformations already built into recipes such as `step_log()`. So, for basic transformations, there's often no need to make your own transformation from scratch. See [here](https://recipes.tidymodels.org/reference/#section-step-functions-individual-transformations) for a comprehensive list of the transformations that are offered in recipes.
+
+```{r}
+rec_spec_log <- recipe(bill_length_mm ~ bill_depth_mm, data = penguins) %>%
+  step_log(bill_depth_mm)
+
+lm_wf_log <- workflow() %>%
+  add_model(lm_spec) %>%
+  add_recipe(rec_spec_log)
+
+lm_wf_log %>% fit(penguins)
+
+```
+
+\
+\
+🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 
+
+## Attribution
+
+This vignette was largely adapted from [Chapter 3 of ISLR tidymodels labs](https://emilhvitfeldt.github.io/ISLR-tidymodels-labs/03-linear-regression.html). Checking linear regression assumptions was founded on [this article](https://quantifyinghealth.com/linear-regression-in-r-tidymodels/). Performance plot descriptions are based on [this easystats tutorial](https://www.business-science.io/r/2021/07/13/easystats-performance-check-model.html) for investigating model performance. The artwork used is by [Allison Horst](https://twitter.com/allison_horst).
+
+🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 
