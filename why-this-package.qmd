@@ -1,0 +1,60 @@
+## Motivation
+
+The COVID-19 Pandemic required quick implementation of forecasting systems. Using reliable and validated forecasting methodology is crucial in the public health response to any fast-moving epidemic or pandemic. Tracking and forecasting indicators such as confirmed cases, hospitalizations and deaths are critical to understand disease spread, formulate appropriate public policy response, and to plan future health resource needs.
+
+A forecasting task may be separated into several sub-tasks, with data preparation being the among the first. One could imagine the necessity of having standard processing tasks such as outlier detection and correction readily available at this stage. Additionally, these tasks should be tailored to the data structure, which should clearly include a geographic and a temporal component. Data revisions add a layer of complication as data from surveillance streams are often subject to latency and revision. Hence, working with data revisions should be facilitated (and models intended for prediction should be built using the data that would have been available on the prediction date).
+
+The forecasting models should not be imbued with unnecessary complexity. That is, everything should be made as simple as possible, but not simpler. In fact, simple, robust models have been consistently top performers for COVID-19 death forecasting ([Cramer et al, 2022](https://www.pnas.org/doi/10.1073/pnas.21135611190)) and the basic AR model has been competitive with the top models used for COVID-19 forecasting ([McDonald et al, 2021](https://www.pnas.org/doi/pdf/10.1073/pnas.2111453118)).
+
+In line with this, custom software that has been specially curated for a modelling task is often not easily adaptable or able to be improved by other groups. Such software is hard for public health to borrow, customize and improve.
+
+## A brief overview about the epi universe
+
+Since early 2020, our research group has worked with data partners to publicaly disseminate information about numerous COVID-19 indicators, which we and others then use for nowcasting and short-term forecasting. Prior to that we worked mostly on influenza, dengue and norovirus modelling.
+
+Our overarching goal is to build interworking, community-driven packages for epidemiologic tracking and forcasting. To that end, the epi. universe is currently comprised of three main packages: `epidatr` (in Python `epidatpy`), `epiprocess`, and `epipredict`. Each has their own role in the forecasting process: The `epidatr` (`epidatpy`) package is used to fetch data, `epiprocess` is used to standardize, clean and process data, and finally the `epipredict` package is used for building and evaluating predictive models. Here is a diagram depicting the basic workflow for using these packages:
+
+![](img/relation_epi_packages.png){.center}
+
+
+Here's a brief overview about what each package offers...
+
+**epidatr** - Obtain epidemiological surveillance data from Delphi's Epidata API
+
+-   Quick access to data on the spread and impact of the COVID-19 pandemic
+-   Access to data about other diseases, including influenza, dengue, and more
+-   Provide geographic and temporal detail
+-   Tracked through several data streams
+
+**epiprocess** - Basic processing operations and data structures
+
+-   Calculate rolling statistics
+-   Fill / impute gaps
+-   Examine correlations
+-   Store revision history smartly
+-   Inspect revision patterns
+-   Detect / correct outliers
+
+**epipredict** - A forecasting framework
+
+-   Flatline forecaster
+-   AR-type models
+-   Backtest using the versioned data
+-   Easily create features
+-   Quickly pivot to new tasks
+-   Highly customizable for advanced users
+
+The focus of this book is `epipredict`. By the end of this book, you should be equipped with the tools and knowledge to build your own basic and customizable forecasting models. At that point, our hope is that some may take things a step further and leverage this package to build on it and advance the frontier of predictive modelling.
+
+## Main goal for the epipredict package
+
+At a high level, our goal with `epipredict` is to make running simple machine learning / statistical forecasters for epidemiology easy. However, this package is extremely extensible, and that is part of its utility. Our hope is that it is easy for users with epidemiology training and some statistics to fit baseline models while still allowing those with more nuanced statistical understanding to create complicated specializations using the same framework.
+
+Serving both populations is the main motivation for our efforts, but at the same time, we have tried hard to make it useful.
+
+## Why doesn't this package already exist?
+
+-   Parts of it actually DO exist. There's a universe called `tidymodels`. It handles pre-processing, training, and prediction, bound together, through a package called workflows. We built `epipredict` on top of that setup. In this way, you CAN use almost everything they provide.
+-   However, workflows doesn't do post-processing. And nothing in the `tidyverse` handles panel data.
+-   The tidy-team doesn't have plans to do either of these things. (We checked).
+-   There are two packages that do time series built on `tidymodels`, but it's "basic" time series: 1-step AR models, exponential smoothing, STL decomposition, etc.1 Our group has not prioritized these sorts of models for epidemic forecasting, but one could also integrate these methods into our framework.
