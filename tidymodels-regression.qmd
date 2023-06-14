@@ -269,10 +269,10 @@ lm_wf_log %>% fit(penguins)
 
 \
 \
-🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 
+🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧
 
 ## Attribution
 
-This vignette was largely adapted from [Chapter 3 of ISLR tidymodels labs](https://emilhvitfeldt.github.io/ISLR-tidymodels-labs/03-linear-regression.html). Checking linear regression assumptions was founded on [this article](https://quantifyinghealth.com/linear-regression-in-r-tidymodels/). Performance plot descriptions are based on [this easystats tutorial](https://www.business-science.io/r/2021/07/13/easystats-performance-check-model.html) for investigating model performance. The artwork used is by [Allison Horst](https://twitter.com/allison_horst).
+This vignette was largely adapted from [Chapter 3 of ISLR tidymodels labs](https://emilhvitfeldt.github.io/ISLR-tidymodels-labs/03-linear-regression.html). Checking linear regression assumptions using the performance package is based on [this article](https://easystats.github.io/performance/reference/check_model.html) and [this blog post](https://www.r-bloggers.com/2021/07/easystats-quickly-investigate-model-performance/) on investigating model performance. The artwork used is by [Allison Horst](https://twitter.com/allison_horst).[Allison Horst](https://twitter.com/allison_horst).
 
-🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 
+🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧
