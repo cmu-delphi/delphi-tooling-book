@@ -1,7 +1,8 @@
 project:
   type: book
+  resources: img
 
-editor: visual
+editor: source
 
 execute:
   freeze: auto
@@ -18,6 +19,10 @@ book:
       Logan C. Brooks, and Ryan J. Tibshirani.
   chapters:
     - index.qmd
+    - why-this-package.qmd
+    - flatline-forecaster.qmd
+    - tidymodels-intro.qmd
+    - tidymodels-regression.qmd
     - preprocessing-and-models.qmd
     - sliding-forecasters.qmd
     - references.qmd
