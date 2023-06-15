@@ -20,8 +20,9 @@ The following commands install the latest versions of the packages we use in thi
 pak::pkg_install("cmu-delphi/epidatr")
 pak::pkg_install("cmu-delphi/epiprocess@dev")
 pak::pkg_install("cmu-delphi/epipredict")
-# Other data processing packages we use in this book:
+# Other data processing and example data packages we use in this book:
 pak::pkg_install("tidyverse")
+pak::pkg_install("modeldata")
 # Other model-fitting packages we use in this book (via epipredict):
 pak::pkg_install("ranger")
 pak::pkg_install("xgboost")
