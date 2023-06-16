@@ -11,8 +11,14 @@ book:
   title: "Introduction to Epidemiological Forecasting\n"
   subtitle: "Delphi Tools, Data, and Lessons"
   author: Daniel J. McDonald, Logan C. Brooks, Rachel Lobay, and Ryan J. Tibshirani
+  search: true
+  repo-url: https://github.com/cmu-delphi/delphi-tooling/book
+  repo-actions: [source, issue]
+  sharing: [twitter, facebook]
   date: last-modified
   date-format: DD MMMM YYYY
+  sidebar:
+    style: docked
   page-footer:
     center: |
       These Delphi Epitooling Materials were written by Daniel J. McDonald,
@@ -31,5 +37,8 @@ bibliography: [packages.bib, references.bib]
 
 format:
   html:
+    grid:
+      sidebar-width: 400px
+      body-width: 600px
     theme: [cosmo, delphi-epitools.scss]
 
