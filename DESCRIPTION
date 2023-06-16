@@ -10,11 +10,16 @@ Description:
   | This book is a longform introduction to analysing and forecasting epidemiological data.
 License: MIT + file LICENSE
 Imports:
+    broom,
     epidatr,
     epipredict,
     epiprocess,
     modeldata,
+    performance,
+    poissonreg,
     ranger,
+    RcppRoll,
+    tidymodels,
     tidyverse,
     xgboost
 Suggests:

@@ -354,25 +354,24 @@
     },
     "broom": {
       "Package": "broom",
-      "Version": "0.8.0",
+      "Version": "1.0.5",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "backports",
         "dplyr",
         "ellipsis",
         "generics",
-        "ggplot2",
         "glue",
-        "methods",
+        "lifecycle",
         "purrr",
         "rlang",
         "stringr",
         "tibble",
         "tidyr"
       ],
-      "Hash": "fe13cb670e14da57fd7a466578db8ce5"
+      "Hash": "fd25391c3c4f6ecf0fa95f1e6d15378c"
     },
     "bslib": {
       "Package": "bslib",
@@ -517,15 +516,16 @@
     },
     "conflicted": {
       "Package": "conflicted",
-      "Version": "1.1.0",
+      "Version": "1.2.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
+        "cli",
         "memoise",
         "rlang"
       ],
-      "Hash": "c6bb5e1ef58f2f1c84f238f55bd2e56a"
+      "Hash": "bb097fccb22d156624fd07cd2894ddb6"
     },
     "cpp11": {
       "Package": "cpp11",
@@ -638,12 +638,13 @@
     },
     "dials": {
       "Package": "dials",
-      "Version": "1.0.0",
+      "Version": "1.2.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "DiceDesign",
         "R",
+        "cli",
         "dplyr",
         "glue",
         "hardhat",
@@ -657,7 +658,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "e691be0f62b0efa6124384a06a3e3215"
+      "Hash": "ce71836ecc0efd70890c6825c8b4ff47"
     },
     "digest": {
       "Package": "digest",
@@ -1381,9 +1382,9 @@
     },
     "infer": {
       "Package": "infer",
-      "Version": "1.0.2",
+      "Version": "1.0.4",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "broom",
@@ -1400,7 +1401,7 @@
         "tibble",
         "tidyr"
       ],
-      "Hash": "ec3a41e963bc24f53ff06f3137742ed7"
+      "Hash": "b1aa2741a03a90aa9d8187997cfc55c9"
     },
     "ini": {
       "Package": "ini",
@@ -2207,13 +2208,12 @@
     },
     "rsample": {
       "Package": "rsample",
-      "Version": "1.0.0",
+      "Version": "1.1.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "dplyr",
-        "ellipsis",
         "furrr",
         "generics",
         "glue",
@@ -2227,7 +2227,7 @@
         "tidyselect",
         "vctrs"
       ],
-      "Hash": "d3ef8543c8f3b44990cc122909847087"
+      "Hash": "cb0c54ebc268ec382be8e4d4a8c34557"
     },
     "rsconnect": {
       "Package": "rsconnect",
@@ -2424,9 +2424,9 @@
     },
     "tidymodels": {
       "Package": "tidymodels",
-      "Version": "0.2.0",
+      "Version": "1.1.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "broom",
@@ -2451,7 +2451,7 @@
         "workflowsets",
         "yardstick"
       ],
-      "Hash": "9030698035f1139dadb10719b595218a"
+      "Hash": "65f6942e7cb9396aa31daeaf0d79f70c"
     },
     "tidyr": {
       "Package": "tidyr",
@@ -2578,9 +2578,9 @@
     },
     "tune": {
       "Package": "tune",
-      "Version": "0.2.0",
+      "Version": "1.1.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "GPfit",
         "R",
@@ -2600,12 +2600,13 @@
         "rsample",
         "tibble",
         "tidyr",
+        "tidyselect",
         "vctrs",
         "withr",
         "workflows",
         "yardstick"
       ],
-      "Hash": "35300172efecb6121dface79f27e4956"
+      "Hash": "abf2edf028c09305eaf0159fbb27d851"
     },
     "tzdb": {
       "Package": "tzdb",
@@ -2771,17 +2772,20 @@
     },
     "workflowsets": {
       "Package": "workflowsets",
-      "Version": "0.2.1",
+      "Version": "1.0.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "cli",
         "dplyr",
         "generics",
         "ggplot2",
+        "glue",
         "hardhat",
         "lifecycle",
+        "parsnip",
+        "pillar",
         "prettyunits",
         "purrr",
         "rlang",
@@ -2794,7 +2798,7 @@
         "withr",
         "workflows"
       ],
-      "Hash": "59699276b8d9e10e2bcedf1965a9be23"
+      "Hash": "7393bad2a9c83d549e79bd641f6bf67a"
     },
     "xfun": {
       "Package": "xfun",
@@ -2841,20 +2845,23 @@
     },
     "yardstick": {
       "Package": "yardstick",
-      "Version": "1.0.0",
+      "Version": "1.2.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
+        "cli",
         "dplyr",
         "generics",
         "hardhat",
+        "lifecycle",
         "rlang",
+        "tibble",
         "tidyselect",
         "utils",
         "vctrs"
       ],
-      "Hash": "c244cb8e43c5e53504b81eb159fbbde6"
+      "Hash": "935418860629e50d2a2c495ea0a05221"
     },
     "zip": {
       "Package": "zip",

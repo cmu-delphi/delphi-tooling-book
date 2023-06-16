@@ -20,12 +20,18 @@ The following commands install the latest versions of the packages we use in thi
 pak::pkg_install("cmu-delphi/epidatr")
 pak::pkg_install("cmu-delphi/epiprocess@dev")
 pak::pkg_install("cmu-delphi/epipredict")
-# Other data processing and example data packages we use in this book:
-pak::pkg_install("tidyverse")
-pak::pkg_install("modeldata")
 # Other model-fitting packages we use in this book (via epipredict):
+pak::pkg_install("poissonreg")
 pak::pkg_install("ranger")
 pak::pkg_install("xgboost")
+# Other data processing, model evaluation, and example data packages we use in
+# this book:
+pak::pkg_install("RcppRoll")
+pak::pkg_install("tidyverse")
+pak::pkg_install("tidymodels")
+pak::pkg_install("broom")
+pak::pkg_install("performance")
+pak::pkg_install("modeldata")
 ```
 
 <details> <summary> Encountering installation issues?  Click here to show some potential solutions. </summary>
