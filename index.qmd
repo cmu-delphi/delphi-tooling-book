@@ -59,18 +59,26 @@ The above commands will give you the current versions of the packages used in
 this book. If you're having trouble reproducing some of the results, it may be
 due to package updates that took place after the book was last updated. You can
 try matching the package versions we used to build the book by one of the
-following methods. You may be required to obtain a [GitHub Personal Access
-Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
-and store it in the environment variable `"GITHUB_PAT"`.
+following methods. You will need a [GitHub Personal Access Token
+(PAT)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
+and store it in the environment variable `"GITHUB_PAT"`; a "classic" token with
+at least `public_repo` access should work.
 
 #### A: Download and use the `renv.lock`
 
 ```{r, eval = FALSE}
 # Run this once:
-install.packages("renv")
+install.packages(c("renv", "usethis", "gitcreds"))
 download.file("https://raw.githubusercontent.com/cmu-delphi/delphi-tooling-book/main/renv.lock", "delphi-tooling-book.renv.lock")
-# Run this every session you'd like to use this set of versions:
+# If you don't have a GitHub PAT, either use the web interface and
+# Sys.setenv/.Renviron, or use helpers like the following:
+usethis::create_github_token() # opens a web browser to make a general-purpose PAT
+gitcreds::gitcreds_set() # will ask the PAT; copy-paste from web browser
+
+# Run this in a fresh session each time you'd like to use this set of versions:
+invisible(gitcreds::gitcreds_get()) # checks that GitHub PAT can be found
 renv::use(lockfile = "delphi-tooling-book.renv.lock")
+# If you get 401 errors, you may need to regenerate your GitHub PAT.
 ```
 
 #### B: Download the book and use its `.Rprofile`
