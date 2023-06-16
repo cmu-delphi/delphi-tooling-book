@@ -35,7 +35,7 @@ Much of the data used for illustration can be loaded directly from [Delphi's Epi
 ```{r}
 #| eval: false
 pak::pkg_install("cmu-delphi/epidatasets")
-remotes::install_github("cmu-delphi/epidatr")
+pak::pkg_install("cmu-delphi/epidatr")
 ```
 
 
