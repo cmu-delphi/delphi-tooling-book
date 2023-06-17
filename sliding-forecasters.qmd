@@ -316,7 +316,7 @@ ggplot(fc_cafl, aes(x = fc_target_date, group = time_value)) +
   geom_ribbon(aes(ymin = `0.05`, ymax = `0.95`, fill = version), alpha = 0.4) +
   geom_line(aes(y = fc_.pred)) + geom_point(aes(y = fc_.pred), size = 0.5) +
   geom_vline(aes(xintercept = time_value), linetype = 2, alpha = 0.5) +
-  facet_grid(geo_value ~ version, scales = "free") +
+  facet_grid(version ~ geo_value, scales = "free") +
   scale_x_date(minor_breaks = "month", date_labels = "%b %y") +
   scale_y_continuous(expand = expansion(c(0, 0.05))) +
   labs(x = "Date", y = "Reported COVID-19 case rates") +
