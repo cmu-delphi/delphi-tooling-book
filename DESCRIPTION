@@ -11,6 +11,7 @@ Description:
 License: MIT + file LICENSE
 Imports:
     epidatr,
+    epidatasets,
     epipredict (>=0.0.5),
     epiprocess,
     modeldata,
@@ -22,5 +23,6 @@ Suggests:
     styler
 Remotes:
     cmu-delphi/epidatr,
+    cmu-delphi/epidatasets,
     cmu-delphi/epiprocess@dev,
     cmu-delphi/epipredict
