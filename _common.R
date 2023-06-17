@@ -28,8 +28,8 @@ options(
   pillar.min_chars = 15,
   stringr.view_n = 6,
   # Temporarily deactivate cli output for quarto
-  cli.num_colors = 0,
-  cli.hyperlink = FALSE,
+  #cli.num_colors = 0,
+  #cli.hyperlink = FALSE,
   pillar.bold = TRUE,
   width = 77
 )

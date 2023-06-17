@@ -9,7 +9,7 @@ This long-form vignette describes some of the functionality of the
 `{epiprocess}` and `{epipredict}` R packages, with an eye toward creating various types of
 forecasters --- from simple baselines to more elaborate customizations.
 
-## Installation
+## Installation {#sec-installation}
 
 
 
@@ -172,6 +172,17 @@ ggplot(hist, aes(color = geo_value)) +
 
 The remainder of this book examines this software in more detail, illustrating some of the flexibility that is available.
 
+---
+
+<details> <summary> Session Information. </summary>
+
+See also @sec-installation.
+
+```{r}
+sessioninfo::session_info()
+```
+
+</details>
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages

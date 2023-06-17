@@ -771,15 +771,15 @@
     },
     "epipredict": {
       "Package": "epipredict",
-      "Version": "0.0.4",
+      "Version": "0.0.5",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "cmu-delphi",
       "RemoteRepo": "epipredict",
       "RemoteRef": "main",
-      "RemoteSha": "793967c12364d5161f20558d6612551c1c668468",
-      "Remotes": "cmu-delphi/epidatr, cmu-delphi/epiprocess@dev",
+      "RemoteSha": "206f0ef8faf00a882aaf0d0750fd72c2cb752c08",
+      "Remotes": "cmu-delphi/epidatr, cmu-delphi/epiprocess@dev, dajmcdon/smoothqr",
       "Requirements": [
         "R",
         "cli",
@@ -796,6 +796,7 @@
         "quantreg",
         "recipes",
         "rlang",
+        "smoothqr",
         "stats",
         "tibble",
         "tidyr",
@@ -804,7 +805,7 @@
         "vctrs",
         "workflows"
       ],
-      "Hash": "e85f25c5863d5738a431982a9e6e451b"
+      "Hash": "4a8fbcf019dc804a18e677c9d9dca925"
     },
     "epiprocess": {
       "Package": "epiprocess",
@@ -2336,6 +2337,19 @@
       ],
       "Hash": "3838071b66e0c566d55cc26bd6e27bf4"
     },
+    "sessioninfo": {
+      "Package": "sessioninfo",
+      "Version": "1.2.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "cli",
+        "tools",
+        "utils"
+      ],
+      "Hash": "3f9796a8d0a0e8c6eb49a4b029359d1f"
+    },
     "shape": {
       "Package": "shape",
       "Version": "1.4.6",
@@ -2362,6 +2376,25 @@
         "warp"
       ],
       "Hash": "c1c73df260af9e1e3692eb3b8e1ecb88"
+    },
+    "smoothqr": {
+      "Package": "smoothqr",
+      "Version": "0.1.1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "dajmcdon",
+      "RemoteRepo": "smoothqr",
+      "RemoteRef": "main",
+      "RemoteSha": "3def5f0183671c1974676d08e469d538e15acea8",
+      "Requirements": [
+        "cli",
+        "dplyr",
+        "quantreg",
+        "rlang",
+        "tibble"
+      ],
+      "Hash": "d7b8b29158f8d7a450e539d11c5c667b"
     },
     "stringi": {
       "Package": "stringi",

@@ -11,7 +11,7 @@ Description:
 License: MIT + file LICENSE
 Imports:
     epidatr,
-    epipredict,
+    epipredict (>=0.0.5),
     epiprocess,
     modeldata,
     ranger,

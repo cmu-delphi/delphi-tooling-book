@@ -32,10 +32,8 @@ will create a classification model for hotspot predictions.
 
 ```{r, warning=FALSE, message=FALSE}
 library(epidatr)
-library(epiprocess)
 library(epipredict)
 library(recipes)
-library(parsnip)
 library(workflows)
 library(poissonreg)
 ```
@@ -171,10 +169,9 @@ wf <- epi_workflow(r, parsnip::poisson_reg()) %>%
 predict(wf, latest) %>% filter(!is.na(.pred))
 ```
 
-Note that the `time_value` corresponds to the last available date in the 
-training set, **NOT** to the target date of the forecast 
-(`r max(latest$time_value) + 7`).
-
+Note that the `time_value` corresponds to the date(s) in the 
+test set `latest`, **NOT** to the target date of the forecast (`r max(latest$time_value) + 7`). Had we used different data for predictions,
+we would have gotten different `time_value`'s.
 
 Let's take a look at the fit:
 ```{r}
@@ -250,6 +247,7 @@ Rather than using raw mask-wearing / social-distancing metrics, for the sake
 of illustration, we'll convert both into categorical predictors.
 
 ```{r, echo=FALSE, message=FALSE,fig.align='center', fig.width=6, fig.height=4}
+#| code-fold: true
 behav_ind %>%
   pivot_longer(masking:distancing) %>%
   ggplot(aes(value, fill = geo_value)) +
@@ -333,16 +331,15 @@ p <- predict(wf, latest)
 p
 ```
 
-The columns marked `*_scaled` have been rescaled to the correct units, in this
+The columns marked `*_scaled` (the, unfortunately, hidden columns above) 
+have been rescaled to the correct units, in this
 case `deaths` rather than deaths per 100K people (these remain in `.pred`).
 
 To look at the prediction intervals:
 ```{r}
 p %>%
   select(geo_value, target_date, .pred_scaled, .pred_distn_scaled) %>%
-  mutate(.pred_distn_scaled = nested_quantiles(.pred_distn_scaled)) %>%
-  unnest(.pred_distn_scaled) %>%
-  pivot_wider(names_from = tau, values_from = q)
+  pivot_quantiles(.pred_distn_scaled)
 ```
 
 
@@ -488,8 +485,7 @@ ex <- filter(
   time_value <= "2021-12-31",
   geo_value == "ca"
 )
-
-dim(ex)
+ex
 ```
 
 We want to predict death rates on `r max(ex$time_value) + 7`, which is 7 days ahead of the 
@@ -497,18 +493,18 @@ latest available date in our dataset.
 
 We will compare two methods of trying to create lags and leads:
 ```{r}
-p1 <- epi_recipe(ex) %>%
+prepped_epi <- epi_recipe(ex) %>%
   step_epi_lag(case_rate, lag = c(0, 7, 14)) %>%
   step_epi_lag(death_rate, lag = c(0, 7, 14)) %>%
   step_epi_ahead(death_rate, ahead = 7, role = "outcome") %>%
   step_epi_naomit() %>%
   prep()
 
-b1 <- bake(p1, ex)
-b1
+baked_epi <- bake(prepped_epi, ex)
+baked_epi
 
 
-p2 <- epi_recipe(ex) %>%
+prepped_rec <- epi_recipe(ex) %>%
   step_mutate(lag0case_rate = lag(case_rate, 0),
               lag7case_rate = lag(case_rate, 7),
               lag14case_rate = lag(case_rate, 14),
@@ -519,30 +515,30 @@ p2 <- epi_recipe(ex) %>%
   step_epi_naomit() %>%
   prep()
 
-b2 <- bake(p2, ex)
-b2
+baked_rec <- bake(prepped_rec, ex)
+baked_rec
 ```
 
 Notice the difference in number of rows `b1` and `b2` returns. This is because 
 the second version, the one that doesn't use `step_epi_ahead` and `step_epi_lag`,
 has omitted dates compared to the one that used the `epipredict` functions.
 ```{r}
-dates_used_in_training1 <- b1 %>% 
-  select(- ahead_7_death_rate) %>% 
+dates_used_by_epi <- baked_epi %>% 
+  select(-ahead_7_death_rate) %>% 
   na.omit() %>% 
-  select(time_value)
-dates_used_in_training1
+  pull(time_value)
+dates_used_by_epi
 
-dates_used_in_training2 <- b2 %>% 
-  select(- ahead7death_rate) %>% 
+dates_used_by_rec <- baked_rec %>% 
+  select(-ahead7death_rate) %>% 
   na.omit() %>% 
-  select(time_value)
-dates_used_in_training2
+  pull(time_value)
+dates_used_by_rec
 ```
 
-The model that is trained based on the `{recipes}` functions will predict 7 days ahead from 
-`r max(dates_used_in_training2$time_value)`
-instead of 7 days ahead from `r max(dates_used_in_training1$time_value)`.
+The model that is trained based on the `{recipes}` functions will predict 7 days 
+ahead from `r max(dates_used_by_rec)`
+instead of 7 days ahead from `r max(dates_used_by_epi)`.
 
 ## References
 
