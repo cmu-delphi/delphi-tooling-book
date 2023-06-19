@@ -15,6 +15,7 @@ Imports:
     epipredict (>=0.0.5),
     epiprocess,
     modeldata,
+    outbreaks,
     ranger,
     see,
     tidyverse,

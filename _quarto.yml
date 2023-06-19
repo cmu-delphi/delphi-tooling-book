@@ -26,11 +26,19 @@ book:
   chapters:
     - index.qmd
     - why-this-package.qmd
-    - flatline-forecaster.qmd
-    - tidymodels-intro.qmd
-    - tidymodels-regression.qmd
-    - preprocessing-and-models.qmd
-    - sliding-forecasters.qmd
+    - part: "epiprocess"
+      chapters:
+      - epiprocess.qmd
+      - epidf.qmd
+      - slide.qmd
+      - growth-rates.qmd
+    - part: "epipredict"
+      chapters:
+      - flatline-forecaster.qmd
+      - tidymodels-intro.qmd
+      - tidymodels-regression.qmd
+      - preprocessing-and-models.qmd
+      - sliding-forecasters.qmd
     - references.qmd
 
 bibliography: [packages.bib, references.bib]

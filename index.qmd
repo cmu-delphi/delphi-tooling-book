@@ -1,3 +1,7 @@
+---
+toc-depth: 2
+---
+
 # Preface {.unnumbered}
 
 ```{r}
@@ -5,9 +9,13 @@
 source("_common.R")
 ```
 
-This long-form vignette describes some of the functionality of the
-`{epiprocess}` and `{epipredict}` R packages, with an eye toward creating various types of
-forecasters --- from simple baselines to more elaborate customizations.
+::: {.callout-caution}
+This book is still under construction and may not yet be fully self-contained or reproducible. But it hopefully will be!
+:::
+
+This book describes some of the functionality of the
+`{epiprocess}` and `{epipredict}` R packages, with an eye toward creating various types of signal processing and forecast creation for epidemiological data. The goal is to be able to load, inspect, process, and forecast
+ --- using simple baselines to more elaborate customizations. 
 
 ## Installation {#sec-installation}
 
@@ -30,7 +38,7 @@ pak::pkg_install("ranger")
 pak::pkg_install("xgboost")
 ```
 
-Much of the data used for illustration can be loaded directly from [Delphi's Epidata API](https://cmu-delphi.github.io/delphi-epidata/) which is built and maintained by the Carnegie Mellon University [Delphi research group](https://delphi.cmu.edu/). We have tried to provide most of the data used in these examples in a separate package, `{epidatasets}`, but much of it can also be accessed using `{epidatr}`, an R interface to the API. These are also available from GitHub:
+Much of the data used for illustration can be loaded directly from [Delphi's Epidata API](https://cmu-delphi.github.io/delphi-epidata/) which is built and maintained by the Carnegie Mellon University [Delphi research group](https://delphi.cmu.edu/). We have tried to provide most of the data used in these examples in a separate package, `{epidatasets}`, but it can also be accessed using `{epidatr}`, an R interface to the API and the successor to [`{covidcast}`](https://cmu-delphi.github.io/covidcast/covidcastR/). These are also available from GitHub:
 
 ```{r}
 #| eval: false
@@ -103,10 +111,14 @@ You can view the complete documentation for these packages at
 
 ## Quick-start example
 
-The package comes with some built-in historical data for illustration, but
-up-to-date versions of this could be downloaded with the [`{covidcast}` package](https://cmu-delphi.github.io/covidcast/covidcastR/index.html) and processed using [`{epiprocess}`](https://cmu-delphi.github.io/epiprocess/).[^index1]
+These packages come with some built-in historical data for illustration, but
+up-to-date versions could be downloaded with the
+[`{epidatr}`](https://cmu-delphi.github.io/epidatr) or 
+[`{covidcast}`](https://cmu-delphi.github.io/covidcast/covidcastR/index.html) 
+packages and processed using
+[`{epiprocess}`](https://cmu-delphi.github.io/epiprocess/).[^index1]
 
-[^index1]: As mentioned above, COVIDcast data and other epidemiological signals for non-Covid related illnesses are available with [`{epidatr}`](https://cmu-delphi.github.io/epidatr), which interfaces directly to Delphi's [Epidata API](https://cmu-delphi.github.io/delphi-epidata/).
+[^index1]: COVIDcast data and other epidemiological signals for non-Covid related illnesses are available with [`{epidatr}`](https://cmu-delphi.github.io/epidatr), which interfaces directly to Delphi's [Epidata API](https://cmu-delphi.github.io/delphi-epidata/).
 
 ```{r epidf, message=FALSE}
 library(epipredict)
@@ -129,6 +141,7 @@ two_week_ahead <- arx_forecaster(
 ```
 
 In this case, we have used a number of different lags for the case rate, while only using 3 weekly lags for the death rate (as predictors). The result is both a fitted model object which could be used any time in the future to create different forecasts, as well as a set of predicted values (and prediction intervals) for each location 14 days after the last available time value in the data.
+
 
 ```{r print-model}
 two_week_ahead$epi_workflow

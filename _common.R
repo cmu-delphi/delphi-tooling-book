@@ -20,6 +20,10 @@ knitr::opts_chunk$set(
 )
 
 suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(epiprocess))
+suppressPackageStartupMessages(library(epipredict))
+suppressPackageStartupMessages(library(epidatr))
+suppressPackageStartupMessages(library(epidatasets))
 
 options(
   dplyr.print_min = 6,
