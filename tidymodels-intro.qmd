@@ -287,6 +287,6 @@ In this vignette, we introduced `tidymodels` and illustrated how to its packages
 ## Attribution
 
 
-This vignette was largely adapted from [A Gentle Introduction to Tidymodels](https://rviews.rstudio.com/2019/06/19/a-gentle-intro-to-tidymodels/) as well as [Tidymodels - Getting Started](https://www.tidymodels.org/start/recipes/) and [Tidymodels](https://wec.wur.nl/dse/24-tidymodels.html). The diagrams are from [A Gentle Introduction to Tidymodels](https://rviews.rstudio.com/2019/06/19/a-gentle-intro-to-tidymodels/) and based on [R for Data Science](https://r4ds.had.co.nz/explore-intro.html).
+This Chapter was largely adapted from [A Gentle Introduction to Tidymodels](https://rviews.rstudio.com/2019/06/19/a-gentle-intro-to-tidymodels/) as well as [Tidymodels - Getting Started](https://www.tidymodels.org/start/recipes/) and [Tidymodels](https://wec.wur.nl/dse/24-tidymodels.html). The diagrams are from [A Gentle Introduction to Tidymodels](https://rviews.rstudio.com/2019/06/19/a-gentle-intro-to-tidymodels/) and based on [R for Data Science](https://r4ds.had.co.nz/explore-intro.html).
 
 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧

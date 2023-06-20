@@ -59,7 +59,13 @@ The above specification does not actually carry out the regression, rather it ju
 lm_spec
 ```
 
-Once we have such a blueprint, we may fit a model by inputting data and a formula. Recall that in R, a formula takes the form `y ~ x` where `y` ix the response and `x` is the predictor variable. For our example, where the response of bill length and predictor of bill depth, we would write the formula as `bill_length_mm ~ bill_depth_mm`. Note that the names used in a formula must be identical to the variable names in the dataset.
+Once we have such a blueprint, we may fit a model by inputting data and a formula. Recall that in R, a formula takes the form `y ~ x` where `y` ix the response and `x` is the predictor variable. For our example, where the response of bill length and predictor of bill depth, we would write the formula as `bill_length_mm ~ bill_depth_mm`. 
+
+::: {.callout-note}
+Unlike with standard R `formula()` objects, the names used this a formula must 
+be identical to the variable names in the dataset. No processing functions
+are allowed (processing is handled by the `recipe()`).
+:::
 
 ```{r}
 lm_fit <- lm_spec %>%
@@ -114,7 +120,7 @@ bind_cols(
   select(bill_length_mm, .pred)
 ```
 
-A simpler way to do this is to use the nifty `argument()` function.
+A simpler way to do this is to use the nifty `augment()` function.
 
 ```{r}
 augment(lm_fit, new_data = penguins) %>% 
@@ -126,9 +132,10 @@ augment(lm_fit, new_data = penguins) %>%
 The only difference about fitting a multiple linear regression model in comparison to a simple linear regression model lies the formula. For multiple linear regression, the predictors are specified in the formula expression, separated by `+`. For example, if we have a response variable `y` and three predictors, `x1, x2,` and `x3`, we would write the formula as, `y ~ x1 + x2 + x3`.
 
 ```{r}
-lm_fit2 <- lm_spec %>% 
-  fit(bill_length_mm ~ bill_depth_mm + flipper_length_mm + body_mass_g, data = penguins)
-
+lm_fit2 <- lm_spec %>% fit(
+  formula = bill_length_mm ~ bill_depth_mm + flipper_length_mm + body_mass_g, 
+  data = penguins
+)
 lm_fit2
 ```
 
@@ -147,9 +154,7 @@ predict(lm_fit2, new_data = penguins)
 If you would like to use all variables aside from your response as predictors, a shortcut is to use the formula form `y ~ .`
 
 ```{r}
-lm_fit3 <- lm_spec %>% 
-  fit(bill_length_mm ~ ., data = penguins)
-
+lm_fit3 <- lm_spec %>% fit(bill_length_mm ~ ., data = penguins)
 lm_fit3
 ```
 
@@ -185,10 +190,11 @@ penguins_corr
 Indeed `body_mass_g` and `flipper_length_mm` are highly positively correlated. To deal with this problem, we'll re-fit the model without `body_mass_g`.
 
 ```{r}
-lm_fit2.5 <- lm_spec %>% 
-  fit(bill_length_mm ~ bill_depth_mm + flipper_length_mm, data = penguins)
-
-lm_fit2.5
+lm_fit3 <- lm_spec %>% fit(
+    formula = bill_length_mm ~ bill_depth_mm + flipper_length_mm, 
+    data = penguins
+)
+lm_fit3
 ```
 
 and then check again to see whether the assumptions are met.
@@ -196,7 +202,7 @@ and then check again to see whether the assumptions are met.
 ```{r}
 #| fig-height: 8
 #| fig-align: center
-lm_fit2.5 %>% 
+lm_fit3 %>% 
   extract_fit_engine() %>%  
   check_model()
 ```
@@ -207,22 +213,26 @@ Overall, the plots look pretty good. For details on how to interpret each of the
 
 In general, the syntax to add an interaction term to a formula is as follows:
 
--   `x:y` denotes an interaction term between `x` and `y`.
--   `x*y` denotes the interaction between `x` and `y` as well as `x` and `y`; that is, `x + y + x*y`.
+- `x:y` denotes an interaction term between `x` and `y`.
+- `x*y` denotes the interaction between `x` and `y` as well as `x` and `y`; that is, `x + y + x*y`.
 
 It is important to note that this syntax is not compatible with all engines. Thus, we shall explain how to bypass this issue by adding an interaction term in a recipe later on. For now, let's start simple by adding an interaction term between `species` and `bill_length_mm`, which allows for a species-specific slope.
 
 ```{r}
-lm_fit4 <- lm_spec %>%
-  fit(bill_length_mm ~ species*bill_depth_mm, data = penguins)
-
+lm_fit4 <- lm_spec %>% fit(
+  formula = bill_length_mm ~ species * bill_depth_mm, 
+  data = penguins
+)
 lm_fit4
 ```
 
 Using recipes, the interaction term is specified by using `step_interact()`. Then we construct a workflow object, where we add the linear regression model specification and recipe. Finally, we fit the model as we did for a `parsnip` model. Note that the workflow object does not need the variables that were specified in the recipe to be specified again.
 
 ```{r}
-rec_spec_interact <- recipe(bill_length_mm ~ species + bill_depth_mm, data = penguins) %>%
+rec_spec_interact <- recipe(
+  formula = bill_length_mm ~ species + bill_depth_mm, 
+  data = penguins
+) %>%
   step_interact(~ species:bill_depth_mm)
 
 lm_wf_interact <- workflow() %>%
@@ -257,7 +267,7 @@ There are many transformations already built into recipes such as `step_log()`. 
 
 ```{r}
 rec_spec_log <- recipe(bill_length_mm ~ bill_depth_mm, data = penguins) %>%
-  step_log(bill_depth_mm)
+  step_log(bill_depth_mm) # transforms the var in-place, keeps it's name
 
 lm_wf_log <- workflow() %>%
   add_model(lm_spec) %>%
@@ -273,6 +283,6 @@ lm_wf_log %>% fit(penguins)
 
 ## Attribution
 
-This vignette was largely adapted from [Chapter 3 of ISLR tidymodels labs](https://emilhvitfeldt.github.io/ISLR-tidymodels-labs/03-linear-regression.html). Checking linear regression assumptions using the performance package is based on [this article](https://easystats.github.io/performance/reference/check_model.html) and [this blog post](https://www.r-bloggers.com/2021/07/easystats-quickly-investigate-model-performance/) on investigating model performance. The artwork used is by [Allison Horst](https://twitter.com/allison_horst).[Allison Horst](https://twitter.com/allison_horst).
+This Chapter was largely adapted from [Chapter 3 of ISLR tidymodels labs](https://emilhvitfeldt.github.io/ISLR-tidymodels-labs/03-linear-regression.html). Checking linear regression assumptions using the performance package is based on [this article](https://easystats.github.io/performance/reference/check_model.html) and [this blog post](https://www.r-bloggers.com/2021/07/easystats-quickly-investigate-model-performance/) on investigating model performance. The artwork used is by [Allison Horst](https://twitter.com/allison_horst).[Allison Horst](https://twitter.com/allison_horst).
 
 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧
