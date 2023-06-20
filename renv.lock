@@ -772,15 +772,15 @@
     },
     "epipredict": {
       "Package": "epipredict",
-      "Version": "0.0.4",
+      "Version": "0.0.5",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "cmu-delphi",
       "RemoteRepo": "epipredict",
       "RemoteRef": "main",
-      "RemoteSha": "793967c12364d5161f20558d6612551c1c668468",
-      "Remotes": "cmu-delphi/epidatr, cmu-delphi/epiprocess@dev",
+      "RemoteSha": "206f0ef8faf00a882aaf0d0750fd72c2cb752c08",
+      "Remotes": "cmu-delphi/epidatr, cmu-delphi/epiprocess@dev, dajmcdon/smoothqr",
       "Requirements": [
         "R",
         "cli",
@@ -797,6 +797,7 @@
         "quantreg",
         "recipes",
         "rlang",
+        "smoothqr",
         "stats",
         "tibble",
         "tidyr",
@@ -805,7 +806,7 @@
         "vctrs",
         "workflows"
       ],
-      "Hash": "e85f25c5863d5738a431982a9e6e451b"
+      "Hash": "4a8fbcf019dc804a18e677c9d9dca925"
     },
     "epiprocess": {
       "Package": "epiprocess",
@@ -815,8 +816,8 @@
       "RemoteHost": "api.github.com",
       "RemoteUsername": "cmu-delphi",
       "RemoteRepo": "epiprocess",
-      "RemoteRef": "dev",
-      "RemoteSha": "572f6e63b865df4a1c439e127257168f9fa15a96",
+      "RemoteRef": "main",
+      "RemoteSha": "2f873ca4533cd5a2be88e872cd81274b558c3e32",
       "Remotes": "cmu-delphi/epidatr, reconverse/outbreaks, glmgen/genlasso",
       "Requirements": [
         "R",
@@ -841,7 +842,7 @@
         "utils",
         "vctrs"
       ],
-      "Hash": "fe93046d168663fc1c68820f31b653ed"
+      "Hash": "3cdfddf1bba811a7091b6560473bbc6b"
     },
     "evaluate": {
       "Package": "evaluate",
@@ -2330,6 +2331,25 @@
         "warp"
       ],
       "Hash": "5237bd176dc0c4dd7eb8dcdafe514de3"
+    },
+    "smoothqr": {
+      "Package": "smoothqr",
+      "Version": "0.1.1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "dajmcdon",
+      "RemoteRepo": "smoothqr",
+      "RemoteRef": "main",
+      "RemoteSha": "3def5f0183671c1974676d08e469d538e15acea8",
+      "Requirements": [
+        "cli",
+        "dplyr",
+        "quantreg",
+        "rlang",
+        "tibble"
+      ],
+      "Hash": "d7b8b29158f8d7a450e539d11c5c667b"
     },
     "stringi": {
       "Package": "stringi",

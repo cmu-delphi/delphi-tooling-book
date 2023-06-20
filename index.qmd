@@ -18,7 +18,7 @@ The following commands install the latest versions of the packages we use in thi
 
 # Install our packages from GitHub:
 pak::pkg_install("cmu-delphi/epidatr")
-pak::pkg_install("cmu-delphi/epiprocess@dev")
+pak::pkg_install("cmu-delphi/epiprocess")
 pak::pkg_install("cmu-delphi/epipredict")
 # Other model-fitting packages we use in this book (via epipredict):
 pak::pkg_install("poissonreg")
