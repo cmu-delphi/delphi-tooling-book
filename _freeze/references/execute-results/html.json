@@ -1,0 +1,14 @@
+{
+  "hash": "c39435e057ae7dd5557619f857c037eb",
+  "result": {
+    "markdown": "# References {.unnumbered}\n\n\n::: {.cell hash='references_cache/html/unnamed-chunk-1_371fb67e7d747e485dc8a2c23f42e714'}\n\n:::\n\n\n\n::: {#refs}\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
