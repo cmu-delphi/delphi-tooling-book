@@ -3,12 +3,8 @@
     "Version": "4.1.3",
     "Repositories": [
       {
-        "Name": "RSPM",
-        "URL": "https://packagemanager.rstudio.com/all/latest"
-      },
-      {
         "Name": "CRAN",
-        "URL": "https://cran.rstudio.com"
+        "URL": "https://cloud.r-project.org"
       }
     ]
   },
@@ -527,6 +523,22 @@
       ],
       "Hash": "bb097fccb22d156624fd07cd2894ddb6"
     },
+    "correlation": {
+      "Package": "correlation",
+      "Version": "0.8.4",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "R",
+        "bayestestR",
+        "datasets",
+        "datawizard",
+        "insight",
+        "parameters",
+        "stats"
+      ],
+      "Hash": "d8bd29a9abda6eed9aaab3ba5769f231"
+    },
     "cpp11": {
       "Package": "cpp11",
       "Version": "0.4.3",
@@ -583,16 +595,16 @@
     },
     "datawizard": {
       "Package": "datawizard",
-      "Version": "0.7.1",
+      "Version": "0.8.0",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "insight",
         "stats",
         "utils"
       ],
-      "Hash": "001775ea47f92ef8e2916ed0cfa59735"
+      "Hash": "b78bb7a4b7f2762630eb3a75269e6005"
     },
     "dbplyr": {
       "Package": "dbplyr",
@@ -734,6 +746,23 @@
       ],
       "Hash": "f5d195cd5fcc0a77499d9da698ef2ea3"
     },
+    "effectsize": {
+      "Package": "effectsize",
+      "Version": "0.8.3",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "R",
+        "bayestestR",
+        "datawizard",
+        "insight",
+        "parameters",
+        "performance",
+        "stats",
+        "utils"
+      ],
+      "Hash": "7e2f03436f6d34d7c856dc437b657274"
+    },
     "ellipsis": {
       "Package": "ellipsis",
       "Version": "0.3.2",
@@ -744,6 +773,22 @@
         "rlang"
       ],
       "Hash": "bb0eec2fe32e88d9e2836c2f73ea2077"
+    },
+    "epidatasets": {
+      "Package": "epidatasets",
+      "Version": "0.0.1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "cmu-delphi",
+      "RemoteRepo": "epidatasets",
+      "RemoteRef": "main",
+      "RemoteSha": "cc8f2a05ed5f0d3ae383997c763c96dd009aa9b5",
+      "Remotes": "cmu-delphi/epidatr, cmu-delphi/epipredict, cmu-delphi/epiprocess",
+      "Requirements": [
+        "R"
+      ],
+      "Hash": "d79d32cc56c4b996ec778c8a18e9bf82"
     },
     "epidatr": {
       "Package": "epidatr",
@@ -1593,7 +1638,7 @@
       "Package": "lubridate",
       "Version": "1.8.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "cpp11",
@@ -1649,6 +1694,25 @@
         "tools"
       ],
       "Hash": "18e9c28c1d3ca1560ce30658b22ce104"
+    },
+    "modelbased": {
+      "Package": "modelbased",
+      "Version": "0.8.6",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "R",
+        "bayestestR",
+        "datawizard",
+        "effectsize",
+        "graphics",
+        "insight",
+        "parameters",
+        "performance",
+        "stats",
+        "utils"
+      ],
+      "Hash": "60a0171d055dc3122d7d2b6ed31e8003"
     },
     "modeldata": {
       "Package": "modeldata",
@@ -1753,6 +1817,21 @@
       ],
       "Hash": "0f7cd2962e3044bb940cca4f4b5cecbe"
     },
+    "outbreaks": {
+      "Package": "outbreaks",
+      "Version": "1.9.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "outbreaks",
+      "RemoteUsername": "reconverse",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "ba628fe3d2f2cc7cdfaff26203a196e49ef3e72c",
+      "Requirements": [
+        "R"
+      ],
+      "Hash": "d1614f023248bbe21028a46d65711cc3"
+    },
     "packrat": {
       "Package": "packrat",
       "Version": "0.9.1",
@@ -1776,6 +1855,23 @@
         "utils"
       ],
       "Hash": "022489ebce2ef2438db4583fae118240"
+    },
+    "parameters": {
+      "Package": "parameters",
+      "Version": "0.21.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "R",
+        "bayestestR",
+        "datawizard",
+        "graphics",
+        "insight",
+        "methods",
+        "stats",
+        "utils"
+      ],
+      "Hash": "8694e865941e3d79a29122f60a74249b"
     },
     "parsnip": {
       "Package": "parsnip",
@@ -1938,7 +2034,7 @@
       "Package": "progressr",
       "Version": "0.10.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "digest",
@@ -2304,6 +2400,28 @@
       ],
       "Hash": "906cb23d2f1c5680b8ce439b44c6fa63"
     },
+    "see": {
+      "Package": "see",
+      "Version": "0.8.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "R",
+        "bayestestR",
+        "correlation",
+        "datawizard",
+        "effectsize",
+        "ggplot2",
+        "grDevices",
+        "graphics",
+        "insight",
+        "modelbased",
+        "parameters",
+        "performance",
+        "stats"
+      ],
+      "Hash": "7d400d1615814add7e3b59cfef306e03"
+    },
     "selectr": {
       "Package": "selectr",
       "Version": "0.4-2",
@@ -2317,11 +2435,24 @@
       ],
       "Hash": "3838071b66e0c566d55cc26bd6e27bf4"
     },
+    "sessioninfo": {
+      "Package": "sessioninfo",
+      "Version": "1.2.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "cli",
+        "tools",
+        "utils"
+      ],
+      "Hash": "3f9796a8d0a0e8c6eb49a4b029359d1f"
+    },
     "slider": {
       "Package": "slider",
       "Version": "0.2.2",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "ellipsis",
@@ -2718,7 +2849,7 @@
       "Package": "vroom",
       "Version": "1.5.7",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "bit64",

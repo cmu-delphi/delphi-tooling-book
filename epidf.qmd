@@ -1,0 +1,270 @@
+# Getting data into epi_df format
+
+```{r}
+#| include: false
+source("_common.R")
+```
+
+We'll start by showing how to get data into 
+`epi_df`, which is just
+a tibble with a bit of special structure, and is the format assumed by all of
+the functions in the `epiprocess` package. An `epi_df` object has (at least) the
+following columns:
+
+* `geo_value`: the geographic value associated with each row of measurements.
+* `time_value`: the time value associated with each row of measurements.
+
+It can have any number of other columns which can serve as measured variables,
+which we also broadly refer to as signal variables. The documentation for
+ gives more details about this data format.
+
+A data frame or tibble that has `geo_value` and `time_value` columns can be
+converted into an `epi_df` object, using the function `as_epi_df()`. As an
+example, we'll work with daily cumulative COVID-19 cases from four U.S. states:
+CA, FL, NY, and TX, over time span from mid 2020 to early 2022, and we'll use
+the [`epidatr`](https://github.com/cmu-delphi/epidatr) package
+to fetch this data from the [COVIDcast
+API](https://cmu-delphi.github.io/delphi-epidata/api/covidcast.html).
+
+```{r, message = FALSE}
+library(epidatr)
+library(epiprocess)
+library(withr)
+
+cases <- covidcast(
+  data_source = "jhu-csse",
+  signals = "confirmed_cumulative_num",
+  time_type = "day",
+  geo_type = "state",
+  time_values = epirange(20200301, 20220131),
+  geo_values = "ca,fl,ny,tx"
+) %>% fetch()
+
+colnames(cases)
+```
+
+As we can see, a data frame returned by `epidatr::covidcast()` has the
+columns required for an `epi_df` object (along with many others). We can use
+`as_epi_df()`, with specification of some relevant metadata, to bring the data
+frame into `epi_df` format.
+
+```{r, message = FALSE}
+x <- as_epi_df(cases, 
+               geo_type = "state",
+               time_type = "day",
+               as_of = max(cases$issue)) %>%
+  select(geo_value, time_value, total_cases = value)
+
+class(x)
+summary(x)
+head(x)
+attributes(x)$metadata
+```
+
+## Some details on metadata
+
+In general, an `epi_df` object has the following fields in its metadata:
+ 
+* `geo_type`: the type for the geo values.
+* `time_type`: the type for the time values.
+* `as_of`: the time value at which the given data were available.
+
+Metadata for an `epi_df` object `x` can be accessed (and altered) via
+`attributes(x)$metadata`. The first two fields here, `geo_type` and `time_type`,
+are not currently used by any downstream functions in the `epiprocess` package,
+and serve only as useful bits of information to convey about the data set at
+hand. The last field here, `as_of`, is one of the most unique aspects of an
+`epi_df` object.
+
+In brief, we can think of an `epi_df` object as a single snapshot of a data set
+that contains the most up-to-date values of some signals of interest, as of the
+time specified `as_of`. For example, if `as_of` is January 31, 2022, then the
+`epi_df` object has the most up-to-date version of the data available as of
+January 31, 2022. The `epiprocess` package also provides a companion data
+structure called `epi_archive`, which stores the full version history of a given
+data set. See the [archive
+vignette](https://cmu-delphi.github.io/epiprocess/articles/archive.html) for
+more.
+
+If any of the `geo_type`, `time_type`, or `as_of` arguments are missing in a 
+call to `as_epi_df()`, then this function will try to infer them from the passed
+object. Usually, `geo_type` and `time_type` can be inferred from the `geo_value`
+and `time_value` columns, respectively, but inferring the `as_of` field is not 
+as easy. See the documentation for `as_epi_df()` more details.
+
+```{r}
+x <- as_epi_df(cases) %>%
+  select(geo_value, time_value, total_cases = value)
+
+attributes(x)$metadata
+```
+
+## Using additional key columns in `epi_df` {#sec-additional-keys}
+
+In the following examples we will show how to create an `epi_df` with additional keys.
+
+### Converting a `tsibble` that has county code as an extra key
+
+```{r}
+set.seed(12345)
+ex1 <- tibble(
+  geo_value = rep(c("ca", "fl", "pa"), each = 3),
+  county_code = c("06059", "06061", "06067", "12111", "12113", "12117",
+                  "42101", "42103", "42105"),
+  time_value = rep(
+    seq(as.Date("2020-06-01"), as.Date("2020-06-03"), by = "1 day"), 
+    length.out = 9),
+  value = rpois(9, 5)
+) %>% 
+  as_tsibble(index = time_value, key = c(geo_value, county_code))
+
+ex1 <- as_epi_df(x = ex1, geo_type = "state", time_type = "day", as_of = "2020-06-03")
+```
+
+The metadata now includes `county_code` as an extra key.
+```{r}
+attr(ex1, "metadata")
+```
+
+
+### Dealing with misspecified column names 
+
+`epi_df` requires there to be columns `geo_value` and `time_value`, if they do not exist then `as_epi_df()` throws an error.
+
+```{r, error = TRUE}
+ex2 <- data.frame(
+  state = rep(c("ca", "fl", "pa"), each = 3), # misnamed
+  pol = rep(c("blue", "swing", "swing"), each = 3), # extra key
+  reported_date = rep(
+    seq(as.Date("2020-06-01"), as.Date("2020-06-03"), by = "day"), 
+    length.out = 9), # misnamed
+  value = rpois(9, 5)
+) 
+ex2 %>% as_epi_df() 
+```
+
+The columns should be renamed to match `epi_df` format. 
+
+```{r}
+ex2 <- ex2 %>% 
+  rename(geo_value = state, time_value = reported_date) %>%
+  as_epi_df(geo_type = "state", 
+            as_of = "2020-06-03", 
+            additional_metadata = list(other_keys = "pol")
+  )
+
+attr(ex2, "metadata")
+```
+
+
+### Adding additional keys to an `epi_df` object
+
+In the above examples, all the keys are added to objects prior to conversion to
+`epi_df` objects. But this can also be accomplished afterward.
+We'll look at an included dataset and filter to a single state for simplicity.
+
+```{r}
+ex3 <- jhu_csse_county_level_subset %>%
+  filter(time_value > "2021-12-01", state_name == "Massachusetts") %>%
+  slice_tail(n = 6) 
+  
+attr(ex3, "metadata") # geo_type is county currently
+```
+
+Now we add `state` (MA) and `pol` as new columns to the data and as new keys to the metadata. The "state" `geo_type` anticipates lower-case abbreviations, so we'll match that. 
+
+```{r}
+ex3 <- ex3 %>% 
+  as_tibble() %>% # drop the `epi_df` class before adding additional metadata
+  mutate(
+    state = rep(tolower("MA"), 6),
+    pol = rep(c("blue", "swing", "swing"), each = 2)) %>%
+  as_epi_df(additional_metadata = list(other_keys = c("state", "pol")))
+
+attr(ex3,"metadata")
+```
+
+Note that the two additional keys we added, `state` and `pol`, are specified as a character vector in the `other_keys` component of the `additional_metadata` list. They must be specified in this manner so that downstream actions on the `epi_df`, like model fitting and prediction, can recognize and use these keys.
+
+<!--
+Currently `other_keys` metadata in `epi_df` doesn't impact `epi_slide()`, contrary to `other_keys` in `as_epi_archive` which affects how the update data is interpreted.
+-->
+
+## Working with `epi_df` objects downstream
+
+Data in `epi_df` format should be easy to work with downstream, since it is a
+very standard tabular data format; in the other vignettes, we'll walk through
+some basic signal processing tasks using functions provided in the `epiprocess`
+package. Of course, we can also write custom code for other downstream uses,
+like plotting, which is pretty easy to do `ggplot2`.
+
+```{r, message = FALSE, warning = FALSE}
+ggplot(x, aes(x = time_value, y = total_cases, color = geo_value)) + 
+  geom_line() +
+  scale_color_brewer(palette = "Set1") +
+  scale_x_date(minor_breaks = "month", date_labels = "%b %Y") +
+  labs(x = "Date", y = "Cumulative COVID-19 cases", color = "State")
+```
+
+Finally, we'll examine some data from other packages just to show how 
+we might get them into `epi_df` format. 
+The first is data on daily new (not cumulative) SARS 
+cases in Canada in 2003, from the 
+[outbreaks](https://github.com/reconverse/outbreaks) package. New cases are
+broken into a few categories by provenance.
+
+```{r}
+x <- outbreaks::sars_canada_2003 %>%
+  mutate(geo_value = "ca") %>%
+  select(geo_value, time_value = date, starts_with("cases")) %>%
+  as_epi_df(geo_type = "nation")
+
+head(x)
+```
+
+```{r}
+#| code-fold: true
+x <- x %>% 
+  pivot_longer(starts_with("cases"), names_to = "type") %>%
+  mutate(type = substring(type, 7))
+
+ggplot(x, aes(x = time_value, y = value)) +
+  geom_col(aes(fill = type), just = 0.5) +
+  scale_y_continuous(breaks = 0:4*2, expand = expansion(c(0, 0.05))) +
+  scale_x_date(minor_breaks = "month", date_labels = "%b %Y") +
+  labs(x = "Date", y = "SARS cases in Canada", fill = "Type")
+```
+
+This next example examines data on new cases of Ebola in Sierra Leone in 2014 (from the same package).
+
+```{r, message = FALSE}
+x <- outbreaks::ebola_sierraleone_2014 %>%
+  mutate(
+    cases = ifelse(status == "confirmed", 1, 0),
+    province = case_when(
+      district %in% c("Kailahun", "Kenema", "Kono") ~ "Eastern",
+      district %in% c("Bombali", "Kambia", "Koinadugu",
+                      "Port Loko", "Tonkolili") ~ "Northern",
+      district %in% c("Bo", "Bonthe", "Moyamba", "Pujehun") ~ "Sourthern",
+      district %in% c("Western Rural", "Western Urban") ~ "Western")
+  ) %>% 
+  select(geo_value = province, time_value = date_of_onset, cases) %>%
+  filter(cases == 1) %>%
+  group_by(geo_value, time_value) %>% 
+  summarise(cases = sum(cases)) %>%
+  as_epi_df(geo_type = "province")
+```
+
+```{r}
+#| code-fold: true
+#| fig-width: 8
+#| fig-height: 6
+ggplot(x, aes(x = time_value, y = cases)) + 
+  geom_col(aes(fill = geo_value), show.legend = FALSE) + 
+  facet_wrap(~ geo_value, scales = "free_y") +
+  scale_x_date(minor_breaks = "month", date_labels = "%b %Y") +
+  labs(x = "Date", y = "Confirmed cases of Ebola in Sierra Leone") 
+```
+
+
+

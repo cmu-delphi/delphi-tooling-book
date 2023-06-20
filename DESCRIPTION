@@ -12,14 +12,17 @@ License: MIT + file LICENSE
 Imports:
     broom,
     epidatr,
-    epipredict,
+    epidatasets,
+    epipredict (>=0.0.5),
     epiprocess,
     modeldata,
     performance,
     poissonreg,
+    outbreaks,
     ranger,
     RcppRoll,
     tidymodels,
+    see,
     tidyverse,
     xgboost
 Suggests:
@@ -27,5 +30,7 @@ Suggests:
     styler
 Remotes:
     cmu-delphi/epidatr,
+    cmu-delphi/epiprocess,
+    cmu-delphi/epidatasets,
     cmu-delphi/epiprocess,
     cmu-delphi/epipredict

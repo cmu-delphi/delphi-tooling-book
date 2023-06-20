@@ -1,0 +1,222 @@
+# Overview
+
+```{r}
+#| include: false
+source("_common.R")
+```
+
+At a high level, our goal with `{epipredict}` is to make running simple machine learning / statistical forecasters for epidemiology easy. However, this package is extremely extensible, and that is part of its utility. Our hope is that it is easy for users with epidemiology training and some statistics to fit baseline models while still allowing those with more nuanced statistical understanding to create complicated specializations using the same framework.
+
+Serving both populations is the main motivation for our efforts, but at the same time, we have tried hard to make it useful.
+
+
+## Baseline models
+
+We provide a set of basic, easy-to-use forecasters that work out of the box. 
+You should be able to do a reasonably limited amount of customization on them. Any serious customization happens with the framework discussed below).
+
+For the basic forecasters, we provide: 
+    
+* Flatline (basic) forecaster 
+* Autoregressive forecaster
+* Autoregressive classifier
+* Smooth AR forecaster
+
+All the forcasters we provide are built on our framework. So we will use these basic models to illustrate its flexibility.
+
+## Forecasting framework
+
+At its core, `{epipredict}` is a **framework** for creating custom forecasters.
+By that we mean that we view the process of creating custom forecasters as
+a collection of modular components. All of them should be easy to swap out
+or exchange for others, and massive variety should be available by fairly 
+simple modifications through the addition of steps or layers. 
+There are four types of components:
+    
+1. Preprocessor: make transformations to the data before model training
+2. Trainer: train a model on data, resulting in a fitted model object
+3. Predictor: make predictions, using a fitted model object and processed test data
+4. Postprocessor: manipulate or transform the predictions before returning
+    
+Users familiar with [`{tidymodels}`](https://www.tidymodels.org) and especially 
+the [`{workflows}`](https://workflows.tidymodels.org) package will notice a lot 
+of overlap. This is by design, and is in fact a feature. The truth is that
+`{epipredict}` is a wrapper around much that is contained in these packages.
+Therefore, if you want something from this -verse, it should "just work" (we hope).
+
+The reason for the overlap is that `{workflows}` _already implements_ the first 
+three steps. And it does this very well. However, it is missing the 
+postprocessing stage and currently has no plans for such an implementation. 
+And this feature is important. The baseline forecaster we provide _requires_
+postprocessing. Anything more complicated (which is nearly everything) 
+needs this as well.
+
+The second omission from `{tidymodels}` is support for panel data. Besides
+epidemiological data, economics, psychology, sociology, and many other areas
+frequently deal with data of this type. So the framework of behind `{epipredict}`
+implements this. In principle, this has nothing to do with epidemiology, and 
+one could simply use this package as a solution for the missing functionality in
+`{tidymodels}`. Again, this should "just work" (we hope).
+
+All of the _panel data_ functionality is implemented through the `epi_df` data type
+described in the previous part. If you have different panel data, just force it
+into an `epi_df` as described in @sec-additional-keys.
+
+## Why doesn't this package already exist?
+
+-   Parts of it actually DO exist. There's a universe called `tidymodels`. It 
+handles pre-processing, training, and prediction, bound together, through a 
+package called workflows. We built `epipredict` on top of that setup. In this 
+way, you CAN use almost everything they provide.
+-   However, workflows doesn't do post-processing to the extent envisioned here.
+And nothing in `tidymodels` handles panel data.
+-   The tidy-team doesn't have plans to do either of these things. (We checked).
+-   There are two packages that do time series built on `tidymodels`, but it's 
+"basic" time series: 1-step AR models, exponential smoothing, STL decomposition,
+etc.[^1] 
+
+[^1]: Our group has not prioritized these sorts of models for epidemic 
+forecasting, but one could also integrate these methods into our framework.
+
+
+## Show me the basics
+
+For now, we'll just demonstrate one of the "canned" forecasters we provide: an autoregressive forecaster with (or without) covariates that _directly_ trains on the response. This is in contrast to a typical "iterative" AR model that trains to predict one-step-ahead, and then plugs in the predictions to "leverage up" to longer horizons. You saw this function in @sec-local-forecaster, but now we'll explain
+the arguments a bit more thoroughly. Below, you'll see how to make a number of modifications to this
+forecaster, but understanding the inner workings, and **why** you would want
+something like this (as well as how to do elaborate customizations) 
+will be the subject of the rest of this book. 
+
+We'll use some of the same data we've examined earlier and estimate a model jointly across all locations using only the most recent 30 days of data (available
+in the built-in data frame).
+
+```{r demo-workflow, warning=TRUE}
+jhu <- case_death_rate_subset %>% 
+  filter(time_value >= max(time_value) - 30)
+
+out <- arx_forecaster(
+  jhu, 
+  outcome = "death_rate",
+  predictors = c("case_rate", "death_rate")
+)
+```
+
+This call produces a warning, which we'll ignore for now. But essentially, it's telling us that our data comes from May 2022 but we're trying to do a forecast for January 2022. The result is likely not an accurate measure of real-time forecast performance, because the data have been revised over time. 
+
+```{r}
+out
+```
+
+Printing the S3 object provides a bunch of summary information describing the 
+original training data used to estimate the model as well as some information
+of what the predictions are for. It contains three main components:
+  
+1. Metadata about the training data and when the forecast was created
+```{r}
+str(out$metadata)
+```
+2. The predictions in a tibble. The columns give the predictions for each location along with additional columns. By default, these are a 90% predictive interval, the `forecast_date` (the date on which the forecast was putatively made) and the `target_date` (the date for which the forecast is being made).
+```{r}
+out$predictions
+```
+3. An S3 object of class `epi_workflow`. This object encapsulates all the instructions necessary to create the prediction. More details on this below.
+```{r}
+out$epi_workflow
+```
+
+By default, the forecaster predicts the outcome (`death_rate`) 1-week ahead, 
+using 3 lags of each predictor (`case_rate` and `death_rate`) at 0 (today), 
+1 week back and 2 weeks back. The predictors and outcome can be changed 
+directly. The rest of the defaults are encapsulated into a list of arguments. 
+This list is produced by `arx_args_list()`.
+
+## Simple adjustments
+
+Basic adjustments can be made through the `args_list`.
+
+```{r differential-lags}
+out2week <- arx_forecaster(
+  epi_data = jhu, 
+  outcome = "death_rate", 
+  predictors = c("case_rate", "death_rate"),
+  args_list = arx_args_list(
+    lags = list(case_rate = c(0, 1, 2, 3, 7, 14), death_rate = c(0, 7, 14)),
+    ahead = 14
+  )
+)
+```
+
+Here, we've used different lags on the `case_rate` and are now predicting 2 
+weeks ahead. Note that `lags` and `aheads` are in the same units as the 
+`time_value` of the `epi_df` used for training (same as the `epi_slide()` 
+arguments discussed in @sec-sliding). This example also illustrates
+a major difficulty with the "iterative" versions of AR models. This model 
+doesn't produce forecasts for `case_rate`, and so, would not have data to 
+"plug in" for the necessary lags.[^2]
+
+[^2]: An obvious fix is to instead use a VAR and predict both, but this would 
+likely increase the variance of the model, and therefore, may lead to less 
+accurate forecasts for the variable of interest.
+
+
+Another property of the basic model is the predictive interval. We describe this in more detail in a coming chapter, but it is easy to request multiple quantiles.
+
+```{r differential-levels}
+out_q <- arx_forecaster(jhu, "death_rate", c("case_rate", "death_rate"),
+  args_list = arx_args_list(
+    levels = c(.01, .025, seq(.05, .95, by = .05), .975, .99))
+  )
+```
+
+The column `.pred_dstn` in the `predictions` object is actually a "distribution" here parameterized by its quantiles. For this default forecaster, these are created using the quantiles of the residuals of the predictive model (possibly symmetrized). Here, we used 23 quantiles, but one can grab a particular quantile,
+
+```{r q1}
+head(quantile(out_q$predictions$.pred_distn, p = .4))
+```
+
+or extract the entire distribution into a "long" `epi_df` with `tau` being the probability and `q` being the value associated to that quantile.
+
+```{r q2}
+out_q$predictions %>% 
+  # first create a "nested" list-column
+  mutate(.pred_distn = nested_quantiles(.pred_distn)) %>%
+  unnest(.pred_distn) # then unnest it
+```
+
+Additional simple adjustments to the basic forecaster can be made using the function:
+
+```{r, eval = FALSE}
+arx_args_list(
+  lags = c(0L, 7L, 14L), ahead = 7L, n_training = Inf, 
+  forecast_date = NULL, target_date = NULL, levels = c(0.05, 0.95),
+  symmetrize = TRUE, nonneg = TRUE, quantile_by_key = "geo_value"
+)
+```
+
+## Changing the engine
+
+So far, our forecasts have been produced using simple linear regression. But this is not the only way to estimate such a model.
+The `trainer` argument determines the type of model we want. 
+This takes a [`{parsnip}`](https://parsnip.tidymodels.org) model. The default is linear regression, but we could instead use a random forest with the `{ranger}` package:
+
+```{r ranger, warning = FALSE}
+out_rf <- arx_forecaster(jhu, "death_rate", c("case_rate", "death_rate"),
+  rand_forest(mode = "regression"))
+```
+
+Or boosted regression trees with `{xgboost}`:
+
+```{r xgboost, warning = FALSE}
+out_gb <- arx_forecaster(jhu, "death_rate", c("case_rate", "death_rate"),
+  boost_tree(mode = "regression", trees = 20))
+```
+
+Or quantile regression, using our custom forecasting engine `quantile_reg()`:
+
+```{r quantreg, warning = FALSE}
+out_gb <- arx_forecaster(jhu, "death_rate", c("case_rate", "death_rate"),
+  quantile_reg())
+```
+
+FWIW, this last case (using quantile regression), is not far from what the Delphi production forecast team used for its Covid forecasts over the past few years.
+

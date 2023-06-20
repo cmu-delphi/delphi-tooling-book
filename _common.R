@@ -1,8 +1,9 @@
 # example R options set globally
-options(width = 60)
+options(width = 77, cli.width = 77)
 
 # example chunk options set globally
 knitr::opts_chunk$set(
+  digits = 3,
   comment = "#>",
   collapse = FALSE,
   cache = TRUE,
@@ -10,6 +11,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   echo = TRUE,
   dev = "svg",
+  dev.args = list(bg = "transparent"),
   dpi = 300,
   cache.lazy = FALSE,
   tidy = "styler",
@@ -20,6 +22,10 @@ knitr::opts_chunk$set(
 )
 
 suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(epiprocess))
+suppressPackageStartupMessages(library(epipredict))
+suppressPackageStartupMessages(library(epidatr))
+suppressPackageStartupMessages(library(epidatasets))
 
 options(
   dplyr.print_min = 6,
@@ -28,8 +34,8 @@ options(
   pillar.min_chars = 15,
   stringr.view_n = 6,
   # Temporarily deactivate cli output for quarto
-  cli.num_colors = 0,
-  cli.hyperlink = FALSE,
+  #cli.num_colors = 0,
+  #cli.hyperlink = FALSE,
   pillar.bold = TRUE,
   width = 77
 )

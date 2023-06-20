@@ -1,22 +1,9 @@
-# Demonstrations of sliding AR and ARX forecasters
+# Pseudo-prospective forecast inspection
 
 ```{r}
 #| echo: false
 source("_common.R")
 ```
-
-
-```{r pkgs}
-library(epipredict)
-library(epiprocess)
-library(magrittr)
-library(dplyr)
-library(tidyr)
-library(data.table)
-library(parsnip)
-library(ggplot2)
-```
-
 
 
 A key function from the epiprocess package is `epi_slide()`, which allows the
@@ -64,8 +51,9 @@ us_cases_archive <- us_raw_history_dfs[[2]] %>%
   select(geo_value, time_value, version = issue, case_rate = value) %>%
   as_epi_archive(compactify = TRUE)
 
-us_archive <- epix_merge(us_cli_archive, us_cases_archive,
-                      sync = "locf", compactify = TRUE)
+us_archive <- epix_merge(
+  us_cli_archive, us_cases_archive, sync = "locf", compactify = TRUE
+)
 ```
 
 After obtaining the latest snapshot of the data, we produce forecasts on that
@@ -78,43 +66,41 @@ output.
 
 ```{r make-arx-kweek, warning = FALSE}
 # Latest snapshot of data, and forecast dates
-us_latest <- epix_as_of(us_archive, max_version = max(us_archive$versions_end)) 
-fc_time_values <- seq(as.Date("2020-08-01"), as.Date("2021-11-01"), 
-                      by = "1 month")
+us_latest <- epix_as_of(us_archive, max_version = max(us_archive$versions_end))
+fc_time_values <- seq(
+  from = as.Date("2020-08-01"), 
+  to = as.Date("2021-11-01"), 
+  by = "1 month"
+)
+aheads <- c(7, 14, 21, 28)
 
 k_week_ahead <- function(epi_df, outcome, predictors, ahead = 7, engine) {
-  epi_df %>%
-    epi_slide( 
-      ~ arx_forecaster(
-        .x, outcome, predictors, engine, 
-        args_list = arx_args_list(ahead = ahead)) %>%
-        extract2("predictions") %>% 
-        select(-c(geo_value, time_value)), 
-      before = 120L - 1L, 
-      ref_time_values = fc_time_values, 
-      new_col_name = "fc"
-    ) %>% 
+  epi_slide(epi_df, ~ arx_forecaster(
+    .x, outcome, predictors, engine, 
+    args_list = arx_args_list(ahead = ahead))$predictions %>% 
+      select(-geo_value), 
+    before = 120L - 1L, 
+    ref_time_values = fc_time_values, 
+    new_col_name = "fc"
+  ) %>% 
     select(geo_value, time_value, starts_with("fc")) %>%
     mutate(engine_type = engine$engine)
 }
 
 # Generate the forecasts and bind them together
 fc <- bind_rows(
-  purrr::map_dfr(
-    c(7, 14, 21, 28), 
-    ~ k_week_ahead(
-      us_latest, "case_rate", c("case_rate", "percent_cli"), .x,
-      engine = linear_reg())
-  ),
-  purrr::map_dfr(
-    c(7, 14, 21, 28), 
-    ~ k_week_ahead(
-      us_latest, "case_rate", c("case_rate", "percent_cli"), .x,
-      engine = rand_forest(mode = "regression"))
+  map(aheads, ~ k_week_ahead(
+    us_latest, "case_rate", c("case_rate", "percent_cli"), .x,
+    engine = linear_reg()
   )) %>% 
-  mutate(.pred_distn = nested_quantiles(fc_.pred_distn)) %>%
-  unnest(.pred_distn) %>% 
-  pivot_wider(names_from = tau, values_from = q) 
+    list_rbind(),
+  map(aheads, ~ k_week_ahead(
+    us_latest, "case_rate", c("case_rate", "percent_cli"), .x,
+    engine = rand_forest(mode = "regression")
+  )) %>%
+    list_rbind()
+) %>% 
+  pivot_quantiles(contains("_distn"))
 ```
 
 Here, `arx_forecaster()` does all the heavy lifting. It creates leads of the
@@ -140,9 +126,10 @@ ggplot(fc_cafl, aes(fc_target_date, group = time_value, fill = engine_type)) +
   geom_line(aes(y = fc_.pred)) + 
   geom_point(aes(y = fc_.pred), size = 0.5) +
   geom_vline(aes(xintercept = time_value), linetype = 2, alpha = 0.5) +
-  facet_grid(vars(geo_value), vars(engine_type), scales = "free") +
+  facet_grid(engine_type ~ geo_value, scales = "free") +
   scale_x_date(minor_breaks = "month", date_labels = "%b %y") +
   scale_fill_brewer(palette = "Set1") +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
   labs(x = "Date", y = "Reported COVID-19 case rates") +
   theme(legend.position = "none")
 ```
@@ -182,32 +169,31 @@ linear regression with those from using boosted regression trees.
 
 ```{r get-can-fc, warning = FALSE}
 # source("drafts/canada-case-rates.R)
-can <- readRDS(
-  system.file("extdata", "can_prov_cases.rds", 
-              package = "epipredict", mustWork = TRUE)
-  ) %>%
+can <- readRDS(system.file(
+  "extdata", "can_prov_cases.rds", 
+  package = "epipredict", mustWork = TRUE
+))
+can <- can %>%
   group_by(version, geo_value) %>% 
   arrange(time_value) %>% 
-  mutate(cr_7dav = RcppRoll::roll_meanr(case_rate, n = 7L)) #%>%
-  #filter(geo_value %in% c('Alberta', "BC"))
-can <- as_epi_archive(can, compactify=TRUE)
-can_latest <- epix_as_of(can, max_version = max(can$DT$version))
+  mutate(cr_7dav = RcppRoll::roll_meanr(case_rate, n = 7L)) %>%
+  as_epi_archive(compactify = TRUE)
 
+can_latest <- epix_as_of(can, max_version = max(can$DT$version))
 
 # Generate the forecasts, and bind them together
 can_fc <- bind_rows(
-  purrr:::map_dfr(
-    c(7, 14, 21, 28), 
-    ~ k_week_ahead(can_latest, "cr_7dav", "cr_7dav", .x, linear_reg())
-  ),
-  purrr::map_dfr(
-    c(7, 14, 21, 28),
-    ~ k_week_ahead(can_latest, "cr_7dav", "cr_7dav", .x, 
-                   boost_tree(mode = "regression", trees = 20))
-  )) %>% 
-  mutate(.pred_distn = nested_quantiles(fc_.pred_distn)) %>% 
-  unnest(.pred_distn) %>% 
-  pivot_wider(names_from = tau, values_from = q) 
+  map(aheads, ~ k_week_ahead(
+    can_latest, "cr_7dav", "cr_7dav", .x, linear_reg()
+  )) %>%
+    list_rbind(),
+  map(aheads, ~ k_week_ahead(
+    can_latest, "cr_7dav", "cr_7dav", .x,
+    boost_tree(mode = "regression", trees = 20)
+  )) %>%
+    list_rbind()
+) %>%
+  pivot_quantiles(contains("_distn"))
 ```
 
 The first figure shows the results for all of the provinces using linear regression. 
@@ -223,8 +209,9 @@ ggplot(can_fc %>% filter(engine_type == "lm"),
               alpha = 0.4) +
   geom_line(aes(y = fc_.pred)) + geom_point(aes(y = fc_.pred), size = 0.5) +
   geom_vline(aes(xintercept = time_value), linetype = 2, alpha = 0.5) +
-  facet_wrap(~geo_value, scales = "free_y", ncol = 3) +
+  facet_wrap(~ geo_value, scales = "free_y", ncol = 3) +
   scale_x_date(minor_breaks = "month", date_labels = "%b %y") +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
   labs(title = "Using simple linear regression", x = "Date", 
        y = "Reported COVID-19 case rates") +
   theme(legend.position = "none")  
@@ -245,6 +232,7 @@ ggplot(can_fc %>% filter(engine_type == "xgboost"),
   geom_vline(aes(xintercept = time_value), linetype = 2, alpha = 0.5) +
   facet_wrap(~ geo_value, scales = "free_y", ncol = 3) +
   scale_x_date(minor_breaks = "month", date_labels = "%b %y") +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
   labs(title = "Using boosted regression trees", x = "Date", 
        y = "Reported COVID-19 case rates") +
   theme(legend.position = "none")  
@@ -272,39 +260,31 @@ above. For pseudoprospective forecasting, note that `us_archive` is fed into
 that issue is fixed?
 
 ```{r make-ar-kweek-asof}
-k_week_ahead_as_of <- function(ahead, version = c("faithful", "unfaithful")) {
+k_week_versioning <- function(ahead, version = c("faithful", "unfaithful")) {
   version = match.arg(version)
   if (version == "faithful") {
     epix_slide(
       us_archive,
       ~ arx_forecaster(
-        .x, 
-        "case_rate", 
-        c("case_rate", "percent_cli"),
-        args_list = arx_args_list(ahead = ahead)
-      ) %>%
-        extract2("predictions") %>%
-        select(-time_value),
+        .x, "case_rate", c("case_rate", "percent_cli"),
+        args_list = arx_args_list(ahead = ahead))$predictions,
       before = 120 - 1, 
       ref_time_values = fc_time_values, 
       new_col_name = "fc") %>% 
       mutate(version = "version faithful") %>%
       rename(geo_value = "fc_geo_value")
   } else {
-    k_week_ahead(us_latest, "case_rate", c("case_rate", "percent_cli"), 
-                 ahead, linear_reg()) %>%
-      mutate(version = "not version faithful")
+    k_week_ahead(
+      us_latest, "case_rate", c("case_rate", "percent_cli"), 
+      ahead, linear_reg()) %>% mutate(version = "not version faithful")
   }
 }
 
 # Generate the forecasts, and bind them together
 fc <- bind_rows(
-  purrr::map_dfr(c(7, 14, 21, 28), ~ k_week_ahead_as_of(.x)),
-  purrr::map_dfr(c(7, 14, 21, 28), ~ k_week_ahead_as_of(.x, "unfaithful"))
-  ) %>% 
-  mutate(.pred_distn = nested_quantiles(fc_.pred_distn)) %>% 
-  unnest(.pred_distn) %>% 
-  pivot_wider(names_from = tau, values_from = q) 
+  map(aheads, ~ k_week_versioning(.x, "faithful")) %>% list_rbind(),
+  map(aheads, ~ k_week_versioning(.x, "unfaithful")) %>% list_rbind()
+) %>% pivot_quantiles(fc_.pred_distn) 
 ```
 
 Now we can plot the results on top of the latest case rates. As before, we will only display and focus on the results for FL and CA for simplicity.
@@ -320,8 +300,9 @@ ggplot(fc_cafl, aes(x = fc_target_date, group = time_value)) +
   geom_ribbon(aes(ymin = `0.05`, ymax = `0.95`, fill = version), alpha = 0.4) +
   geom_line(aes(y = fc_.pred)) + geom_point(aes(y = fc_.pred), size = 0.5) +
   geom_vline(aes(xintercept = time_value), linetype = 2, alpha = 0.5) +
-  facet_grid(geo_value ~ version, scales = "free") +
+  facet_grid(version ~ geo_value, scales = "free") +
   scale_x_date(minor_breaks = "month", date_labels = "%b %y") +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
   labs(x = "Date", y = "Reported COVID-19 case rates") +
   scale_fill_brewer(palette = "Set1") +
   theme(legend.position = "none")
@@ -335,22 +316,3 @@ we have not personally corrected for anomalies in the data).
 We shall leave it to the reader to try the above version aware and unaware
 forecasting exercise on the Canadian case rate data. The above code for the
 American state data should be readily adaptable for this purpose.
-
-## Attribution
-
-This object contains a modified part of the COVID-19 Data Repository by the
-Center for Systems Science and Engineering (CSSE) at Johns Hopkins University as
-republished in the COVIDcast Epidata API. This data set is licensed under the
-terms of the Creative Commons Attribution 4.0 International license by Johns
-Hopkins University on behalf of its Center for Systems Science in Engineering.
-Copyright Johns Hopkins University 2020.
-
-Modifications:
-
-* From the COVIDcast Doctor Visits API: The signal
-  `percent_cli` is taken directly from the API without changes.
-* From the COVIDcast Epidata API: `case_rate_7d_av` signal was computed by
-  Delphi from the original JHU-CSSE data by calculating moving averages of the
-  preceding 7 days, so the signal for June 7 is the average of the underlying
-  data for June 1 through 7, inclusive.
-* Other modifications shown in code above.

@@ -4,8 +4,6 @@ The flatline forecaster is a very simple forecasting model intended for `epi_df`
 
 ## Example of using the flatline forecaster
 
-### Load required packages
-
 ```{r}
 #| echo: false
 #| message: false
@@ -13,14 +11,12 @@ The flatline forecaster is a very simple forecasting model intended for `epi_df`
 source("_common.R")
 ```
 
-```{r, message = FALSE, warning = FALSE}
-library(epipredict)
-library(epiprocess)
-```
 
-### A brief introduction to the dataset
-
-We will use the `case_death_rate_subset` dataset that comes with the `epipredict` package. In brief, this is a subset of the JHU daily COVID-19 cases and deaths by state. While this dataset ranges from Dec 31, 2020 to Dec 31, 2021, we will only consider a small subset at the end of that range to keep our example relatively simple.
+We will continue to use the `case_death_rate_subset` dataset that comes with the
+`epipredict` package. In brief, this is a subset of the JHU daily COVID-19 cases
+and deaths by state. While this dataset ranges from Dec 31, 2020 to Dec 31, 
+2021, we will only consider a small subset at the end of that range to keep our
+example relatively simple.
 
 ```{r}
 jhu <- case_death_rate_subset %>%
@@ -31,14 +27,23 @@ jhu
 
 ### The basic mechanics of the flatline forecaster
 
-The simplest to create and train a flatline forecaster to predict the death rate one week into the future, is to input the `epi_df` and the name of the column from it that we want to predict in the `flatline_forecaster` function.
+The simplest way to create and train a flatline forecaster to predict the d
+eath rate one week into the future, is to input the `epi_df` and the name of 
+the column from it that we want to predict in the `flatline_forecaster` function.
 
 ```{r}
 one_week_ahead <- flatline_forecaster(jhu, outcome = "death_rate")
 one_week_ahead
 ```
 
-The result is both a fitted model object which could be used any time in the future to create different forecasts, as well as a set of predicted values and prediction intervals for each location 7 days after the last available time value in the data, which is Dec 31, 2021. Note that 7 days is the default number of time steps ahead of the forecast date in which forecasts should be produced. To change this, you must change the value of the `ahead` parameter in the list of additional arguments `flatline_args_list()`. Let's change this to 5 days to get some practice.
+The result is both a fitted model object which could be used any time in the 
+future to create different forecasts, as well as a set of predicted values and
+prediction intervals for each location 7 days after the last available time
+value in the data, which is Dec 31, 2021. Note that 7 days is the default
+number of time steps ahead of the forecast date in which forecasts should be
+produced. To change this, you must change the value of the `ahead` parameter
+in the list of additional arguments `flatline_args_list()`. Let's change this
+to 5 days to get some practice.
 
 ```{r}
 five_days_ahead <- flatline_forecaster(
@@ -50,7 +55,9 @@ five_days_ahead <- flatline_forecaster(
 five_days_ahead
 ```
 
-We could also specify that we want a 80% predictive interval by changing the levels. The default 0.05 and 0.95 levels/quantiles give us 90% predictive interval.
+We could also specify that we want a 80% predictive interval by changing the 
+levels. The default 0.05 and 0.95 levels/quantiles give us 90% predictive 
+interval.
 
 ```{r}
 five_days_ahead <- flatline_forecaster(
@@ -68,19 +75,47 @@ To see the other arguments that you may modify, please see `?flatline_args_list(
 five_days_ahead$epi_workflow
 ```
 
-The fitted model here was based on minimal pre-processing of the data, estimating a flatline model, and then post-processing the results to be meaningful for epidemiological tasks. To look deeper into the pre-processing, model and processing parts individually, you may use the `$` operator after `epi_workflow`. For example, let's examine the pre-processing part in more detail.
+The fitted model here was based on minimal pre-processing of the data, 
+estimating a flatline model, and then post-processing the results to be 
+meaningful for epidemiological tasks. To look deeper into the pre-processing, 
+model and processing parts individually, you may use the `$` operator after `epi_workflow`. For example, let's examine the pre-processing part in more detail.
 
 ```{r}
-five_days_ahead$epi_workflow$pre
+#| results: false
+library(workflows)
+extract_preprocessor(five_days_ahead$epi_workflow)
 ```
 
-Under Operations, we can see that the pre-processing operations were to lead the death rate by 5 days (`step_epi_ahead()`) and that the \# of recent observations used in the training window were not limited (in `step_training_window()` as `n_training = Inf` in `flatline_args_list()`). You should also see the molded/pre-processed training data.
+```{r}
+#| echo: false
+#| results: asis
+#| message: true
+#| collapse: true
+extract_preprocessor(five_days_ahead$epi_workflow)
+```
+
+
+Under Operations, we can see that the pre-processing operations were to lead the
+death rate by 5 days (`step_epi_ahead()`) and that the \# of recent observations
+used in the training window were not limited (in `step_training_window()` as
+`n_training = Inf` in `flatline_args_list()`). You should also see the
+molded/pre-processed training data.
 
 For symmetry, let's have a look at the post-processing.
 
 ```{r}
-five_days_ahead$epi_workflow$post
+#| results: false
+extract_frosting(five_days_ahead$epi_workflow)
 ```
+
+```{r}
+#| echo: false
+#| collapse: true
+#| results: false
+#| message: true
+extract_frosting(five_days_ahead$epi_workflow)
+```
+
 
 The post-processing operations in the order the that were performed were to create the predictions and the predictive intervals, add the forecast and target dates and bound the predictions at zero.
 
@@ -126,14 +161,10 @@ The vertical black line is the forecast date. Here the forecast seems pretty rea
 Take for example what happens when we consider a wider range of target dates. That is, we will now predict for several different horizons or `ahead` values - in our case, 5 to 25 days ahead, inclusive. Since the flatline forecaster function forecasts at a single unique `ahead` value, we can use the `map()` function from `purrr` to apply the forecaster to each ahead value we want to use. Then, we row bind the list of results.
 
 ```{r}
-out_df <- purrr::map(
-  1:28, 
-  ~ flatline_forecaster(
-      jhu, 
-      outcome = "death_rate",
-      args_list = flatline_args_list(ahead = .x)
-    )$predictions
-  ) %>% 
+out_df <- map(1:28, ~ flatline_forecaster(
+  epi_data = jhu, 
+  outcome = "death_rate",
+  args_list = flatline_args_list(ahead = .x))$predictions) %>% 
   list_rbind()
 ```
 

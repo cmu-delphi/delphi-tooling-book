@@ -1,3 +1,7 @@
+---
+toc-depth: 2
+---
+
 # Preface {.unnumbered}
 
 ```{r}
@@ -5,11 +9,17 @@
 source("_common.R")
 ```
 
-This long-form vignette describes some of the functionality of the
-`epipredict` R package, with an eye toward creating various types of
-forecasters, from simple baselines to more elaborate customizations.
+::: {.callout-caution}
+This book is still under construction and may not yet be fully self-contained or reproducible. But it hopefully will be!
+:::
 
-## Installation
+This book describes some of the functionality of the
+`{epiprocess}` and `{epipredict}` R packages, with an eye toward creating various types of signal processing and forecast creation for epidemiological data. The goal is to be able to load, inspect, process, and forecast
+ --- using simple baselines to more elaborate customizations. 
+
+## Installation {#sec-installation}
+
+
 
 The following commands install the latest versions of the packages we use in this book:
 
@@ -20,19 +30,31 @@ The following commands install the latest versions of the packages we use in thi
 pak::pkg_install("cmu-delphi/epidatr")
 pak::pkg_install("cmu-delphi/epiprocess")
 pak::pkg_install("cmu-delphi/epipredict")
+pak::pkg_install("cmu-delphi/epidatasets")
 # Other model-fitting packages we use in this book (via epipredict):
 pak::pkg_install("poissonreg")
 pak::pkg_install("ranger")
 pak::pkg_install("xgboost")
-# Other data processing, model evaluation, and example data packages we use in
-# this book:
+# Other data processing, model evaluation, example data, and other packages we
+# use in this book:
 pak::pkg_install("RcppRoll")
 pak::pkg_install("tidyverse")
 pak::pkg_install("tidymodels")
 pak::pkg_install("broom")
 pak::pkg_install("performance")
 pak::pkg_install("modeldata")
+pak::pkg_install("see")
+pak::pkg_install("sessioninfo")
 ```
+
+Much of the data used for illustration can be loaded directly from [Delphi's Epidata API](https://cmu-delphi.github.io/delphi-epidata/) which is built and maintained by the Carnegie Mellon University [Delphi research group](https://delphi.cmu.edu/). We have tried to provide most of the data used in these examples in a separate package, `{epidatasets}`, but it can also be accessed using `{epidatr}`, an R interface to the API and the successor to [`{covidcast}`](https://cmu-delphi.github.io/covidcast/covidcastR/). These are also available from GitHub:
+
+```{r}
+#| eval: false
+pak::pkg_install("cmu-delphi/epidatasets")
+pak::pkg_install("cmu-delphi/epidatr")
+```
+
 
 <details> <summary> Encountering installation issues?  Click here to show some potential solutions. </summary>
 
@@ -112,38 +134,33 @@ Please let us know!  You can file an issue with the book [here](https://github.c
 
 </details>
 
+
 ## Documentation
 
-You can view the complete documentation for the package at <https://cmu-delphi.github.io/epipredict>.
+You can view the complete documentation for these packages at 
+
+* <https://cmu-delphi.github.io/epipredict>,
+* <https://cmu-delphi.github.io/epiprocess>,
+* <https://cmu-delphi.github.io/epidatasets>,
+* <https://cmu-delphi.github.io/epidatr>.
+
+## Attribution
+
+This document contains a number of datasets that are a modified part of the [COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University](https://github.com/CSSEGISandData/COVID-19) as [republished in the COVIDcast Epidata API](https://cmu-delphi.github.io/delphi-epidata/api/covidcast-signals/jhu-csse.html). These data are licensed under the terms of the [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by/4.0/) by the Johns Hopkins University on behalf of its Center for Systems Science in Engineering. Copyright Johns Hopkins University 2020.
+
+[From the COVIDcast Epidata API](https://cmu-delphi.github.io/delphi-epidata/api/covidcast-signals/jhu-csse.html): 
+ These signals are taken directly from the JHU CSSE [COVID-19 GitHub repository](https://github.com/CSSEGISandData/COVID-19) without changes. 
 
 
 
-## Goals for `epipredict`
+## Quick-start example
 
-**We currently provide:**
-
-1. A set of basic, easy-to-use forecasters that work out of the box. You can do a reasonable amount of customization on them. For the basic forecasters, we currently provide: 
-    * Baseline flat-line forecaster 
-    * Autoregressive forecaster
-    * Autoregressive (multinomial) classifier
-2. A framework for creating custom forecasters out of modular components. There are four types of components:
-    * Preprocessor: do things to the raw data before model training that should be reproduced at test time.
-    * Trainer: train a model on data, resulting in a fitted model object
-    * Predictor: make predictions, using a fitted model object
-    * Postprocessor: do things to the predictions before returning
-
-**Target audiences:**
-
-* Basic. Has data, calls forecaster with default arguments.
-* Intermediate. Wants to examine changes to the arguments, take advantage of some built in flexibility.
-* Advanced. Wants to write their own forecasters. Maybe willing to build up from some components that we write. 
-
-Even the Advanced user should find their task to be relatively easy. Examples of these tasks are illustrated in the [vignettes and articles](https://cmu-delphi.github.io/epipredict).
-
-## Intermediate example
-
-The package comes with some built-in historical data for illustration, but
-up-to-date versions of this could be downloaded with the [`{covidcast}` package](https://cmu-delphi.github.io/covidcast/covidcastR/index.html) and processed using [`{epiprocess}`](https://cmu-delphi.github.io/epiprocess/).[^index1]
+These packages come with some built-in historical data for illustration, but
+up-to-date versions could be downloaded with the
+[`{epidatr}`](https://cmu-delphi.github.io/epidatr) or 
+[`{covidcast}`](https://cmu-delphi.github.io/covidcast/covidcastR/index.html) 
+packages and processed using
+[`{epiprocess}`](https://cmu-delphi.github.io/epiprocess/).[^index1]
 
 [^index1]: COVIDcast data and other epidemiological signals for non-Covid related illnesses are available with [`{epidatr}`](https://cmu-delphi.github.io/epidatr), which interfaces directly to Delphi's [Epidata API](https://cmu-delphi.github.io/delphi-epidata/).
 
@@ -161,13 +178,14 @@ two_week_ahead <- arx_forecaster(
   outcome = "death_rate", 
   predictors = c("case_rate", "death_rate"),
   args_list = arx_args_list(
-    lags = list(c(0, 1, 2, 3, 7, 14), c(0, 7, 14)),
+    lags = list(case_rate = c(0, 1, 2, 3, 7, 14), death_rate = c(0, 7, 14)),
     ahead = 14
   )
 ) 
 ```
 
 In this case, we have used a number of different lags for the case rate, while only using 3 weekly lags for the death rate (as predictors). The result is both a fitted model object which could be used any time in the future to create different forecasts, as well as a set of predicted values (and prediction intervals) for each location 14 days after the last available time value in the data.
+
 
 ```{r print-model}
 two_week_ahead$epi_workflow
@@ -182,7 +200,8 @@ two_week_ahead$predictions
 The results above show a distributional forecast produced using data through the end of 2021 for the 14th of January 2022. A prediction for the death rate per 100K inhabitants is available for every state (`geo_value`) along with a 90% predictive interval. The figure below
 displays the forecast for a small handful of states. The vertical black line is the forecast date. The forecast doesn't appear to be particularly good, but our choices above were intended to be illustrative of the functionality rather than optimized for accuracy.
 
-```{r, echo=FALSE}
+```{r}
+#| code-fold: true
 samp_geos <- c("ca", "co", "ny", "pa")
 
 hist <- jhu %>% 
@@ -210,6 +229,17 @@ ggplot(hist, aes(color = geo_value)) +
 
 The remainder of this book examines this software in more detail, illustrating some of the flexibility that is available.
 
+---
+
+<details> <summary> Session Information. </summary>
+
+See also @sec-installation.
+
+```{r}
+sessioninfo::session_info()
+```
+
+</details>
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
