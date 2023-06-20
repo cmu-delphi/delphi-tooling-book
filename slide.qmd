@@ -1,4 +1,4 @@
-# Sliding computations
+# Sliding computations {#sec-sliding}
 
 A central tool in the `{epiprocess}` package is `epi_slide()`, which is based
 on the powerful functionality provided in the 
@@ -142,7 +142,7 @@ ggplot(x, aes(x = time_value)) +
 As we can see from the center top panel, it looks like Florida moved to weekly 
 reporting of COVID-19 cases in summer of 2021, while California occasionally reported negative cases counts!
 
-## Running a local forecaster
+## Running a local forecaster {#sec-local-forecaster}
 
 As a more complex example, we preview some of the functionality of `{epipredict}` described in future chapters, and use a forecaster based on a
 local (in time)

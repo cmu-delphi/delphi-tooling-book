@@ -1,9 +1,10 @@
 # Pseudo-prospective forecast inspection
 
-```{r}
-#| echo: false
-source("_common.R")
-```
+
+::: {.cell}
+
+:::
+
 
 
 A key function from the epiprocess package is `epi_slide()`, which allows the
@@ -39,10 +40,14 @@ modification that we use `sync = "locf"` in `epix_merge()` so that the last
 version of each observation can be carried forward to extrapolate unavailable
 versions for the less up-to-date input archive.
 
-```{r grab-epi-data}
+
+::: {.cell layout-align="center" hash='sliding-forecasters_cache/html/grab-epi-data_d4d80a61c31b62ea1a5d61f1072177bf'}
+
+```{.r .cell-code}
 us_raw_history_dfs <-
   readRDS(system.file("extdata", "all_states_covidcast_signals.rds",
-                      package = "epipredict", mustWork = TRUE))
+    package = "epipredict", mustWork = TRUE
+  ))
 
 us_cli_archive <- us_raw_history_dfs[[1]] %>%
   select(geo_value, time_value, version = issue, percent_cli = value) %>%
@@ -52,9 +57,12 @@ us_cases_archive <- us_raw_history_dfs[[2]] %>%
   as_epi_archive(compactify = TRUE)
 
 us_archive <- epix_merge(
-  us_cli_archive, us_cases_archive, sync = "locf", compactify = TRUE
+  us_cli_archive, us_cases_archive,
+  sync = "locf", compactify = TRUE
 )
 ```
+:::
+
 
 After obtaining the latest snapshot of the data, we produce forecasts on that
 data using the default engine of simple linear regression and compare to a
@@ -64,25 +72,29 @@ Note that all of the warnings about the forecast date being less than the most
 recent update date of the data have been suppressed to avoid cluttering the
 output.
 
-```{r make-arx-kweek, warning = FALSE}
+
+::: {.cell layout-align="center" hash='sliding-forecasters_cache/html/make-arx-kweek_e94760e6e189c78095774ec6e5d8dd64'}
+
+```{.r .cell-code}
 # Latest snapshot of data, and forecast dates
 us_latest <- epix_as_of(us_archive, max_version = max(us_archive$versions_end))
 fc_time_values <- seq(
-  from = as.Date("2020-08-01"), 
-  to = as.Date("2021-11-01"), 
+  from = as.Date("2020-08-01"),
+  to = as.Date("2021-11-01"),
   by = "1 month"
 )
 aheads <- c(7, 14, 21, 28)
 
 k_week_ahead <- function(epi_df, outcome, predictors, ahead = 7, engine) {
   epi_slide(epi_df, ~ arx_forecaster(
-    .x, outcome, predictors, engine, 
-    args_list = arx_args_list(ahead = ahead))$predictions %>% 
-      select(-geo_value), 
-    before = 120L - 1L, 
-    ref_time_values = fc_time_values, 
-    new_col_name = "fc"
-  ) %>% 
+    .x, outcome, predictors, engine,
+    args_list = arx_args_list(ahead = ahead)
+  )$predictions %>%
+    select(-geo_value),
+  before = 120L - 1L,
+  ref_time_values = fc_time_values,
+  new_col_name = "fc"
+  ) %>%
     select(geo_value, time_value, starts_with("fc")) %>%
     mutate(engine_type = engine$engine)
 }
@@ -92,16 +104,18 @@ fc <- bind_rows(
   map(aheads, ~ k_week_ahead(
     us_latest, "case_rate", c("case_rate", "percent_cli"), .x,
     engine = linear_reg()
-  )) %>% 
+  )) %>%
     list_rbind(),
   map(aheads, ~ k_week_ahead(
     us_latest, "case_rate", c("case_rate", "percent_cli"), .x,
     engine = rand_forest(mode = "regression")
   )) %>%
     list_rbind()
-) %>% 
+) %>%
   pivot_quantiles(contains("_distn"))
 ```
+:::
+
 
 Here, `arx_forecaster()` does all the heavy lifting. It creates leads of the
 target (respecting time stamps and locations) along with lags of the features
@@ -114,16 +128,20 @@ we'll just display the
 results for two states, California (CA) and Florida (FL), to get a sense of the
 model performance while keeping the graphic simple. 
 
-```{r plot-arx, message = FALSE, warning = FALSE, fig.width = 9, fig.height = 6}
-#| code-fold: true
+
+::: {.cell layout-align="center" hash='sliding-forecasters_cache/html/plot-arx_cf5ed426dadcf87aa72c873f89ba401b'}
+
+```{.r .cell-code  code-fold="true"}
 fc_cafl <- fc %>% filter(geo_value %in% c("ca", "fl"))
 latest_cafl <- us_latest %>% filter(geo_value %in% c("ca", "fl"))
 
-ggplot(fc_cafl, aes(fc_target_date, group = time_value, fill = engine_type)) + 
-  geom_line(data = latest_cafl, aes(x = time_value, y = case_rate),
-            inherit.aes = FALSE, color = "gray50") +
+ggplot(fc_cafl, aes(fc_target_date, group = time_value, fill = engine_type)) +
+  geom_line(
+    data = latest_cafl, aes(x = time_value, y = case_rate),
+    inherit.aes = FALSE, color = "gray50"
+  ) +
   geom_ribbon(aes(ymin = `0.05`, ymax = `0.95`), alpha = 0.4) +
-  geom_line(aes(y = fc_.pred)) + 
+  geom_line(aes(y = fc_.pred)) +
   geom_point(aes(y = fc_.pred), size = 0.5) +
   geom_vline(aes(xintercept = time_value), linetype = 2, alpha = 0.5) +
   facet_grid(engine_type ~ geo_value, scales = "free") +
@@ -133,6 +151,12 @@ ggplot(fc_cafl, aes(fc_target_date, group = time_value, fill = engine_type)) +
   labs(x = "Date", y = "Reported COVID-19 case rates") +
   theme(legend.position = "none")
 ```
+
+::: {.cell-output-display}
+![](sliding-forecasters_files/figure-html/plot-arx-1.svg){fig-align='center' width=90%}
+:::
+:::
+
 
 For the two states of interest, simple linear regression clearly performs better
 than random forest in terms of accuracy of the predictions and does not
@@ -167,15 +191,18 @@ the latest version from it. Finally, we run the same forcasting exercise as for
 the American data, but here we compare the forecasts produced from using simple
 linear regression with those from using boosted regression trees.
 
-```{r get-can-fc, warning = FALSE}
+
+::: {.cell layout-align="center" hash='sliding-forecasters_cache/html/get-can-fc_e71fa828c8e3e33e0763c1dbbe5bc5ce'}
+
+```{.r .cell-code}
 # source("drafts/canada-case-rates.R)
 can <- readRDS(system.file(
-  "extdata", "can_prov_cases.rds", 
+  "extdata", "can_prov_cases.rds",
   package = "epipredict", mustWork = TRUE
 ))
 can <- can %>%
-  group_by(version, geo_value) %>% 
-  arrange(time_value) %>% 
+  group_by(version, geo_value) %>%
+  arrange(time_value) %>%
   mutate(cr_7dav = RcppRoll::roll_meanr(case_rate, n = 7L)) %>%
   as_epi_archive(compactify = TRUE)
 
@@ -195,48 +222,82 @@ can_fc <- bind_rows(
 ) %>%
   pivot_quantiles(contains("_distn"))
 ```
+:::
+
 
 The first figure shows the results for all of the provinces using linear regression. 
 
-```{r plot-can-fc-lr, message = FALSE, warning = FALSE, fig.width = 9, fig.height = 12}
-#| code-fold: true
-ggplot(can_fc %>% filter(engine_type == "lm"), 
-       aes(x = fc_target_date, group = time_value)) +
+
+::: {.cell layout-align="center" hash='sliding-forecasters_cache/html/plot-can-fc-lr_749e70213871f43929436d4a578868fa'}
+
+```{.r .cell-code  code-fold="true"}
+ggplot(
+  can_fc %>% filter(engine_type == "lm"),
+  aes(x = fc_target_date, group = time_value)
+) +
   coord_cartesian(xlim = lubridate::ymd(c("2020-12-01", NA))) +
-  geom_line(data = can_latest, aes(x = time_value, y = cr_7dav),
-            inherit.aes = FALSE, color = "gray50") +
+  geom_line(
+    data = can_latest, aes(x = time_value, y = cr_7dav),
+    inherit.aes = FALSE, color = "gray50"
+  ) +
   geom_ribbon(aes(ymin = `0.05`, ymax = `0.95`, fill = geo_value),
-              alpha = 0.4) +
-  geom_line(aes(y = fc_.pred)) + geom_point(aes(y = fc_.pred), size = 0.5) +
+    alpha = 0.4
+  ) +
+  geom_line(aes(y = fc_.pred)) +
+  geom_point(aes(y = fc_.pred), size = 0.5) +
   geom_vline(aes(xintercept = time_value), linetype = 2, alpha = 0.5) +
-  facet_wrap(~ geo_value, scales = "free_y", ncol = 3) +
+  facet_wrap(~geo_value, scales = "free_y", ncol = 3) +
   scale_x_date(minor_breaks = "month", date_labels = "%b %y") +
   scale_y_continuous(expand = expansion(c(0, 0.05))) +
-  labs(title = "Using simple linear regression", x = "Date", 
-       y = "Reported COVID-19 case rates") +
-  theme(legend.position = "none")  
+  labs(
+    title = "Using simple linear regression", x = "Date",
+    y = "Reported COVID-19 case rates"
+  ) +
+  theme(legend.position = "none")
 ```
+
+::: {.cell-output-display}
+![](sliding-forecasters_files/figure-html/plot-can-fc-lr-1.svg){fig-align='center' width=90%}
+:::
+:::
+
 
 Compare those forecasts with a related set using Gradient Boosting.
 
-```{r plot-can-fc-boost, message = FALSE, warning = FALSE, fig.width = 9, fig.height = 12}
-#| code-fold: true
-ggplot(can_fc %>% filter(engine_type == "xgboost"), 
-       aes(x = fc_target_date, group = time_value)) +
+
+::: {.cell layout-align="center" hash='sliding-forecasters_cache/html/plot-can-fc-boost_145622420fe9517007923111890c3146'}
+
+```{.r .cell-code  code-fold="true"}
+ggplot(
+  can_fc %>% filter(engine_type == "xgboost"),
+  aes(x = fc_target_date, group = time_value)
+) +
   coord_cartesian(xlim = lubridate::ymd(c("2020-12-01", NA))) +
-  geom_line(data = can_latest, aes(x = time_value, y = cr_7dav),
-            inherit.aes = FALSE, color = "gray50") +
+  geom_line(
+    data = can_latest, aes(x = time_value, y = cr_7dav),
+    inherit.aes = FALSE, color = "gray50"
+  ) +
   geom_ribbon(aes(ymin = `0.05`, ymax = `0.95`, fill = geo_value),
-              alpha = 0.4) +
-  geom_line(aes(y = fc_.pred)) + geom_point(aes(y = fc_.pred), size = 0.5) +
+    alpha = 0.4
+  ) +
+  geom_line(aes(y = fc_.pred)) +
+  geom_point(aes(y = fc_.pred), size = 0.5) +
   geom_vline(aes(xintercept = time_value), linetype = 2, alpha = 0.5) +
-  facet_wrap(~ geo_value, scales = "free_y", ncol = 3) +
+  facet_wrap(~geo_value, scales = "free_y", ncol = 3) +
   scale_x_date(minor_breaks = "month", date_labels = "%b %y") +
   scale_y_continuous(expand = expansion(c(0, 0.05))) +
-  labs(title = "Using boosted regression trees", x = "Date", 
-       y = "Reported COVID-19 case rates") +
-  theme(legend.position = "none")  
+  labs(
+    title = "Using boosted regression trees", x = "Date",
+    y = "Reported COVID-19 case rates"
+  ) +
+  theme(legend.position = "none")
 ```
+
+::: {.cell-output-display}
+![](sliding-forecasters_files/figure-html/plot-can-fc-boost-1.svg){fig-align='center' width=90%}
+:::
+:::
+
 
 Both approaches tend to produce quite volatile forecasts (point predictions)
 and/or are overly confident (very narrow bands), particularly when boosted
@@ -259,24 +320,30 @@ above. For pseudoprospective forecasting, note that `us_archive` is fed into
 `us_latest` is fed into `epi_slide()`. #%% update to include percent_cli after
 that issue is fixed?
 
-```{r make-ar-kweek-asof}
+
+::: {.cell layout-align="center" hash='sliding-forecasters_cache/html/make-ar-kweek-asof_21e1c68d47e5580356a43fdfb3832164'}
+
+```{.r .cell-code}
 k_week_versioning <- function(ahead, version = c("faithful", "unfaithful")) {
-  version = match.arg(version)
+  version <- match.arg(version)
   if (version == "faithful") {
     epix_slide(
       us_archive,
       ~ arx_forecaster(
         .x, "case_rate", c("case_rate", "percent_cli"),
-        args_list = arx_args_list(ahead = ahead))$predictions,
-      before = 120 - 1, 
-      ref_time_values = fc_time_values, 
-      new_col_name = "fc") %>% 
+        args_list = arx_args_list(ahead = ahead)
+      )$predictions,
+      before = 120 - 1,
+      ref_time_values = fc_time_values,
+      new_col_name = "fc"
+    ) %>%
       mutate(version = "version faithful") %>%
       rename(geo_value = "fc_geo_value")
   } else {
     k_week_ahead(
-      us_latest, "case_rate", c("case_rate", "percent_cli"), 
-      ahead, linear_reg()) %>% mutate(version = "not version faithful")
+      us_latest, "case_rate", c("case_rate", "percent_cli"),
+      ahead, linear_reg()
+    ) %>% mutate(version = "not version faithful")
   }
 }
 
@@ -284,21 +351,28 @@ k_week_versioning <- function(ahead, version = c("faithful", "unfaithful")) {
 fc <- bind_rows(
   map(aheads, ~ k_week_versioning(.x, "faithful")) %>% list_rbind(),
   map(aheads, ~ k_week_versioning(.x, "unfaithful")) %>% list_rbind()
-) %>% pivot_quantiles(fc_.pred_distn) 
+) %>% pivot_quantiles(fc_.pred_distn)
 ```
+:::
+
 
 Now we can plot the results on top of the latest case rates. As before, we will only display and focus on the results for FL and CA for simplicity.
 
-```{r plot-ar-asof, message = FALSE, warning = FALSE, fig.width = 9, fig.height = 6}
-#| code-fold: true
+
+::: {.cell layout-align="center" hash='sliding-forecasters_cache/html/plot-ar-asof_c6417eaf4d97855d750b9f8aeb315d67'}
+
+```{.r .cell-code  code-fold="true"}
 fc_cafl <- fc %>% filter(geo_value %in% c("ca", "fl"))
 latest_cafl <- us_latest %>% filter(geo_value %in% c("ca", "fl"))
 
 ggplot(fc_cafl, aes(x = fc_target_date, group = time_value)) +
-  geom_line(data = latest_cafl, aes(x = time_value, y = case_rate),
-            inherit.aes = FALSE, color = "gray50") +
+  geom_line(
+    data = latest_cafl, aes(x = time_value, y = case_rate),
+    inherit.aes = FALSE, color = "gray50"
+  ) +
   geom_ribbon(aes(ymin = `0.05`, ymax = `0.95`, fill = version), alpha = 0.4) +
-  geom_line(aes(y = fc_.pred)) + geom_point(aes(y = fc_.pred), size = 0.5) +
+  geom_line(aes(y = fc_.pred)) +
+  geom_point(aes(y = fc_.pred), size = 0.5) +
   geom_vline(aes(xintercept = time_value), linetype = 2, alpha = 0.5) +
   facet_grid(version ~ geo_value, scales = "free") +
   scale_x_date(minor_breaks = "month", date_labels = "%b %y") +
@@ -308,6 +382,12 @@ ggplot(fc_cafl, aes(x = fc_target_date, group = time_value)) +
   theme(legend.position = "none")
 ```
 
+::: {.cell-output-display}
+![](sliding-forecasters_files/figure-html/plot-ar-asof-1.svg){fig-align='center' width=90%}
+:::
+:::
+
+
 Again, we observe that the results are not great for these two states, but
 that's likely due to the simplicity of the model (ex. the omission of key
 factors such as age and public health measures) and the quality of the data (ex.
@@ -316,3 +396,4 @@ we have not personally corrected for anomalies in the data).
 We shall leave it to the reader to try the above version aware and unaware
 forecasting exercise on the Canadian case rate data. The above code for the
 American state data should be readily adaptable for this purpose.
+

@@ -33,8 +33,12 @@ book:
       - slide.qmd
       - growth-rates.qmd
       - correlations.qmd
+      - outliers.qmd
+      - archive.qmd
     - part: "epipredict"
       chapters:
+      - epipredict.qmd
+      - forecast-framework.qmd
       - flatline-forecaster.qmd
       - tidymodels-intro.qmd
       - tidymodels-regression.qmd

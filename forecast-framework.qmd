@@ -1,0 +1,247 @@
+# Inner workings of the framework
+
+```{r}
+#| include: false
+source("_common.R")
+```
+
+Underneath the hood, the `arx_forecaster()` (and all our canned
+forecasters) creates (and returns) an `epi_workflow`. 
+Essentially, this is a big S3 object that wraps up the 4 modular steps 
+(preprocessing - postprocessing) described in the last chapter.
+
+1. Preprocessor: make transformations to the data before model training
+2. Trainer: train a model on data, resulting in a fitted model object
+3. Predictor: make predictions, using a fitted model object and processed test data
+4. Postprocessor: manipulate or transform the predictions before returning
+
+Let's investigate how these interact with `{tidymodels}` and why it's important
+to think of forecasting this way. To have something to play with, we'll continue
+to examine the data and an estimated canned corecaster.
+
+
+```{r demo-workflow}
+jhu <- case_death_rate_subset %>% 
+  filter(time_value >= max(time_value) - 30)
+
+out_gb <- arx_forecaster(jhu, "death_rate", c("case_rate", "death_rate"),
+  boost_tree(mode = "regression", trees = 20))
+```
+
+## Preprocessing
+
+Preprocessing is accomplished through a `recipe` (imagine baking a cake) as 
+provided in the [`{recipes}`](https://recipes.tidymodels.org) package. 
+We've made a few modifications (to handle
+panel data) as well as added some additional options. The recipe gives a
+specification of how to handle training data. Think of it like a fancified
+`formula` that you would pass to `lm()`: `y ~ x1 + log(x2)`. In general, 
+there are 2 extensions to the `formula` that `{recipes}` handles: 
+
+  1. Doing transformations of both training and test data that can always be 
+  applied. These are things like taking the log of a variable, leading or 
+  lagging, filtering out rows, handling dummy variables, etc.
+  2. Using statistics from the training data to eventually process test data. 
+    This is a major benefit of `{recipes}`. It prevents what the tidy team calls
+    "data leakage". A simple example is centering a predictor by its mean. We
+    need to store the mean of the predictor from the training data and use that
+    value on the test data rather than accidentally calculating the mean of
+    the test predictor for centering.
+    
+A recipe is processed in 2 steps, first it is "prepped". This calculates and
+stores any intermediate statistics necessary for use on the test data. 
+Then it is "baked"
+resulting in training data ready for passing into a statistical model (like `lm`).
+
+We have introduced an `epi_recipe`. It's just a `recipe` that knows how to handle
+the `time_value`, `geo_value`, and any additional keys so that these are available
+when necessary.
+
+The `epi_recipe` from `out_gb` can be extracted from the result:
+```{r}
+#| results: false
+library(workflows)
+library(recipes)
+extract_recipe(out_gb$epi_workflow)
+```
+
+```{r}
+#| message: true
+#| echo: false
+#| collapse: true
+extract_recipe(out_gb$epi_workflow)
+```
+
+
+The "Inputs" are the original `epi_df` and the "roles" that these are assigned.
+None of these are predictors or outcomes. Those will be created 
+by the recipe when it is prepped. The "Operations" are the sequence of 
+instructions to create the cake (baked training data).
+Here we create lagged predictors, lead the outcome, and then remove `NA`s.
+Some models like `lm` internally handle `NA`s, but not everything does, so we
+deal with them explicitly. The code to do this (inside the forecaster) is
+
+```{r}
+er <- epi_recipe(jhu) %>%
+  step_epi_lag(case_rate, death_rate, lag = c(0, 7, 14)) %>%
+  step_epi_ahead(death_rate, ahead = 7) %>%
+  step_epi_naomit()
+```
+
+While `{recipes}` provides a function `step_lag()`, it assumes that the data
+have no breaks in the sequence of `time_values`. This is a bit dangerous, so
+we avoid that behaviour. Our `lag/ahead` functions also appropriately adjust the
+amount of data to avoid accidentally dropping recent predictors from the test
+data.
+
+## The model specification
+
+Users familiar with the `{parsnip}` package will have no trouble here.
+Basically, `{parsnip}` unifies the function signature across statistical models.
+For example, `lm()` "likes" to work with formulas, but `glmnet::glmnet()` uses
+`x` and `y` for predictors and response. `{parsnip}` is agnostic. Both of these
+do "linear regression". Above we switched from `lm()` to `xgboost()` without 
+any issue despite the fact that these functions couldn't be more different.
+
+```{r, eval = FALSE}
+lm(
+  formula, data, subset, weights, na.action, method = "qr", 
+  model = TRUE, x = FALSE, y = FALSE, qr = TRUE, singular.ok = TRUE, 
+  contrasts = NULL, offset, ...)
+
+xgboost(
+  data = NULL, label = NULL, missing = NA, weight = NULL, 
+  params = list(), nrounds, verbose = 1, print_every_n = 1L, 
+  early_stopping_rounds = NULL, maximize = NULL, save_period = NULL, 
+  save_name = "xgboost.model", xgb_model = NULL, callbacks = list(), 
+  ...) 
+```
+
+`{epipredict}` provides a few engines/modules like `flatline()` and 
+`quantile_reg()` to power the `flatline_forecaster()` and provide quantile 
+regression, but you should be able to use almost any available models
+listed [here](https://www.tidymodels.org/find/parsnip/).
+
+
+To estimate (fit) a preprocessed model, one calls `fit()` on the `epi_workflow`.
+
+```{r}
+ewf <- epi_workflow(er, linear_reg()) %>% fit(jhu)
+```
+
+## Predicting and Postprocessing (bound together)
+
+To stretch the metaphor of preparing a cake to its natural limits, we have
+created postprocessing functionality called "frosting". Much like the recipe,
+each postprocessing operation is a "layer" and we "slather" these onto our 
+baked cake. To fix ideas, below is the postprocessing `frosting` for 
+`arx_forecaster()`
+
+```{r}
+#| results: false
+extract_frosting(out_gb$epi_workflow)
+```
+
+```{r}
+#| echo: false
+#| results: asis
+#| message: true
+#| collapse: true
+extract_frosting(out_gb$epi_workflow)
+```
+
+
+Here we have 5 layers of frosting. The first generates the forecasts from the test data.
+The second uses quantiles of the residuals to create distributional
+forecasts. The next two add columns for the date the forecast was made and the
+date for which it is intended to occur. Because we are predicting rates, they 
+should be non-negative, so the last layer thresholds both predicted values and
+intervals at 0. The code to do this (inside the forecaster) is
+
+```{r}
+f <- frosting() %>%
+  layer_predict() %>%
+  layer_residual_quantiles(
+    probs = c(.01, .025, seq(.05, .95, by = .05), .975, .99), 
+    symmetrize = TRUE) %>%
+  layer_add_forecast_date() %>%
+  layer_add_target_date() %>%
+  layer_threshold(starts_with(".pred"))
+```
+
+At predict time, we add this object onto the `epi_workflow` and call `predict()`
+
+```{r, warning=FALSE}
+test_data <- get_test_data(er, jhu)
+ewf %>% add_frosting(f) %>% predict(test_data)
+```
+
+The above `get_test_data()` function examines the recipe and ensures that enough
+test data is available to create the necessary lags and produce a prediction
+for the desired future time point (after the end of the training data). This mimics
+what would happen if `jhu` contained the most recent available historical data and
+we wanted to actually predict the future. We could have instead used any test data
+that contained the necessary predictors.
+
+:::{.callout-note}
+In the predictions above, you'll see a `time_value` column. That's because we 
+could use **any training data**. We happened to use training data corresponding
+to the most recent available, and it's lags. But we could have instead used
+last week's or we could use the data that arrives next year, or we could use multiple
+`time_values` for multiple locations. This is completely allowed, though not
+necessarily what you expect.
+
+In production forecasting, you'd probably reestimate the model and produce new
+predictions whenever new data arrives. This is exactly what all the canned 
+forecasters we provide do. So those strip out the `time_value` column.
+
+But the next most likely procedure would be
+to feed your previously estimated model (without refitting) the new data.
+To do this, you'd just call `get_test_data()` on that new data. And the 
+`time_value` would still be the same as your `forecast_date`.
+
+Getting many forecasts (multiple `time_values`) for each location, is not
+exactly a typical desire in this context. But it's also not unheard of, so
+it is possible (and analogous to standard, non-time series forecasting). 
+:::
+
+
+## Conclusion
+
+Internally, we provide some canned forecaster functions to create reasonable forecasts. 
+But ideally, a user could create their own forecasters by building up the 
+components we provide. In other chapters, we try to walk through some of these
+customizations. 
+
+To illustrate everything above, here is (roughly) the code for the 
+`arx_forecaster()` to predict the death rate, 1 week ahead:
+
+```{r}
+r <- epi_recipe(jhu) %>%
+  step_epi_ahead(death_rate, ahead = 7) %>%
+  step_epi_lag(case_rate, death_rate, lag = c(0, 7, 14)) %>%
+  step_epi_naomit()
+
+latest <- get_test_data(r, jhu) 
+
+f <- frosting() %>%
+  layer_predict() %>%
+  layer_residual_quantiles() %>%
+  layer_add_forecast_date() %>%
+  layer_add_target_date() %>%
+  layer_threshold(starts_with(".pred"))
+
+eng <- linear_reg()
+wf <- epi_workflow(r, eng, f) %>% fit(jhu)
+preds <- predict(wf, latest)
+```
+
+All that really differs from the `arx_forecaster()` is the `recipe`, the 
+test data, and the engine. The `frosting` is identical, as is the fitting 
+and predicting procedure.
+
+```{r}
+preds
+```
+
+

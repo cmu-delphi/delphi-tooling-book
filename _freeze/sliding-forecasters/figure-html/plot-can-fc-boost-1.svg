@@ -2351,7 +2351,6 @@
 </clipPath>
 </defs>
 <rect x="-64.8" y="-86.4" width="777.6" height="1036.8" fill="rgb(100%, 100%, 100%)" fill-opacity="1"/>
-<rect x="-64.8" y="-86.4" width="777.6" height="1036.8" fill="rgb(100%, 100%, 100%)" fill-opacity="1"/>
 <path fill="none" stroke-width="1.066978" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(100%, 100%, 100%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0 864 L 648 864 L 648 0 L 0 0 Z M 0 864 "/>
 <g clip-path="url(#clip-0)">
 <path fill-rule="nonzero" fill="rgb(100%, 100%, 100%)" fill-opacity="1" d="M 39.152344 221.570312 L 226.667969 221.570312 L 226.667969 41.722656 L 39.152344 41.722656 Z M 39.152344 221.570312 "/>

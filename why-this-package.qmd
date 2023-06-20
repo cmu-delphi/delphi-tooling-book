@@ -46,16 +46,3 @@ Here's a brief overview about what each package offers...
 -   Highly customizable for advanced users
 
 The focus of this book is on `{epiprocess}` and `{epipredict}`. By the end of this book, you should be equipped with the tools and knowledge to build your own basic and customizable forecasting models. At that point, our hope is that some may take things a step further and leverage this package to build on it and advance the frontier of predictive modelling.
-
-## Main goal for the epipredict package
-
-At a high level, our goal with `{epipredict}` is to make running simple machine learning / statistical forecasters for epidemiology easy. However, this package is extremely extensible, and that is part of its utility. Our hope is that it is easy for users with epidemiology training and some statistics to fit baseline models while still allowing those with more nuanced statistical understanding to create complicated specializations using the same framework.
-
-Serving both populations is the main motivation for our efforts, but at the same time, we have tried hard to make it useful.
-
-## Why doesn't this package already exist?
-
--   Parts of it actually DO exist. There's a universe called `tidymodels`. It handles pre-processing, training, and prediction, bound together, through a package called workflows. We built `epipredict` on top of that setup. In this way, you CAN use almost everything they provide.
--   However, workflows doesn't do post-processing. And nothing in the `tidyverse` handles panel data.
--   The tidy-team doesn't have plans to do either of these things. (We checked).
--   There are two packages that do time series built on `tidymodels`, but it's "basic" time series: 1-step AR models, exponential smoothing, STL decomposition, etc.1 Our group has not prioritized these sorts of models for epidemic forecasting, but one could also integrate these methods into our framework.
