@@ -10,13 +10,18 @@ Description:
   | This book is a longform introduction to analysing and forecasting epidemiological data.
 License: MIT + file LICENSE
 Imports:
+    broom,
     epidatr,
     epidatasets,
     epipredict (>=0.0.5),
     epiprocess,
     modeldata,
+    performance,
+    poissonreg,
     outbreaks,
     ranger,
+    RcppRoll,
+    tidymodels,
     see,
     tidyverse,
     xgboost
@@ -25,6 +30,6 @@ Suggests:
     styler
 Remotes:
     cmu-delphi/epidatr,
+    cmu-delphi/epiprocess,
     cmu-delphi/epidatasets,
-    cmu-delphi/epiprocess@dev,
     cmu-delphi/epipredict
