@@ -32,6 +32,7 @@ book:
       - epidf.qmd
       - slide.qmd
       - growth-rates.qmd
+      - correlations.qmd
     - part: "epipredict"
       chapters:
       - flatline-forecaster.qmd
