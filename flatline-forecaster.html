@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Epidemiological Forecasting - 2&nbsp; Introducing the flatline forecaster</title>
+<title>Introduction to Epidemiological Forecasting - 10&nbsp; Introducing the flatline forecaster</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./tidymodels-intro.html" rel="next">
-<link href="./why-this-package.html" rel="prev">
+<link href="./forecast-framework.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -98,7 +98,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -107,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flatline-forecaster.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./epipredict.html">epipredict</a></li><li class="breadcrumb-item"><a href="./flatline-forecaster.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -119,10 +119,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Introduction to Epidemiological Forecasting</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/cmu-delphi/delphi-tooling/book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -141,39 +161,115 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./why-this-package.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Motivation</span></span></a>
+ <span class="menu-text">Motivation</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">epiprocess</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epiprocess.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epidf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting data into epi_df format</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./slide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sliding computations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./growth-rates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estimate growth rates in signals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./correlations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Correlate signals over space and time</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./outliers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Detect and correct outliers in signals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./archive.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Work with archive objects and data revisions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">epipredict</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epipredict.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./forecast-framework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Inner workings of the framework</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./flatline-forecaster.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidymodels-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidymodels-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression in Tidymodels</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Regression in Tidymodels</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./preprocessing-and-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Examples of Preprocessing and Models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Examples of Preprocessing and Models</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sliding-forecasters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Demonstrations of sliding AR and ARX forecasters</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Pseudo-prospective forecast inspection</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
@@ -190,22 +286,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#example-of-using-the-flatline-forecaster" id="toc-example-of-using-the-flatline-forecaster" class="nav-link active" data-scroll-target="#example-of-using-the-flatline-forecaster"><span class="header-section-number">2.1</span> Example of using the flatline forecaster</a>
+  <li><a href="#example-of-using-the-flatline-forecaster" id="toc-example-of-using-the-flatline-forecaster" class="nav-link active" data-scroll-target="#example-of-using-the-flatline-forecaster"><span class="header-section-number">10.1</span> Example of using the flatline forecaster</a>
   <ul class="collapse">
-  <li><a href="#load-required-packages" id="toc-load-required-packages" class="nav-link" data-scroll-target="#load-required-packages"><span class="header-section-number">2.1.1</span> Load required packages</a></li>
-  <li><a href="#a-brief-introduction-to-the-dataset" id="toc-a-brief-introduction-to-the-dataset" class="nav-link" data-scroll-target="#a-brief-introduction-to-the-dataset"><span class="header-section-number">2.1.2</span> A brief introduction to the dataset</a></li>
-  <li><a href="#the-basic-mechanics-of-the-flatline-forecaster" id="toc-the-basic-mechanics-of-the-flatline-forecaster" class="nav-link" data-scroll-target="#the-basic-mechanics-of-the-flatline-forecaster"><span class="header-section-number">2.1.3</span> The basic mechanics of the flatline forecaster</a></li>
+  <li><a href="#the-basic-mechanics-of-the-flatline-forecaster" id="toc-the-basic-mechanics-of-the-flatline-forecaster" class="nav-link" data-scroll-target="#the-basic-mechanics-of-the-flatline-forecaster"><span class="header-section-number">10.1.1</span> The basic mechanics of the flatline forecaster</a></li>
   </ul></li>
-  <li><a href="#what-weve-learned-in-a-nutshell" id="toc-what-weve-learned-in-a-nutshell" class="nav-link" data-scroll-target="#what-weve-learned-in-a-nutshell"><span class="header-section-number">2.2</span> What we’ve learned in a nutshell</a></li>
+  <li><a href="#what-weve-learned-in-a-nutshell" id="toc-what-weve-learned-in-a-nutshell" class="nav-link" data-scroll-target="#what-weve-learned-in-a-nutshell"><span class="header-section-number">10.2</span> What we’ve learned in a nutshell</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/cmu-delphi/delphi-tooling/book/blob/main/flatline-forecaster.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/cmu-delphi/delphi-tooling/book/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></h1>
 </div>
 
 
@@ -221,28 +315,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>The flatline forecaster is a very simple forecasting model intended for <code>epi_df</code> data, where the most recent observation is used as the forecast for any future date. In other words, the last observation is propagated forward. Hence, a flat line phenomenon is observed for the point predictions. The predictive intervals are produced from the quantiles of the residuals of such a forecast over all of the training data. By default, these intervals will be obtained separately for each combination of keys (<code>geo_value</code> and any additional keys) in the <code>epi_df</code>. Thus, the output is a data frame of point (and optionally interval) forecasts at a single unique horizon (<code>ahead</code>) for each unique combination of key variables. This forecaster is comparable to the baseline used by the <a href="https://covid19forecasthub.org">COVID Forecast Hub</a>.</p>
-<section id="example-of-using-the-flatline-forecaster" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="example-of-using-the-flatline-forecaster"><span class="header-section-number">2.1</span> Example of using the flatline forecaster</h2>
-<section id="load-required-packages" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="load-required-packages"><span class="header-section-number">2.1.1</span> Load required packages</h3>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-2_89f668bd07641a5241fbd1f9eaeba397">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epipredict)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epiprocess)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="a-brief-introduction-to-the-dataset" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="a-brief-introduction-to-the-dataset"><span class="header-section-number">2.1.2</span> A brief introduction to the dataset</h3>
-<p>We will use the <code>case_death_rate_subset</code> dataset that comes with the <code>epipredict</code> package. In brief, this is a subset of the JHU daily COVID-19 cases and deaths by state. While this dataset ranges from Dec 31, 2020 to Dec 31, 2021, we will only consider a small subset at the end of that range to keep our example relatively simple.</p>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-3_7e7d0aabef5e5965d214221bef209da5">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>jhu <span class="ot">&lt;-</span> case_death_rate_subset <span class="sc">%&gt;%</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(time_value <span class="sc">&gt;=</span> <span class="fu">as.Date</span>(<span class="st">"2021-09-01"</span>))</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>jhu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="example-of-using-the-flatline-forecaster" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="example-of-using-the-flatline-forecaster"><span class="header-section-number">10.1</span> Example of using the flatline forecaster</h2>
+<p>We will continue to use the <code>case_death_rate_subset</code> dataset that comes with the <code>epipredict</code> package. In brief, this is a subset of the JHU daily COVID-19 cases and deaths by state. While this dataset ranges from Dec 31, 2020 to Dec 31, 2021, we will only consider a small subset at the end of that range to keep our example relatively simple.</p>
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-2_bdb1903df82234e00ed17b2089a9dcf7">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>jhu <span class="ot">&lt;-</span> case_death_rate_subset <span class="sc">%&gt;%</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(time_value <span class="sc">&gt;=</span> <span class="fu">as.Date</span>(<span class="st">"2021-09-01"</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>jhu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; An `epi_df` object, 6,832 x 4 with metadata:
 #&gt; * geo_type  = state
 #&gt; * time_type = day
-#&gt; * as_of     = 2022-05-31 12:08:25
+#&gt; * as_of     = 2022-05-31 12:08:25.791826
 #&gt; 
 #&gt; # A tibble: 6,832 × 4
 #&gt;   geo_value time_value case_rate death_rate
@@ -256,232 +341,90 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #&gt; # ℹ 6,826 more rows</code></pre>
 </div>
 </div>
-</section>
-<section id="the-basic-mechanics-of-the-flatline-forecaster" class="level3" data-number="2.1.3">
-<h3 data-number="2.1.3" class="anchored" data-anchor-id="the-basic-mechanics-of-the-flatline-forecaster"><span class="header-section-number">2.1.3</span> The basic mechanics of the flatline forecaster</h3>
-<p>The simplest to create and train a flatline forecaster to predict the death rate one week into the future, is to input the <code>epi_df</code> and the name of the column from it that we want to predict in the <code>flatline_forecaster</code> function.</p>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-4_b7af3cd458ba646a9b72f6b0e68c31da">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>one_week_ahead <span class="ot">&lt;-</span> <span class="fu">flatline_forecaster</span>(jhu, <span class="at">outcome =</span> <span class="st">"death_rate"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>one_week_ahead</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="the-basic-mechanics-of-the-flatline-forecaster" class="level3" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="the-basic-mechanics-of-the-flatline-forecaster"><span class="header-section-number">10.1.1</span> The basic mechanics of the flatline forecaster</h3>
+<p>The simplest way to create and train a flatline forecaster to predict the d eath rate one week into the future, is to input the <code>epi_df</code> and the name of the column from it that we want to predict in the <code>flatline_forecaster</code> function.</p>
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-3_d9bff13811c7ad711033cc306bce0068">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>one_week_ahead <span class="ot">&lt;-</span> <span class="fu">flatline_forecaster</span>(jhu, <span class="at">outcome =</span> <span class="st">"death_rate"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>one_week_ahead</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; $predictions
-#&gt; An `epi_df` object, 56 x 6 with metadata:
-#&gt; * geo_type  = state
-#&gt; * time_type = day
-#&gt; * as_of     = 2022-05-31 12:08:25
+<pre><code>#&gt; 
+#&gt; ══ A basic forecaster of type flatline ══════════════════════════════════════
 #&gt; 
-#&gt; # A tibble: 56 × 6
-#&gt;   geo_value time_value  .pred         .pred_distn forecast_date target_date
-#&gt; * &lt;chr&gt;     &lt;date&gt;      &lt;dbl&gt;              &lt;dist&gt; &lt;date&gt;        &lt;date&gt;     
-#&gt; 1 ak        2021-12-31 0.0395 [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-07 
-#&gt; 2 al        2021-12-31 0.107  [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-07 
-#&gt; 3 ar        2021-12-31 0.490  [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-07 
-#&gt; 4 as        2021-12-31 0      [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-07 
-#&gt; 5 az        2021-12-31 0.608  [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-07 
-#&gt; 6 ca        2021-12-31 0.142  [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-07 
-#&gt; # ℹ 50 more rows
+#&gt; This forecaster was fit on 2023-06-19 20:31:13
 #&gt; 
-#&gt; $epi_workflow
-#&gt; ══ Epi Workflow [trained] ═══════════════════════════════════════════════════
-#&gt; Preprocessor: Recipe
-#&gt; Model: linear_reg()
-#&gt; Postprocessor: Frosting
+#&gt; Training data was an `epi_df` with
+#&gt; • Geography: state,
+#&gt; • Time type: day,
+#&gt; • Using data up-to-date as of: 2022-05-31 12:08:25.
 #&gt; 
-#&gt; ── Preprocessor ─────────────────────────────────────────────────────────────
-#&gt; 1 Recipe Step
+#&gt; ── Predictions ──────────────────────────────────────────────────────────────
 #&gt; 
-#&gt; • step_epi_ahead()
-#&gt; 
-#&gt; ── Model ────────────────────────────────────────────────────────────────────
-#&gt; $residuals
-#&gt; # A tibble: 7,224 × 2
-#&gt;   geo_value .resid
-#&gt;   &lt;chr&gt;      &lt;dbl&gt;
-#&gt; 1 ak            NA
-#&gt; 2 al            NA
-#&gt; 3 ar            NA
-#&gt; 4 as            NA
-#&gt; 5 az            NA
-#&gt; 6 ca            NA
-#&gt; # ℹ 7,218 more rows
-#&gt; 
-#&gt; $.pred
-#&gt; # A tibble: 56 × 2
-#&gt;   geo_value  .pred
-#&gt;   &lt;chr&gt;      &lt;dbl&gt;
-#&gt; 1 ak        0.0395
-#&gt; 2 al        0.107 
-#&gt; 3 ar        0.490 
-#&gt; 4 as        0     
-#&gt; 5 az        0.608 
-#&gt; 6 ca        0.142 
-#&gt; # ℹ 50 more rows
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "flatline"
-#&gt; ── Postprocessor ────────────────────────────────────────────────────────────
-#&gt; 5 Frosting Layers
-#&gt; 
-#&gt; • layer_predict()
-#&gt; • layer_residual_quantiles()
-#&gt; • layer_add_forecast_date()
-#&gt; • layer_add_target_date()
-#&gt; • layer_threshold()</code></pre>
+#&gt; A total of 56 predictions are available for
+#&gt; • 56 unique geographic regions,
+#&gt; • At forecast dates: 2021-12-31,
+#&gt; • For target dates: 2022-01-07.</code></pre>
 </div>
 </div>
 <p>The result is both a fitted model object which could be used any time in the future to create different forecasts, as well as a set of predicted values and prediction intervals for each location 7 days after the last available time value in the data, which is Dec 31, 2021. Note that 7 days is the default number of time steps ahead of the forecast date in which forecasts should be produced. To change this, you must change the value of the <code>ahead</code> parameter in the list of additional arguments <code>flatline_args_list()</code>. Let’s change this to 5 days to get some practice.</p>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-5_163e48cb48f59bb1fe2a9b5a1737ef01">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>five_days_ahead <span class="ot">&lt;-</span> <span class="fu">flatline_forecaster</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  jhu,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="st">"death_rate"</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">flatline_args_list</span>(<span class="at">ahead =</span> 5L)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>five_days_ahead</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-4_013bf1041937f63c3b495c7ed5b211b9">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>five_days_ahead <span class="ot">&lt;-</span> <span class="fu">flatline_forecaster</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  jhu,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="st">"death_rate"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">flatline_args_list</span>(<span class="at">ahead =</span> 5L)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>five_days_ahead</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; $predictions
-#&gt; An `epi_df` object, 56 x 6 with metadata:
-#&gt; * geo_type  = state
-#&gt; * time_type = day
-#&gt; * as_of     = 2022-05-31 12:08:25
+<pre><code>#&gt; 
+#&gt; ══ A basic forecaster of type flatline ══════════════════════════════════════
 #&gt; 
-#&gt; # A tibble: 56 × 6
-#&gt;   geo_value time_value  .pred         .pred_distn forecast_date target_date
-#&gt; * &lt;chr&gt;     &lt;date&gt;      &lt;dbl&gt;              &lt;dist&gt; &lt;date&gt;        &lt;date&gt;     
-#&gt; 1 ak        2021-12-31 0.0395 [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 2 al        2021-12-31 0.107  [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 3 ar        2021-12-31 0.490  [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 4 as        2021-12-31 0      [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 5 az        2021-12-31 0.608  [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 6 ca        2021-12-31 0.142  [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; # ℹ 50 more rows
+#&gt; This forecaster was fit on 2023-06-19 20:31:14
 #&gt; 
-#&gt; $epi_workflow
-#&gt; ══ Epi Workflow [trained] ═══════════════════════════════════════════════════
-#&gt; Preprocessor: Recipe
-#&gt; Model: linear_reg()
-#&gt; Postprocessor: Frosting
+#&gt; Training data was an `epi_df` with
+#&gt; • Geography: state,
+#&gt; • Time type: day,
+#&gt; • Using data up-to-date as of: 2022-05-31 12:08:25.
 #&gt; 
-#&gt; ── Preprocessor ─────────────────────────────────────────────────────────────
-#&gt; 1 Recipe Step
+#&gt; ── Predictions ──────────────────────────────────────────────────────────────
 #&gt; 
-#&gt; • step_epi_ahead()
-#&gt; 
-#&gt; ── Model ────────────────────────────────────────────────────────────────────
-#&gt; $residuals
-#&gt; # A tibble: 7,112 × 2
-#&gt;   geo_value .resid
-#&gt;   &lt;chr&gt;      &lt;dbl&gt;
-#&gt; 1 ak            NA
-#&gt; 2 al            NA
-#&gt; 3 ar            NA
-#&gt; 4 as            NA
-#&gt; 5 az            NA
-#&gt; 6 ca            NA
-#&gt; # ℹ 7,106 more rows
-#&gt; 
-#&gt; $.pred
-#&gt; # A tibble: 56 × 2
-#&gt;   geo_value  .pred
-#&gt;   &lt;chr&gt;      &lt;dbl&gt;
-#&gt; 1 ak        0.0395
-#&gt; 2 al        0.107 
-#&gt; 3 ar        0.490 
-#&gt; 4 as        0     
-#&gt; 5 az        0.608 
-#&gt; 6 ca        0.142 
-#&gt; # ℹ 50 more rows
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "flatline"
-#&gt; ── Postprocessor ────────────────────────────────────────────────────────────
-#&gt; 5 Frosting Layers
-#&gt; 
-#&gt; • layer_predict()
-#&gt; • layer_residual_quantiles()
-#&gt; • layer_add_forecast_date()
-#&gt; • layer_add_target_date()
-#&gt; • layer_threshold()</code></pre>
+#&gt; A total of 56 predictions are available for
+#&gt; • 56 unique geographic regions,
+#&gt; • At forecast dates: 2021-12-31,
+#&gt; • For target dates: 2022-01-05.</code></pre>
 </div>
 </div>
 <p>We could also specify that we want a 80% predictive interval by changing the levels. The default 0.05 and 0.95 levels/quantiles give us 90% predictive interval.</p>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-6_2e238eb1b024fe5ac9dc73c7b5275b14">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>five_days_ahead <span class="ot">&lt;-</span> <span class="fu">flatline_forecaster</span>(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  jhu,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="st">"death_rate"</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">flatline_args_list</span>(<span class="at">ahead =</span> 5L, <span class="at">levels =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>five_days_ahead</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-5_04fc200f272f42d862a3c5693cc610b6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>five_days_ahead <span class="ot">&lt;-</span> <span class="fu">flatline_forecaster</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  jhu,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="st">"death_rate"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">flatline_args_list</span>(<span class="at">ahead =</span> 5L, <span class="at">levels =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>five_days_ahead</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; $predictions
-#&gt; An `epi_df` object, 56 x 6 with metadata:
-#&gt; * geo_type  = state
-#&gt; * time_type = day
-#&gt; * as_of     = 2022-05-31 12:08:25
+<pre><code>#&gt; 
+#&gt; ══ A basic forecaster of type flatline ══════════════════════════════════════
 #&gt; 
-#&gt; # A tibble: 56 × 6
-#&gt;   geo_value time_value  .pred       .pred_distn forecast_date target_date
-#&gt; * &lt;chr&gt;     &lt;date&gt;      &lt;dbl&gt;            &lt;dist&gt; &lt;date&gt;        &lt;date&gt;     
-#&gt; 1 ak        2021-12-31 0.0395 [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 2 al        2021-12-31 0.107  [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 3 ar        2021-12-31 0.490  [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 4 as        2021-12-31 0      [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 5 az        2021-12-31 0.608  [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 6 ca        2021-12-31 0.142  [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; # ℹ 50 more rows
+#&gt; This forecaster was fit on 2023-06-19 20:31:14
 #&gt; 
-#&gt; $epi_workflow
-#&gt; ══ Epi Workflow [trained] ═══════════════════════════════════════════════════
-#&gt; Preprocessor: Recipe
-#&gt; Model: linear_reg()
-#&gt; Postprocessor: Frosting
+#&gt; Training data was an `epi_df` with
+#&gt; • Geography: state,
+#&gt; • Time type: day,
+#&gt; • Using data up-to-date as of: 2022-05-31 12:08:25.
 #&gt; 
-#&gt; ── Preprocessor ─────────────────────────────────────────────────────────────
-#&gt; 1 Recipe Step
+#&gt; ── Predictions ──────────────────────────────────────────────────────────────
 #&gt; 
-#&gt; • step_epi_ahead()
-#&gt; 
-#&gt; ── Model ────────────────────────────────────────────────────────────────────
-#&gt; $residuals
-#&gt; # A tibble: 7,112 × 2
-#&gt;   geo_value .resid
-#&gt;   &lt;chr&gt;      &lt;dbl&gt;
-#&gt; 1 ak            NA
-#&gt; 2 al            NA
-#&gt; 3 ar            NA
-#&gt; 4 as            NA
-#&gt; 5 az            NA
-#&gt; 6 ca            NA
-#&gt; # ℹ 7,106 more rows
-#&gt; 
-#&gt; $.pred
-#&gt; # A tibble: 56 × 2
-#&gt;   geo_value  .pred
-#&gt;   &lt;chr&gt;      &lt;dbl&gt;
-#&gt; 1 ak        0.0395
-#&gt; 2 al        0.107 
-#&gt; 3 ar        0.490 
-#&gt; 4 as        0     
-#&gt; 5 az        0.608 
-#&gt; 6 ca        0.142 
-#&gt; # ℹ 50 more rows
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "flatline"
-#&gt; ── Postprocessor ────────────────────────────────────────────────────────────
-#&gt; 5 Frosting Layers
-#&gt; 
-#&gt; • layer_predict()
-#&gt; • layer_residual_quantiles()
-#&gt; • layer_add_forecast_date()
-#&gt; • layer_add_target_date()
-#&gt; • layer_threshold()</code></pre>
+#&gt; A total of 56 predictions are available for
+#&gt; • 56 unique geographic regions,
+#&gt; • At forecast dates: 2021-12-31,
+#&gt; • For target dates: 2022-01-05.</code></pre>
 </div>
 </div>
 <p>To see the other arguments that you may modify, please see <code>?flatline_args_list()</code>. For now, we will move on to looking at the workflow.</p>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-7_e4f7fe80f48d0e558e164a752b4ed9d6">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>five_days_ahead<span class="sc">$</span>epi_workflow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-6_23d12864d38c6b2fb9458907db32530f">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>five_days_ahead<span class="sc">$</span>epi_workflow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; ══ Epi Workflow [trained] ═══════════════════════════════════════════════════
 #&gt; Preprocessor: Recipe
@@ -489,37 +432,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #&gt; Postprocessor: Frosting
 #&gt; 
 #&gt; ── Preprocessor ─────────────────────────────────────────────────────────────
-#&gt; 1 Recipe Step
+#&gt; 2 Recipe Steps
 #&gt; 
 #&gt; • step_epi_ahead()
+#&gt; • step_training_window()
 #&gt; 
 #&gt; ── Model ────────────────────────────────────────────────────────────────────
-#&gt; $residuals
-#&gt; # A tibble: 7,112 × 2
-#&gt;   geo_value .resid
-#&gt;   &lt;chr&gt;      &lt;dbl&gt;
-#&gt; 1 ak            NA
-#&gt; 2 al            NA
-#&gt; 3 ar            NA
-#&gt; 4 as            NA
-#&gt; 5 az            NA
-#&gt; 6 ca            NA
-#&gt; # ℹ 7,106 more rows
+#&gt; Flatline forecaster
 #&gt; 
-#&gt; $.pred
-#&gt; # A tibble: 56 × 2
-#&gt;   geo_value  .pred
-#&gt;   &lt;chr&gt;      &lt;dbl&gt;
-#&gt; 1 ak        0.0395
-#&gt; 2 al        0.107 
-#&gt; 3 ar        0.490 
-#&gt; 4 as        0     
-#&gt; 5 az        0.608 
-#&gt; 6 ca        0.142 
-#&gt; # ℹ 50 more rows
+#&gt; Predictions produced by geo_value resulting in 56 total forecasts.
+#&gt; A total of 7112 residuals are available from the training set.
 #&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "flatline"
 #&gt; ── Postprocessor ────────────────────────────────────────────────────────────
 #&gt; 5 Frosting Layers
 #&gt; 
@@ -531,226 +454,135 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>The fitted model here was based on minimal pre-processing of the data, estimating a flatline model, and then post-processing the results to be meaningful for epidemiological tasks. To look deeper into the pre-processing, model and processing parts individually, you may use the <code>$</code> operator after <code>epi_workflow</code>. For example, let’s examine the pre-processing part in more detail.</p>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-8_ae9596912d577580b40055e43b1429a5">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>five_days_ahead<span class="sc">$</span>epi_workflow<span class="sc">$</span>pre</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>#&gt; $actions
-#&gt; $actions$recipe
-#&gt; $recipe
-#&gt; 
-#&gt; $blueprint
-#&gt; Recipe blueprint: 
-#&gt;  
-#&gt; # Predictors: 0 
-#&gt;   # Outcomes: 0 
-#&gt;    Intercept: FALSE 
-#&gt; Novel Levels: FALSE 
-#&gt;  Composition: tibble 
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "action_recipe" "action_pre"    "action"       
-#&gt; 
-#&gt; 
-#&gt; $mold
-#&gt; $mold$predictors
-#&gt; # A tibble: 7,112 × 3
-#&gt;   time_value geo_value death_rate
-#&gt;   &lt;date&gt;     &lt;chr&gt;          &lt;dbl&gt;
-#&gt; 1 2021-08-27 ak                NA
-#&gt; 2 2021-08-27 al                NA
-#&gt; 3 2021-08-27 ar                NA
-#&gt; 4 2021-08-27 as                NA
-#&gt; 5 2021-08-27 az                NA
-#&gt; 6 2021-08-27 ca                NA
-#&gt; # ℹ 7,106 more rows
-#&gt; 
-#&gt; $mold$outcomes
-#&gt; # A tibble: 7,112 × 1
-#&gt;   ahead_5_death_rate
-#&gt;                &lt;dbl&gt;
-#&gt; 1              0.198
-#&gt; 2              0.845
-#&gt; 3              0.919
-#&gt; 4              0    
-#&gt; 5              0.414
-#&gt; 6              0.246
-#&gt; # ℹ 7,106 more rows
-#&gt; 
-#&gt; $mold$blueprint
-#&gt; Recipe blueprint: 
-#&gt;  
-#&gt; # Predictors: 3 
-#&gt;   # Outcomes: 0 
-#&gt;    Intercept: FALSE 
-#&gt; Novel Levels: FALSE 
-#&gt;  Composition: tibble 
-#&gt; 
-#&gt; $mold$extras
-#&gt; $mold$extras$roles
-#&gt; $mold$extras$roles$time_value
-#&gt; # A tibble: 7,112 × 1
-#&gt;   time_value
-#&gt;   &lt;date&gt;    
-#&gt; 1 2021-08-27
-#&gt; 2 2021-08-27
-#&gt; 3 2021-08-27
-#&gt; 4 2021-08-27
-#&gt; 5 2021-08-27
-#&gt; 6 2021-08-27
-#&gt; # ℹ 7,106 more rows
-#&gt; 
-#&gt; $mold$extras$roles$geo_value
-#&gt; # A tibble: 7,112 × 1
-#&gt;   geo_value
-#&gt;   &lt;chr&gt;    
-#&gt; 1 ak       
-#&gt; 2 al       
-#&gt; 3 ar       
-#&gt; 4 as       
-#&gt; 5 az       
-#&gt; 6 ca       
-#&gt; # ℹ 7,106 more rows
-#&gt; 
-#&gt; $mold$extras$roles$raw
-#&gt; # A tibble: 7,112 × 1
-#&gt;   case_rate
-#&gt;       &lt;dbl&gt;
-#&gt; 1        NA
-#&gt; 2        NA
-#&gt; 3        NA
-#&gt; 4        NA
-#&gt; 5        NA
-#&gt; 6        NA
-#&gt; # ℹ 7,106 more rows
-#&gt; 
-#&gt; 
-#&gt; 
-#&gt; 
-#&gt; $case_weights
-#&gt; NULL
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "stage_pre" "stage"</code></pre>
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-7_7ebad54744c08badf9d3dac19334894f">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(workflows)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_preprocessor</span>(five_days_ahead<span class="sc">$</span>epi_workflow)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-8_3b5f80e746b0846bc6204aa82a69e29e">
+<pre><code>#&gt; 
+#&gt; ── Recipe ───────────────────────────────────────────────────────────────────
+#&gt; 
+#&gt; ── Inputs
+#&gt; Number of variables by role
+#&gt; predictor:  3
+#&gt; geo_value:  1
+#&gt; raw:        1
+#&gt; time_value: 1
+#&gt; 
+#&gt; ── Operations
+#&gt; • Leading: death_rate by 5
+#&gt; • # of recent observations per key limited to:: Inf</code></pre>
 </div>
 <p>Under Operations, we can see that the pre-processing operations were to lead the death rate by 5 days (<code>step_epi_ahead()</code>) and that the # of recent observations used in the training window were not limited (in <code>step_training_window()</code> as <code>n_training = Inf</code> in <code>flatline_args_list()</code>). You should also see the molded/pre-processed training data.</p>
 <p>For symmetry, let’s have a look at the post-processing.</p>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-9_8cdc131b600e2e193762d72749a4c485">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>five_days_ahead<span class="sc">$</span>epi_workflow<span class="sc">$</span>post</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>#&gt; $actions
-#&gt; $actions$frosting
-#&gt; $frosting
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "action_post" "action"     
-#&gt; 
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "stage_post" "stage"</code></pre>
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-9_0808824fe21d98fc697b5f19bc27352c">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_frosting</span>(five_days_ahead<span class="sc">$</span>epi_workflow)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-10_72d5eb3c2909ae3ae55f4bacd445ad68">
+<pre><code>#&gt; 
+#&gt; ── Frosting ─────────────────────────────────────────────────────────────────
+#&gt; 
+#&gt; ── Layers
+#&gt; • Creating predictions: "&lt;calculated&gt;"
+#&gt; • Resampling residuals for predictive quantiles: "&lt;calculated&gt;" levels 0.1,
+#&gt;   0.9
+#&gt; • Adding forecast date: "2021-12-31"
+#&gt; • Adding target date: "2022-01-05"
+#&gt; • Thresholding predictions: dplyr::starts_with(".pred") to ]0, Inf)</code></pre>
 </div>
 <p>The post-processing operations in the order the that were performed were to create the predictions and the predictive intervals, add the forecast and target dates and bound the predictions at zero.</p>
 <p>We can also easily examine the predictions themselves.</p>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-10_30f3bcf889ce520b19643ffe5f7cd3b9">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>five_days_ahead<span class="sc">$</span>predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-11_926c2f170768c33a5e9312e52477a59e">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>five_days_ahead<span class="sc">$</span>predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; An `epi_df` object, 56 x 6 with metadata:
-#&gt; * geo_type  = state
-#&gt; * time_type = day
-#&gt; * as_of     = 2022-05-31 12:08:25
-#&gt; 
-#&gt; # A tibble: 56 × 6
-#&gt;   geo_value time_value  .pred       .pred_distn forecast_date target_date
-#&gt; * &lt;chr&gt;     &lt;date&gt;      &lt;dbl&gt;            &lt;dist&gt; &lt;date&gt;        &lt;date&gt;     
-#&gt; 1 ak        2021-12-31 0.0395 [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 2 al        2021-12-31 0.107  [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 3 ar        2021-12-31 0.490  [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 4 as        2021-12-31 0      [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 5 az        2021-12-31 0.608  [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 6 ca        2021-12-31 0.142  [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
+<pre><code>#&gt; # A tibble: 56 × 5
+#&gt;   geo_value  .pred       .pred_distn forecast_date target_date
+#&gt;   &lt;chr&gt;      &lt;dbl&gt;            &lt;dist&gt; &lt;date&gt;        &lt;date&gt;     
+#&gt; 1 ak        0.0395 [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
+#&gt; 2 al        0.107  [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
+#&gt; 3 ar        0.490  [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
+#&gt; 4 as        0      [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
+#&gt; 5 az        0.608  [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
+#&gt; 6 ca        0.142  [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
 #&gt; # ℹ 50 more rows</code></pre>
 </div>
 </div>
 <p>The results above show a distributional forecast produced using data through the end of 2021 for the January 5, 2022. A prediction for the death rate per 100K inhabitants along with a 95% predictive interval is available for every state (<code>geo_value</code>).</p>
 <p>The figure below displays the prediction and prediction interval for three sample states: Arizona, New York, and Florida.</p>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-11_2188c6ce329601f70b1d9bfde2bc33f7">
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-12_338012827629211189d9c8b338a8fa27">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>samp_geos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"az"</span>, <span class="st">"ny"</span>, <span class="st">"fl"</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>hist <span class="ot">&lt;-</span> jhu <span class="sc">%&gt;%</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(geo_value <span class="sc">%in%</span> samp_geos)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> five_days_ahead<span class="sc">$</span>predictions <span class="sc">%&gt;%</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(geo_value <span class="sc">%in%</span> samp_geos) <span class="sc">%&gt;%</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">q =</span> <span class="fu">nested_quantiles</span>(.pred_distn)) <span class="sc">%&gt;%</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(q) <span class="sc">%&gt;%</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> tau, <span class="at">values_from =</span> q)</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hist, <span class="fu">aes</span>(<span class="at">color =</span> geo_value)) <span class="sc">+</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(time_value, death_rate)) <span class="sc">+</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">x =</span> target_date, <span class="at">ymin =</span> <span class="st">`</span><span class="at">0.1</span><span class="st">`</span>, <span class="at">ymax =</span> <span class="st">`</span><span class="at">0.9</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(target_date, .pred)) <span class="sc">+</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">xintercept =</span> forecast_date)) <span class="sc">+</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_d</span>(<span class="at">name =</span> <span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%b %Y"</span>, <span class="at">date_breaks =</span> <span class="st">"1 month"</span>) <span class="sc">+</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(geo_value <span class="sc">~</span> ., <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Incident deaths per 100K</span><span class="sc">\n</span><span class="st"> inhabitants"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>samp_geos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"az"</span>, <span class="st">"ny"</span>, <span class="st">"fl"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>hist <span class="ot">&lt;-</span> jhu <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(geo_value <span class="sc">%in%</span> samp_geos)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> five_days_ahead<span class="sc">$</span>predictions <span class="sc">%&gt;%</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(geo_value <span class="sc">%in%</span> samp_geos) <span class="sc">%&gt;%</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">q =</span> <span class="fu">nested_quantiles</span>(.pred_distn)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(q) <span class="sc">%&gt;%</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> tau, <span class="at">values_from =</span> q)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hist, <span class="fu">aes</span>(<span class="at">color =</span> geo_value)) <span class="sc">+</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(time_value, death_rate)) <span class="sc">+</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">x =</span> target_date, <span class="at">ymin =</span> <span class="st">`</span><span class="at">0.1</span><span class="st">`</span>, <span class="at">ymax =</span> <span class="st">`</span><span class="at">0.9</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(target_date, .pred)) <span class="sc">+</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">xintercept =</span> forecast_date)) <span class="sc">+</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_d</span>(<span class="at">name =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%b %Y"</span>, <span class="at">date_breaks =</span> <span class="st">"1 month"</span>) <span class="sc">+</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(geo_value <span class="sc">~</span> ., <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Incident deaths per 100K</span><span class="sc">\n</span><span class="st"> inhabitants"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="flatline-forecaster_files/figure-html/unnamed-chunk-11-1.svg" class="img-fluid figure-img" style="width:90.0%"></p>
+<p><img src="flatline-forecaster_files/figure-html/unnamed-chunk-12-1.svg" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The vertical black line is the forecast date. Here the forecast seems pretty reasonable based on the past observations shown. In cases where the recent past is highly predictive of the near future, a simple flatline forecast may be respectable, but in more complex situations where there is more uncertainty of what’s to come, the flatline forecaster may be best relegated to being a baseline model and nothing more.</p>
 <p>Take for example what happens when we consider a wider range of target dates. That is, we will now predict for several different horizons or <code>ahead</code> values - in our case, 5 to 25 days ahead, inclusive. Since the flatline forecaster function forecasts at a single unique <code>ahead</code> value, we can use the <code>map()</code> function from <code>purrr</code> to apply the forecaster to each ahead value we want to use. Then, we row bind the list of results.</p>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-12_6c29d89781f5b2499c5587c9183d39d9">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>out_df <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">map</span>(</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span><span class="sc">:</span><span class="dv">28</span>,</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span> <span class="fu">flatline_forecaster</span>(</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    jhu,</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">outcome =</span> <span class="st">"death_rate"</span>,</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">args_list =</span> <span class="fu">flatline_args_list</span>(<span class="at">ahead =</span> .x)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span>predictions</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list_rbind</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-13_7cca912cb9c507cdcc24b5736638e0bd">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>out_df <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">28</span>, <span class="sc">~</span> <span class="fu">flatline_forecaster</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">epi_data =</span> jhu,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="st">"death_rate"</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">args_list =</span> <span class="fu">flatline_args_list</span>(<span class="at">ahead =</span> .x)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>)<span class="sc">$</span>predictions) <span class="sc">%&gt;%</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list_rbind</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then, we proceed as we did before. The only difference from before is that we’re using <code>out_df</code> where we had <code>five_days_ahead$predictions</code>.</p>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-13_72c386fe087f4abccfe330013fa504b4">
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-14_1548e56fb2990349e1650fd2101d3bf7">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> out_df <span class="sc">%&gt;%</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(geo_value <span class="sc">%in%</span> samp_geos) <span class="sc">%&gt;%</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">q =</span> <span class="fu">nested_quantiles</span>(.pred_distn)) <span class="sc">%&gt;%</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(q) <span class="sc">%&gt;%</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> tau, <span class="at">values_from =</span> q)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hist) <span class="sc">+</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(time_value, death_rate)) <span class="sc">+</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> preds,</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> target_date, <span class="at">ymin =</span> <span class="st">`</span><span class="at">0.05</span><span class="st">`</span>, <span class="at">ymax =</span> <span class="st">`</span><span class="at">0.95</span><span class="st">`</span>, <span class="at">fill =</span> geo_value)</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(target_date, .pred, <span class="at">colour =</span> geo_value)) <span class="sc">+</span></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">xintercept =</span> forecast_date)) <span class="sc">+</span></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_d</span>() <span class="sc">+</span></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%b %Y"</span>, <span class="at">date_breaks =</span> <span class="st">"1 month"</span>) <span class="sc">+</span></span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">05</span>))) <span class="sc">+</span></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(geo_value <span class="sc">~</span> ., <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Incident deaths per 100K</span><span class="sc">\n</span><span class="st"> inhabitants"</span>) <span class="sc">+</span></span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> out_df <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(geo_value <span class="sc">%in%</span> samp_geos) <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">q =</span> <span class="fu">nested_quantiles</span>(.pred_distn)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(q) <span class="sc">%&gt;%</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> tau, <span class="at">values_from =</span> q)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hist) <span class="sc">+</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(time_value, death_rate)) <span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> preds,</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> target_date, <span class="at">ymin =</span> <span class="st">`</span><span class="at">0.05</span><span class="st">`</span>, <span class="at">ymax =</span> <span class="st">`</span><span class="at">0.95</span><span class="st">`</span>, <span class="at">fill =</span> geo_value)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(target_date, .pred, <span class="at">colour =</span> geo_value)) <span class="sc">+</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">xintercept =</span> forecast_date)) <span class="sc">+</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%b %Y"</span>, <span class="at">date_breaks =</span> <span class="st">"1 month"</span>) <span class="sc">+</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">05</span>))) <span class="sc">+</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(geo_value <span class="sc">~</span> ., <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Incident deaths per 100K</span><span class="sc">\n</span><span class="st"> inhabitants"</span>) <span class="sc">+</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="flatline-forecaster_files/figure-html/unnamed-chunk-13-1.svg" class="img-fluid figure-img" style="width:90.0%"></p>
+<p><img src="flatline-forecaster_files/figure-html/unnamed-chunk-14-1.svg" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -759,8 +591,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>So naturally the choice of forecaster relates to the time frame being considered. In general, using a flatline forecaster makes more sense for short-term forecasts than for long-term forecasts and for periods of great stability than in less stable times. Realistically, periods of great stability are rare. Moreover, in our model of choice we want to take into account more information about the past than just what happened at the most recent time point. So simple forecasters like the flatline forecaster don’t cut it as actual contenders in many real-life situations. However, they are not useless, just used for a different purpose. A simple model is often used to compare a more complex model to, which is why you may have seen such a model used as a baseline in the <a href="https://covid19forecasthub.org">COVID Forecast Hub</a>. The following <a href="https://delphi.cmu.edu/blog/2021/09/30/on-the-predictability-of-covid-19/#ensemble-forecast-performance">blog post</a> from Delphi explores the Hub’s ensemble accuracy relative to such a baseline model.</p>
 </section>
 </section>
-<section id="what-weve-learned-in-a-nutshell" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="what-weve-learned-in-a-nutshell"><span class="header-section-number">2.2</span> What we’ve learned in a nutshell</h2>
+<section id="what-weve-learned-in-a-nutshell" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="what-weve-learned-in-a-nutshell"><span class="header-section-number">10.2</span> What we’ve learned in a nutshell</h2>
 <p>Though the flatline forecaster is a very basic model with limited customization, it is about as steady and predictable as a model can get. So it provides a good reference or baseline to compare more complicated models to.</p>
 
 
@@ -1002,13 +834,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./why-this-package.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Motivation</span></span>
+      <a href="./forecast-framework.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Inner workings of the framework</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./tidymodels-intro.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

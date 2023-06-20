@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Introduction to Epidemiological Forecasting - 8&nbsp; Overview</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./forecast-framework.html" rel="next">
+<link href="./archive.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./epipredict.html">epipredict</a></li><li class="breadcrumb-item"><a href="./epipredict.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overview</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Introduction to Epidemiological Forecasting</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/cmu-delphi/delphi-tooling/book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./why-this-package.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Motivation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">epiprocess</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epiprocess.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epidf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting data into epi_df format</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./slide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sliding computations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./growth-rates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estimate growth rates in signals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./correlations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Correlate signals over space and time</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./outliers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Detect and correct outliers in signals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./archive.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Work with archive objects and data revisions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">epipredict</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epipredict.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./forecast-framework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Inner workings of the framework</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./flatline-forecaster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tidymodels-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tidymodels-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Regression in Tidymodels</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preprocessing-and-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Examples of Preprocessing and Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sliding-forecasters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Pseudo-prospective forecast inspection</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#baseline-models" id="toc-baseline-models" class="nav-link active" data-scroll-target="#baseline-models"><span class="header-section-number">8.1</span> Baseline models</a></li>
+  <li><a href="#forecasting-framework" id="toc-forecasting-framework" class="nav-link" data-scroll-target="#forecasting-framework"><span class="header-section-number">8.2</span> Forecasting framework</a></li>
+  <li><a href="#why-doesnt-this-package-already-exist" id="toc-why-doesnt-this-package-already-exist" class="nav-link" data-scroll-target="#why-doesnt-this-package-already-exist"><span class="header-section-number">8.3</span> Why doesn’t this package already exist?</a></li>
+  <li><a href="#show-me-the-basics" id="toc-show-me-the-basics" class="nav-link" data-scroll-target="#show-me-the-basics"><span class="header-section-number">8.4</span> Show me the basics</a></li>
+  <li><a href="#simple-adjustments" id="toc-simple-adjustments" class="nav-link" data-scroll-target="#simple-adjustments"><span class="header-section-number">8.5</span> Simple adjustments</a></li>
+  <li><a href="#changing-the-engine" id="toc-changing-the-engine" class="nav-link" data-scroll-target="#changing-the-engine"><span class="header-section-number">8.6</span> Changing the engine</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/cmu-delphi/delphi-tooling/book/blob/main/epipredict.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/cmu-delphi/delphi-tooling/book/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overview</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>At a high level, our goal with <code>{epipredict}</code> is to make running simple machine learning / statistical forecasters for epidemiology easy. However, this package is extremely extensible, and that is part of its utility. Our hope is that it is easy for users with epidemiology training and some statistics to fit baseline models while still allowing those with more nuanced statistical understanding to create complicated specializations using the same framework.</p>
+<p>Serving both populations is the main motivation for our efforts, but at the same time, we have tried hard to make it useful.</p>
+<section id="baseline-models" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="baseline-models"><span class="header-section-number">8.1</span> Baseline models</h2>
+<p>We provide a set of basic, easy-to-use forecasters that work out of the box. You should be able to do a reasonably limited amount of customization on them. Any serious customization happens with the framework discussed below).</p>
+<p>For the basic forecasters, we provide:</p>
+<ul>
+<li>Flatline (basic) forecaster</li>
+<li>Autoregressive forecaster</li>
+<li>Autoregressive classifier</li>
+<li>Smooth AR forecaster</li>
+</ul>
+<p>All the forcasters we provide are built on our framework. So we will use these basic models to illustrate its flexibility.</p>
+</section>
+<section id="forecasting-framework" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="forecasting-framework"><span class="header-section-number">8.2</span> Forecasting framework</h2>
+<p>At its core, <code>{epipredict}</code> is a <strong>framework</strong> for creating custom forecasters. By that we mean that we view the process of creating custom forecasters as a collection of modular components. All of them should be easy to swap out or exchange for others, and massive variety should be available by fairly simple modifications through the addition of steps or layers. There are four types of components:</p>
+<ol type="1">
+<li>Preprocessor: make transformations to the data before model training</li>
+<li>Trainer: train a model on data, resulting in a fitted model object</li>
+<li>Predictor: make predictions, using a fitted model object and processed test data</li>
+<li>Postprocessor: manipulate or transform the predictions before returning</li>
+</ol>
+<p>Users familiar with <a href="https://www.tidymodels.org"><code>{tidymodels}</code></a> and especially the <a href="https://workflows.tidymodels.org"><code>{workflows}</code></a> package will notice a lot of overlap. This is by design, and is in fact a feature. The truth is that <code>{epipredict}</code> is a wrapper around much that is contained in these packages. Therefore, if you want something from this -verse, it should “just work” (we hope).</p>
+<p>The reason for the overlap is that <code>{workflows}</code> <em>already implements</em> the first three steps. And it does this very well. However, it is missing the postprocessing stage and currently has no plans for such an implementation. And this feature is important. The baseline forecaster we provide <em>requires</em> postprocessing. Anything more complicated (which is nearly everything) needs this as well.</p>
+<p>The second omission from <code>{tidymodels}</code> is support for panel data. Besides epidemiological data, economics, psychology, sociology, and many other areas frequently deal with data of this type. So the framework of behind <code>{epipredict}</code> implements this. In principle, this has nothing to do with epidemiology, and one could simply use this package as a solution for the missing functionality in <code>{tidymodels}</code>. Again, this should “just work” (we hope).</p>
+<p>All of the <em>panel data</em> functionality is implemented through the <code>epi_df</code> data type described in the previous part. If you have different panel data, just force it into an <code>epi_df</code> as described in <a href="epidf.html#sec-additional-keys"><span>Section&nbsp;2.2</span></a>.</p>
+</section>
+<section id="why-doesnt-this-package-already-exist" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="why-doesnt-this-package-already-exist"><span class="header-section-number">8.3</span> Why doesn’t this package already exist?</h2>
+<ul>
+<li>Parts of it actually DO exist. There’s a universe called <code>tidymodels</code>. It handles pre-processing, training, and prediction, bound together, through a package called workflows. We built <code>epipredict</code> on top of that setup. In this way, you CAN use almost everything they provide.</li>
+<li>However, workflows doesn’t do post-processing to the extent envisioned here. And nothing in <code>tidymodels</code> handles panel data.</li>
+<li>The tidy-team doesn’t have plans to do either of these things. (We checked).</li>
+<li>There are two packages that do time series built on <code>tidymodels</code>, but it’s “basic” time series: 1-step AR models, exponential smoothing, STL decomposition, etc.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+</ul>
+</section>
+<section id="show-me-the-basics" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="show-me-the-basics"><span class="header-section-number">8.4</span> Show me the basics</h2>
+<p>For now, we’ll just demonstrate one of the “canned” forecasters we provide: an autoregressive forecaster with (or without) covariates that <em>directly</em> trains on the response. This is in contrast to a typical “iterative” AR model that trains to predict one-step-ahead, and then plugs in the predictions to “leverage up” to longer horizons. You saw this function in <a href="slide.html#sec-local-forecaster"><span>Section&nbsp;3.4</span></a>, but now we’ll explain the arguments a bit more thoroughly. Below, you’ll see how to make a number of modifications to this forecaster, but understanding the inner workings, and <strong>why</strong> you would want something like this (as well as how to do elaborate customizations) will be the subject of the rest of this book.</p>
+<p>We’ll use some of the same data we’ve examined earlier and estimate a model jointly across all locations using only the most recent 30 days of data (available in the built-in data frame).</p>
+<div class="cell" data-layout-align="center" data-hash="epipredict_cache/html/demo-workflow_c1aed8396eb1b411c4ab154ecd15e222">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>jhu <span class="ot">&lt;-</span> case_death_rate_subset <span class="sc">%&gt;%</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(time_value <span class="sc">&gt;=</span> <span class="fu">max</span>(time_value) <span class="sc">-</span> <span class="dv">30</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">arx_forecaster</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  jhu,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="st">"death_rate"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">predictors =</span> <span class="fu">c</span>(<span class="st">"case_rate"</span>, <span class="st">"death_rate"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning: The forecast_date is less than the most recent update date of the
+#&gt; data.forecast_date = 2021-12-31 while data is from 2022-05-31.</code></pre>
+</div>
+</div>
+<p>This call produces a warning, which we’ll ignore for now. But essentially, it’s telling us that our data comes from May 2022 but we’re trying to do a forecast for January 2022. The result is likely not an accurate measure of real-time forecast performance, because the data have been revised over time.</p>
+<div class="cell" data-layout-align="center" data-hash="epipredict_cache/html/unnamed-chunk-2_7b68ec6f4741ca9ebb25c7a13be54061">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; 
+#&gt; ══ A basic forecaster of type ARX Forecaster ════════════════════════════════
+#&gt; 
+#&gt; This forecaster was fit on 2023-06-19 20:31:07
+#&gt; 
+#&gt; Training data was an `epi_df` with
+#&gt; • Geography: state,
+#&gt; • Time type: day,
+#&gt; • Using data up-to-date as of: 2022-05-31 12:08:25.
+#&gt; 
+#&gt; ── Predictions ──────────────────────────────────────────────────────────────
+#&gt; 
+#&gt; A total of 56 predictions are available for
+#&gt; • 56 unique geographic regions,
+#&gt; • At forecast dates: 2021-12-31,
+#&gt; • For target dates: 2022-01-07.</code></pre>
+</div>
+</div>
+<p>Printing the S3 object provides a bunch of summary information describing the original training data used to estimate the model as well as some information of what the predictions are for. It contains three main components:</p>
+<ol type="1">
+<li>Metadata about the training data and when the forecast was created</li>
+</ol>
+<div class="cell" data-layout-align="center" data-hash="epipredict_cache/html/unnamed-chunk-3_2d86a3bbe62cc3a5e7b6c3e02059257d">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(out<span class="sc">$</span>metadata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; List of 2
+#&gt;  $ training        :List of 3
+#&gt;   ..$ geo_type : chr "state"
+#&gt;   ..$ time_type: chr "day"
+#&gt;   ..$ as_of    : POSIXct[1:1], format: "2022-05-31 12:08:25"
+#&gt;  $ forecast_created: POSIXct[1:1], format: "2023-06-19 20:31:07"</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>The predictions in a tibble. The columns give the predictions for each location along with additional columns. By default, these are a 90% predictive interval, the <code>forecast_date</code> (the date on which the forecast was putatively made) and the <code>target_date</code> (the date for which the forecast is being made).</li>
+</ol>
+<div class="cell" data-layout-align="center" data-hash="epipredict_cache/html/unnamed-chunk-4_75eac823f860d76a7dd42bdea9e94ee1">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 56 × 5
+#&gt;   geo_value  .pred         .pred_distn forecast_date target_date
+#&gt;   &lt;chr&gt;      &lt;dbl&gt;              &lt;dist&gt; &lt;date&gt;        &lt;date&gt;     
+#&gt; 1 ak        0.355  [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-07 
+#&gt; 2 al        0.325  [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-07 
+#&gt; 3 ar        0.496  [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-07 
+#&gt; 4 as        0.0836 [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-07 
+#&gt; 5 az        0.614  [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-07 
+#&gt; 6 ca        0.327  [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-07 
+#&gt; # ℹ 50 more rows</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li>An S3 object of class <code>epi_workflow</code>. This object encapsulates all the instructions necessary to create the prediction. More details on this below.</li>
+</ol>
+<div class="cell" data-layout-align="center" data-hash="epipredict_cache/html/unnamed-chunk-5_f9e3ce37b5ca3e9f59bd1977f249b01f">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>epi_workflow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; ══ Epi Workflow [trained] ═══════════════════════════════════════════════════
+#&gt; Preprocessor: Recipe
+#&gt; Model: linear_reg()
+#&gt; Postprocessor: Frosting
+#&gt; 
+#&gt; ── Preprocessor ─────────────────────────────────────────────────────────────
+#&gt; 6 Recipe Steps
+#&gt; 
+#&gt; • step_epi_lag()
+#&gt; • step_epi_lag()
+#&gt; • step_epi_ahead()
+#&gt; • step_naomit()
+#&gt; • step_naomit()
+#&gt; • step_training_window()
+#&gt; 
+#&gt; ── Model ────────────────────────────────────────────────────────────────────
+#&gt; 
+#&gt; Call:
+#&gt; stats::lm(formula = ..y ~ ., data = data)
+#&gt; 
+#&gt; Coefficients:
+#&gt;       (Intercept)    lag_0_case_rate    lag_7_case_rate   lag_14_case_rate  
+#&gt;         0.0829475          0.0009830          0.0027035         -0.0005651  
+#&gt;  lag_0_death_rate   lag_7_death_rate  lag_14_death_rate  
+#&gt;         0.2466110          0.1964921          0.0752998  
+#&gt; 
+#&gt; ── Postprocessor ────────────────────────────────────────────────────────────
+#&gt; 5 Frosting Layers
+#&gt; 
+#&gt; • layer_predict()
+#&gt; • layer_residual_quantiles()
+#&gt; • layer_add_forecast_date()
+#&gt; • layer_add_target_date()
+#&gt; • layer_threshold()</code></pre>
+</div>
+</div>
+<p>By default, the forecaster predicts the outcome (<code>death_rate</code>) 1-week ahead, using 3 lags of each predictor (<code>case_rate</code> and <code>death_rate</code>) at 0 (today), 1 week back and 2 weeks back. The predictors and outcome can be changed directly. The rest of the defaults are encapsulated into a list of arguments. This list is produced by <code>arx_args_list()</code>.</p>
+</section>
+<section id="simple-adjustments" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="simple-adjustments"><span class="header-section-number">8.5</span> Simple adjustments</h2>
+<p>Basic adjustments can be made through the <code>args_list</code>.</p>
+<div class="cell" data-layout-align="center" data-hash="epipredict_cache/html/differential-lags_6b8588f2553c80d191c85d09836876f9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>out2week <span class="ot">&lt;-</span> <span class="fu">arx_forecaster</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">epi_data =</span> jhu,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="st">"death_rate"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">predictors =</span> <span class="fu">c</span>(<span class="st">"case_rate"</span>, <span class="st">"death_rate"</span>),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">args_list =</span> <span class="fu">arx_args_list</span>(</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lags =</span> <span class="fu">list</span>(<span class="at">case_rate =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">14</span>), <span class="at">death_rate =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">14</span>)),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">ahead =</span> <span class="dv">14</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here, we’ve used different lags on the <code>case_rate</code> and are now predicting 2 weeks ahead. Note that <code>lags</code> and <code>aheads</code> are in the same units as the <code>time_value</code> of the <code>epi_df</code> used for training (same as the <code>epi_slide()</code> arguments discussed in <a href="slide.html"><span>Chapter&nbsp;3</span></a>). This example also illustrates a major difficulty with the “iterative” versions of AR models. This model doesn’t produce forecasts for <code>case_rate</code>, and so, would not have data to “plug in” for the necessary lags.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>Another property of the basic model is the predictive interval. We describe this in more detail in a coming chapter, but it is easy to request multiple quantiles.</p>
+<div class="cell" data-layout-align="center" data-hash="epipredict_cache/html/differential-levels_a9da683d7e7fef5e4cb6288ad9899809">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>out_q <span class="ot">&lt;-</span> <span class="fu">arx_forecaster</span>(jhu, <span class="st">"death_rate"</span>, <span class="fu">c</span>(<span class="st">"case_rate"</span>, <span class="st">"death_rate"</span>),</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">args_list =</span> <span class="fu">arx_args_list</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(.<span class="dv">01</span>, .<span class="dv">025</span>, <span class="fu">seq</span>(.<span class="dv">05</span>, .<span class="dv">95</span>, <span class="at">by =</span> .<span class="dv">05</span>), .<span class="dv">975</span>, .<span class="dv">99</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The column <code>.pred_dstn</code> in the <code>predictions</code> object is actually a “distribution” here parameterized by its quantiles. For this default forecaster, these are created using the quantiles of the residuals of the predictive model (possibly symmetrized). Here, we used 23 quantiles, but one can grab a particular quantile,</p>
+<div class="cell" data-layout-align="center" data-hash="epipredict_cache/html/q1_5df8261d92421ead6dd2d77e0a127517">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">quantile</span>(out_q<span class="sc">$</span>predictions<span class="sc">$</span>.pred_distn, <span class="at">p =</span> .<span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;        40%        40%        40%        40%        40%        40% 
+#&gt; 0.30277798 0.27213225 0.44345734 0.03120647 0.56121844 0.27492711</code></pre>
+</div>
+</div>
+<p>or extract the entire distribution into a “long” <code>epi_df</code> with <code>tau</code> being the probability and <code>q</code> being the value associated to that quantile.</p>
+<div class="cell" data-layout-align="center" data-hash="epipredict_cache/html/q2_439cb3bc49eb03d8b4c34070ac5ba21d">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>out_q<span class="sc">$</span>predictions <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># first create a "nested" list-column</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">.pred_distn =</span> <span class="fu">nested_quantiles</span>(.pred_distn)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(.pred_distn) <span class="co"># then unnest it</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 1,288 × 6
+#&gt;   geo_value .pred      q   tau forecast_date target_date
+#&gt;   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;        &lt;date&gt;     
+#&gt; 1 ak        0.355 0      0.01  2021-12-31    2022-01-07 
+#&gt; 2 ak        0.355 0      0.025 2021-12-31    2022-01-07 
+#&gt; 3 ak        0.355 0.0371 0.05  2021-12-31    2022-01-07 
+#&gt; 4 ak        0.355 0.123  0.1   2021-12-31    2022-01-07 
+#&gt; 5 ak        0.355 0.174  0.15  2021-12-31    2022-01-07 
+#&gt; 6 ak        0.355 0.211  0.2   2021-12-31    2022-01-07 
+#&gt; # ℹ 1,282 more rows</code></pre>
+</div>
+</div>
+<p>Additional simple adjustments to the basic forecaster can be made using the function:</p>
+<div class="cell" data-layout-align="center" data-hash="epipredict_cache/html/unnamed-chunk-6_07ecdd97f1e2f61c667029fbe5d0d406">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arx_args_list</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">lags =</span> <span class="fu">c</span>(0L, 7L, 14L), <span class="at">ahead =</span> 7L, <span class="at">n_training =</span> <span class="cn">Inf</span>,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">forecast_date =</span> <span class="cn">NULL</span>, <span class="at">target_date =</span> <span class="cn">NULL</span>, <span class="at">levels =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>),</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">symmetrize =</span> <span class="cn">TRUE</span>, <span class="at">nonneg =</span> <span class="cn">TRUE</span>, <span class="at">quantile_by_key =</span> <span class="st">"geo_value"</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="changing-the-engine" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="changing-the-engine"><span class="header-section-number">8.6</span> Changing the engine</h2>
+<p>So far, our forecasts have been produced using simple linear regression. But this is not the only way to estimate such a model. The <code>trainer</code> argument determines the type of model we want. This takes a <a href="https://parsnip.tidymodels.org"><code>{parsnip}</code></a> model. The default is linear regression, but we could instead use a random forest with the <code>{ranger}</code> package:</p>
+<div class="cell" data-layout-align="center" data-hash="epipredict_cache/html/ranger_165b974f4c4580092d3398b1d2bee018">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>out_rf <span class="ot">&lt;-</span> <span class="fu">arx_forecaster</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  jhu, <span class="st">"death_rate"</span>, <span class="fu">c</span>(<span class="st">"case_rate"</span>, <span class="st">"death_rate"</span>),</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rand_forest</span>(<span class="at">mode =</span> <span class="st">"regression"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Or boosted regression trees with <code>{xgboost}</code>:</p>
+<div class="cell" data-layout-align="center" data-hash="epipredict_cache/html/xgboost_59219c946dd5689d23feb924a64c64be">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>out_gb <span class="ot">&lt;-</span> <span class="fu">arx_forecaster</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  jhu, <span class="st">"death_rate"</span>, <span class="fu">c</span>(<span class="st">"case_rate"</span>, <span class="st">"death_rate"</span>),</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boost_tree</span>(<span class="at">mode =</span> <span class="st">"regression"</span>, <span class="at">trees =</span> <span class="dv">20</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Or quantile regression, using our custom forecasting engine <code>quantile_reg()</code>:</p>
+<div class="cell" data-layout-align="center" data-hash="epipredict_cache/html/quantreg_4e2d216ee037905d2417be2d184f5664">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>out_gb <span class="ot">&lt;-</span> <span class="fu">arx_forecaster</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  jhu, <span class="st">"death_rate"</span>, <span class="fu">c</span>(<span class="st">"case_rate"</span>, <span class="st">"death_rate"</span>),</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">quantile_reg</span>()</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>FWIW, this last case (using quantile regression), is not far from what the Delphi production forecast team used for its Covid forecasts over the past few years.</p>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Our group has not prioritized these sorts of models for epidemic forecasting, but one could also integrate these methods into our framework.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>An obvious fix is to instead use a VAR and predict both, but this would likely increase the variance of the model, and therefore, may lead to less accurate forecasts for the variable of interest.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./archive.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Work with archive objects and data revisions</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./forecast-framework.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Inner workings of the framework</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">These Delphi Epitooling Materials were written by Daniel J. McDonald, Logan C. Brooks, and Ryan J. Tibshirani.</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Daniel J. McDonald, Logan C. Brooks, Rachel Lobay, and Ryan J. Tibshirani">
-<meta name="dcterms.date" content="2023-06-13">
+<meta name="dcterms.date" content="2023-06-19">
 
 <title>Introduction to Epidemiological Forecasting</title>
 <style>
@@ -99,7 +99,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -120,10 +120,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Introduction to Epidemiological Forecasting</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/cmu-delphi/delphi-tooling/book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -142,39 +162,115 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./why-this-package.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Motivation</span></span></a>
+ <span class="menu-text">Motivation</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">epiprocess</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epiprocess.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epidf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting data into epi_df format</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./slide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sliding computations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./growth-rates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estimate growth rates in signals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./correlations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Correlate signals over space and time</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./outliers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Detect and correct outliers in signals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./archive.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Work with archive objects and data revisions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">epipredict</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epipredict.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./forecast-framework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Inner workings of the framework</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./flatline-forecaster.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidymodels-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidymodels-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression in Tidymodels</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Regression in Tidymodels</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./preprocessing-and-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Examples of Preprocessing and Models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Examples of Preprocessing and Models</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sliding-forecasters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Demonstrations of sliding AR and ARX forecasters</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Pseudo-prospective forecast inspection</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
@@ -190,17 +286,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
-  <ul>
+  <ul class="collapse">
   <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
   <ul class="collapse">
-  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#sec-installation" id="toc-sec-installation" class="nav-link" data-scroll-target="#sec-installation">Installation</a></li>
   <li><a href="#documentation" id="toc-documentation" class="nav-link" data-scroll-target="#documentation">Documentation</a></li>
-  <li><a href="#goals-for-epipredict" id="toc-goals-for-epipredict" class="nav-link" data-scroll-target="#goals-for-epipredict">Goals for <code>epipredict</code></a></li>
-  <li><a href="#intermediate-example" id="toc-intermediate-example" class="nav-link" data-scroll-target="#intermediate-example">Intermediate example</a></li>
+  <li><a href="#attribution" id="toc-attribution" class="nav-link" data-scroll-target="#attribution">Attribution</a></li>
+  <li><a href="#quick-start-example" id="toc-quick-start-example" class="nav-link" data-scroll-target="#quick-start-example">Quick-start example</a></li>
   <li><a href="#contents" id="toc-contents" class="nav-link" data-scroll-target="#contents">Contents</a></li>
   </ul></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/cmu-delphi/delphi-tooling/book/blob/main/index.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/cmu-delphi/delphi-tooling/book/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -225,7 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">13 June 2023</p>
+      <p class="date">19 June 2023</p>
     </div>
   </div>
   
@@ -237,55 +333,114 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="preface" class="level1 unnumbered">
 <h1 class="unnumbered">Preface</h1>
-<p>This long-form vignette describes some of the functionality of the <code>epipredict</code> R package, with an eye toward creating various types of forecasters, from simple baselines to more elaborate customizations.</p>
-<section id="installation" class="level2">
-<h2 class="anchored" data-anchor-id="installation">Installation</h2>
-<p>You can install the development version of epipredict from <a href="https://github.com/">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("remotes")</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"cmu-delphi/epipredict"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This book is still under construction and may not yet be fully self-contained or reproducible. But it hopefully will be!</p>
+</div>
+</div>
+<p>This book describes some of the functionality of the <code>{epiprocess}</code> and <code>{epipredict}</code> R packages, with an eye toward creating various types of signal processing and forecast creation for epidemiological data. The goal is to be able to load, inspect, process, and forecast — using simple baselines to more elaborate customizations.</p>
+<section id="sec-installation" class="level2">
+<h2 class="anchored" data-anchor-id="sec-installation">Installation</h2>
+<p>The following commands install the latest versions of the packages we use in this book:</p>
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-2_928516c01667bbf0993f69d378312026">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("pak")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Install our packages from GitHub:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"cmu-delphi/epidatr"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"cmu-delphi/epiprocess@dev"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"cmu-delphi/epipredict"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Other data processing and example data packages we use in this book:</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"modeldata"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Other model-fitting packages we use in this book (via epipredict):</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"ranger"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"xgboost"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Much of the data used for illustration can be loaded directly from <a href="https://cmu-delphi.github.io/delphi-epidata/">Delphi’s Epidata API</a> which is built and maintained by the Carnegie Mellon University <a href="https://delphi.cmu.edu/">Delphi research group</a>. We have tried to provide most of the data used in these examples in a separate package, <code>{epidatasets}</code>, but it can also be accessed using <code>{epidatr}</code>, an R interface to the API and the successor to <a href="https://cmu-delphi.github.io/covidcast/covidcastR/"><code>{covidcast}</code></a>. These are also available from GitHub:</p>
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-3_6a7154f9225b9bd3d6ffa321b2da25af">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"cmu-delphi/epidatasets"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"cmu-delphi/epidatr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<details>
+<summary>
+Encountering installation issues? Click here to show some potential solutions.
+</summary>
+<section id="linux-installation-issues-compilation-errors-or-slowness" class="level3">
+<h3 class="anchored" data-anchor-id="linux-installation-issues-compilation-errors-or-slowness">Linux installation issues: compilation errors or slowness</h3>
+<p>If you are using Linux and encounter any compilation errors above, or if compilation is taking very long, you might try using the RStudio (now called Posit) Package Manager to install binaries. You can try running this command</p>
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-4_1c0021dec1f71a9fdbdd1a577b67f72a">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">repos =</span> <span class="fu">c</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># contains binaries for Linux:</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">RSPM =</span> <span class="st">"https://packagemanager.rstudio.com/all/latest"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># backup CRAN mirror of your choice:</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">CRAN =</span> <span class="st">"https://cran.rstudio.com/"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="reproducibility" class="level3">
+<h3 class="anchored" data-anchor-id="reproducibility">Reproducibility</h3>
+<p>The above commands will give you the current versions of the packages used in this book. If you’re having trouble reproducing some of the results, it may be due to package updates that took place after the book was last updated. You can try matching the package versions we used to build the book by one of the following methods. You may be required to obtain a <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">GitHub Personal Access Token</a> and store it in the environment variable <code>"GITHUB_PAT"</code>.</p>
+<section id="a-download-and-use-the-renv.lock" class="level4">
+<h4 class="anchored" data-anchor-id="a-download-and-use-the-renv.lock">A: Download and use the <code>renv.lock</code></h4>
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-5_13898361d01fd491b439067771a3d0d2">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this once:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"renv"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://raw.githubusercontent.com/cmu-delphi/delphi-tooling-book/main/renv.lock"</span>, <span class="st">"delphi-tooling-book.renv.lock"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this every session you'd like to use this set of versions:</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">use</span>(<span class="at">lockfile =</span> <span class="st">"delphi-tooling-book.renv.lock"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="b-download-the-book-and-use-its-.rprofile" class="level4">
+<h4 class="anchored" data-anchor-id="b-download-the-book-and-use-its-.rprofile">B: Download the book and use its <code>.Rprofile</code></h4>
+<ol type="1">
+<li>Download the book <a href="https://github.com/cmu-delphi/delphi-tooling-book/archive/refs/heads/main.zip">here</a> and unzip it.</li>
+<li>Launch R inside of the top-level directory; there should be a <code>.Rprofile</code> file there that takes care of loading the appropriate versions of all the packages used.</li>
+</ol>
+</section>
+</section>
+<section id="other-issues" class="level3">
+<h3 class="anchored" data-anchor-id="other-issues">Other issues</h3>
+<p>Please let us know! You can file an issue with the book <a href="https://github.com/cmu-delphi/delphi-tooling-book/issues">here</a>, or with one of the individual packages at their own issue pages: <a href="https://github.com/cmu-delphi/epidatr/issues">epidatr</a>, <a href="https://github.com/cmu-delphi/epiprocess/issues">epiprocess</a>, <a href="https://github.com/cmu-delphi/epipredict/issues">epipredict</a>.</p>
+</section></details>
+</section>
 </section>
 <section id="documentation" class="level2">
 <h2 class="anchored" data-anchor-id="documentation">Documentation</h2>
-<p>You can view the complete documentation for the package at <a href="https://cmu-delphi.github.io/epipredict" class="uri">https://cmu-delphi.github.io/epipredict</a>.</p>
-</section>
-<section id="goals-for-epipredict" class="level2">
-<h2 class="anchored" data-anchor-id="goals-for-epipredict">Goals for <code>epipredict</code></h2>
-<p><strong>We currently provide:</strong></p>
-<ol type="1">
-<li>A set of basic, easy-to-use forecasters that work out of the box. You can do a reasonable amount of customization on them. For the basic forecasters, we currently provide:
+<p>You can view the complete documentation for these packages at</p>
 <ul>
-<li>Baseline flat-line forecaster</li>
-<li>Autoregressive forecaster</li>
-<li>Autoregressive (multinomial) classifier</li>
-</ul></li>
-<li>A framework for creating custom forecasters out of modular components. There are four types of components:
-<ul>
-<li>Preprocessor: do things to the raw data before model training that should be reproduced at test time.</li>
-<li>Trainer: train a model on data, resulting in a fitted model object</li>
-<li>Predictor: make predictions, using a fitted model object</li>
-<li>Postprocessor: do things to the predictions before returning</li>
-</ul></li>
-</ol>
-<p><strong>Target audiences:</strong></p>
-<ul>
-<li>Basic. Has data, calls forecaster with default arguments.</li>
-<li>Intermediate. Wants to examine changes to the arguments, take advantage of some built in flexibility.</li>
-<li>Advanced. Wants to write their own forecasters. Maybe willing to build up from some components that we write.</li>
+<li><a href="https://cmu-delphi.github.io/epipredict" class="uri">https://cmu-delphi.github.io/epipredict</a>,</li>
+<li><a href="https://cmu-delphi.github.io/epiprocess" class="uri">https://cmu-delphi.github.io/epiprocess</a>,</li>
+<li><a href="https://cmu-delphi.github.io/epidatasets" class="uri">https://cmu-delphi.github.io/epidatasets</a>,</li>
+<li><a href="https://cmu-delphi.github.io/epidatr" class="uri">https://cmu-delphi.github.io/epidatr</a>.</li>
 </ul>
-<p>Even the Advanced user should find their task to be relatively easy. Examples of these tasks are illustrated in the <a href="https://cmu-delphi.github.io/epipredict">vignettes and articles</a>.</p>
 </section>
-<section id="intermediate-example" class="level2">
-<h2 class="anchored" data-anchor-id="intermediate-example">Intermediate example</h2>
-<p>The package comes with some built-in historical data for illustration, but up-to-date versions of this could be downloaded with the <a href="https://cmu-delphi.github.io/covidcast/covidcastR/index.html"><code>{covidcast}</code> package</a> and processed using <a href="https://cmu-delphi.github.io/epiprocess/"><code>{epiprocess}</code></a>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<div class="cell" data-layout-align="center" data-hash="index_cache/html/epidf_537f360bd740d1adf34963caaf5ced30">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epipredict)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>jhu <span class="ot">&lt;-</span> case_death_rate_subset</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>jhu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="attribution" class="level2">
+<h2 class="anchored" data-anchor-id="attribution">Attribution</h2>
+<p>This document contains a number of datasets that are a modified part of the <a href="https://github.com/CSSEGISandData/COVID-19">COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University</a> as <a href="https://cmu-delphi.github.io/delphi-epidata/api/covidcast-signals/jhu-csse.html">republished in the COVIDcast Epidata API</a>. These data are licensed under the terms of the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International license</a> by the Johns Hopkins University on behalf of its Center for Systems Science in Engineering. Copyright Johns Hopkins University 2020.</p>
+<p><a href="https://cmu-delphi.github.io/delphi-epidata/api/covidcast-signals/jhu-csse.html">From the COVIDcast Epidata API</a>: These signals are taken directly from the JHU CSSE <a href="https://github.com/CSSEGISandData/COVID-19">COVID-19 GitHub repository</a> without changes.</p>
+</section>
+<section id="quick-start-example" class="level2">
+<h2 class="anchored" data-anchor-id="quick-start-example">Quick-start example</h2>
+<p>These packages come with some built-in historical data for illustration, but up-to-date versions could be downloaded with the <a href="https://cmu-delphi.github.io/epidatr"><code>{epidatr}</code></a> or <a href="https://cmu-delphi.github.io/covidcast/covidcastR/index.html"><code>{covidcast}</code></a> packages and processed using <a href="https://cmu-delphi.github.io/epiprocess/"><code>{epiprocess}</code></a>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/epidf_48a293db285163cbde5b55b5d6115276">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epipredict)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>jhu <span class="ot">&lt;-</span> case_death_rate_subset</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>jhu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; An `epi_df` object, 20,496 x 4 with metadata:
 #&gt; * geo_type  = state
 #&gt; * time_type = day
-#&gt; * as_of     = 2022-05-31 12:08:25
+#&gt; * as_of     = 2022-05-31 12:08:25.791826
 #&gt; 
 #&gt; # A tibble: 20,496 × 4
 #&gt;   geo_value time_value case_rate death_rate
@@ -300,20 +455,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>To create and train a simple auto-regressive forecaster to predict the death rate two weeks into the future using past (lagged) deaths and cases, we could use the following function.</p>
-<div class="cell" data-layout-align="center" data-hash="index_cache/html/make-forecasts_9724676a41d26b0a5af5acee8a2cc4a2">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>two_week_ahead <span class="ot">&lt;-</span> <span class="fu">arx_forecaster</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  jhu,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="st">"death_rate"</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">predictors =</span> <span class="fu">c</span>(<span class="st">"case_rate"</span>, <span class="st">"death_rate"</span>),</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">args_list =</span> <span class="fu">arx_args_list</span>(</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lags =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">14</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">14</span>)),</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">ahead =</span> <span class="dv">14</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/make-forecasts_1d4f30fdea1cd893cb39553fa0f1d21c">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>two_week_ahead <span class="ot">&lt;-</span> <span class="fu">arx_forecaster</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  jhu,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="st">"death_rate"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">predictors =</span> <span class="fu">c</span>(<span class="st">"case_rate"</span>, <span class="st">"death_rate"</span>),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">args_list =</span> <span class="fu">arx_args_list</span>(</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lags =</span> <span class="fu">list</span>(<span class="at">case_rate =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">14</span>), <span class="at">death_rate =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">14</span>)),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">ahead =</span> <span class="dv">14</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In this case, we have used a number of different lags for the case rate, while only using 3 weekly lags for the death rate (as predictors). The result is both a fitted model object which could be used any time in the future to create different forecasts, as well as a set of predicted values (and prediction intervals) for each location 14 days after the last available time value in the data.</p>
-<div class="cell" data-layout-align="center" data-hash="index_cache/html/print-model_0bfa075d0c825ca330c98fbb70a14bd5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>two_week_ahead<span class="sc">$</span>epi_workflow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/print-model_f5f6b4212b46903845381e0a40889efc">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>two_week_ahead<span class="sc">$</span>epi_workflow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; ══ Epi Workflow [trained] ═══════════════════════════════════════════════════
 #&gt; Preprocessor: Recipe
@@ -321,13 +476,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #&gt; Postprocessor: Frosting
 #&gt; 
 #&gt; ── Preprocessor ─────────────────────────────────────────────────────────────
-#&gt; 5 Recipe Steps
+#&gt; 6 Recipe Steps
 #&gt; 
 #&gt; • step_epi_lag()
 #&gt; • step_epi_lag()
 #&gt; • step_epi_ahead()
 #&gt; • step_naomit()
 #&gt; • step_naomit()
+#&gt; • step_training_window()
 #&gt; 
 #&gt; ── Model ────────────────────────────────────────────────────────────────────
 #&gt; 
@@ -353,32 +509,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>The fitted model here involved preprocessing the data to appropriately generate lagged predictors, estimating a linear model with <code>stats::lm()</code> and then postprocessing the results to be meaningful for epidemiological tasks. We can also examine the predictions.</p>
-<div class="cell" data-layout-align="center" data-hash="index_cache/html/show-preds_8b8d930254af68c2b90a0437f4bc790f">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>two_week_ahead<span class="sc">$</span>predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/show-preds_4bf0ca6ef427c01aa0a0686ab430f93d">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>two_week_ahead<span class="sc">$</span>predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; An `epi_df` object, 56 x 6 with metadata:
-#&gt; * geo_type  = state
-#&gt; * time_type = day
-#&gt; * as_of     = 2022-05-31 12:08:25
-#&gt; 
-#&gt; # A tibble: 56 × 6
-#&gt;   geo_value time_value .pred         .pred_distn forecast_date target_date
-#&gt; * &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt;              &lt;dist&gt; &lt;date&gt;        &lt;date&gt;     
-#&gt; 1 ak        2021-12-31 0.449 [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-14 
-#&gt; 2 al        2021-12-31 0.574 [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-14 
-#&gt; 3 ar        2021-12-31 0.673 [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-14 
-#&gt; 4 as        2021-12-31 0     [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-14 
-#&gt; 5 az        2021-12-31 0.679 [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-14 
-#&gt; 6 ca        2021-12-31 0.575 [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-14 
+<pre><code>#&gt; # A tibble: 56 × 5
+#&gt;   geo_value .pred         .pred_distn forecast_date target_date
+#&gt;   &lt;chr&gt;     &lt;dbl&gt;              &lt;dist&gt; &lt;date&gt;        &lt;date&gt;     
+#&gt; 1 ak        0.449 [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-14 
+#&gt; 2 al        0.574 [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-14 
+#&gt; 3 ar        0.673 [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-14 
+#&gt; 4 as        0     [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-14 
+#&gt; 5 az        0.679 [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-14 
+#&gt; 6 ca        0.575 [0.05, 0.95]&lt;q-rng&gt; 2021-12-31    2022-01-14 
 #&gt; # ℹ 50 more rows</code></pre>
 </div>
 </div>
 <p>The results above show a distributional forecast produced using data through the end of 2021 for the 14th of January 2022. A prediction for the death rate per 100K inhabitants is available for every state (<code>geo_value</code>) along with a 90% predictive interval. The figure below displays the forecast for a small handful of states. The vertical black line is the forecast date. The forecast doesn’t appear to be particularly good, but our choices above were intended to be illustrative of the functionality rather than optimized for accuracy.</p>
-<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-2_7d028b9d8dd2a4d0bc1f7f647d06685c">
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-6_db9d537c697110c49195eecd11dbff52">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>samp_geos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ca"</span>, <span class="st">"co"</span>, <span class="st">"ny"</span>, <span class="st">"pa"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>hist <span class="ot">&lt;-</span> jhu <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    geo_value <span class="sc">%in%</span> samp_geos,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    time_value <span class="sc">&gt;=</span> <span class="fu">max</span>(time_value) <span class="sc">-</span> 90L</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> two_week_ahead<span class="sc">$</span>predictions <span class="sc">%&gt;%</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(geo_value <span class="sc">%in%</span> samp_geos) <span class="sc">%&gt;%</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">q =</span> <span class="fu">nested_quantiles</span>(.pred_distn)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(q) <span class="sc">%&gt;%</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> tau, <span class="at">values_from =</span> q)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hist, <span class="fu">aes</span>(<span class="at">color =</span> geo_value)) <span class="sc">+</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(time_value, death_rate)) <span class="sc">+</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">x =</span> target_date, <span class="at">ymin =</span> <span class="st">`</span><span class="at">0.05</span><span class="st">`</span>, <span class="at">ymax =</span> <span class="st">`</span><span class="at">0.95</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(target_date, .pred)) <span class="sc">+</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">xintercept =</span> forecast_date)) <span class="sc">+</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_d</span>(<span class="at">name =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%b %Y"</span>) <span class="sc">+</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Incident deaths per 100K</span><span class="sc">\n</span><span class="st"> inhabitants"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-2-1.svg" class="img-fluid figure-img" style="width:90.0%"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.svg" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -387,10 +564,136 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="contents" class="level2">
 <h2 class="anchored" data-anchor-id="contents">Contents</h2>
 <p>The remainder of this book examines this software in more detail, illustrating some of the flexibility that is available.</p>
+<hr>
+<details>
+<summary>
+Session Information.
+</summary>
+<p>See also <a href="#sec-installation"><span>Section&nbsp;1</span></a>.</p>
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-7_fd653c2f2411f764b5f8c2ba01817836">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; ─ Session info ────────────────────────────────────────────────────────────
+#&gt;  setting  value
+#&gt;  version  R version 4.3.0 (2023-04-21)
+#&gt;  os       macOS Ventura 13.4
+#&gt;  system   aarch64, darwin20
+#&gt;  ui       X11
+#&gt;  language (EN)
+#&gt;  collate  en_US.UTF-8
+#&gt;  ctype    en_US.UTF-8
+#&gt;  tz       America/Vancouver
+#&gt;  date     2023-06-19
+#&gt;  pandoc   3.1.1 @ /Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools/ (via rmarkdown)
+#&gt; 
+#&gt; ─ Packages ────────────────────────────────────────────────────────────────
+#&gt;  ! package        * version    date (UTC) lib source
+#&gt;  P anytime          0.3.9      2020-08-27 [?] CRAN (R 4.3.0)
+#&gt;  P backports        1.4.1      2021-12-13 [?] CRAN (R 4.3.0)
+#&gt;  P checkmate        2.2.0      2023-04-27 [?] CRAN (R 4.3.0)
+#&gt;  P class            7.3-22     2023-05-03 [?] CRAN (R 4.3.0)
+#&gt;  P cli              3.6.1      2023-03-23 [?] CRAN (R 4.3.0)
+#&gt;  P codetools        0.2-19     2023-02-01 [?] CRAN (R 4.3.0)
+#&gt;  P colorspace       2.1-0      2023-01-23 [?] CRAN (R 4.3.0)
+#&gt;  P data.table       1.14.8     2023-02-17 [?] CRAN (R 4.3.0)
+#&gt;  P digest           0.6.31     2022-12-11 [?] CRAN (R 4.3.0)
+#&gt;  P distributional   0.3.2      2023-03-22 [?] CRAN (R 4.3.0)
+#&gt;  P dplyr          * 1.1.2      2023-04-20 [?] CRAN (R 4.3.0)
+#&gt;  P ellipsis         0.3.2      2021-04-29 [?] CRAN (R 4.3.0)
+#&gt;  P epidatasets    * 0.0.1      2023-06-17 [?] Github (cmu-delphi/epidatasets@cc8f2a0)
+#&gt;  P epidatr        * 0.6.0      2023-06-16 [?] Github (cmu-delphi/epidatr@46d2d54)
+#&gt;  P epipredict     * 0.0.5      2023-06-17 [?] Github (cmu-delphi/epipredict@206f0ef)
+#&gt;  P epiprocess     * 0.6.0.9999 2023-06-16 [?] Github (cmu-delphi/epiprocess@572f6e6)
+#&gt;  P evaluate         0.21       2023-05-05 [?] CRAN (R 4.3.0)
+#&gt;  P fansi            1.0.4      2023-01-22 [?] CRAN (R 4.3.0)
+#&gt;  P farver           2.1.1      2022-07-06 [?] CRAN (R 4.3.0)
+#&gt;  P fastmap          1.1.1      2023-02-24 [?] CRAN (R 4.3.0)
+#&gt;  P forcats        * 1.0.0      2023-01-29 [?] CRAN (R 4.3.0)
+#&gt;  P future           1.32.0     2023-03-07 [?] CRAN (R 4.3.0)
+#&gt;  P future.apply     1.11.0     2023-05-21 [?] CRAN (R 4.3.0)
+#&gt;  P generics         0.1.3      2022-07-05 [?] CRAN (R 4.3.0)
+#&gt;  P ggplot2        * 3.4.2      2023-04-03 [?] CRAN (R 4.3.0)
+#&gt;  P globals          0.16.2     2022-11-21 [?] CRAN (R 4.3.0)
+#&gt;  P glue             1.6.2      2022-02-24 [?] CRAN (R 4.3.0)
+#&gt;  P gower            1.0.1      2022-12-22 [?] CRAN (R 4.3.0)
+#&gt;  P gtable           0.3.3      2023-03-21 [?] CRAN (R 4.3.0)
+#&gt;  P hardhat          1.3.0      2023-03-30 [?] CRAN (R 4.3.0)
+#&gt;  P hms              1.1.3      2023-03-21 [?] CRAN (R 4.3.0)
+#&gt;  P htmltools        0.5.5      2023-03-23 [?] CRAN (R 4.3.0)
+#&gt;  P httr             1.4.6      2023-05-08 [?] CRAN (R 4.3.0)
+#&gt;  P ipred            0.9-14     2023-03-09 [?] CRAN (R 4.3.0)
+#&gt;  P jsonlite         1.8.5      2023-06-05 [?] CRAN (R 4.3.0)
+#&gt;  P knitr            1.43       2023-05-25 [?] CRAN (R 4.3.0)
+#&gt;  P labeling         0.4.2      2020-10-20 [?] CRAN (R 4.3.0)
+#&gt;  P lattice          0.21-8     2023-04-05 [?] CRAN (R 4.3.0)
+#&gt;  P lava             1.7.2.1    2023-02-27 [?] CRAN (R 4.3.0)
+#&gt;  P lifecycle        1.0.3      2022-10-07 [?] CRAN (R 4.3.0)
+#&gt;  P listenv          0.9.0      2022-12-16 [?] CRAN (R 4.3.0)
+#&gt;  P lubridate      * 1.9.2      2023-02-10 [?] CRAN (R 4.3.0)
+#&gt;  P magrittr         2.0.3      2022-03-30 [?] CRAN (R 4.3.0)
+#&gt;  P MASS             7.3-60     2023-05-04 [?] CRAN (R 4.3.0)
+#&gt;  P Matrix           1.5-4      2023-04-04 [?] CRAN (R 4.3.0)
+#&gt;  P MatrixModels     0.5-1      2022-09-11 [?] CRAN (R 4.3.0)
+#&gt;  P MMWRweek         0.1.3      2020-04-22 [?] CRAN (R 4.3.0)
+#&gt;  P munsell          0.5.0      2018-06-12 [?] CRAN (R 4.3.0)
+#&gt;  P nnet             7.3-19     2023-05-03 [?] CRAN (R 4.3.0)
+#&gt;  P parallelly       1.36.0     2023-05-26 [?] CRAN (R 4.3.0)
+#&gt;  P parsnip        * 1.1.0      2023-04-12 [?] CRAN (R 4.3.0)
+#&gt;  P pillar           1.9.0      2023-03-22 [?] CRAN (R 4.3.0)
+#&gt;  P pkgconfig        2.0.3      2019-09-22 [?] CRAN (R 4.3.0)
+#&gt;  P prodlim          2023.03.31 2023-04-02 [?] CRAN (R 4.3.0)
+#&gt;  P purrr          * 1.0.1      2023-01-10 [?] CRAN (R 4.3.0)
+#&gt;  P quantreg         5.95       2023-04-08 [?] CRAN (R 4.3.0)
+#&gt;  P R.cache          0.16.0     2022-07-21 [?] CRAN (R 4.3.0)
+#&gt;  P R.methodsS3      1.8.2      2022-06-13 [?] CRAN (R 4.3.0)
+#&gt;  P R.oo             1.25.0     2022-06-12 [?] CRAN (R 4.3.0)
+#&gt;  P R.utils          2.12.2     2022-11-11 [?] CRAN (R 4.3.0)
+#&gt;  P R6               2.5.1      2021-08-19 [?] CRAN (R 4.3.0)
+#&gt;  P Rcpp             1.0.10     2023-01-22 [?] CRAN (R 4.3.0)
+#&gt;  P readr          * 2.1.4      2023-02-10 [?] CRAN (R 4.3.0)
+#&gt;  P recipes          1.0.6      2023-04-25 [?] CRAN (R 4.3.0)
+#&gt;    renv             0.17.3     2023-04-06 [1] CRAN (R 4.2.2)
+#&gt;  P rlang            1.1.1      2023-04-28 [?] CRAN (R 4.3.0)
+#&gt;  P rmarkdown        2.22       2023-06-01 [?] CRAN (R 4.3.0)
+#&gt;  P rpart            4.1.19     2022-10-21 [?] CRAN (R 4.3.0)
+#&gt;  P rstudioapi       0.14       2022-08-22 [?] CRAN (R 4.3.0)
+#&gt;  P scales           1.2.1      2022-08-20 [?] CRAN (R 4.3.0)
+#&gt;  P sessioninfo      1.2.2      2021-12-06 [?] CRAN (R 4.3.0)
+#&gt;  P SparseM          1.81       2021-02-18 [?] CRAN (R 4.3.0)
+#&gt;  P stringi          1.7.12     2023-01-11 [?] CRAN (R 4.3.0)
+#&gt;  P stringr        * 1.5.0      2022-12-02 [?] CRAN (R 4.3.0)
+#&gt;  P styler           1.10.1     2023-06-05 [?] CRAN (R 4.3.0)
+#&gt;  P survival         3.5-5      2023-03-12 [?] CRAN (R 4.3.0)
+#&gt;  P tibble         * 3.2.1      2023-03-20 [?] CRAN (R 4.3.0)
+#&gt;  P tidyr          * 1.3.0      2023-01-24 [?] CRAN (R 4.3.0)
+#&gt;  P tidyselect       1.2.0      2022-10-10 [?] CRAN (R 4.3.0)
+#&gt;  P tidyverse      * 2.0.0      2023-02-22 [?] CRAN (R 4.3.0)
+#&gt;  P timechange       0.2.0      2023-01-11 [?] CRAN (R 4.3.0)
+#&gt;  P timeDate         4022.108   2023-01-07 [?] CRAN (R 4.3.0)
+#&gt;  P tsibble          1.1.3      2022-10-09 [?] CRAN (R 4.3.0)
+#&gt;  P tzdb             0.4.0      2023-05-12 [?] CRAN (R 4.3.0)
+#&gt;  P utf8             1.2.3      2023-01-31 [?] CRAN (R 4.3.0)
+#&gt;  P vctrs            0.6.2      2023-04-19 [?] CRAN (R 4.3.0)
+#&gt;  P viridisLite      0.4.2      2023-05-02 [?] CRAN (R 4.3.0)
+#&gt;  P withr            2.5.0      2022-03-03 [?] CRAN (R 4.3.0)
+#&gt;  P workflows        1.1.3      2023-02-22 [?] CRAN (R 4.3.0)
+#&gt;  P xfun             0.39       2023-04-20 [?] CRAN (R 4.3.0)
+#&gt;  P xml2             1.3.4      2023-04-27 [?] CRAN (R 4.3.0)
+#&gt;  P yaml             2.3.7      2023-01-23 [?] CRAN (R 4.3.0)
+#&gt; 
+#&gt;  [1] /Users/dajmcdon/Library/Caches/org.R-project.R/R/renv/library/delphi-tooling-book-d37e2426/R-4.3/aarch64-apple-darwin20
+#&gt;  [2] /Users/dajmcdon/Library/Caches/org.R-project.R/R/renv/sandbox/R-4.3/aarch64-apple-darwin20/84ba8b13
+#&gt; 
+#&gt;  P ── Loaded and on-disk path mismatch.
+#&gt; 
+#&gt; ───────────────────────────────────────────────────────────────────────────</code></pre>
+</div>
+</div>
+</details>
 
 
 </section>
-</section>
+
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
@@ -637,7 +940,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./why-this-package.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Motivation</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text">Motivation</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

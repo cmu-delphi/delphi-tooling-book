@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Epidemiological Forecasting - 5&nbsp; Examples of Preprocessing and Models</title>
+<title>Introduction to Epidemiological Forecasting - 13&nbsp; Examples of Preprocessing and Models</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -100,7 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -109,7 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./preprocessing-and-models.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Examples of Preprocessing and Models</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./epipredict.html">epipredict</a></li><li class="breadcrumb-item"><a href="./preprocessing-and-models.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Examples of Preprocessing and Models</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -121,10 +121,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Introduction to Epidemiological Forecasting</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/cmu-delphi/delphi-tooling/book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -143,39 +163,115 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./why-this-package.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Motivation</span></span></a>
+ <span class="menu-text">Motivation</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">epiprocess</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epiprocess.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epidf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting data into epi_df format</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./slide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sliding computations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./growth-rates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estimate growth rates in signals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./correlations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Correlate signals over space and time</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./outliers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Detect and correct outliers in signals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./archive.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Work with archive objects and data revisions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">epipredict</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epipredict.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./forecast-framework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Inner workings of the framework</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./flatline-forecaster.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidymodels-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidymodels-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression in Tidymodels</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Regression in Tidymodels</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./preprocessing-and-models.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Examples of Preprocessing and Models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Examples of Preprocessing and Models</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sliding-forecasters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Demonstrations of sliding AR and ARX forecasters</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Pseudo-prospective forecast inspection</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
@@ -192,22 +288,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">5.1</span> Introduction</a></li>
-  <li><a href="#poisson-regression" id="toc-poisson-regression" class="nav-link" data-scroll-target="#poisson-regression"><span class="header-section-number">5.2</span> Poisson Regression</a></li>
-  <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression"><span class="header-section-number">5.3</span> Linear Regression</a></li>
-  <li><a href="#classification" id="toc-classification" class="nav-link" data-scroll-target="#classification"><span class="header-section-number">5.4</span> Classification</a></li>
-  <li><a href="#benefits-of-lagging-and-leading-in-epipredict" id="toc-benefits-of-lagging-and-leading-in-epipredict" class="nav-link" data-scroll-target="#benefits-of-lagging-and-leading-in-epipredict"><span class="header-section-number">5.5</span> Benefits of Lagging and Leading in <code>epipredict</code></a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">5.6</span> References</a></li>
-  <li><a href="#attribution" id="toc-attribution" class="nav-link" data-scroll-target="#attribution"><span class="header-section-number">5.7</span> Attribution</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">13.1</span> Introduction</a></li>
+  <li><a href="#poisson-regression" id="toc-poisson-regression" class="nav-link" data-scroll-target="#poisson-regression"><span class="header-section-number">13.2</span> Poisson Regression</a></li>
+  <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression"><span class="header-section-number">13.3</span> Linear Regression</a></li>
+  <li><a href="#classification" id="toc-classification" class="nav-link" data-scroll-target="#classification"><span class="header-section-number">13.4</span> Classification</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/cmu-delphi/delphi-tooling/book/blob/main/preprocessing-and-models.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/cmu-delphi/delphi-tooling/book/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Examples of Preprocessing and Models</span></h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Examples of Preprocessing and Models</span></h1>
 </div>
 
 
@@ -222,27 +315,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="introduction" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">5.1</span> Introduction</h2>
-<p>The <code>epipredict</code> package utilizes the <code>tidymodels</code> framework, namely <a href="https://recipes.tidymodels.org/"><code>{recipes}</code></a> for <a href="https://dplyr.tidyverse.org/">dplyr</a>-like pipeable sequences of feature engineering and <a href="https://parsnip.tidymodels.org/"><code>{parsnip}</code></a> for a unified interface to a range of models.</p>
-<p><code>epipredict</code> has additional customized feature engineering and preprocessing steps, such as <code>step_epi_lag()</code>, <code>step_population_scaling()</code>, <code>step_epi_naomit()</code>. They can be used along with steps from the <code>{recipes}</code> package for more feature engineering.</p>
+<section id="introduction" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">13.1</span> Introduction</h2>
+<p>The <code>epipredict</code> package uses the <code>tidymodels</code> framework, namely <a href="https://recipes.tidymodels.org/"><code>{recipes}</code></a> for <a href="https://dplyr.tidyverse.org/">dplyr</a>-like pipeable sequences of feature engineering and <a href="https://parsnip.tidymodels.org/"><code>{parsnip}</code></a> for a unified interface to a range of models.</p>
+<p><code>epipredict</code> has additional customized feature engineering and preprocessing steps that specifically work with panel data in this context, for example, <code>step_epi_lag()</code>, <code>step_population_scaling()</code>, <code>step_epi_naomit()</code>. They can be used along with most steps from the <code>{recipes}</code> package for more feature engineering.</p>
 <p>In this vignette, we will illustrate some examples of how to use <code>epipredict</code> with <code>recipes</code> and <code>parsnip</code> for different purposes of epidemiological forecasting. We will focus on basic autoregressive models, in which COVID cases and deaths in the near future are predicted using a linear combination of cases and deaths in the near past.</p>
-<p>The remaining vignette will be split into three sections. The first section, we will use a Poisson regression to predict death counts. In the second section, we will use a linear regression to predict death rates. Last but not least, we will create a classification model for hotspot predictions.</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-2_e6d578782a3004a6331a12d9b9ca03e9">
+<p>The remaining vignette will be split into three sections. In the first section, we will use a Poisson regression to predict death counts. In the second section, we will use a linear regression to predict death rates. Last but not least, we will create a classification model for hotspot predictions.</p>
+<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-2_addbfa8195f76724bf5d26a47c5098c2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epidatr)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epiprocess)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epipredict)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parsnip)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(workflows)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(poissonreg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epipredict)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(workflows)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(poissonreg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="poisson-regression" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="poisson-regression"><span class="header-section-number">5.2</span> Poisson Regression</h2>
+<section id="poisson-regression" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="poisson-regression"><span class="header-section-number">13.2</span> Poisson Regression</h2>
 <p>During COVID-19, the U.S. Centers for Disease Control and Prevention (CDC) collected models and forecasts to characterize the state of an outbreak and its course. They use it to inform public health decision makers on potential consequences of deploying control measures.</p>
-<p>One of the outcomes that the CDC forecasts is <a href="https://www.cdc.gov/coronavirus/2019-ncov/science/forecasting/forecasting-us.html">death counts from COVID-19</a>. Although there are many state-of-the-art models, we choose to use Poisson regression, the textbook example for modeling count data, as an illustration for using the <code>epipredict</code> package with other existing tidymodels packages.</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/poisson-reg-data_72c8e1d2a767918e59d1551c9ad2c37d">
+<p>One of the outcomes that the CDC forecasts is <a href="https://www.cdc.gov/coronavirus/2019-ncov/science/forecasting/forecasting-us.html">death counts from COVID-19</a>. Although there are many state-of-the-art models, we choose to use Poisson regression, the textbook example for modeling count data, as an illustration for using the <code>epipredict</code> package with other existing <code>{tidymodels}</code> packages.</p>
+<p>The (folded) code below gives the necessary commands to download this data from the Delphi Epidata API, but it is also built into the <a href="https://cmu-delphi.github.io/epidatasets/reference/counts_subset.html"><code>{epidatasets}</code></a> package.</p>
+<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/poisson-reg-data_569f553a0c03c619ba69298e3a4c936c">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>geos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ca"</span>, <span class="st">"fl"</span>, <span class="st">"tx"</span>, <span class="st">"ny"</span>, <span class="st">"nj"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">covidcast</span>(</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_source =</span> <span class="st">"jhu-csse"</span>,</span>
@@ -268,8 +362,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>counts_subset <span class="ot">&lt;-</span> <span class="fu">full_join</span>(x, y, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"geo_value"</span>, <span class="st">"time_value"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_epi_df</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-<p>The <code>counts_subset</code> dataset comes from the <code>epidatr</code> package, and contains the number of confirmed cases and deaths from June 4, 2021 to Dec 31, 2021 in some U.S. states.</p>
+<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-3_6ecff77ccdcb29ad29987c08784305d2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(counts_subset, <span class="at">package =</span> <span class="st">"epidatasets"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>counts_subset</code> dataset contains the number of confirmed cases and deaths from June 4, 2021 to Dec 31, 2021 in some U.S. states.</p>
 <p>We wish to predict the 7-day ahead death counts with lagged cases and deaths. Furthermore, we will let each state be a dummy variable. Using differential intercept coefficients, we can allow for an intercept shift between states.</p>
 One possible model takes the form
 <span class="math display">\[\begin{aligned}
@@ -296,36 +394,36 @@ One possible model takes the form
 <h4 class="unnumbered anchored" data-anchor-id="end-aside">End aside</h4>
 <hr>
 <p>Notice in the following preprocessing steps, we used <code>add_role()</code> on <code>geo_value_factor</code> since, currently, the default role for it is <code>raw</code>, but we would like to reuse this variable as a <code>predictor</code>.</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-3_306031f5b5b89c0acd96d735cc77c483">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>counts_subset <span class="ot">&lt;-</span> counts_subset <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geo_value_factor =</span> <span class="fu">as.factor</span>(geo_value)) <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_epi_df</span>()</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">epi_recipe</span>(counts_subset)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">epi_recipe</span>(counts_subset) <span class="sc">%&gt;%</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_role</span>(geo_value_factor, <span class="at">new_role =</span> <span class="st">"predictor"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(geo_value_factor) <span class="sc">%&gt;%</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Occasionally, data reporting errors / corrections result in negative</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="do">## cases / deaths</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_mutate</span>(<span class="at">cases =</span> <span class="fu">pmax</span>(cases, <span class="dv">0</span>), <span class="at">deaths =</span> <span class="fu">pmax</span>(deaths, <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_lag</span>(cases, deaths, <span class="at">lag =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">7</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_ahead</span>(deaths, <span class="at">ahead =</span> <span class="dv">7</span>, <span class="at">role =</span> <span class="st">"outcome"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_naomit</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-4_90b277143c4c937a1680363162df6b8b">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>counts_subset <span class="ot">&lt;-</span> counts_subset <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geo_value_factor =</span> <span class="fu">as.factor</span>(geo_value)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_epi_df</span>()</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">epi_recipe</span>(counts_subset)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">epi_recipe</span>(counts_subset) <span class="sc">%&gt;%</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_role</span>(geo_value_factor, <span class="at">new_role =</span> <span class="st">"predictor"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(geo_value_factor) <span class="sc">%&gt;%</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Occasionally, data reporting errors / corrections result in negative</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="do">## cases / deaths</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_mutate</span>(<span class="at">cases =</span> <span class="fu">pmax</span>(cases, <span class="dv">0</span>), <span class="at">deaths =</span> <span class="fu">pmax</span>(deaths, <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_lag</span>(cases, deaths, <span class="at">lag =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">7</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_ahead</span>(deaths, <span class="at">ahead =</span> <span class="dv">7</span>, <span class="at">role =</span> <span class="st">"outcome"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_naomit</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>After specifying the preprocessing steps, we will use the <code>parsnip</code> package for modeling and producing the prediction for death count, 7 days after the latest available date in the dataset.</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-4_67a4ea8cb12f95f199eb68db9db8382f">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>latest <span class="ot">&lt;-</span> <span class="fu">get_test_data</span>(r, counts_subset)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>wf <span class="ot">&lt;-</span> <span class="fu">epi_workflow</span>(r, parsnip<span class="sc">::</span><span class="fu">poisson_reg</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(counts_subset)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(wf, latest) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(.pred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-5_343ca6ec29d09be57ab611380fba40c7">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>latest <span class="ot">&lt;-</span> <span class="fu">get_test_data</span>(r, counts_subset)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>wf <span class="ot">&lt;-</span> <span class="fu">epi_workflow</span>(r, parsnip<span class="sc">::</span><span class="fu">poisson_reg</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(counts_subset)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(wf, latest) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(.pred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; An `epi_df` object, 5 x 3 with metadata:
 #&gt; * geo_type  = state
 #&gt; * time_type = day
-#&gt; * as_of     = 2023-06-13 16:30:27
+#&gt; * as_of     = 2023-06-07 16:52:32.877214
 #&gt; 
 #&gt; # A tibble: 5 × 3
 #&gt;   geo_value time_value .pred
@@ -337,10 +435,10 @@ One possible model takes the form
 #&gt; 5 tx        2021-12-31  91.0</code></pre>
 </div>
 </div>
-<p>Note that the <code>time_value</code> corresponds to the last available date in the training set, <strong>NOT</strong> to the target date of the forecast (2022-01-07).</p>
+<p>Note that the <code>time_value</code> corresponds to the date(s) in the test set <code>latest</code>, <strong>NOT</strong> to the target date of the forecast (2022-01-07). Had we used different data for predictions, we would have gotten different <code>time_value</code>’s.</p>
 <p>Let’s take a look at the fit:</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-5_fe34f9cc56ee3bd476df4186a023fdd2">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_fit_engine</span>(wf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-6_31441e0d10c16615d3182594c1fec30f">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_fit_engine</span>(wf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt; Call:  stats::glm(formula = ..y ~ ., family = stats::poisson, data = data)
@@ -361,170 +459,172 @@ One possible model takes the form
 <p>Alternative forms of Poisson regression or particular computational approaches can be applied via arguments to <code>parsnip::poisson_reg()</code> for some common settings, and by using <code>parsnip::set_engine()</code> to use a specific Poisson regression engine and to provide additional engine-specific customization.</p>
 </section>
 </section>
-<section id="linear-regression" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="linear-regression"><span class="header-section-number">5.3</span> Linear Regression</h2>
+<section id="linear-regression" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="linear-regression"><span class="header-section-number">13.3</span> Linear Regression</h2>
 <p>For COVID-19, the CDC required submission of case and death count predictions. However, the Delphi Group preferred to train on rate data instead, because it puts different locations on a similar scale (eliminating the need for location-specific intercepts). We can use a linear regression to predict the death rates and use state population data to scale the rates to counts.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> We will do so using <code>layer_population_scaling()</code> from the <code>epipredict</code> package. (We could also use <code>step_population_scaling()</code> from the <code>epipredict</code> package to prepare rate data from count data in the preprocessing recipe.)</p>
 <p>Additionally, when forecasts are submitted, prediction intervals should be provided along with the point estimates. This can be obtained via postprocessing using <code>layer_residual_quantiles()</code>. It is worth pointing out, however, that <code>layer_residual_quantiles()</code> should be used before population scaling or else the transformation will make the results uninterpretable.</p>
 <p>We wish, now, to predict the 7-day ahead death counts with lagged case rates and death rates, along with some extra behaviourial predictors. Namely, we will use survey data from <a href="https://cmu-delphi.github.io/delphi-epidata/api/covidcast-signals/fb-survey.html#behavior-indicators">COVID-19 Trends and Impact Survey</a>.</p>
 <p>The survey data provides the estimated percentage of people who wore a mask for most or all of the time while in public in the past 7 days and the estimated percentage of respondents who reported that all or most people they encountered in public in the past 7 days maintained a distance of at least 6 feet.</p>
-<p>State-wise population data from the 2019 U.S. Census is included in this package and will be used in <code>layer_population_scaling()</code>.</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-6_7a044b685e3e8b3a17071a5fb88054fc">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>behav_ind_mask <span class="ot">&lt;-</span> <span class="fu">covidcast</span>(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_source =</span> <span class="st">"fb-survey"</span>,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">signals =</span> <span class="st">"smoothed_wwearing_mask_7d"</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">time_type =</span> <span class="st">"day"</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">geo_type =</span> <span class="st">"state"</span>,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">time_values =</span> <span class="fu">epirange</span>(<span class="dv">20210604</span>, <span class="dv">20211231</span>),</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">geo_values =</span> geos</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fetch</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(geo_value, time_value, <span class="at">masking =</span> value)</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>behav_ind_distancing <span class="ot">&lt;-</span> <span class="fu">covidcast</span>(</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_source =</span> <span class="st">"fb-survey"</span>,</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">signals =</span> <span class="st">"smoothed_wothers_distanced_public"</span>,</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">time_type =</span> <span class="st">"day"</span>,</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">geo_type =</span> <span class="st">"state"</span>,</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">time_values =</span> <span class="fu">epirange</span>(<span class="dv">20210604</span>, <span class="dv">20211231</span>),</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">geo_values =</span> geos</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fetch</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(geo_value, time_value, <span class="at">distancing =</span> value)</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>pop_dat <span class="ot">&lt;-</span> state_census <span class="sc">%&gt;%</span> <span class="fu">select</span>(abbr, pop)</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>behav_ind <span class="ot">&lt;-</span> behav_ind_mask <span class="sc">%&gt;%</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(behav_ind_distancing, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"geo_value"</span>, <span class="st">"time_value"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-7_e6a1705f9786970a292c5ed2f10ee461">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the raw data as used in {epidatasets}</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>behav_ind_mask <span class="ot">&lt;-</span> <span class="fu">covidcast</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_source =</span> <span class="st">"fb-survey"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">signals =</span> <span class="st">"smoothed_wwearing_mask_7d"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">time_type =</span> <span class="st">"day"</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">geo_type =</span> <span class="st">"state"</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">time_values =</span> <span class="fu">epirange</span>(<span class="dv">20210604</span>, <span class="dv">20211231</span>),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">geo_values =</span> geos</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fetch</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(geo_value, time_value, <span class="at">masking =</span> value)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>behav_ind_distancing <span class="ot">&lt;-</span> <span class="fu">covidcast</span>(</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_source =</span> <span class="st">"fb-survey"</span>,</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">signals =</span> <span class="st">"smoothed_wothers_distanced_public"</span>,</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">time_type =</span> <span class="st">"day"</span>,</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">geo_type =</span> <span class="st">"state"</span>,</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">time_values =</span> <span class="fu">epirange</span>(<span class="dv">20210604</span>, <span class="dv">20211231</span>),</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">geo_values =</span> geos</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fetch</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(geo_value, time_value, <span class="at">distancing =</span> value)</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>ctis_covid_behaviours <span class="ot">&lt;-</span> behav_ind_mask <span class="sc">%&gt;%</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(behav_ind_distancing, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"geo_value"</span>, <span class="st">"time_value"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
+<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-8_dbf1236064e03ae10b6694621ce91509">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ctis_covid_behaviours, <span class="at">package =</span> <span class="st">"epidatasets"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>pop_dat <span class="ot">&lt;-</span> state_census <span class="sc">%&gt;%</span> <span class="fu">select</span>(abbr, pop)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>State-wise population data from the 2019 U.S. Census is available from <code>{epipredict}</code> and will be used in <code>layer_population_scaling()</code>.</p>
 <p>Rather than using raw mask-wearing / social-distancing metrics, for the sake of illustration, we’ll convert both into categorical predictors.</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-7_0c2699c1d1fa40703f8666ff336ee7b0">
+<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-9_fc946e21bc9fa1be4fd6bab0666dd515">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="preprocessing-and-models_files/figure-html/unnamed-chunk-7-1.svg" class="img-fluid figure-img" style="width:90.0%"></p>
+<p><img src="preprocessing-and-models_files/figure-html/unnamed-chunk-9-1.svg" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>We will take a subset of death rate and case rate data from the built-in dataset <code>case_death_rate_subset</code>.</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-8_6041e45dc206b6cf035094812c2e6766">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>jhu <span class="ot">&lt;-</span> <span class="fu">filter</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  case_death_rate_subset,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  time_value <span class="sc">&gt;=</span> <span class="st">"2021-06-04"</span>,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  time_value <span class="sc">&lt;=</span> <span class="st">"2021-12-31"</span>,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  geo_value <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ca"</span>, <span class="st">"fl"</span>, <span class="st">"tx"</span>, <span class="st">"ny"</span>, <span class="st">"nj"</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-10_80a089a8a6d7a1e74830826cacc5871c">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>jhu <span class="ot">&lt;-</span> <span class="fu">filter</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  case_death_rate_subset,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  time_value <span class="sc">&gt;=</span> <span class="st">"2021-06-04"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  time_value <span class="sc">&lt;=</span> <span class="st">"2021-12-31"</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  geo_value <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ca"</span>, <span class="st">"fl"</span>, <span class="st">"tx"</span>, <span class="st">"ny"</span>, <span class="st">"nj"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Preprocessing steps will again rely on functions from the <code>epipredict</code> package as well as the <code>recipes</code> package. There are also many functions in the <code>recipes</code> package that allow for <a href="https://recipes.tidymodels.org/reference/#step-functions-individual-transformations">scalar transformations</a>, such as log transformations and data centering. In our case, we will center the numerical predictors to allow for a more meaningful interpretation of the intercept.</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-9_dcce6053a96cd21d804e8504b7d1cd29">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>jhu <span class="ot">&lt;-</span> jhu <span class="sc">%&gt;%</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geo_value_factor =</span> <span class="fu">as.factor</span>(geo_value)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(behav_ind, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"geo_value"</span>, <span class="st">"time_value"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_epi_df</span>()</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">epi_recipe</span>(jhu) <span class="sc">%&gt;%</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_role</span>(geo_value_factor, <span class="at">new_role =</span> <span class="st">"predictor"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(geo_value_factor) <span class="sc">%&gt;%</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_lag</span>(case_rate, death_rate, <span class="at">lag =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">14</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_mutate</span>(</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">masking =</span> <span class="fu">cut_number</span>(masking, <span class="dv">5</span>),</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">distancing =</span> <span class="fu">cut_number</span>(distancing, <span class="dv">5</span>)</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_ahead</span>(death_rate, <span class="at">ahead =</span> <span class="dv">7</span>, <span class="at">role =</span> <span class="st">"outcome"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_center</span>(<span class="fu">contains</span>(<span class="st">"lag"</span>), <span class="at">role =</span> <span class="st">"predictor"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_naomit</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-11_2fb56af2f7c6d9d8b32c7c071d1446c6">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>jhu <span class="ot">&lt;-</span> jhu <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geo_value_factor =</span> <span class="fu">as.factor</span>(geo_value)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(ctis_covid_behaviours, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"geo_value"</span>, <span class="st">"time_value"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_epi_df</span>()</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">epi_recipe</span>(jhu) <span class="sc">%&gt;%</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_role</span>(geo_value_factor, <span class="at">new_role =</span> <span class="st">"predictor"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(geo_value_factor) <span class="sc">%&gt;%</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_lag</span>(case_rate, death_rate, <span class="at">lag =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">14</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_mutate</span>(</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">masking =</span> <span class="fu">cut_number</span>(masking, <span class="dv">5</span>),</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">distancing =</span> <span class="fu">cut_number</span>(distancing, <span class="dv">5</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_ahead</span>(death_rate, <span class="at">ahead =</span> <span class="dv">7</span>, <span class="at">role =</span> <span class="st">"outcome"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_center</span>(<span class="fu">contains</span>(<span class="st">"lag"</span>), <span class="at">role =</span> <span class="st">"predictor"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_naomit</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>As a sanity check we can examine the structure of the training data:</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-10_2bb95d23f655e7482955abc5d46a1a21">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="fu">slice_sample</span>(<span class="fu">bake</span>(<span class="fu">prep</span>(r, jhu), jhu), <span class="at">n =</span> <span class="dv">6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-12_fcfc398d986b21bb83903a1497923da1">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="fu">bake</span>(<span class="fu">prep</span>(r, jhu), jhu))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; Rows: 6
+<pre><code>#&gt; Rows: 985
 #&gt; Columns: 17
-#&gt; $ time_value          &lt;date&gt; 2021-10-29, 2021-08-18, 2021-07-06, 2021-09-28…
-#&gt; $ geo_value           &lt;chr&gt; "fl", "ca", "ny", "nj", "ca", "fl"
-#&gt; $ case_rate           &lt;dbl&gt; 7.987081, 35.039629, 1.846962, 21.278102, 26.91…
-#&gt; $ death_rate          &lt;dbl&gt; 0.5698954, 0.1259178, 0.0258575, 0.2251651, 0.2…
-#&gt; $ masking             &lt;fct&gt; "(52.8,60.2]", "(69.7,85]", "[42.7,52.8]", "(60…
-#&gt; $ distancing          &lt;fct&gt; "(18.4,19.8]", "(27,43]", "(21.1,27]", "(19.8,2…
-#&gt; $ geo_value_factor_fl &lt;dbl&gt; 1, 0, 0, 0, 0, 1
-#&gt; $ geo_value_factor_nj &lt;dbl&gt; 0, 0, 0, 1, 0, 0
-#&gt; $ geo_value_factor_ny &lt;dbl&gt; 0, 0, 1, 0, 0, 0
-#&gt; $ geo_value_factor_tx &lt;dbl&gt; 0, 0, 0, 0, 0, 0
-#&gt; $ lag_0_case_rate     &lt;dbl&gt; -18.95458185, 8.09796675, -25.09470065, -5.6635…
-#&gt; $ lag_7_case_rate     &lt;dbl&gt; -17.368472, 4.657906, -25.243935, -1.325915, 5.…
-#&gt; $ lag_14_case_rate    &lt;dbl&gt; -14.5794681, -0.2855479, -25.1803998, -0.732444…
-#&gt; $ lag_0_death_rate    &lt;dbl&gt; 0.288021796, -0.155955804, -0.256016104, -0.056…
-#&gt; $ lag_7_death_rate    &lt;dbl&gt; 0.3386352965, -0.3399337035, -0.2493671035, -0.…
-#&gt; $ lag_14_death_rate   &lt;dbl&gt; 0.5016504, -0.1668420, -0.2390241, -0.0840500, …
-#&gt; $ ahead_7_death_rate  &lt;dbl&gt; 0.4364597, 0.2032103, 0.0236411, 0.2332067, 0.3…</code></pre>
+#&gt; $ time_value          &lt;date&gt; 2021-06-18, 2021-06-18, 2021-06-18, 2021-06-18…
+#&gt; $ geo_value           &lt;chr&gt; "ca", "fl", "nj", "ny", "tx", "ca", "fl", "nj",…
+#&gt; $ case_rate           &lt;dbl&gt; 2.382641, 6.635633, 2.771139, 1.959257, 3.50565…
+#&gt; $ death_rate          &lt;dbl&gt; 0.0373762, 0.1906224, 0.0707662, 0.0554089, 0.0…
+#&gt; $ masking             &lt;fct&gt; "(69.7,85]", "(52.8,60.2]", "(60.2,63.9]", "(60…
+#&gt; $ distancing          &lt;fct&gt; "(27,43]", "(21.1,27]", "(27,43]", "(27,43]", "…
+#&gt; $ geo_value_factor_fl &lt;dbl&gt; 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0,…
+#&gt; $ geo_value_factor_nj &lt;dbl&gt; 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0,…
+#&gt; $ geo_value_factor_ny &lt;dbl&gt; 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0,…
+#&gt; $ geo_value_factor_tx &lt;dbl&gt; 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0,…
+#&gt; $ lag_0_case_rate     &lt;dbl&gt; -24.55902, -20.30603, -24.17052, -24.98241, -23…
+#&gt; $ lag_7_case_rate     &lt;dbl&gt; -24.28505, -17.44078, -23.74271, -24.00795, -19…
+#&gt; $ lag_14_case_rate    &lt;dbl&gt; -24.61817, -20.99358, -24.55491, -23.72352, -22…
+#&gt; $ lag_0_death_rate    &lt;dbl&gt; -0.2444974, -0.0912512, -0.2111074, -0.2264647,…
+#&gt; $ lag_7_death_rate    &lt;dbl&gt; -0.1875259, -0.0978243, -0.1869826, -0.2035624,…
+#&gt; $ lag_14_death_rate   &lt;dbl&gt; -0.1980493, -0.1431793, -0.1532078, -0.1651456,…
+#&gt; $ ahead_7_death_rate  &lt;dbl&gt; 0.1037824, 0.1426382, 0.0964993, 0.0347229, 0.0…</code></pre>
 </div>
 </div>
 <p>Before directly predicting the results, we need to add postprocessing layers to obtain the death counts instead of death rates. Note that the rates used so far are “per 100K people” rather than “per person”. We’ll also use quantile regression with the <code>quantile_reg</code> engine rather than ordinary least squares to create median predictions and a 90% prediction interval.</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-11_32cf66b3835e85824db470071842c5d7">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">frosting</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_predict</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_add_target_date</span>(<span class="st">"2022-01-07"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_threshold</span>(.pred, <span class="at">lower =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_quantile_distn</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_naomit</span>(.pred) <span class="sc">%&gt;%</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_population_scaling</span>(</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    .pred, .pred_distn,</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">df =</span> pop_dat,</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">rate_rescaling =</span> <span class="fl">1e5</span>,</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"geo_value"</span> <span class="ot">=</span> <span class="st">"abbr"</span>),</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">df_pop_col =</span> <span class="st">"pop"</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>wf <span class="ot">&lt;-</span> <span class="fu">epi_workflow</span>(r, <span class="fu">quantile_reg</span>(<span class="at">tau =</span> <span class="fu">c</span>(.<span class="dv">05</span>, .<span class="dv">5</span>, .<span class="dv">95</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(jhu) <span class="sc">%&gt;%</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_frosting</span>(f)</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>latest <span class="ot">&lt;-</span> <span class="fu">get_test_data</span>(<span class="at">recipe =</span> r, <span class="at">x =</span> jhu)</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">predict</span>(wf, latest)</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-13_bed06d2db0383e9df0ccd38e405db06e">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">frosting</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_predict</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_add_target_date</span>(<span class="st">"2022-01-07"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_add_forecast_date</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_threshold</span>(.pred, <span class="at">lower =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_quantile_distn</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_point_from_distn</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_naomit</span>(.pred) <span class="sc">%&gt;%</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_population_scaling</span>(</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">contains</span>(<span class="st">".pred"</span>),</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">df =</span> pop_dat,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">rate_rescaling =</span> <span class="fl">1e5</span>,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"geo_value"</span> <span class="ot">=</span> <span class="st">"abbr"</span>),</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">df_pop_col =</span> <span class="st">"pop"</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>wf <span class="ot">&lt;-</span> <span class="fu">epi_workflow</span>(r, <span class="fu">quantile_reg</span>(<span class="at">tau =</span> <span class="fu">c</span>(.<span class="dv">05</span>, .<span class="dv">5</span>, .<span class="dv">95</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(jhu) <span class="sc">%&gt;%</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_frosting</span>(f)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>latest <span class="ot">&lt;-</span> <span class="fu">get_test_data</span>(<span class="at">recipe =</span> r, <span class="at">x =</span> jhu)</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">predict</span>(wf, latest) <span class="sc">%&gt;%</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>time_value) <span class="sc">%&gt;%</span></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; An `epi_df` object, 5 x 7 with metadata:
-#&gt; * geo_type  = state
-#&gt; * time_type = day
-#&gt; * as_of     = 2022-05-31 12:08:25
-#&gt; 
-#&gt; # A tibble: 5 × 7
-#&gt;   geo_value time_value               .pred target_date         .pred_distn
-#&gt; * &lt;chr&gt;     &lt;date&gt;                  &lt;dist&gt; &lt;date&gt;                   &lt;dist&gt;
-#&gt; 1 ca        2021-12-31 [0.05, 0.95]&lt;q-rng&gt; 2022-01-07  [0.25, 0.75]&lt;q-rng&gt;
-#&gt; 2 fl        2021-12-31 [0.05, 0.95]&lt;q-rng&gt; 2022-01-07  [0.25, 0.75]&lt;q-rng&gt;
-#&gt; 3 nj        2021-12-31 [0.05, 0.95]&lt;q-rng&gt; 2022-01-07  [0.25, 0.75]&lt;q-rng&gt;
-#&gt; 4 ny        2021-12-31 [0.05, 0.95]&lt;q-rng&gt; 2022-01-07  [0.25, 0.75]&lt;q-rng&gt;
-#&gt; 5 tx        2021-12-31 [0.05, 0.95]&lt;q-rng&gt; 2022-01-07  [0.25, 0.75]&lt;q-rng&gt;
-#&gt; # ℹ 2 more variables: .pred_scaled &lt;dist&gt;, .pred_distn_scaled &lt;dist&gt;</code></pre>
+<pre><code>#&gt; # A tibble: 5 × 7
+#&gt;   geo_value .pred target_date forecast_date         .pred_distn .pred_scaled
+#&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;date&gt;      &lt;date&gt;                     &lt;dist&gt;        &lt;dbl&gt;
+#&gt; 1 ca        0.181 2022-01-07  2021-12-31    [0.25, 0.75]&lt;q-rng&gt;         71.6
+#&gt; 2 fl        0.348 2022-01-07  2021-12-31    [0.25, 0.75]&lt;q-rng&gt;         74.7
+#&gt; 3 nj        0.646 2022-01-07  2021-12-31    [0.25, 0.75]&lt;q-rng&gt;         57.4
+#&gt; 4 ny        0.698 2022-01-07  2021-12-31    [0.25, 0.75]&lt;q-rng&gt;        136. 
+#&gt; 5 tx        0.299 2022-01-07  2021-12-31    [0.25, 0.75]&lt;q-rng&gt;         86.8
+#&gt; # ℹ 1 more variable: .pred_distn_scaled &lt;dist&gt;</code></pre>
 </div>
 </div>
-<p>The columns marked <code>*_scaled</code> have been rescaled to the correct units, in this case <code>deaths</code> rather than deaths per 100K people (these remain in <code>.pred</code>).</p>
+<p>The columns marked <code>*_scaled</code> (unfortunately, some of these are hidden above) have been rescaled to the correct units, in this case <code>deaths</code> rather than deaths per 100K people (these remain in <code>.pred</code>).</p>
 <p>To look at the prediction intervals:</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-12_c2332dee9c06e52158b525c769425a06">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(geo_value, target_date, .pred_scaled, .pred_distn_scaled) <span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">.pred_distn_scaled =</span> <span class="fu">nested_quantiles</span>(.pred_distn_scaled)) <span class="sc">%&gt;%</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(.pred_distn_scaled) <span class="sc">%&gt;%</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> tau, <span class="at">values_from =</span> q)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-14_f587c993b2de8fc747d934406aa738a6">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(geo_value, target_date, .pred_scaled, .pred_distn_scaled) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_quantiles</span>(.pred_distn_scaled)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; # A tibble: 5 × 5
-#&gt;   geo_value target_date        .pred_scaled `0.25` `0.75`
-#&gt;   &lt;chr&gt;     &lt;date&gt;                   &lt;dist&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-#&gt; 1 ca        2022-01-07  [0.05, 0.95]&lt;q-rng&gt;   48.8   94.0
-#&gt; 2 fl        2022-01-07  [0.05, 0.95]&lt;q-rng&gt;   48.4  104. 
-#&gt; 3 nj        2022-01-07  [0.05, 0.95]&lt;q-rng&gt;   45.5   68.7
-#&gt; 4 ny        2022-01-07  [0.05, 0.95]&lt;q-rng&gt;  108.   163. 
-#&gt; 5 tx        2022-01-07  [0.05, 0.95]&lt;q-rng&gt;   68.6  107.</code></pre>
+#&gt;   geo_value target_date .pred_scaled `0.25` `0.75`
+#&gt;   &lt;chr&gt;     &lt;date&gt;             &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; 1 ca        2022-01-07          71.6   48.8   94.0
+#&gt; 2 fl        2022-01-07          74.7   48.4  104. 
+#&gt; 3 nj        2022-01-07          57.4   45.5   68.7
+#&gt; 4 ny        2022-01-07         136.   108.   163. 
+#&gt; 5 tx        2022-01-07          86.8   68.6  107.</code></pre>
 </div>
 </div>
 <p>Last but not least, let’s take a look at the regression fit and check the coefficients:</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-13_66b9c23caec22b472b17b9a819c36405">
+<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-15_ba04dff1d70f15ab185e944bdd928a86">
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Call:
 #&gt; quantreg::rq(formula = ..y ~ ., tau = ~c(0.05, 0.5, 0.95), data = data, 
-#&gt;     na.action = function (object, ...) 
-#&gt;     UseMethod("na.omit"), method = "br", model = FALSE)
+#&gt;     na.action = stats::na.omit, method = "br", model = FALSE)
 #&gt; 
 #&gt; Coefficients:
 #&gt;                        tau= 0.05     tau= 0.50    tau= 0.95
@@ -544,8 +644,8 @@ One possible model takes the form
 </div>
 </div>
 </section>
-<section id="classification" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="classification"><span class="header-section-number">5.4</span> Classification</h2>
+<section id="classification" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="classification"><span class="header-section-number">13.4</span> Classification</h2>
 <p>Sometimes it is preferable to create a predictive model for surges or upswings rather than for raw values. In this case, the target is to predict if the future will have increased case rates (denoted <code>up</code>), decreased case rates (<code>down</code>), or flat case rates (<code>flat</code>) relative to the current level. Such models may be referred to as “hotspot prediction models”. We will follow the analysis in <a href="#references">McDonald, Bien, Green, Hu, et al.</a> but extend the application to predict three categories instead of two.</p>
 <p>Hotspot prediction uses a categorical outcome variable defined in terms of the relative change of <span class="math inline">\(Y_{\ell, t+a}\)</span> compared to <span class="math inline">\(Y_{\ell, t}\)</span>. Where <span class="math inline">\(Y_{\ell, t}\)</span> denotes the case rates in location <span class="math inline">\(\ell\)</span> at time <span class="math inline">\(t\)</span>. We define the response variables as follows:</p>
 <p><span class="math display">\[
@@ -577,61 +677,45 @@ g_{\text{flat}}(x) &amp;= \log\left(\frac{Pr(Z_{\ell,t}=\text{up}|x)}{Pr(Z_{\ell
 \end{aligned}
 \]</span></p>
 <p>Preprocessing steps are similar to the previous models with an additional step of categorizing the response variables. Again, we will use a subset of death rate and case rate data from our built-in dataset <code>case_death_rate_subset</code>.</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-14_e885c9a0d771c8a563affda70591c7bb">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>jhu <span class="ot">&lt;-</span> case_death_rate_subset <span class="sc">%&gt;%</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    time_value <span class="sc">&gt;=</span> <span class="st">"2021-06-04"</span>,</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    time_value <span class="sc">&lt;=</span> <span class="st">"2021-12-31"</span>,</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    geo_value <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ca"</span>, <span class="st">"fl"</span>, <span class="st">"tx"</span>, <span class="st">"ny"</span>, <span class="st">"nj"</span>)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geo_value_factor =</span> <span class="fu">as.factor</span>(geo_value)) <span class="sc">%&gt;%</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_epi_df</span>()</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">epi_recipe</span>(jhu) <span class="sc">%&gt;%</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_role</span>(time_value, <span class="at">new_role =</span> <span class="st">"predictor"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(geo_value_factor) <span class="sc">%&gt;%</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_lag</span>(case_rate, <span class="at">lag =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">14</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_ahead</span>(case_rate, <span class="at">ahead =</span> <span class="dv">7</span>, <span class="at">role =</span> <span class="st">"predictor"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_mutate</span>(</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_diff_ahead =</span> <span class="fu">case_when</span>(</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>      lag_7_case_rate <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> (ahead_7_case_rate <span class="sc">-</span> lag_0_case_rate) <span class="sc">/</span> lag_0_case_rate</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_diff_wk1 =</span> <span class="fu">case_when</span>(</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>      lag_7_case_rate <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> (lag_0_case_rate <span class="sc">-</span> lag_7_case_rate) <span class="sc">/</span> lag_7_case_rate</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_diff_wk2 =</span> <span class="fu">case_when</span>(</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>      lag_14_case_rate <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> (lag_7_case_rate <span class="sc">-</span> lag_14_case_rate) <span class="sc">/</span> lag_14_case_rate</span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_mutate</span>(</span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">response =</span> <span class="fu">case_when</span>(</span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>      pct_diff_ahead <span class="sc">&lt;</span> <span class="sc">-</span><span class="fl">0.20</span> <span class="sc">~</span> <span class="st">"down"</span>,</span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>      pct_diff_ahead <span class="sc">&gt;</span> <span class="fl">0.25</span> <span class="sc">~</span> <span class="st">"up"</span>,</span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"flat"</span></span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">role =</span> <span class="st">"outcome"</span></span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_rm</span>(</span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>    death_rate, case_rate, lag_0_case_rate, lag_7_case_rate,</span>
-<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>    lag_14_case_rate, ahead_7_case_rate, pct_diff_ahead</span>
-<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_naomit</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-16_6c59ca34a0fd30f1f204b03181f28c88">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>jhu_rates <span class="ot">&lt;-</span> case_death_rate_subset <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    time_value <span class="sc">&gt;=</span> <span class="st">"2021-06-04"</span>,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    time_value <span class="sc">&lt;=</span> <span class="st">"2021-12-31"</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    geo_value <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ca"</span>, <span class="st">"fl"</span>, <span class="st">"tx"</span>, <span class="st">"ny"</span>, <span class="st">"nj"</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geo_value_factor =</span> <span class="fu">as.factor</span>(geo_value))</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">epi_recipe</span>(jhu_rates) <span class="sc">%&gt;%</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_role</span>(time_value, <span class="at">new_role =</span> <span class="st">"predictor"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(geo_value_factor) <span class="sc">%&gt;%</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_growth_rate</span>(case_rate, <span class="at">role =</span> <span class="st">"none"</span>, <span class="at">prefix =</span> <span class="st">"gr_"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_lag</span>(<span class="fu">starts_with</span>(<span class="st">"gr_"</span>), <span class="at">lag =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">14</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_ahead</span>(<span class="fu">starts_with</span>(<span class="st">"gr_"</span>), <span class="at">ahead =</span> <span class="dv">7</span>, <span class="at">role =</span> <span class="st">"none"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># note recipes::step_cut() has a bug in it, or we could use that here</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_mutate</span>(</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">response =</span> <span class="fu">cut</span>(</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>      ahead_7_gr_7_rel_change_case_rate,</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="sc">-</span><span class="fl">0.2</span>, <span class="fl">0.25</span>, <span class="cn">Inf</span>) <span class="sc">/</span> <span class="dv">7</span>, <span class="co"># division gives weekly not daily</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"down"</span>, <span class="st">"flat"</span>, <span class="st">"up"</span>)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">role =</span> <span class="st">"outcome"</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_rm</span>(<span class="fu">has_role</span>(<span class="st">"none"</span>), <span class="fu">has_role</span>(<span class="st">"raw"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_naomit</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We will fit the multinomial regression and examine the predictions:</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-15_e2b83e86fdcd611535500220736d7cae">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>wf <span class="ot">&lt;-</span> <span class="fu">epi_workflow</span>(r, parsnip<span class="sc">::</span><span class="fu">multinom_reg</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(jhu)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>latest <span class="ot">&lt;-</span> <span class="fu">get_test_data</span>(<span class="at">recipe =</span> r, <span class="at">x =</span> jhu)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(wf, latest) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(.pred_class))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-17_f55e79fcffe78515bd0042409ccfa0bc">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>wf <span class="ot">&lt;-</span> <span class="fu">epi_workflow</span>(r, parsnip<span class="sc">::</span><span class="fu">multinom_reg</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(jhu_rates)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>latest <span class="ot">&lt;-</span> <span class="fu">get_test_data</span>(<span class="at">recipe =</span> r, <span class="at">x =</span> jhu_rates)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(wf, latest) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(.pred_class))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; An `epi_df` object, 5 x 3 with metadata:
 #&gt; * geo_type  = state
 #&gt; * time_type = day
-#&gt; * as_of     = 2022-05-31 12:08:25
+#&gt; * as_of     = 2022-05-31 12:08:25.791826
 #&gt; 
 #&gt; # A tibble: 5 × 3
 #&gt;   geo_value time_value .pred_class
@@ -640,178 +724,229 @@ g_{\text{flat}}(x) &amp;= \log\left(\frac{Pr(Z_{\ell,t}=\text{up}|x)}{Pr(Z_{\ell
 #&gt; 2 fl        2021-12-31 up         
 #&gt; 3 nj        2021-12-31 up         
 #&gt; 4 ny        2021-12-31 up         
-#&gt; 5 tx        2021-12-31 flat</code></pre>
+#&gt; 5 tx        2021-12-31 up</code></pre>
 </div>
 </div>
 <p>We can also look at the estimated coefficients and model summary information:</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-16_80b1e10be12efa252820ada6010a1c3f">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_fit_engine</span>(wf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-18_118e02a282350ab72791be1f72b553d2">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_fit_engine</span>(wf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Call:
 #&gt; nnet::multinom(formula = ..y ~ ., data = data, trace = FALSE)
 #&gt; 
 #&gt; Coefficients:
-#&gt;      (Intercept)   time_value geo_value_factor_fl geo_value_factor_nj
-#&gt; flat   -58.11177  0.003162471          -0.5978151            1.350320
-#&gt; up      46.45080 -0.002429847          -0.4682080            1.572085
-#&gt;      geo_value_factor_ny geo_value_factor_tx pct_diff_wk1 pct_diff_wk2
-#&gt; flat            3.113677          -0.3010305     1.263089     3.610543
-#&gt; up              3.172692          -0.2505232     2.194646     4.266267
+#&gt;      (Intercept)  time_value geo_value_factor_fl geo_value_factor_nj
+#&gt; flat   -144.2225 0.007754539          -1.3251332            1.137558
+#&gt; up     -133.1995 0.007082200          -0.5081323            1.562699
+#&gt;      geo_value_factor_ny geo_value_factor_tx lag_0_gr_7_rel_change_case_rate
+#&gt; flat            24.74419          -0.3345769                        18.96357
+#&gt; up              24.84975          -0.3176984                        33.79521
+#&gt;      lag_7_gr_7_rel_change_case_rate lag_14_gr_7_rel_change_case_rate
+#&gt; flat                        33.19050                         7.157027
+#&gt; up                          56.52376                         4.684422
 #&gt; 
-#&gt; Residual Deviance: 1529.929 
-#&gt; AIC: 1561.929</code></pre>
+#&gt; Residual Deviance: 1157.928 
+#&gt; AIC: 1193.928</code></pre>
 </div>
 </div>
 <p>One could also use a formula in <code>epi_recipe()</code> to achieve the same results as above. However, only one of <code>add_formula()</code>, <code>add_recipe()</code>, or <code>workflow_variables()</code> can be specified. For the purpose of demonstrating <code>add_formula</code> rather than <code>add_recipe</code>, we will <code>prep</code> and <code>bake</code> our recipe to return a <code>data.frame</code> that could be used for model fitting.</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-17_4f0667d070106f51132f77d61d3a4efb">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">bake</span>(<span class="fu">prep</span>(r, jhu), jhu)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">epi_workflow</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_formula</span>(response <span class="sc">~</span> geo_value <span class="sc">+</span> time_value <span class="sc">+</span> pct_diff_wk1 <span class="sc">+</span> pct_diff_wk2) <span class="sc">%&gt;%</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(parsnip<span class="sc">::</span><span class="fu">multinom_reg</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(<span class="at">data =</span> b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-19_95018fa1894b856edd76e784a2756aa6">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">bake</span>(<span class="fu">prep</span>(r, jhu_rates), jhu_rates)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">epi_workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_formula</span>(</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    response <span class="sc">~</span> geo_value <span class="sc">+</span> time_value <span class="sc">+</span> lag_0_gr_7_rel_change_case_rate <span class="sc">+</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>      lag_7_gr_7_rel_change_case_rate <span class="sc">+</span> lag_14_gr_7_rel_change_case_rate</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(parsnip<span class="sc">::</span><span class="fu">multinom_reg</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(<span class="at">data =</span> b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; ══ Workflow [trained] ═══════════════════════════════════════════════════════
 #&gt; Preprocessor: Formula
 #&gt; Model: multinom_reg()
 #&gt; 
 #&gt; ── Preprocessor ─────────────────────────────────────────────────────────────
-#&gt; response ~ geo_value + time_value + pct_diff_wk1 + pct_diff_wk2
+#&gt; response ~ geo_value + time_value + lag_0_gr_7_rel_change_case_rate + 
+#&gt;     lag_7_gr_7_rel_change_case_rate + lag_14_gr_7_rel_change_case_rate
 #&gt; 
 #&gt; ── Model ────────────────────────────────────────────────────────────────────
 #&gt; Call:
 #&gt; nnet::multinom(formula = ..y ~ ., data = data, trace = FALSE)
 #&gt; 
 #&gt; Coefficients:
-#&gt;      (Intercept) geo_valuefl geo_valuenj geo_valueny geo_valuetx
-#&gt; flat   -58.11158  -0.5978159    1.350325    3.113684  -0.3010308
-#&gt; up      46.45071  -0.4682087    1.572090    3.172698  -0.2505236
-#&gt;        time_value pct_diff_wk1 pct_diff_wk2
-#&gt; flat  0.003162461     1.263093     3.610536
-#&gt; up   -0.002429839     2.194649     4.266259
+#&gt;      (Intercept) geo_valuefl geo_valuenj geo_valueny geo_valuetx  time_value
+#&gt; flat   -144.2169  -1.3265567    1.133930    24.75059  -0.3335109 0.007754346
+#&gt; up     -133.3504  -0.5120227    1.559699    24.85666  -0.3158328 0.007090257
+#&gt;      lag_0_gr_7_rel_change_case_rate lag_7_gr_7_rel_change_case_rate
+#&gt; flat                        19.02258                        33.20795
+#&gt; up                          33.84665                        56.57066
+#&gt;      lag_14_gr_7_rel_change_case_rate
+#&gt; flat                         7.140357
+#&gt; up                           4.668902
 #&gt; 
-#&gt; Residual Deviance: 1529.929 
-#&gt; AIC: 1561.929</code></pre>
+#&gt; Residual Deviance: 1157.919 
+#&gt; AIC: 1193.919</code></pre>
 </div>
 </div>
-</section>
-<section id="benefits-of-lagging-and-leading-in-epipredict" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="benefits-of-lagging-and-leading-in-epipredict"><span class="header-section-number">5.5</span> Benefits of Lagging and Leading in <code>epipredict</code></h2>
-<p>The <code>step_epi_ahead</code> and <code>step_epi_lag</code> functions in the <code>epipredict</code> package is handy for creating correct lags and leads for future predictions.</p>
-<p>Let’s start with a simple dataset and preprocessing:</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-18_845c0d5fc8776dac841b8e8723266c5d">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ex <span class="ot">&lt;-</span> <span class="fu">filter</span>(</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  case_death_rate_subset,</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  time_value <span class="sc">&gt;=</span> <span class="st">"2021-12-01"</span>,</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  time_value <span class="sc">&lt;=</span> <span class="st">"2021-12-31"</span>,</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  geo_value <span class="sc">==</span> <span class="st">"ca"</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>#&gt; [1] 31  4</code></pre>
-</div>
-</div>
-<p>We want to predict death rates on 2022-01-07, which is 7 days ahead of the latest available date in our dataset.</p>
-<p>We will compare two methods of trying to create lags and leads:</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-19_09116e7cc8bb0fb7c6684d8af2e39a4d">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">epi_recipe</span>(ex) <span class="sc">%&gt;%</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_lag</span>(case_rate, <span class="at">lag =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">14</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_lag</span>(death_rate, <span class="at">lag =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">14</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_ahead</span>(death_rate, <span class="at">ahead =</span> <span class="dv">7</span>, <span class="at">role =</span> <span class="st">"outcome"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_naomit</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> <span class="fu">bake</span>(p1, ex)</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>b1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>#&gt; # A tibble: 17 × 11
-#&gt;   time_value geo_value case_rate death_rate lag_0_case_rate lag_7_case_rate
-#&gt;   &lt;date&gt;     &lt;chr&gt;         &lt;dbl&gt;      &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;
-#&gt; 1 2021-12-15 ca             15.8      0.157            15.8            18.0
-#&gt; 2 2021-12-16 ca             16.3      0.155            16.3            17.4
-#&gt; 3 2021-12-17 ca             16.9      0.158            16.9            17.4
-#&gt; 4 2021-12-18 ca             17.6      0.164            17.6            17.2
-#&gt; 5 2021-12-19 ca             19.1      0.165            19.1            16.3
-#&gt; 6 2021-12-20 ca             20.6      0.164            20.6            16.0
-#&gt; # ℹ 11 more rows
-#&gt; # ℹ 5 more variables: lag_14_case_rate &lt;dbl&gt;, lag_0_death_rate &lt;dbl&gt;, …</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">epi_recipe</span>(ex) <span class="sc">%&gt;%</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_mutate</span>(</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">lag0case_rate =</span> <span class="fu">lag</span>(case_rate, <span class="dv">0</span>),</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">lag7case_rate =</span> <span class="fu">lag</span>(case_rate, <span class="dv">7</span>),</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">lag14case_rate =</span> <span class="fu">lag</span>(case_rate, <span class="dv">14</span>),</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lag0death_rate =</span> <span class="fu">lag</span>(death_rate, <span class="dv">0</span>),</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">lag7death_rate =</span> <span class="fu">lag</span>(death_rate, <span class="dv">7</span>),</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">lag14death_rate =</span> <span class="fu">lag</span>(death_rate, <span class="dv">14</span>),</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">ahead7death_rate =</span> <span class="fu">lead</span>(death_rate, <span class="dv">7</span>)</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_epi_naomit</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>b2 <span class="ot">&lt;-</span> <span class="fu">bake</span>(p2, ex)</span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>b2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>#&gt; # A tibble: 10 × 11
-#&gt;   time_value geo_value case_rate death_rate lag0case_rate lag7case_rate
-#&gt;   &lt;date&gt;     &lt;chr&gt;         &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-#&gt; 1 2021-12-15 ca             15.8      0.157          15.8          18.0
-#&gt; 2 2021-12-16 ca             16.3      0.155          16.3          17.4
-#&gt; 3 2021-12-17 ca             16.9      0.158          16.9          17.4
-#&gt; 4 2021-12-18 ca             17.6      0.164          17.6          17.2
-#&gt; 5 2021-12-19 ca             19.1      0.165          19.1          16.3
-#&gt; 6 2021-12-20 ca             20.6      0.164          20.6          16.0
-#&gt; # ℹ 4 more rows
-#&gt; # ℹ 5 more variables: lag14case_rate &lt;dbl&gt;, lag0death_rate &lt;dbl&gt;, …</code></pre>
-</div>
-</div>
-<p>Notice the difference in number of rows <code>b1</code> and <code>b2</code> returns. This is because the second version, the one that doesn’t use <code>step_epi_ahead</code> and <code>step_epi_lag</code>, has omitted dates compared to the one that used the <code>epipredict</code> functions.</p>
-<div class="cell" data-layout-align="center" data-hash="preprocessing-and-models_cache/html/unnamed-chunk-20_bd7c00076c5eda019a1d36dcfbb29dbf">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>dates_used_in_training1 <span class="ot">&lt;-</span> b1 <span class="sc">%&gt;%</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>ahead_7_death_rate) <span class="sc">%&gt;%</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(time_value)</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>dates_used_in_training1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>#&gt; # A tibble: 17 × 1
-#&gt;   time_value
-#&gt;   &lt;date&gt;    
-#&gt; 1 2021-12-15
-#&gt; 2 2021-12-16
-#&gt; 3 2021-12-17
-#&gt; 4 2021-12-18
-#&gt; 5 2021-12-19
-#&gt; 6 2021-12-20
-#&gt; # ℹ 11 more rows</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>dates_used_in_training2 <span class="ot">&lt;-</span> b2 <span class="sc">%&gt;%</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>ahead7death_rate) <span class="sc">%&gt;%</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(time_value)</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>dates_used_in_training2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>#&gt; # A tibble: 10 × 1
-#&gt;   time_value
-#&gt;   &lt;date&gt;    
-#&gt; 1 2021-12-15
-#&gt; 2 2021-12-16
-#&gt; 3 2021-12-17
-#&gt; 4 2021-12-18
-#&gt; 5 2021-12-19
-#&gt; 6 2021-12-20
-#&gt; # ℹ 4 more rows</code></pre>
-</div>
-</div>
-<p>The model that is trained based on the <code>{recipes}</code> functions will predict 7 days ahead from 2021-12-24 instead of 7 days ahead from 2021-12-31.</p>
-</section>
-<section id="references" class="level2" data-number="5.6">
-<h2 data-number="5.6" class="anchored" data-anchor-id="references"><span class="header-section-number">5.6</span> References</h2>
-<p>McDonald, Bien, Green, Hu, et al.&nbsp;“Can auxiliary indicators improve COVID-19 forecasting and hotspot prediction?.” Proceedings of the National Academy of Sciences 118.51 (2021): e2111453118. <a href="https://doi.org/10.1073/pnas.2111453118">doi:10.1073/pnas.2111453118</a></p>
-</section>
-<section id="attribution" class="level2" data-number="5.7">
-<h2 data-number="5.7" class="anchored" data-anchor-id="attribution"><span class="header-section-number">5.7</span> Attribution</h2>
-<p>This vignette contains a modified part of the <a href="https://github.com/CSSEGISandData/COVID-19">COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University</a> as <a href="https://cmu-delphi.github.io/delphi-epidata/api/covidcast-signals/jhu-csse.html">republished in the COVIDcast Epidata API.</a>. See the COVIDcast Epidata API documentation for its modifications, and the code above for further modifications. This data set is licensed under the terms of the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International license</a> by the Johns Hopkins University on behalf of its Center for Systems Science in Engineering. Copyright Johns Hopkins University 2020.</p>
+<!--
+
+## Benefits of Lagging and Leading in `epipredict`
+
+The `step_epi_ahead` and `step_epi_lag` functions in the `epipredict` package
+is handy for creating correct lags and leads for future predictions. 
+
+Let's examine what happens with one month of data for one location:
+
+::: {.cell layout-align="center" hash='preprocessing-and-models_cache/html/unnamed-chunk-20_0a1fe4b7ad64a1a8421a1ba2ed248f5c'}
+
+```{.r .cell-code}
+ex <- filter(
+  case_death_rate_subset,
+  time_value >= "2021-12-01",
+  time_value <= "2021-12-31",
+  geo_value == "ca"
+)
+ex
+```
+
+::: {.cell-output .cell-output-stdout}
+```
+#> An `epi_df` object, 31 x 4 with metadata:
+#> * geo_type  = state
+#> * time_type = day
+#> * as_of     = 2022-05-31 12:08:25.791826
+#> 
+#> # A tibble: 31 × 4
+#>   geo_value time_value case_rate death_rate
+#> * <chr>     <date>         <dbl>      <dbl>
+#> 1 ca        2021-12-01      12.5      0.173
+#> 2 ca        2021-12-02      15.5      0.207
+#> 3 ca        2021-12-03      16.0      0.235
+#> 4 ca        2021-12-04      16.6      0.233
+#> 5 ca        2021-12-05      16.7      0.232
+#> 6 ca        2021-12-06      17.3      0.194
+#> # ℹ 25 more rows
+```
+:::
+:::
+
+
+We want to predict death rates on 2022-01-07, which is 7 days 
+ahead of the latest available date in our dataset. 
+
+We will compare two methods of trying to create lags and leads:
+
+::: {.cell layout-align="center" hash='preprocessing-and-models_cache/html/unnamed-chunk-21_1a56cb48e40fa646e310c62fcd7f7a5f'}
+
+```{.r .cell-code}
+prepped_epi <- epi_recipe(ex) %>%
+  step_epi_lag(case_rate, death_rate, lag = c(0, 7, 14)) %>%
+  step_epi_ahead(death_rate, ahead = 7) %>%
+  step_epi_naomit() %>%
+  prep()
+
+baked_epi <- bake(prepped_epi, ex)
+baked_epi
+```
+
+::: {.cell-output .cell-output-stdout}
+```
+#> # A tibble: 17 × 11
+#>   time_value geo_value case_rate death_rate lag_0_case_rate lag_7_case_rate
+#>   <date>     <chr>         <dbl>      <dbl>           <dbl>           <dbl>
+#> 1 2021-12-15 ca             15.8      0.157            15.8            18.0
+#> 2 2021-12-16 ca             16.3      0.155            16.3            17.4
+#> 3 2021-12-17 ca             16.9      0.158            16.9            17.4
+#> 4 2021-12-18 ca             17.6      0.164            17.6            17.2
+#> 5 2021-12-19 ca             19.1      0.165            19.1            16.3
+#> 6 2021-12-20 ca             20.6      0.164            20.6            16.0
+#> # ℹ 11 more rows
+#> # ℹ 5 more variables: lag_14_case_rate <dbl>, lag_0_death_rate <dbl>, …
+```
+:::
+
+```{.r .cell-code}
+prepped_rec <- epi_recipe(ex) %>%
+  step_lag(case_rate, death_rate, lag = c(7, 14)) %>% # lags must be positive
+  step_mutate(lag_0_death_rate = death_rate, lag_0_case_rate = case_rate) %>%
+  step_mutate(ahead_7_death_rate = lead(death_rate, 7), role = "outcome") %>%
+  step_naomit(all_predictors(), all_outcomes()) %>%
+  prep()
+
+baked_rec <- bake(prepped_rec, ex)
+baked_rec
+```
+
+::: {.cell-output .cell-output-stdout}
+```
+#> An `epi_df` object, 31 x 11 with metadata:
+#> * geo_type  = state
+#> * time_type = day
+#> * as_of     = 2022-05-31 12:08:25.791826
+#> 
+#> # A tibble: 31 × 11
+#>   time_value geo_value case_rate death_rate lag_7_case_rate lag_14_case_rate
+#> * <date>     <chr>         <dbl>      <dbl>           <dbl>            <dbl>
+#> 1 2021-12-01 ca             12.5      0.173              NA               NA
+#> 2 2021-12-02 ca             15.5      0.207              NA               NA
+#> 3 2021-12-03 ca             16.0      0.235              NA               NA
+#> 4 2021-12-04 ca             16.6      0.233              NA               NA
+#> 5 2021-12-05 ca             16.7      0.232              NA               NA
+#> 6 2021-12-06 ca             17.3      0.194              NA               NA
+#> # ℹ 25 more rows
+#> # ℹ 5 more variables: lag_7_death_rate <dbl>, lag_14_death_rate <dbl>, …
+```
+:::
+:::
+
+
+Notice the difference in number of rows `b1` and `b2` returns. This is because 
+the second version, the one that doesn't use `step_epi_ahead` and `step_epi_lag`,
+has omitted dates compared to the one that used the `epipredict` functions.
+
+::: {.cell layout-align="center" hash='preprocessing-and-models_cache/html/unnamed-chunk-22_25ec487a31807cc4a794a6b43ea37e09'}
+
+```{.r .cell-code}
+dates_used_by_epi <- baked_epi %>%
+  select(-ahead_7_death_rate) %>%
+  na.omit() %>%
+  pull(time_value)
+dates_used_by_epi
+```
+
+::: {.cell-output .cell-output-stdout}
+```
+#>  [1] "2021-12-15" "2021-12-16" "2021-12-17" "2021-12-18" "2021-12-19"
+#>  [6] "2021-12-20" "2021-12-21" "2021-12-22" "2021-12-23" "2021-12-24"
+#> [11] "2021-12-25" "2021-12-26" "2021-12-27" "2021-12-28" "2021-12-29"
+#> [16] "2021-12-30" "2021-12-31"
+```
+:::
+
+```{.r .cell-code}
+dates_used_by_rec <- baked_rec %>%
+  select(-ahead_7_death_rate) %>%
+  na.omit() %>%
+  pull(time_value)
+dates_used_by_rec
+```
+
+::: {.cell-output .cell-output-stdout}
+```
+#>  [1] "2021-12-15" "2021-12-16" "2021-12-17" "2021-12-18" "2021-12-19"
+#>  [6] "2021-12-20" "2021-12-21" "2021-12-22" "2021-12-23" "2021-12-24"
+#> [11] "2021-12-25" "2021-12-26" "2021-12-27" "2021-12-28" "2021-12-29"
+#> [16] "2021-12-30" "2021-12-31"
+```
+:::
+:::
+
+
+The model that is trained based on the `{recipes}` functions will predict 7 days 
+ahead from 2021-12-31
+instead of 7 days ahead from 2021-12-31.
+
+-->
 
 
 </section>
@@ -1059,12 +1194,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./tidymodels-regression.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression in Tidymodels</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Regression in Tidymodels</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./sliding-forecasters.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Demonstrations of sliding AR and ARX forecasters</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Pseudo-prospective forecast inspection</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

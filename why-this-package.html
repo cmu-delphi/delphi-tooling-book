@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Epidemiological Forecasting - 1&nbsp; Motivation</title>
+<title>Introduction to Epidemiological Forecasting - Motivation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -30,7 +49,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./flatline-forecaster.html" rel="next">
+<link href="./epiprocess.html" rel="next">
 <link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -64,7 +83,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -73,7 +92,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./why-this-package.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Motivation</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./why-this-package.html">Motivation</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -85,10 +104,30 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Introduction to Epidemiological Forecasting</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/cmu-delphi/delphi-tooling/book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -107,39 +146,115 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./why-this-package.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Motivation</span></span></a>
+ <span class="menu-text">Motivation</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">epiprocess</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epiprocess.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epidf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting data into epi_df format</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./slide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sliding computations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./growth-rates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estimate growth rates in signals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./correlations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Correlate signals over space and time</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./outliers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Detect and correct outliers in signals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./archive.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Work with archive objects and data revisions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">epipredict</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epipredict.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./forecast-framework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Inner workings of the framework</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./flatline-forecaster.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidymodels-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidymodels-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression in Tidymodels</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Regression in Tidymodels</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./preprocessing-and-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Examples of Preprocessing and Models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Examples of Preprocessing and Models</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sliding-forecasters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Demonstrations of sliding AR and ARX forecasters</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Pseudo-prospective forecast inspection</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
@@ -156,18 +271,16 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#a-brief-overview-about-the-epi-universe" id="toc-a-brief-overview-about-the-epi-universe" class="nav-link active" data-scroll-target="#a-brief-overview-about-the-epi-universe"><span class="header-section-number">1.1</span> A brief overview about the epi universe</a></li>
-  <li><a href="#main-goal-for-the-epipredict-package" id="toc-main-goal-for-the-epipredict-package" class="nav-link" data-scroll-target="#main-goal-for-the-epipredict-package"><span class="header-section-number">1.2</span> Main goal for the epipredict package</a></li>
-  <li><a href="#why-doesnt-this-package-already-exist" id="toc-why-doesnt-this-package-already-exist" class="nav-link" data-scroll-target="#why-doesnt-this-package-already-exist"><span class="header-section-number">1.3</span> Why doesn’t this package already exist?</a></li>
+  <li><a href="#a-brief-overview-of-the-epi-packages" id="toc-a-brief-overview-of-the-epi-packages" class="nav-link active" data-scroll-target="#a-brief-overview-of-the-epi-packages">A brief overview of the epi* packages</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/cmu-delphi/delphi-tooling/book/blob/main/why-this-package.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/cmu-delphi/delphi-tooling/book/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Motivation</span></h1>
+<h1 class="title">Motivation</h1>
 </div>
 
 
@@ -183,13 +296,13 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>The COVID-19 Pandemic required quick implementation of forecasting systems. Using reliable and validated forecasting methodology is crucial in the public health response to any fast-moving epidemic or pandemic. Tracking and forecasting indicators such as confirmed cases, hospitalizations and deaths are critical to understand disease spread, formulate appropriate public policy response, and to plan future health resource needs.</p>
-<p>A forecasting task may be separated into several sub-tasks, with data preparation being the among the first. One could imagine the necessity of having standard processing tasks such as outlier detection and correction readily available at this stage. Additionally, these tasks should be tailored to the data structure, which should clearly include a geographic and a temporal component. Data revisions add a layer of complication as data from surveillance streams are often subject to latency and revision. Hence, working with data revisions should be facilitated (and models intended for prediction should be built using the data that would have been available on the prediction date).</p>
-<p>The forecasting models should not be imbued with unnecessary complexity. That is, everything should be made as simple as possible, but not simpler. In fact, simple, robust models have been consistently top performers for COVID-19 death forecasting (<a href="https://www.pnas.org/doi/10.1073/pnas.21135611190">Cramer et al, 2022</a>) and the basic AR model has been competitive with the top models used for COVID-19 forecasting (<a href="https://www.pnas.org/doi/pdf/10.1073/pnas.2111453118">McDonald et al, 2021</a>).</p>
+<p>A forecasting task may be separated into several sub-tasks, with data preparation being the among the first. One could imagine the necessity of having standard processing tasks such as outlier detection and correction readily available at this stage. Additionally, these tasks should be tailored to the data structure, which should clearly include a geographic and a temporal component. Data revisions add a layer of complication as data from surveillance streams are often subject to latency and revision. Hence, working with data revisions should be facilitated, and models intended for production should be built and validated using only the data that would have been available on the prediction date rather than finalized values.</p>
+<p>We take the view that forecasting models should not be imbued with too much unnecessary complexity. That is, everything should be made as simple as possible, but not simpler. In fact, robust yet simple models have consistently been top performers for Influenza Forecasting <span class="citation" data-cites="flusight2019">(<a href="references.html#ref-flusight2019" role="doc-biblioref">Lutz et al. 2019</a>)</span> COVID-19 death forecasting <span class="citation" data-cites="Cramer2021">(<a href="references.html#ref-Cramer2021" role="doc-biblioref">Cramer et al. 2022</a>)</span> and the basic AR model has been competitive with the top models used for COVID-19 forecasting <span class="citation" data-cites="McDonaldBien2021">(<a href="references.html#ref-McDonaldBien2021" role="doc-biblioref">McDonald et al. 2021</a>)</span>.</p>
 <p>In line with this, custom software that has been specially curated for a modelling task is often not easily adaptable or able to be improved by other groups. Such software is hard for public health to borrow, customize and improve.</p>
-<section id="a-brief-overview-about-the-epi-universe" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="a-brief-overview-about-the-epi-universe"><span class="header-section-number">1.1</span> A brief overview about the epi universe</h2>
-<p>Since early 2020, our research group has worked with data partners to publicaly disseminate information about numerous COVID-19 indicators, which we and others then use for nowcasting and short-term forecasting. Prior to that we worked mostly on influenza, dengue and norovirus modelling.</p>
-<p>Our overarching goal is to build interworking, community-driven packages for epidemiologic tracking and forcasting. To that end, the epi. universe is currently comprised of three main packages: <code>epidatr</code> (in Python <code>epidatpy</code>), <code>epiprocess</code>, and <code>epipredict</code>. Each has their own role in the forecasting process: The <code>epidatr</code> (<code>epidatpy</code>) package is used to fetch data, <code>epiprocess</code> is used to standardize, clean and process data, and finally the <code>epipredict</code> package is used for building and evaluating predictive models. Here is a diagram depicting the basic workflow for using these packages:</p>
+<section id="a-brief-overview-of-the-epi-packages" class="level2">
+<h2 class="anchored" data-anchor-id="a-brief-overview-of-the-epi-packages">A brief overview of the epi* packages</h2>
+<p>Since early 2020, the <a href="https://delphi.cmu.edu">CMU’s Delphi Research Group</a> has worked with data partners to publicly disseminate information about numerous COVID-19 indicators, which we and others then use for nowcasting and short-term forecasting. Prior to that we worked mostly on influenza, dengue and norovirus modelling.</p>
+<p>The overarching goal of the effort described here is to describe a set of interworking, community-driven packages built specifically for epidemiologic tracking and forcasting. To that end, the epi. universe is currently comprised of three main packages: <code>{epidatr}</code> (in Python <code>{epidatpy}</code>), <code>{epiprocess}</code>, and <code>{epipredict}</code>. Each has their own role in the forecasting process: The <code>{epidatr}</code> package is used to fetch data from the API, <code>{epiprocess}</code> is used to standardize, clean and process data, and finally the <code>{epipredict}</code> package is used for building (and to a lesser degree, evaluating) predictive models. Here is a diagram depicting the basic workflow for using these packages:</p>
 <p><img src="img/relation_epi_packages.png" class="center img-fluid"></p>
 <p>Here’s a brief overview about what each package offers…</p>
 <p><strong>epidatr</strong> - Obtain epidemiological surveillance data from Delphi’s Epidata API</p>
@@ -217,23 +330,20 @@ ul.task-list li input[type="checkbox"] {
 <li>Quickly pivot to new tasks</li>
 <li>Highly customizable for advanced users</li>
 </ul>
-<p>The focus of this book is <code>epipredict</code>. By the end of this book, you should be equipped with the tools and knowledge to build your own basic and customizable forecasting models. At that point, our hope is that some may take things a step further and leverage this package to build on it and advance the frontier of predictive modelling.</p>
-</section>
-<section id="main-goal-for-the-epipredict-package" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="main-goal-for-the-epipredict-package"><span class="header-section-number">1.2</span> Main goal for the epipredict package</h2>
-<p>At a high level, our goal with <code>epipredict</code> is to make running simple machine learning / statistical forecasters for epidemiology easy. However, this package is extremely extensible, and that is part of its utility. Our hope is that it is easy for users with epidemiology training and some statistics to fit baseline models while still allowing those with more nuanced statistical understanding to create complicated specializations using the same framework.</p>
-<p>Serving both populations is the main motivation for our efforts, but at the same time, we have tried hard to make it useful.</p>
-</section>
-<section id="why-doesnt-this-package-already-exist" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="why-doesnt-this-package-already-exist"><span class="header-section-number">1.3</span> Why doesn’t this package already exist?</h2>
-<ul>
-<li>Parts of it actually DO exist. There’s a universe called <code>tidymodels</code>. It handles pre-processing, training, and prediction, bound together, through a package called workflows. We built <code>epipredict</code> on top of that setup. In this way, you CAN use almost everything they provide.</li>
-<li>However, workflows doesn’t do post-processing. And nothing in the <code>tidyverse</code> handles panel data.</li>
-<li>The tidy-team doesn’t have plans to do either of these things. (We checked).</li>
-<li>There are two packages that do time series built on <code>tidymodels</code>, but it’s “basic” time series: 1-step AR models, exponential smoothing, STL decomposition, etc.1 Our group has not prioritized these sorts of models for epidemic forecasting, but one could also integrate these methods into our framework.</li>
-</ul>
+<p>The focus of this book is on <code>{epiprocess}</code> and <code>{epipredict}</code>. By the end of this book, you should be equipped with the tools and knowledge to build your own basic and customizable forecasting models. At that point, our hope is that some may take things a step further and leverage this package to build on it and advance the frontier of predictive modelling.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-Cramer2021" class="csl-entry" role="listitem">
+Cramer, Estee Y., Evan L. Ray, Velma K. Lopez, Johannes Bracher, Andrea Brennen, Alvaro J. Castro Rivadeneira, Aaron Gerding, et al. 2022. <span>“Evaluation of Individual and Ensemble Probabilistic Forecasts of COVID-19 Mortality in the United States.”</span> <em>Proceedings of the National Academy of Sciences</em> 119 (15): e2113561119. <a href="https://doi.org/10.1073/pnas.2113561119">https://doi.org/10.1073/pnas.2113561119</a>.
+</div>
+<div id="ref-flusight2019" class="csl-entry" role="listitem">
+Lutz, Chelsea S, Mimi P Huynh, Monica Schroeder, Sophia Anyatonwu, F Scott Dahlgren, Gregory Danyluk, Danielle Fernandez, et al. 2019. <span>“Applying Infectious Disease Forecasting to Public Health: A Path Forward Using Influenza Forecasting Examples.”</span> <em>BMC Public Health</em> 19 (1): 1–12. <a href="https://doi.org/10.1186/s12889-019-7966-8">https://doi.org/10.1186/s12889-019-7966-8</a>.
+</div>
+<div id="ref-McDonaldBien2021" class="csl-entry" role="listitem">
+McDonald, Daniel J, Jacob Bien, Alden Green, Addison J Hu, Nat DeFries, Sangwon Hyun, Natalia L Oliveira, et al. 2021. <span>“Can Auxiliary Indicators Improve <span>COVID-19</span> Forecasting and Hotspot Prediction?”</span> <em>Proceedings of the National Academy of Sciences</em> 118: e2111453118. <a href="https://doi.org/10.1073/pnas.2111453118">https://doi.org/10.1073/pnas.2111453118</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
@@ -477,8 +587,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./flatline-forecaster.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./epiprocess.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

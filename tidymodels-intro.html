@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Epidemiological Forecasting - 3&nbsp; Introduction to Tidymodels</title>
+<title>Introduction to Epidemiological Forecasting - 11&nbsp; Introduction to Tidymodels</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -98,7 +98,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -107,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tidymodels-intro.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./epipredict.html">epipredict</a></li><li class="breadcrumb-item"><a href="./tidymodels-intro.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -119,10 +119,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Introduction to Epidemiological Forecasting</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/cmu-delphi/delphi-tooling/book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -141,39 +161,115 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./why-this-package.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Motivation</span></span></a>
+ <span class="menu-text">Motivation</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">epiprocess</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epiprocess.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epidf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting data into epi_df format</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./slide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sliding computations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./growth-rates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estimate growth rates in signals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./correlations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Correlate signals over space and time</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./outliers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Detect and correct outliers in signals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./archive.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Work with archive objects and data revisions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">epipredict</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epipredict.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./forecast-framework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Inner workings of the framework</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./flatline-forecaster.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidymodels-intro.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidymodels-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression in Tidymodels</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Regression in Tidymodels</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./preprocessing-and-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Examples of Preprocessing and Models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Examples of Preprocessing and Models</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sliding-forecasters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Demonstrations of sliding AR and ARX forecasters</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Pseudo-prospective forecast inspection</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
@@ -190,27 +286,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#an-example-using-the-penguins-dataset" id="toc-an-example-using-the-penguins-dataset" class="nav-link active" data-scroll-target="#an-example-using-the-penguins-dataset"><span class="header-section-number">3.1</span> An example using the penguins dataset</a>
+  <li><a href="#an-example-using-the-penguins-dataset" id="toc-an-example-using-the-penguins-dataset" class="nav-link active" data-scroll-target="#an-example-using-the-penguins-dataset"><span class="header-section-number">11.1</span> An example using the penguins dataset</a>
   <ul class="collapse">
-  <li><a href="#load-packages" id="toc-load-packages" class="nav-link" data-scroll-target="#load-packages"><span class="header-section-number">3.1.1</span> Load packages</a></li>
-  <li><a href="#simplify-dataset" id="toc-simplify-dataset" class="nav-link" data-scroll-target="#simplify-dataset"><span class="header-section-number">3.1.2</span> Simplify dataset</a></li>
-  <li><a href="#data-sampling" id="toc-data-sampling" class="nav-link" data-scroll-target="#data-sampling"><span class="header-section-number">3.1.3</span> Data sampling</a></li>
-  <li><a href="#pre-processing" id="toc-pre-processing" class="nav-link" data-scroll-target="#pre-processing"><span class="header-section-number">3.1.4</span> Pre-processing</a></li>
-  <li><a href="#model-training" id="toc-model-training" class="nav-link" data-scroll-target="#model-training"><span class="header-section-number">3.1.5</span> Model Training</a></li>
-  <li><a href="#use-a-trained-workflow-to-predict" id="toc-use-a-trained-workflow-to-predict" class="nav-link" data-scroll-target="#use-a-trained-workflow-to-predict"><span class="header-section-number">3.1.6</span> Use a trained workflow to predict</a></li>
-  <li><a href="#model-validation" id="toc-model-validation" class="nav-link" data-scroll-target="#model-validation"><span class="header-section-number">3.1.7</span> Model Validation</a></li>
+  <li><a href="#load-packages" id="toc-load-packages" class="nav-link" data-scroll-target="#load-packages"><span class="header-section-number">11.1.1</span> Load packages</a></li>
+  <li><a href="#simplify-dataset" id="toc-simplify-dataset" class="nav-link" data-scroll-target="#simplify-dataset"><span class="header-section-number">11.1.2</span> Simplify dataset</a></li>
+  <li><a href="#data-sampling" id="toc-data-sampling" class="nav-link" data-scroll-target="#data-sampling"><span class="header-section-number">11.1.3</span> Data sampling</a></li>
+  <li><a href="#pre-processing" id="toc-pre-processing" class="nav-link" data-scroll-target="#pre-processing"><span class="header-section-number">11.1.4</span> Pre-processing</a></li>
+  <li><a href="#model-training" id="toc-model-training" class="nav-link" data-scroll-target="#model-training"><span class="header-section-number">11.1.5</span> Model Training</a></li>
+  <li><a href="#use-a-trained-workflow-to-predict" id="toc-use-a-trained-workflow-to-predict" class="nav-link" data-scroll-target="#use-a-trained-workflow-to-predict"><span class="header-section-number">11.1.6</span> Use a trained workflow to predict</a></li>
+  <li><a href="#model-validation" id="toc-model-validation" class="nav-link" data-scroll-target="#model-validation"><span class="header-section-number">11.1.7</span> Model Validation</a></li>
   </ul></li>
-  <li><a href="#concluding-remarks" id="toc-concluding-remarks" class="nav-link" data-scroll-target="#concluding-remarks"><span class="header-section-number">3.2</span> Concluding remarks</a></li>
-  <li><a href="#attribution" id="toc-attribution" class="nav-link" data-scroll-target="#attribution"><span class="header-section-number">3.3</span> Attribution</a></li>
+  <li><a href="#concluding-remarks" id="toc-concluding-remarks" class="nav-link" data-scroll-target="#concluding-remarks"><span class="header-section-number">11.2</span> Concluding remarks</a></li>
+  <li><a href="#attribution" id="toc-attribution" class="nav-link" data-scroll-target="#attribution"><span class="header-section-number">11.3</span> Attribution</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/cmu-delphi/delphi-tooling/book/blob/main/tidymodels-intro.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/cmu-delphi/delphi-tooling/book/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></h1>
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></h1>
 </div>
 
 
@@ -228,7 +324,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>R contains a universe of packages that each have their own unique interfaces (functions and argument names) and return types. For instance, simple linear regression in R is traditionally performed using <code>lm()</code> from the stats package, but there’s also the option to use <code>glm</code>, <code>glmnet</code> or other packages. Similarly for random forest - a user has the option to use <code>ranger</code>, <code>randomForest</code>, or <code>xgboost</code> amongst other options. Having such a bevy of options is great, but it also adds complications to the modelling process.</p>
 <p>If only there was a unifying interface available to help simplify and streamline the modelling process. This is the purpose of <code>tidymodels</code>, which provides a unified interface for modeling that abides by the <a href="https://tidyverse.tidyverse.org/articles/paper.html#:~:text=Its%20primary%20goal%20is%20to,easier%20to%20learn%20the%20next">tidy philosphy</a> and that fits nicely into the tidyverse. From pre-processing to model training to prediction to validation, <code>tidymodels</code> provides the necessary tools to perform many modelling tasks.</p>
 <p>It is important to understand that the <code>tidymodels</code> packages do not aim to implement the algorithms themseves, rather they provide the interface to bring together many disparate approaches under the same roof. And as a result of this, model fitting tasks are easier to carry out. In the grand scheme of things, here’s where <code>tidymodels</code> tends to fit into a data analysis project.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-2_8e31720fd85f86157d35b8249f5d00bb">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-2_9ebbde4ead853f4c75fd41c8da8aac8a">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -245,7 +341,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>yardstick</code> gives access to model performance measures</li>
 </ul>
 <p>The following diagram shows where each package comes into play in a general workflow for modelling using <code>tidymodels</code>.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-3_7c52afde75a88b87f1e7a24566e7eab6">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-3_3e419eaced9bcacb0667e00ae55cb6b5">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -254,20 +350,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<section id="an-example-using-the-penguins-dataset" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="an-example-using-the-penguins-dataset"><span class="header-section-number">3.1</span> An example using the penguins dataset</h2>
+<section id="an-example-using-the-penguins-dataset" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="an-example-using-the-penguins-dataset"><span class="header-section-number">11.1</span> An example using the penguins dataset</h2>
 <p>We will now explore the <code>tidymodels</code> functions using the <code>penguins</code> dataset that we introduced and used in <a href="LINK TO VIGNETTE">Regression in Tidymodels</a>.</p>
-<section id="load-packages" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="load-packages"><span class="header-section-number">3.1.1</span> Load packages</h3>
+<section id="load-packages" class="level3" data-number="11.1.1">
+<h3 data-number="11.1.1" class="anchored" data-anchor-id="load-packages"><span class="header-section-number">11.1.1</span> Load packages</h3>
 <p>Note that <code>tidymodels</code> automatically loads some very useful <code>tidyverse</code> packages for us, including fan favourites like <code>dplyr</code> and <code>ggplot2</code>.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-4_b4709c025437c5355f72f772c1431578">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-4_2264c225b8ea3011e2081f83c730b65e">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="simplify-dataset" class="level3" data-number="3.1.2">
-<h3 data-number="3.1.2" class="anchored" data-anchor-id="simplify-dataset"><span class="header-section-number">3.1.2</span> Simplify dataset</h3>
+<section id="simplify-dataset" class="level3" data-number="11.1.2">
+<h3 data-number="11.1.2" class="anchored" data-anchor-id="simplify-dataset"><span class="header-section-number">11.1.2</span> Simplify dataset</h3>
 <p>To keep the focus on learning how to use <code>tidymodels</code>, we will work with a simplified version of the dataset in which we will only use the complete cases/rows in the <code>penguins</code> dataset</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-5_3046bf227829c107c028e9f0fe0efd2f">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-5_67af100b153dab40f26460d41ac7fb15">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(.))</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -286,16 +382,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>and we will only use the <code>species</code>, <code>bill_length_mm</code>, <code>bill_depth_mm</code>, and <code>flipper_length_mm</code> variables.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-6_eb33959507f519096f31e9adedb247c0">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-6_ef5ed1a8ec1402118f9763f6a2bf242e">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(species, bill_length_mm, bill_depth_mm, flipper_length_mm))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="data-sampling" class="level3" data-number="3.1.3">
-<h3 data-number="3.1.3" class="anchored" data-anchor-id="data-sampling"><span class="header-section-number">3.1.3</span> Data sampling</h3>
+<section id="data-sampling" class="level3" data-number="11.1.3">
+<h3 data-number="11.1.3" class="anchored" data-anchor-id="data-sampling"><span class="header-section-number">11.1.3</span> Data sampling</h3>
 <p>After fitting a model, make sure it is a good model. That is, don’t forget to test how the model performs. For this reason, it is customary to split data into distinct training and test sets at the onset. The training data is used to fit the model and the test data is used to assess model performance.</p>
 <p>The <code>initial_split()</code> function from the <code>rsample</code> package is what we will use to split our dataset into a training and test set. The function by default uses 3/4 of data for training and reserves the remaining 1/4 for testing. Use the <code>prop</code> argument to change the proportion used for training. Note that this function gives a <code>rsplit</code> object and not a data frame and the output of the object shows the number of rows used for testing, training and the grand total.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-7_c788c05f4a0e4b143283ad06d26c9a27">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-7_9b76d434319551c35f834ca8a8a0e7b1">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># For reproduciblity, as when we split the data below</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>penguins_split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(penguins, <span class="at">prop =</span> <span class="fl">0.7</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>penguins_split</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -305,7 +401,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>To see what observations were used for training and testing, use the <code>training()</code> and <code>testing()</code> functions respectively.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-8_a7dd0c2ee247b4d362795802a89207d2">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-8_965d451cfc0d5363da62984b5411a2e3">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>penguins_split <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">training</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -319,20 +415,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Now, we’ll create a data frame for each of the training and test set:</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-9_d2c7e421f646ee704c07927ecdb2a60e">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-9_4dbd72c658687ca6c5c9dfc6962b1cbc">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> <span class="fu">training</span>(penguins_split)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> <span class="fu">testing</span>(penguins_split)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="pre-processing" class="level3" data-number="3.1.4">
-<h3 data-number="3.1.4" class="anchored" data-anchor-id="pre-processing"><span class="header-section-number">3.1.4</span> Pre-processing</h3>
+<section id="pre-processing" class="level3" data-number="11.1.4">
+<h3 data-number="11.1.4" class="anchored" data-anchor-id="pre-processing"><span class="header-section-number">11.1.4</span> Pre-processing</h3>
 <p>The main goal of this step is to use data transformations to make the data suitable for modeling. Most transformations that one required for standard data analysis tasks can be achieved by <code>dplyr</code>, or another <code>tidyverse</code> package.</p>
-<section id="the-pre-processing-interface" class="level4" data-number="3.1.4.1">
-<h4 data-number="3.1.4.1" class="anchored" data-anchor-id="the-pre-processing-interface"><span class="header-section-number">3.1.4.1</span> The pre-processing interface</h4>
+<section id="the-pre-processing-interface" class="level4" data-number="11.1.4.1">
+<h4 data-number="11.1.4.1" class="anchored" data-anchor-id="the-pre-processing-interface"><span class="header-section-number">11.1.4.1</span> The pre-processing interface</h4>
 <p>Before training the model, a recipe can be used to carry out the pre-processing required by the model.</p>
 <p>The <code>recipe()</code> has two main arguments: a formula (with the same format as when doing <regression in="" tidymodels="">[LINK TO VIGNETTE]) and a data argument, which is usually the training set as that is the data used to create the model. Hence, we have <code>data = train_data</code> here.</regression></p>
 <p>In our example, suppose that our goal is to predict penguin species from bill length, bill depth and flipper length, then our recipe function would look as follows:</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-10_5b06f6df4c7d982c8242b3680c2e60a7">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-10_77ac862fee16d19160e6cf03adee22dc">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(species <span class="sc">~</span> ., <span class="at">data =</span> train_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The point of recipe is to be a more general purpose formula. A number of packages are not formula-based. The ever-popular <code>glmnet()</code> function is one example because it takes in matrices for the x and y variables instead of a formula. So a recipe is useful because you can use a package like <code>glmnet</code> by following the same standard formula-based recipe format and simply specify later on in the modelling stage that the you would like to use <code>glmnet</code>.</p>
@@ -345,7 +441,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>One of the advantages of having these pre-processing steps is that they help to simplify concepts that are difficult or a pain to enforce in coding. For example, centering could be a nuisance to implement from scratch because we would first have to calculate statistics (variable averages) from the training data and then use them on both the training and on the test data. Note that centering should not be done on the test data, rather on the training data to avoid data leakage (contamination of the test data by using statistics from the test data). In a recipe, the the estimation of the variable means using the training data and the application of these to center new data sets is done automatically, under the hood, and so spares the coder from having to manually implement it. The situation is similar for scaling numeric data (<code>step_scale()</code>).</p>
 <p>Another useful feature of the <code>tidymodels</code> pre-processing interface is that each step can be applied to one specified variable, a group of variables, or all variables. The <code>all_predictors()</code> and <code>all_outcomes()</code> functions are particularly convenient to help minimize the amount of typing you need to do. For instance, if you wanted to apply <code>step_center()</code> to only the predictor variables, simply type <code>step_center(all_predictors())</code> instead of listing out each and every predictor in the step function.</p>
 <p>Now, let’s try this all out on our example.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-11_b75caa9833455a0a9c48816a92ef8df0">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-11_007b318e8247cae5fee6fa765ca79333">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>penguins_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(species <span class="sc">~</span> ., <span class="at">data =</span> train_data) <span class="sc">%&gt;%</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_corr</span>(<span class="fu">all_predictors</span>()) <span class="sc">%&gt;%</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_center</span>(<span class="fu">all_predictors</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>()) <span class="sc">%&gt;%</span></span>
@@ -353,22 +449,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>To summarize, we obtained a recipe object, <code>penguins_recipe</code>, by putting the <code>recipe()</code> and step functions together on our training data that we had ready to go from sampling.</p>
 <p>Now, to get the recipe details, simply call the recipe object. The operations section details what pre-processing steps we’ve applied to the data. Notice that the steps shown here are in the order that they were input into the recipe and they specify the variables used in each step.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-12_1350528229e85866e254d07f1a5a1cfa">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-12_a73027254138e5220218d014c0571de8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>penguins_recipe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
-<section id="model-training" class="level3" data-number="3.1.5">
-<h3 data-number="3.1.5" class="anchored" data-anchor-id="model-training"><span class="header-section-number">3.1.5</span> Model Training</h3>
+<section id="model-training" class="level3" data-number="11.1.5">
+<h3 data-number="11.1.5" class="anchored" data-anchor-id="model-training"><span class="header-section-number">11.1.5</span> Model Training</h3>
 <p>Recall that in R, the same type of model could be fit using several different packages, and each such package typically has it’s own style of interface. Two popular packages to fit random forest models are <code>ranger</code> and <code>randomForest</code>. One way that their interfaces differ is in the parameter name for the number of trees - <code>ranger()</code> has the parameter <code>num.trees</code>, whereas in <code>randomForest</code> has parameter <code>ntree</code>. Such differences do not make it simple to run the model in the other package.</p>
 <p><code>Tidymodels</code> created an single interface that supports the usage of both models. Moreover, this general interface supports an even wider range of functions that use perform random forest. The key part that points to the function and package to be used is the engine.</p>
 <p>Let’s see how this works in practice. In the below example, we’ll use the general <code>rand_forest()</code> function from <code>tidymodels</code>. In there, we can specify the number of trees by using the <code>trees</code> argument. Then, in <code>set_engine()</code> we specify that we want to use ranger’s version of random forest. Notice this follows the model specification format introduced in the [Regression in Tidymodels]<add link="" here=""> chapter.</add></p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-13_52f1ad01bb74810bd79abe2a88795c0d">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-13_2ce2f34d915184be525e50766273bfe5">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>penguins_ranger <span class="ot">&lt;-</span> <span class="fu">rand_forest</span>(<span class="at">trees =</span> <span class="dv">100</span>, <span class="at">mode =</span> <span class="st">"classification"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"ranger"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now, if we wanted to use a different package’s version of random forest, we could easily do that by simply swapping out the engine. To try this out, let’s use <code>randomForest</code> instead of <code>ranger</code>.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-14_9a04b304b8535a1e44d29e7e807191a6">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-14_75b18395aafd9d4afdc081db7a05fb63">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>penguins_rf <span class="ot">&lt;-</span> <span class="fu">rand_forest</span>(<span class="at">trees =</span> <span class="dv">100</span>, <span class="at">mode =</span> <span class="st">"classification"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"randomForest"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -380,7 +476,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p>A workflow can be used to pair model and processing tasks together. When different recipes are needed for different models, this is very useful so that you don’t have to keep track of separate model and recipe objects in your workspace. Hence, training and testing different workflows becomes easier.</p>
 <p>For our example, we’ll try tidy model’s workflows package to pair our model and our recipe together.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-15_9b5c038f269677f6e97c99e17c47f2ba">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-15_d496ee9edf143e935990b725debaaec7">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>penguins_wflow <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(penguins_ranger) <span class="sc">%&gt;%</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(penguins_recipe)</span>
@@ -408,11 +504,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>After that, we’re ready to fit the model to our training data. The <code>fit()</code> function is what we will use to prepare the the recipe and train the model from the finalized predictors.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-16_633858e59bf80c032aa71d62fa490d28">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-16_7c12180c3e71f078841b3a8df9ca54dc">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>penguins_fit <span class="ot">&lt;-</span> penguins_wflow <span class="sc">%&gt;%</span> <span class="fu">fit</span>(<span class="at">data =</span> train_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The resulting object contains both the recipe and fitted model. To extract the model, use the helper function of <code>extract_fit_parsnip()</code>, and to extract the recipe object, use <code>extract_recipe()</code>. We extract the model object below.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-17_b8a87fefbf1ae9950f9642d1c5986b6e">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-17_adf67ad4f74f01b4a2e09821534fca75">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_fit_parsnip</span>(penguins_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; parsnip model object
@@ -435,8 +531,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>One important thing to notice is that that if we wanted to use the <code>randomForest</code> model instead of the <code>ranger</code> model, all we’d need to do is replace the engine in the model specification; the rest of the code remains the same. We shall leave it to the reader to try this on their own and marvel at the beauty of having such a unifying interface.</p>
 </section>
-<section id="use-a-trained-workflow-to-predict" class="level3" data-number="3.1.6">
-<h3 data-number="3.1.6" class="anchored" data-anchor-id="use-a-trained-workflow-to-predict"><span class="header-section-number">3.1.6</span> Use a trained workflow to predict</h3>
+<section id="use-a-trained-workflow-to-predict" class="level3" data-number="11.1.6">
+<h3 data-number="11.1.6" class="anchored" data-anchor-id="use-a-trained-workflow-to-predict"><span class="header-section-number">11.1.6</span> Use a trained workflow to predict</h3>
 <p>Up to this point we have</p>
 <ol type="1">
 <li><p>Built the model (<code>penguins_ranger</code>)</p></li>
@@ -445,7 +541,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Trained our workflow using <code>fit()</code>.</p></li>
 </ol>
 <p>So the next step is to use the trained workflow, <code>penguins_fit</code>, to predict with the test data. This is easily done with a call to <code>predict()</code>.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-18_7690d7e10a74948618a80149c6d173f1">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-18_48e696c9d90b3c6d7c8251337e6b4991">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(penguins_fit, test_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; # A tibble: 100 × 1
@@ -461,12 +557,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>If you wanted to obtain a probability for each predicted value, then simply set the <code>type = prob</code> in <code>predict()</code>. This will yield a tibble with one column per outcome type and the corresponding predicted probability for each value to be each type of outcome. Then, to add the predicted values as a new column on the test data, use the <code>bind_cols()</code> function from <code>dplyr</code>.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-19_7fe8f6112c7d340807010395c1bab524">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-19_af9e880b31504b55f0de2461d26ce93e">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>penguins_predp <span class="ot">&lt;-</span> penguins_fit <span class="sc">%&gt;%</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">predict</span>(test_data, <span class="at">type =</span> <span class="st">"prob"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To add the predicted values as a new column on the test data, you can use the <code>bind_cols()</code> function from <code>dplyr</code>.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-20_7e01f92ee846fa6a2bcf7883e5859e60">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-20_c0637410ff018df353bfded24b041a1a">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_cols</span>(test_data, penguins_predp) <span class="sc">%&gt;%</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="co"># View first six rows of output</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -483,7 +579,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Alternatively, we can use the <code>augment()</code> function to obtain the predicted probabilities and add them to the test data in a one-liner.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-21_777c8062c56201fa28613ef347296a32">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-21_4969b7fc4d20b43b37f5df734074efec">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>penguins_aug <span class="ot">&lt;-</span> <span class="fu">augment</span>(penguins_fit, test_data)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>penguins_aug</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -503,10 +599,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We can see from the first couple of rows shown that our model predicted the species correctly to be Adelie (in the <code>.pred_class</code> column) because the <code>.pred_Adelie</code> probabilities are by far the largest of the three predicted probabilities for each row. So while we can informally say that our model is doing well for predicting, how can we formally assess this? We would like to calculate a metric (well, probably more than one) to tell us how well our model predicts the species of penguins.</p>
 </section>
-<section id="model-validation" class="level3" data-number="3.1.7">
-<h3 data-number="3.1.7" class="anchored" data-anchor-id="model-validation"><span class="header-section-number">3.1.7</span> Model Validation</h3>
+<section id="model-validation" class="level3" data-number="11.1.7">
+<h3 data-number="11.1.7" class="anchored" data-anchor-id="model-validation"><span class="header-section-number">11.1.7</span> Model Validation</h3>
 <p>The <code>metrics()</code> function from the <code>yardstick</code> package is helps to assess model performance. As suggested by its name, it will output some metrics, and as an added bonus, these will be automatically selected for the type of model that you construct. The input for this function is a tibble that contains the actual values and the predicted values. This way we can compare how close the model estimates are to the truth. To serve this purpose, we can use <code>penguins_aug</code>.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-22_9747674e94fecb81b2756a2d83bbf80c">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-22_b8252ed2ea48acc351d82910705fa3ba">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>penguins_aug <span class="sc">%&gt;%</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">metrics</span>(<span class="at">truth =</span> species, .pred_Adelie<span class="sc">:</span>.pred_Gentoo, <span class="at">estimate =</span> .pred_class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -522,7 +618,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Let’s briefly go through the metrics that were generated. Accuracy is simply the proportion of values that are predicted correctly, while kappa is similar to accuracy, but is normalized by the accuracy that would be expected by chance (you can think of it as a measure that compares observed accuracy to expected accuracy from random chance alone). For our example, both the accuracy and kappa value estimates are extremely high (near to the upper limit of 1) and similar in value, indicating that our model performs very well for prediction on the test data. Log loss is a measure of the performance of a classification model and a perfect model has a log loss of 0, so our model performs pretty well in that respect. Finally, <code>roc_auc</code> is the area under ROC curve and we’ll explain this very shortly so stay tuned (for now, just note that a value close to 1, like we have, is the goal). All in all, our model fairs very well.</p>
 <p>Since it is often not enough to rely purely on one number summaries of model performance, we’ll also look to graphical, curve-based metrics. We’ll walk through producing the classic ROC curve, which is computed using <code>roc_curve()</code> and <code>roc_auc()</code> from <code>yardstick</code>.</p>
 <p>To get ourselves an ROC curve, we need to input the actual values and the columns of predicted class probabilities into <code>roc_curve()</code>. We finish off by piping into the <code>autoplot()</code> function.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-23_ba06da0d6262e16deb27a2695a4f3015">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-23_4f33465326b36ba9f605f8144e95ba64">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>penguins_aug <span class="sc">%&gt;%</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_curve</span>(<span class="at">truth =</span> species, .pred_Adelie<span class="sc">:</span>.pred_Gentoo) <span class="sc">%&gt;%</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -536,7 +632,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Notice that the x-axis displays 1 - specificity, which is otherwise known as the false positive rate. So on this plot, we can visualize the trade-off between the false positive (1 - specificity) and the true positive (sensitivity) rates. Since the best classification would be where all positives are correctly classified as positive (sensitivity = 1), and no negatives are incorrect classified as positive (specificity = 0), curves closer to the top left corner (and, hence, an area under the curve of about 1) is what we’re hoping for.</p>
 <p>So, we can see that the curves for each of our species are looking pretty close to perfection (save for Adelie, which still does very well). To estimate the area under the curves, we can use <code>roc_auc</code> (or look to the summary of our metrics above for this very value).</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-24_6faffdcb1febb9325009784b31b6932e">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-24_2f383612e8ab94d7d60b43f6df1b72f3">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>penguins_aug <span class="sc">%&gt;%</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_auc</span>(<span class="at">truth =</span> species, .pred_Adelie<span class="sc">:</span>.pred_Gentoo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -548,7 +644,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>As expected, the estimated area is very close to 1, indicating near-perfect discrimination.</p>
 <p>The <code>yardstick</code> package also offers other standard tools for model assessment like a confusion matrix, from which we can inspect the counts of correct classifications and miclassifications.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-25_35e104f83a4dc58b1034ad509d460463">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-25_976809de4dcd6ea5a1da1608bf941c16">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>penguins_aug <span class="sc">%&gt;%</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(<span class="at">truth =</span> species, <span class="at">estimate =</span> .pred_class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -560,7 +656,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>We could even combine this with <code>autoplot()</code> to get a nice heatmap visualization.</p>
-<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-26_fa9a4be41a2a3b6fa9721e752c7e22fb">
+<div class="cell" data-layout-align="center" data-hash="tidymodels-intro_cache/html/unnamed-chunk-26_96de13131862791cf00497058a2f1a03">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>penguins_aug <span class="sc">%&gt;%</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(<span class="at">truth =</span> species, <span class="at">estimate =</span> .pred_class) <span class="sc">%&gt;%</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(<span class="st">"heatmap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -575,15 +671,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The diagonal shows the counts of correct predictions for each species, while the off-diagonal shows the counts of model misclassifications. As the metrics have indicated, our model performed magnificently on the test set as there was only three misclassifications of Adelie penguins as Chinstrap.</p>
 </section>
 </section>
-<section id="concluding-remarks" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="concluding-remarks"><span class="header-section-number">3.2</span> Concluding remarks</h2>
+<section id="concluding-remarks" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="concluding-remarks"><span class="header-section-number">11.2</span> Concluding remarks</h2>
 <p>In this vignette, we introduced <code>tidymodels</code> and illustrated how to its packages work together by way of example. Since this was an elementary example, so use this as a starting point and explore what more can be done with this wonderful set of packages. And yet, however wonderful they are, you may have already noticed that there are limitations like the glaring lack of a set of post-processing tools to refine the results. We fill this gap for epidemiological modelling with <a href="https://cmu-delphi.github.io/epipredict/reference/add_frosting.html">frosting</a>. This will be formally introduced in a later chapter, so stay tuned!<br>
 <br>
 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧</p>
 </section>
-<section id="attribution" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="attribution"><span class="header-section-number">3.3</span> Attribution</h2>
-<p>This vignette was largely adapted from <a href="https://rviews.rstudio.com/2019/06/19/a-gentle-intro-to-tidymodels/">A Gentle Introduction to Tidymodels</a>, and <a href="https://www.tidymodels.org/start/recipes/">Tidymodels - Getting Started</a>, and <a href="https://wec.wur.nl/dse/24-tidymodels.html">Tidymodels</a>.</p>
+<section id="attribution" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="attribution"><span class="header-section-number">11.3</span> Attribution</h2>
+<p>This Chapter was largely adapted from <a href="https://rviews.rstudio.com/2019/06/19/a-gentle-intro-to-tidymodels/">A Gentle Introduction to Tidymodels</a> as well as <a href="https://www.tidymodels.org/start/recipes/">Tidymodels - Getting Started</a> and <a href="https://wec.wur.nl/dse/24-tidymodels.html">Tidymodels</a>. The diagrams are from <a href="https://rviews.rstudio.com/2019/06/19/a-gentle-intro-to-tidymodels/">A Gentle Introduction to Tidymodels</a> and based on <a href="https://r4ds.had.co.nz/explore-intro.html">R for Data Science</a>.</p>
 <p>🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧</p>
 
 
@@ -826,12 +922,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./flatline-forecaster.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./tidymodels-regression.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression in Tidymodels</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Regression in Tidymodels</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
