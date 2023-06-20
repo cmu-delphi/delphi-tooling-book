@@ -351,19 +351,28 @@ Caution
 <section id="sec-installation" class="level2">
 <h2 class="anchored" data-anchor-id="sec-installation">Installation</h2>
 <p>The following commands install the latest versions of the packages we use in this book:</p>
-<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-2_928516c01667bbf0993f69d378312026">
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-2_ef21555fe232decfa5c5e6ce81cfc532">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("pak")</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Install our packages from GitHub:</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"cmu-delphi/epidatr"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"cmu-delphi/epiprocess@dev"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"cmu-delphi/epiprocess"</span>)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"cmu-delphi/epipredict"</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Other data processing and example data packages we use in this book:</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"tidyverse"</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"modeldata"</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Other model-fitting packages we use in this book (via epipredict):</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"ranger"</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"xgboost"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"cmu-delphi/epidatasets"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Other model-fitting packages we use in this book (via epipredict):</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"poissonreg"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"ranger"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"xgboost"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Other data processing, model evaluation, example data, and other packages we</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># use in this book:</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"RcppRoll"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"tidymodels"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"broom"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"performance"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"modeldata"</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"see"</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"sessioninfo"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Much of the data used for illustration can be loaded directly from <a href="https://cmu-delphi.github.io/delphi-epidata/">Delphi’s Epidata API</a> which is built and maintained by the Carnegie Mellon University <a href="https://delphi.cmu.edu/">Delphi research group</a>. We have tried to provide most of the data used in these examples in a separate package, <code>{epidatasets}</code>, but it can also be accessed using <code>{epidatr}</code>, an R interface to the API and the successor to <a href="https://cmu-delphi.github.io/covidcast/covidcastR/"><code>{covidcast}</code></a>. These are also available from GitHub:</p>
 <div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-3_6a7154f9225b9bd3d6ffa321b2da25af">
@@ -390,22 +399,55 @@ Encountering installation issues? Click here to show some potential solutions.
 </section>
 <section id="reproducibility" class="level3">
 <h3 class="anchored" data-anchor-id="reproducibility">Reproducibility</h3>
-<p>The above commands will give you the current versions of the packages used in this book. If you’re having trouble reproducing some of the results, it may be due to package updates that took place after the book was last updated. You can try matching the package versions we used to build the book by one of the following methods. You may be required to obtain a <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">GitHub Personal Access Token</a> and store it in the environment variable <code>"GITHUB_PAT"</code>.</p>
-<section id="a-download-and-use-the-renv.lock" class="level4">
-<h4 class="anchored" data-anchor-id="a-download-and-use-the-renv.lock">A: Download and use the <code>renv.lock</code></h4>
-<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-5_13898361d01fd491b439067771a3d0d2">
+<p>The above commands will give you the current versions of the packages used in this book. If you’re having trouble reproducing some of the results, it may be due to package updates that took place after the book was last updated. To match the versions we used to generate this book, you can use the steps below.</p>
+<section id="first-set-up-and-store-a-github-pat" class="level4">
+<h4 class="anchored" data-anchor-id="first-set-up-and-store-a-github-pat">First: set up and store a GitHub PAT</h4>
+<p>If you don’t already have a GitHub PAT, you can use the following helper functions to create one:</p>
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-5_8e6231bc239928b163de90b8ac90ad95">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this once:</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"renv"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://raw.githubusercontent.com/cmu-delphi/delphi-tooling-book/main/renv.lock"</span>, <span class="st">"delphi-tooling-book.renv.lock"</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this every session you'd like to use this set of versions:</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">use</span>(<span class="at">lockfile =</span> <span class="st">"delphi-tooling-book.renv.lock"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"usethis"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Installing usethis [2.2.0] ...
+#&gt;  OK [linked cache in 0.19 milliseconds]
+#&gt; * Installed 1 package in 0.21 seconds.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">create_github_token</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">scopes =</span> <span class="st">"public_repo"</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">description =</span> <span class="st">"For public repo access"</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This will open a web browser window allowing you to describe and customize settings of the PAT. Scroll to the bottom and click “Generate token”. You’ll see a screen that has <code>ghp_&lt;lots of letters and numbers&gt;</code> with a green background; you can click the two-squares (“copy”) icon to copy this <code>ghp_......</code> string to the clipboard.</p>
+</section>
+<section id="either-a-download-and-use-the-renv.lock" class="level4">
+<h4 class="anchored" data-anchor-id="either-a-download-and-use-the-renv.lock">Either A: Download and use the <code>renv.lock</code></h4>
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-6_298fc2b073cbedc2c6a201948f33aed0">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this once:</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"renv"</span>, <span class="st">"gitcreds"</span>))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://raw.githubusercontent.com/cmu-delphi/delphi-tooling-book/main/renv.lock"</span>, <span class="st">"delphi-tooling-book.renv.lock"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this in a fresh session each time you'd like to use this set of versions.</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning: don't save your GitHub PAT in a file you might share with others;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># look into `gitcreds::gitcreds_set()` or `usethis::edit_r_environ()` instead.</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="st">"GITHUB_PAT"</span> <span class="ot">=</span> <span class="st">"ghp_............"</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">use</span>(<span class="at">lockfile =</span> <span class="st">"delphi-tooling-book.renv.lock"</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># If you get 401 errors, you may need to regenerate your GitHub PAT or check if</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># `gitcreds::gitcreds_get()` is detecting an old PAT you have saved somewhere.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="b-download-the-book-and-use-its-.rprofile" class="level4">
-<h4 class="anchored" data-anchor-id="b-download-the-book-and-use-its-.rprofile">B: Download the book and use its <code>.Rprofile</code></h4>
+<section id="or-b-download-the-book-and-use-its-.rprofile" class="level4">
+<h4 class="anchored" data-anchor-id="or-b-download-the-book-and-use-its-.rprofile">Or B: Download the book and use its <code>.Rprofile</code></h4>
 <ol type="1">
 <li>Download the book <a href="https://github.com/cmu-delphi/delphi-tooling-book/archive/refs/heads/main.zip">here</a> and unzip it.</li>
-<li>Launch R inside of the top-level directory; there should be a <code>.Rprofile</code> file there that takes care of loading the appropriate versions of all the packages used.</li>
+<li>One-time setup: launch R inside the delphi-tooling-book directory (to use its <code>.Rprofile</code> file) and run</li>
+</ol>
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-7_5f193d921c8c0c99eb8e67696fb70a8b">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning: don't save your GitHub PAT in a file you might share with others;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># look into `gitcreds::gitcreds_set()` or `usethis::edit_r_environ()` instead.</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="st">"GITHUB_PAT"</span> <span class="ot">=</span> <span class="st">"ghp_............"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">restore</span>() <span class="co"># downloads the appropriate package versions</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>To use this set of versions: launch R inside the delphi-tooling-book directory.</li>
 </ol>
 </section>
 </section>
@@ -434,14 +476,14 @@ Encountering installation issues? Click here to show some potential solutions.
 <h2 class="anchored" data-anchor-id="quick-start-example">Quick-start example</h2>
 <p>These packages come with some built-in historical data for illustration, but up-to-date versions could be downloaded with the <a href="https://cmu-delphi.github.io/epidatr"><code>{epidatr}</code></a> or <a href="https://cmu-delphi.github.io/covidcast/covidcastR/index.html"><code>{covidcast}</code></a> packages and processed using <a href="https://cmu-delphi.github.io/epiprocess/"><code>{epiprocess}</code></a>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <div class="cell" data-layout-align="center" data-hash="index_cache/html/epidf_48a293db285163cbde5b55b5d6115276">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epipredict)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>jhu <span class="ot">&lt;-</span> case_death_rate_subset</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>jhu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epipredict)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>jhu <span class="ot">&lt;-</span> case_death_rate_subset</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>jhu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; An `epi_df` object, 20,496 x 4 with metadata:
 #&gt; * geo_type  = state
 #&gt; * time_type = day
-#&gt; * as_of     = 2022-05-31 12:08:25.791826
+#&gt; * as_of     = 2022-05-31 12:08:25
 #&gt; 
 #&gt; # A tibble: 20,496 × 4
 #&gt;   geo_value time_value case_rate death_rate
@@ -457,19 +499,19 @@ Encountering installation issues? Click here to show some potential solutions.
 </div>
 <p>To create and train a simple auto-regressive forecaster to predict the death rate two weeks into the future using past (lagged) deaths and cases, we could use the following function.</p>
 <div class="cell" data-layout-align="center" data-hash="index_cache/html/make-forecasts_1d4f30fdea1cd893cb39553fa0f1d21c">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>two_week_ahead <span class="ot">&lt;-</span> <span class="fu">arx_forecaster</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  jhu,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="st">"death_rate"</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">predictors =</span> <span class="fu">c</span>(<span class="st">"case_rate"</span>, <span class="st">"death_rate"</span>),</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">args_list =</span> <span class="fu">arx_args_list</span>(</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lags =</span> <span class="fu">list</span>(<span class="at">case_rate =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">14</span>), <span class="at">death_rate =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">14</span>)),</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">ahead =</span> <span class="dv">14</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>two_week_ahead <span class="ot">&lt;-</span> <span class="fu">arx_forecaster</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  jhu,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="st">"death_rate"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">predictors =</span> <span class="fu">c</span>(<span class="st">"case_rate"</span>, <span class="st">"death_rate"</span>),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">args_list =</span> <span class="fu">arx_args_list</span>(</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lags =</span> <span class="fu">list</span>(<span class="at">case_rate =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">14</span>), <span class="at">death_rate =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">14</span>)),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">ahead =</span> <span class="dv">14</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In this case, we have used a number of different lags for the case rate, while only using 3 weekly lags for the death rate (as predictors). The result is both a fitted model object which could be used any time in the future to create different forecasts, as well as a set of predicted values (and prediction intervals) for each location 14 days after the last available time value in the data.</p>
 <div class="cell" data-layout-align="center" data-hash="index_cache/html/print-model_f5f6b4212b46903845381e0a40889efc">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>two_week_ahead<span class="sc">$</span>epi_workflow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>two_week_ahead<span class="sc">$</span>epi_workflow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; ══ Epi Workflow [trained] ═══════════════════════════════════════════════════
 #&gt; Preprocessor: Recipe
@@ -511,7 +553,7 @@ Encountering installation issues? Click here to show some potential solutions.
 </div>
 <p>The fitted model here involved preprocessing the data to appropriately generate lagged predictors, estimating a linear model with <code>stats::lm()</code> and then postprocessing the results to be meaningful for epidemiological tasks. We can also examine the predictions.</p>
 <div class="cell" data-layout-align="center" data-hash="index_cache/html/show-preds_4bf0ca6ef427c01aa0a0686ab430f93d">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>two_week_ahead<span class="sc">$</span>predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>two_week_ahead<span class="sc">$</span>predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; # A tibble: 56 × 5
 #&gt;   geo_value .pred         .pred_distn forecast_date target_date
@@ -526,37 +568,37 @@ Encountering installation issues? Click here to show some potential solutions.
 </div>
 </div>
 <p>The results above show a distributional forecast produced using data through the end of 2021 for the 14th of January 2022. A prediction for the death rate per 100K inhabitants is available for every state (<code>geo_value</code>) along with a 90% predictive interval. The figure below displays the forecast for a small handful of states. The vertical black line is the forecast date. The forecast doesn’t appear to be particularly good, but our choices above were intended to be illustrative of the functionality rather than optimized for accuracy.</p>
-<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-6_db9d537c697110c49195eecd11dbff52">
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-8_255707fa6f6471ab8acdc4aa70ca731f">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>samp_geos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ca"</span>, <span class="st">"co"</span>, <span class="st">"ny"</span>, <span class="st">"pa"</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>hist <span class="ot">&lt;-</span> jhu <span class="sc">%&gt;%</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    geo_value <span class="sc">%in%</span> samp_geos,</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    time_value <span class="sc">&gt;=</span> <span class="fu">max</span>(time_value) <span class="sc">-</span> 90L</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> two_week_ahead<span class="sc">$</span>predictions <span class="sc">%&gt;%</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(geo_value <span class="sc">%in%</span> samp_geos) <span class="sc">%&gt;%</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">q =</span> <span class="fu">nested_quantiles</span>(.pred_distn)) <span class="sc">%&gt;%</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(q) <span class="sc">%&gt;%</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> tau, <span class="at">values_from =</span> q)</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hist, <span class="fu">aes</span>(<span class="at">color =</span> geo_value)) <span class="sc">+</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(time_value, death_rate)) <span class="sc">+</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">x =</span> target_date, <span class="at">ymin =</span> <span class="st">`</span><span class="at">0.05</span><span class="st">`</span>, <span class="at">ymax =</span> <span class="st">`</span><span class="at">0.95</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(target_date, .pred)) <span class="sc">+</span></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">xintercept =</span> forecast_date)) <span class="sc">+</span></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_d</span>(<span class="at">name =</span> <span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%b %Y"</span>) <span class="sc">+</span></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Incident deaths per 100K</span><span class="sc">\n</span><span class="st"> inhabitants"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>samp_geos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ca"</span>, <span class="st">"co"</span>, <span class="st">"ny"</span>, <span class="st">"pa"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>hist <span class="ot">&lt;-</span> jhu <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    geo_value <span class="sc">%in%</span> samp_geos,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    time_value <span class="sc">&gt;=</span> <span class="fu">max</span>(time_value) <span class="sc">-</span> 90L</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> two_week_ahead<span class="sc">$</span>predictions <span class="sc">%&gt;%</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(geo_value <span class="sc">%in%</span> samp_geos) <span class="sc">%&gt;%</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">q =</span> <span class="fu">nested_quantiles</span>(.pred_distn)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(q) <span class="sc">%&gt;%</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> tau, <span class="at">values_from =</span> q)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hist, <span class="fu">aes</span>(<span class="at">color =</span> geo_value)) <span class="sc">+</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(time_value, death_rate)) <span class="sc">+</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">x =</span> target_date, <span class="at">ymin =</span> <span class="st">`</span><span class="at">0.05</span><span class="st">`</span>, <span class="at">ymax =</span> <span class="st">`</span><span class="at">0.95</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(target_date, .pred)) <span class="sc">+</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">xintercept =</span> forecast_date)) <span class="sc">+</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_d</span>(<span class="at">name =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%b %Y"</span>) <span class="sc">+</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Incident deaths per 100K</span><span class="sc">\n</span><span class="st"> inhabitants"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-6-1.svg" class="img-fluid figure-img" style="width:90.0%"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.svg" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -571,119 +613,130 @@ Encountering installation issues? Click here to show some potential solutions.
 Session Information.
 </summary>
 <p>See also <a href="#sec-installation"><span>Section&nbsp;1</span></a>.</p>
-<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-7_fd653c2f2411f764b5f8c2ba01817836">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="index_cache/html/unnamed-chunk-9_c866f0d1d0a1809a33be44cd8b8eec3f">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; ─ Session info ────────────────────────────────────────────────────────────
 #&gt;  setting  value
-#&gt;  version  R version 4.3.0 (2023-04-21)
-#&gt;  os       macOS Ventura 13.4
-#&gt;  system   aarch64, darwin20
+#&gt;  version  R version 4.1.3 (2022-03-10)
+#&gt;  os       Fedora Linux 36 (Workstation Edition)
+#&gt;  system   x86_64, linux-gnu
 #&gt;  ui       X11
 #&gt;  language (EN)
 #&gt;  collate  en_US.UTF-8
 #&gt;  ctype    en_US.UTF-8
-#&gt;  tz       America/Vancouver
-#&gt;  date     2023-06-19
-#&gt;  pandoc   3.1.1 @ /Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools/ (via rmarkdown)
+#&gt;  tz       America/Los_Angeles
+#&gt;  date     2023-06-20
+#&gt;  pandoc   2.14.0.3 @ /usr/bin/ (via rmarkdown)
 #&gt; 
 #&gt; ─ Packages ────────────────────────────────────────────────────────────────
 #&gt;  ! package        * version    date (UTC) lib source
-#&gt;  P anytime          0.3.9      2020-08-27 [?] CRAN (R 4.3.0)
-#&gt;  P backports        1.4.1      2021-12-13 [?] CRAN (R 4.3.0)
-#&gt;  P checkmate        2.2.0      2023-04-27 [?] CRAN (R 4.3.0)
-#&gt;  P class            7.3-22     2023-05-03 [?] CRAN (R 4.3.0)
-#&gt;  P cli              3.6.1      2023-03-23 [?] CRAN (R 4.3.0)
-#&gt;  P codetools        0.2-19     2023-02-01 [?] CRAN (R 4.3.0)
-#&gt;  P colorspace       2.1-0      2023-01-23 [?] CRAN (R 4.3.0)
-#&gt;  P data.table       1.14.8     2023-02-17 [?] CRAN (R 4.3.0)
-#&gt;  P digest           0.6.31     2022-12-11 [?] CRAN (R 4.3.0)
-#&gt;  P distributional   0.3.2      2023-03-22 [?] CRAN (R 4.3.0)
-#&gt;  P dplyr          * 1.1.2      2023-04-20 [?] CRAN (R 4.3.0)
-#&gt;  P ellipsis         0.3.2      2021-04-29 [?] CRAN (R 4.3.0)
-#&gt;  P epidatasets    * 0.0.1      2023-06-17 [?] Github (cmu-delphi/epidatasets@cc8f2a0)
-#&gt;  P epidatr        * 0.6.0      2023-06-16 [?] Github (cmu-delphi/epidatr@46d2d54)
-#&gt;  P epipredict     * 0.0.5      2023-06-17 [?] Github (cmu-delphi/epipredict@206f0ef)
-#&gt;  P epiprocess     * 0.6.0.9999 2023-06-16 [?] Github (cmu-delphi/epiprocess@572f6e6)
-#&gt;  P evaluate         0.21       2023-05-05 [?] CRAN (R 4.3.0)
-#&gt;  P fansi            1.0.4      2023-01-22 [?] CRAN (R 4.3.0)
-#&gt;  P farver           2.1.1      2022-07-06 [?] CRAN (R 4.3.0)
-#&gt;  P fastmap          1.1.1      2023-02-24 [?] CRAN (R 4.3.0)
-#&gt;  P forcats        * 1.0.0      2023-01-29 [?] CRAN (R 4.3.0)
-#&gt;  P future           1.32.0     2023-03-07 [?] CRAN (R 4.3.0)
-#&gt;  P future.apply     1.11.0     2023-05-21 [?] CRAN (R 4.3.0)
-#&gt;  P generics         0.1.3      2022-07-05 [?] CRAN (R 4.3.0)
-#&gt;  P ggplot2        * 3.4.2      2023-04-03 [?] CRAN (R 4.3.0)
-#&gt;  P globals          0.16.2     2022-11-21 [?] CRAN (R 4.3.0)
-#&gt;  P glue             1.6.2      2022-02-24 [?] CRAN (R 4.3.0)
-#&gt;  P gower            1.0.1      2022-12-22 [?] CRAN (R 4.3.0)
-#&gt;  P gtable           0.3.3      2023-03-21 [?] CRAN (R 4.3.0)
-#&gt;  P hardhat          1.3.0      2023-03-30 [?] CRAN (R 4.3.0)
-#&gt;  P hms              1.1.3      2023-03-21 [?] CRAN (R 4.3.0)
-#&gt;  P htmltools        0.5.5      2023-03-23 [?] CRAN (R 4.3.0)
-#&gt;  P httr             1.4.6      2023-05-08 [?] CRAN (R 4.3.0)
-#&gt;  P ipred            0.9-14     2023-03-09 [?] CRAN (R 4.3.0)
-#&gt;  P jsonlite         1.8.5      2023-06-05 [?] CRAN (R 4.3.0)
-#&gt;  P knitr            1.43       2023-05-25 [?] CRAN (R 4.3.0)
-#&gt;  P labeling         0.4.2      2020-10-20 [?] CRAN (R 4.3.0)
-#&gt;  P lattice          0.21-8     2023-04-05 [?] CRAN (R 4.3.0)
-#&gt;  P lava             1.7.2.1    2023-02-27 [?] CRAN (R 4.3.0)
-#&gt;  P lifecycle        1.0.3      2022-10-07 [?] CRAN (R 4.3.0)
-#&gt;  P listenv          0.9.0      2022-12-16 [?] CRAN (R 4.3.0)
-#&gt;  P lubridate      * 1.9.2      2023-02-10 [?] CRAN (R 4.3.0)
-#&gt;  P magrittr         2.0.3      2022-03-30 [?] CRAN (R 4.3.0)
-#&gt;  P MASS             7.3-60     2023-05-04 [?] CRAN (R 4.3.0)
-#&gt;  P Matrix           1.5-4      2023-04-04 [?] CRAN (R 4.3.0)
-#&gt;  P MatrixModels     0.5-1      2022-09-11 [?] CRAN (R 4.3.0)
-#&gt;  P MMWRweek         0.1.3      2020-04-22 [?] CRAN (R 4.3.0)
-#&gt;  P munsell          0.5.0      2018-06-12 [?] CRAN (R 4.3.0)
-#&gt;  P nnet             7.3-19     2023-05-03 [?] CRAN (R 4.3.0)
-#&gt;  P parallelly       1.36.0     2023-05-26 [?] CRAN (R 4.3.0)
-#&gt;  P parsnip        * 1.1.0      2023-04-12 [?] CRAN (R 4.3.0)
-#&gt;  P pillar           1.9.0      2023-03-22 [?] CRAN (R 4.3.0)
-#&gt;  P pkgconfig        2.0.3      2019-09-22 [?] CRAN (R 4.3.0)
-#&gt;  P prodlim          2023.03.31 2023-04-02 [?] CRAN (R 4.3.0)
-#&gt;  P purrr          * 1.0.1      2023-01-10 [?] CRAN (R 4.3.0)
-#&gt;  P quantreg         5.95       2023-04-08 [?] CRAN (R 4.3.0)
-#&gt;  P R.cache          0.16.0     2022-07-21 [?] CRAN (R 4.3.0)
-#&gt;  P R.methodsS3      1.8.2      2022-06-13 [?] CRAN (R 4.3.0)
-#&gt;  P R.oo             1.25.0     2022-06-12 [?] CRAN (R 4.3.0)
-#&gt;  P R.utils          2.12.2     2022-11-11 [?] CRAN (R 4.3.0)
-#&gt;  P R6               2.5.1      2021-08-19 [?] CRAN (R 4.3.0)
-#&gt;  P Rcpp             1.0.10     2023-01-22 [?] CRAN (R 4.3.0)
-#&gt;  P readr          * 2.1.4      2023-02-10 [?] CRAN (R 4.3.0)
-#&gt;  P recipes          1.0.6      2023-04-25 [?] CRAN (R 4.3.0)
-#&gt;    renv             0.17.3     2023-04-06 [1] CRAN (R 4.2.2)
-#&gt;  P rlang            1.1.1      2023-04-28 [?] CRAN (R 4.3.0)
-#&gt;  P rmarkdown        2.22       2023-06-01 [?] CRAN (R 4.3.0)
-#&gt;  P rpart            4.1.19     2022-10-21 [?] CRAN (R 4.3.0)
-#&gt;  P rstudioapi       0.14       2022-08-22 [?] CRAN (R 4.3.0)
-#&gt;  P scales           1.2.1      2022-08-20 [?] CRAN (R 4.3.0)
-#&gt;  P sessioninfo      1.2.2      2021-12-06 [?] CRAN (R 4.3.0)
-#&gt;  P SparseM          1.81       2021-02-18 [?] CRAN (R 4.3.0)
-#&gt;  P stringi          1.7.12     2023-01-11 [?] CRAN (R 4.3.0)
-#&gt;  P stringr        * 1.5.0      2022-12-02 [?] CRAN (R 4.3.0)
-#&gt;  P styler           1.10.1     2023-06-05 [?] CRAN (R 4.3.0)
-#&gt;  P survival         3.5-5      2023-03-12 [?] CRAN (R 4.3.0)
-#&gt;  P tibble         * 3.2.1      2023-03-20 [?] CRAN (R 4.3.0)
-#&gt;  P tidyr          * 1.3.0      2023-01-24 [?] CRAN (R 4.3.0)
-#&gt;  P tidyselect       1.2.0      2022-10-10 [?] CRAN (R 4.3.0)
-#&gt;  P tidyverse      * 2.0.0      2023-02-22 [?] CRAN (R 4.3.0)
-#&gt;  P timechange       0.2.0      2023-01-11 [?] CRAN (R 4.3.0)
-#&gt;  P timeDate         4022.108   2023-01-07 [?] CRAN (R 4.3.0)
-#&gt;  P tsibble          1.1.3      2022-10-09 [?] CRAN (R 4.3.0)
-#&gt;  P tzdb             0.4.0      2023-05-12 [?] CRAN (R 4.3.0)
-#&gt;  P utf8             1.2.3      2023-01-31 [?] CRAN (R 4.3.0)
-#&gt;  P vctrs            0.6.2      2023-04-19 [?] CRAN (R 4.3.0)
-#&gt;  P viridisLite      0.4.2      2023-05-02 [?] CRAN (R 4.3.0)
-#&gt;  P withr            2.5.0      2022-03-03 [?] CRAN (R 4.3.0)
-#&gt;  P workflows        1.1.3      2023-02-22 [?] CRAN (R 4.3.0)
-#&gt;  P xfun             0.39       2023-04-20 [?] CRAN (R 4.3.0)
-#&gt;  P xml2             1.3.4      2023-04-27 [?] CRAN (R 4.3.0)
-#&gt;  P yaml             2.3.7      2023-01-23 [?] CRAN (R 4.3.0)
+#&gt;  P anytime          0.3.9      2020-08-27 [?] RSPM (R 4.1.3)
+#&gt;  P assertthat       0.2.1      2019-03-21 [?] CRAN (R 4.0.5)
+#&gt;  P backports        1.4.1      2021-12-13 [?] CRAN (R 4.0.5)
+#&gt;  P broom            1.0.5      2023-06-09 [?] RSPM (R 4.1.3)
+#&gt;  P cellranger       1.1.0      2016-07-27 [?] CRAN (R 4.0.5)
+#&gt;  P checkmate        2.2.0      2023-04-27 [?] RSPM (R 4.1.3)
+#&gt;  P class            7.3-20     2022-01-16 [?] CRAN (R 4.1.3)
+#&gt;  P cli              3.6.1      2023-03-23 [?] RSPM (R 4.1.3)
+#&gt;  P codetools        0.2-19     2023-02-01 [?] RSPM (R 4.1.3)
+#&gt;  P colorspace       2.1-0      2023-01-23 [?] RSPM (R 4.1.3)
+#&gt;  P crayon           1.5.1      2022-03-26 [?] CRAN (R 4.0.5)
+#&gt;  P data.table       1.14.8     2023-02-17 [?] RSPM (R 4.1.3)
+#&gt;  P DBI              1.1.3      2022-06-18 [?] CRAN (R 4.1.3)
+#&gt;  P dbplyr           2.2.1      2022-06-27 [?] CRAN (R 4.1.3)
+#&gt;  P digest           0.6.31     2022-12-11 [?] RSPM (R 4.1.3)
+#&gt;  P distributional   0.3.2      2023-03-22 [?] RSPM (R 4.1.3)
+#&gt;  P dplyr          * 1.1.2      2023-04-20 [?] RSPM (R 4.1.3)
+#&gt;  P ellipsis         0.3.2      2021-04-29 [?] CRAN (R 4.0.5)
+#&gt;  P epidatasets    * 0.0.1      2023-06-20 [?] Github (cmu-delphi/epidatasets@cc8f2a0)
+#&gt;  P epidatr        * 0.6.0      2023-06-20 [?] Github (cmu-delphi/epidatr@46d2d54)
+#&gt;  P epipredict     * 0.0.5      2023-06-20 [?] Github (cmu-delphi/epipredict@206f0ef)
+#&gt;  P epiprocess     * 0.6.0.9999 2023-06-20 [?] Github (cmu-delphi/epiprocess@2f873ca)
+#&gt;  P evaluate         0.21       2023-05-05 [?] RSPM (R 4.1.3)
+#&gt;  P fansi            1.0.4      2023-01-22 [?] RSPM (R 4.1.3)
+#&gt;  P farver           2.1.1      2022-07-06 [?] RSPM (R 4.1.3)
+#&gt;  P fastmap          1.1.1      2023-02-24 [?] RSPM (R 4.1.3)
+#&gt;  P forcats        * 0.5.1      2021-01-27 [?] CRAN (R 4.0.5)
+#&gt;  P fs               1.6.2      2023-04-25 [?] RSPM (R 4.1.3)
+#&gt;  P future           1.26.1     2022-05-27 [?] CRAN (R 4.0.5)
+#&gt;  P future.apply     1.9.0      2022-04-25 [?] CRAN (R 4.0.5)
+#&gt;  P generics         0.1.3      2022-07-05 [?] RSPM (R 4.1.3)
+#&gt;  P ggplot2        * 3.4.2      2023-04-03 [?] RSPM (R 4.1.3)
+#&gt;  P globals          0.16.2     2022-11-21 [?] RSPM (R 4.1.3)
+#&gt;  P glue             1.6.2      2022-02-24 [?] CRAN (R 4.0.5)
+#&gt;  P gower            1.0.0      2022-02-03 [?] CRAN (R 4.0.5)
+#&gt;  P gtable           0.3.3      2023-03-21 [?] RSPM (R 4.1.3)
+#&gt;  P hardhat          1.3.0      2023-03-30 [?] RSPM (R 4.1.3)
+#&gt;  P haven            2.5.0      2022-04-15 [?] CRAN (R 4.0.5)
+#&gt;  P hms              1.1.1      2021-09-26 [?] CRAN (R 4.0.5)
+#&gt;  P htmltools        0.5.5      2023-03-23 [?] RSPM (R 4.1.3)
+#&gt;  P httr             1.4.3      2022-05-04 [?] CRAN (R 4.0.5)
+#&gt;  P ipred            0.9-13     2022-06-02 [?] CRAN (R 4.0.5)
+#&gt;  P jsonlite         1.8.5      2023-06-05 [?] RSPM (R 4.1.3)
+#&gt;  P knitr            1.43       2023-05-25 [?] RSPM (R 4.1.3)
+#&gt;  P labeling         0.4.2      2020-10-20 [?] CRAN (R 4.0.5)
+#&gt;  P lattice          0.21-8     2023-04-05 [?] RSPM (R 4.1.3)
+#&gt;  P lava             1.6.10     2021-09-02 [?] CRAN (R 4.0.5)
+#&gt;  P lifecycle        1.0.3      2022-10-07 [?] RSPM (R 4.1.3)
+#&gt;  P listenv          0.8.0      2019-12-05 [?] CRAN (R 4.0.5)
+#&gt;  P lubridate        1.8.0      2021-10-07 [?] RSPM (R 4.1.3)
+#&gt;  P magrittr         2.0.3      2022-03-30 [?] CRAN (R 4.0.5)
+#&gt;  P MASS             7.3-60     2023-05-04 [?] RSPM (R 4.1.3)
+#&gt;  P Matrix           1.5-4.1    2023-05-18 [?] RSPM (R 4.1.3)
+#&gt;  P MatrixModels     0.5-1      2022-09-11 [?] RSPM (R 4.1.3)
+#&gt;  P MMWRweek         0.1.3      2020-04-22 [?] RSPM (R 4.1.3)
+#&gt;  P modelr           0.1.8      2020-05-19 [?] CRAN (R 4.0.5)
+#&gt;  P munsell          0.5.0      2018-06-12 [?] CRAN (R 4.0.5)
+#&gt;  P nnet             7.3-17     2022-01-16 [?] CRAN (R 4.1.3)
+#&gt;  P parallelly       1.32.0     2022-06-07 [?] CRAN (R 4.0.5)
+#&gt;  P parsnip        * 1.1.0      2023-04-12 [?] RSPM (R 4.1.3)
+#&gt;  P pillar           1.9.0      2023-03-22 [?] RSPM (R 4.1.3)
+#&gt;  P pkgconfig        2.0.3      2019-09-22 [?] CRAN (R 4.0.5)
+#&gt;  P prodlim          2019.11.13 2019-11-17 [?] CRAN (R 4.0.5)
+#&gt;  P purrr          * 1.0.1      2023-01-10 [?] RSPM (R 4.1.3)
+#&gt;  P quantreg         5.95       2023-04-08 [?] RSPM (R 4.1.3)
+#&gt;  P R.cache          0.16.0     2022-07-21 [?] RSPM (R 4.1.3)
+#&gt;  P R.methodsS3      1.8.2      2022-06-13 [?] RSPM (R 4.1.3)
+#&gt;  P R.oo             1.25.0     2022-06-12 [?] RSPM (R 4.1.3)
+#&gt;  P R.utils          2.12.2     2022-11-11 [?] RSPM (R 4.1.3)
+#&gt;  P R6               2.5.1      2021-08-19 [?] CRAN (R 4.0.5)
+#&gt;  P Rcpp             1.0.10     2023-01-22 [?] RSPM (R 4.1.3)
+#&gt;  P readr          * 2.1.2      2022-01-30 [?] CRAN (R 4.0.5)
+#&gt;  P readxl           1.4.0      2022-03-28 [?] CRAN (R 4.0.5)
+#&gt;  P recipes          1.0.6      2023-04-25 [?] RSPM (R 4.1.3)
+#&gt;  P renv             0.17.3     2023-04-06 [?] RSPM (R 4.1.3)
+#&gt;  P reprex           2.0.1      2021-08-05 [?] CRAN (R 4.0.5)
+#&gt;  P rlang            1.1.1      2023-04-28 [?] RSPM (R 4.1.3)
+#&gt;  P rmarkdown        2.22       2023-06-01 [?] RSPM (R 4.1.3)
+#&gt;  P rpart            4.1.16     2022-01-24 [?] CRAN (R 4.1.3)
+#&gt;  P rstudioapi       0.14       2022-08-22 [?] RSPM (R 4.1.3)
+#&gt;  P rvest            1.0.2      2021-10-16 [?] CRAN (R 4.0.5)
+#&gt;  P scales           1.2.1      2022-08-20 [?] RSPM (R 4.1.3)
+#&gt;  P sessioninfo      1.2.2      2021-12-06 [?] CRAN (R 4.1.3)
+#&gt;  P SparseM          1.81       2021-02-18 [?] RSPM (R 4.1.3)
+#&gt;  P stringi          1.7.12     2023-01-11 [?] RSPM (R 4.1.3)
+#&gt;  P stringr        * 1.5.0      2022-12-02 [?] RSPM (R 4.1.3)
+#&gt;  P styler           1.10.1     2023-06-05 [?] RSPM (R 4.1.3)
+#&gt;  P survival         3.2-13     2021-08-24 [?] CRAN (R 4.1.3)
+#&gt;  P tibble         * 3.2.1      2023-03-20 [?] RSPM (R 4.1.3)
+#&gt;  P tidyr          * 1.3.0      2023-01-24 [?] RSPM (R 4.1.3)
+#&gt;  P tidyselect       1.2.0      2022-10-10 [?] RSPM (R 4.1.3)
+#&gt;  P tidyverse      * 1.3.1      2021-04-15 [?] CRAN (R 4.0.5)
+#&gt;  P timeDate         3043.102   2018-02-21 [?] CRAN (R 4.0.5)
+#&gt;  P tsibble          1.1.3      2022-10-09 [?] RSPM (R 4.1.3)
+#&gt;  P tzdb             0.4.0      2023-05-12 [?] RSPM (R 4.1.3)
+#&gt;  P utf8             1.2.3      2023-01-31 [?] RSPM (R 4.1.3)
+#&gt;  P vctrs            0.6.3      2023-06-14 [?] CRAN (R 4.1.3)
+#&gt;  P viridisLite      0.4.2      2023-05-02 [?] RSPM (R 4.1.3)
+#&gt;  P withr            2.5.0      2022-03-03 [?] CRAN (R 4.0.5)
+#&gt;  P workflows        1.1.3      2023-02-22 [?] RSPM (R 4.1.3)
+#&gt;  P xfun             0.39       2023-04-20 [?] RSPM (R 4.1.3)
+#&gt;  P xml2             1.3.3      2021-11-30 [?] CRAN (R 4.0.5)
+#&gt;  P yaml             2.3.7      2023-01-23 [?] RSPM (R 4.1.3)
 #&gt; 
-#&gt;  [1] /Users/dajmcdon/Library/Caches/org.R-project.R/R/renv/library/delphi-tooling-book-d37e2426/R-4.3/aarch64-apple-darwin20
-#&gt;  [2] /Users/dajmcdon/Library/Caches/org.R-project.R/R/renv/sandbox/R-4.3/aarch64-apple-darwin20/84ba8b13
+#&gt;  [1] /home/fullname/.cache/R/renv/library/delphi-tooling-book-1266ecb6/R-4.1/x86_64-redhat-linux-gnu
+#&gt;  [2] /home/fullname/.cache/R/renv/sandbox/R-4.1/x86_64-redhat-linux-gnu/60c4e220
 #&gt; 
 #&gt;  P ── Loaded and on-disk path mismatch.
 #&gt; 
