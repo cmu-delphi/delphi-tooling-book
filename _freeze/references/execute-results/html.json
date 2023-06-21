@@ -1,7 +1,7 @@
 {
-  "hash": "f53e374dd89ed88b6421c4e30557f1e2",
+  "hash": "645e6a629a970bbc7be4e2175cc055fa",
   "result": {
-    "markdown": "---\nnocite: |\n  @*\n---\n\n\n# References {.unnumbered}\n\n\n::: {.cell}\n\n:::\n\n\n\n::: {#refs}\n\n:::\n",
+    "markdown": "# References {.unnumbered}\n\n\n::: {.cell}\n\n:::\n\n\n\n::: {#refs}\n\n:::\n",
     "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"
