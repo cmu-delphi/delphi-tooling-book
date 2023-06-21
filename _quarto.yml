@@ -12,8 +12,8 @@ book:
   subtitle: "Delphi Tools, Data, and Lessons"
   author: Daniel J. McDonald, Logan C. Brooks, Rachel Lobay, and Ryan J. Tibshirani
   search: true
-  repo-url: https://github.com/cmu-delphi/delphi-tooling/book
-  repo-actions: [source, issue]
+  repo-url: https://github.com/cmu-delphi/delphi-tooling-book
+  repo-actions: [source, issue, edit]
   sharing: [twitter, facebook]
   date: last-modified
   date-format: DD MMMM YYYY

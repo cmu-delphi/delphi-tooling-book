@@ -1,3 +1,8 @@
+---
+nocite: |
+  @*
+---
+
 # References {.unnumbered}
 
 ```{r}
@@ -7,4 +12,5 @@ source("_common.R")
 
 
 ::: {#refs}
+
 :::
