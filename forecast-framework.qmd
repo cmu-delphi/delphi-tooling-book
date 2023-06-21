@@ -235,10 +235,7 @@ eng <- linear_reg()
 wf <- epi_workflow(r, eng, f) %>% fit(jhu)
 preds <- predict(wf, latest)
 ```
-
-All that really differs from the `arx_forecaster()` is the `recipe`, the 
-test data, and the engine. The `frosting` is identical, as is the fitting 
-and predicting procedure.
+The code for `arx_forecaster()` simply generalizes this, passing along arguments as needed.
 
 ```{r}
 preds
