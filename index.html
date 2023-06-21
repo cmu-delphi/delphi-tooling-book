@@ -56,7 +56,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -408,8 +427,8 @@ Encountering installation issues? Click here to show some potential solutions.
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"usethis"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Installing usethis [2.2.0] ...
-#&gt;  OK [linked cache in 0.19 milliseconds]
-#&gt; * Installed 1 package in 0.21 seconds.</code></pre>
+#&gt;  OK [linked cache in 0.22 milliseconds]
+#&gt; * Installed 1 package in 3.1 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">create_github_token</span>(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">scopes =</span> <span class="st">"public_repo"</span>,</span>
@@ -483,7 +502,7 @@ Encountering installation issues? Click here to show some potential solutions.
 <pre><code>#&gt; An `epi_df` object, 20,496 x 4 with metadata:
 #&gt; * geo_type  = state
 #&gt; * time_type = day
-#&gt; * as_of     = 2022-05-31 12:08:25
+#&gt; * as_of     = 2022-05-31 12:08:25.791826
 #&gt; 
 #&gt; # A tibble: 20,496 × 4
 #&gt;   geo_value time_value case_rate death_rate
@@ -618,125 +637,117 @@ Session Information.
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; ─ Session info ────────────────────────────────────────────────────────────
 #&gt;  setting  value
-#&gt;  version  R version 4.1.3 (2022-03-10)
-#&gt;  os       Fedora Linux 36 (Workstation Edition)
-#&gt;  system   x86_64, linux-gnu
+#&gt;  version  R version 4.3.0 (2023-04-21)
+#&gt;  os       macOS Ventura 13.4
+#&gt;  system   aarch64, darwin20
 #&gt;  ui       X11
 #&gt;  language (EN)
 #&gt;  collate  en_US.UTF-8
 #&gt;  ctype    en_US.UTF-8
-#&gt;  tz       America/Los_Angeles
-#&gt;  date     2023-06-20
-#&gt;  pandoc   2.14.0.3 @ /usr/bin/ (via rmarkdown)
+#&gt;  tz       America/Vancouver
+#&gt;  date     2023-06-21
+#&gt;  pandoc   3.1.1 @ /Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools/ (via rmarkdown)
 #&gt; 
 #&gt; ─ Packages ────────────────────────────────────────────────────────────────
 #&gt;  ! package        * version    date (UTC) lib source
-#&gt;  P anytime          0.3.9      2020-08-27 [?] RSPM (R 4.1.3)
-#&gt;  P assertthat       0.2.1      2019-03-21 [?] CRAN (R 4.0.5)
-#&gt;  P backports        1.4.1      2021-12-13 [?] CRAN (R 4.0.5)
-#&gt;  P broom            1.0.5      2023-06-09 [?] RSPM (R 4.1.3)
-#&gt;  P cellranger       1.1.0      2016-07-27 [?] CRAN (R 4.0.5)
-#&gt;  P checkmate        2.2.0      2023-04-27 [?] RSPM (R 4.1.3)
-#&gt;  P class            7.3-20     2022-01-16 [?] CRAN (R 4.1.3)
-#&gt;  P cli              3.6.1      2023-03-23 [?] RSPM (R 4.1.3)
-#&gt;  P codetools        0.2-19     2023-02-01 [?] RSPM (R 4.1.3)
-#&gt;  P colorspace       2.1-0      2023-01-23 [?] RSPM (R 4.1.3)
-#&gt;  P crayon           1.5.1      2022-03-26 [?] CRAN (R 4.0.5)
-#&gt;  P data.table       1.14.8     2023-02-17 [?] RSPM (R 4.1.3)
-#&gt;  P DBI              1.1.3      2022-06-18 [?] CRAN (R 4.1.3)
-#&gt;  P dbplyr           2.2.1      2022-06-27 [?] CRAN (R 4.1.3)
-#&gt;  P digest           0.6.31     2022-12-11 [?] RSPM (R 4.1.3)
-#&gt;  P distributional   0.3.2      2023-03-22 [?] RSPM (R 4.1.3)
-#&gt;  P dplyr          * 1.1.2      2023-04-20 [?] RSPM (R 4.1.3)
-#&gt;  P ellipsis         0.3.2      2021-04-29 [?] CRAN (R 4.0.5)
-#&gt;  P epidatasets    * 0.0.1      2023-06-20 [?] Github (cmu-delphi/epidatasets@cc8f2a0)
-#&gt;  P epidatr        * 0.6.0      2023-06-20 [?] Github (cmu-delphi/epidatr@46d2d54)
-#&gt;  P epipredict     * 0.0.5      2023-06-20 [?] Github (cmu-delphi/epipredict@206f0ef)
-#&gt;  P epiprocess     * 0.6.0.9999 2023-06-20 [?] Github (cmu-delphi/epiprocess@2f873ca)
-#&gt;  P evaluate         0.21       2023-05-05 [?] RSPM (R 4.1.3)
-#&gt;  P fansi            1.0.4      2023-01-22 [?] RSPM (R 4.1.3)
-#&gt;  P farver           2.1.1      2022-07-06 [?] RSPM (R 4.1.3)
-#&gt;  P fastmap          1.1.1      2023-02-24 [?] RSPM (R 4.1.3)
-#&gt;  P forcats        * 0.5.1      2021-01-27 [?] CRAN (R 4.0.5)
-#&gt;  P fs               1.6.2      2023-04-25 [?] RSPM (R 4.1.3)
-#&gt;  P future           1.26.1     2022-05-27 [?] CRAN (R 4.0.5)
-#&gt;  P future.apply     1.9.0      2022-04-25 [?] CRAN (R 4.0.5)
-#&gt;  P generics         0.1.3      2022-07-05 [?] RSPM (R 4.1.3)
-#&gt;  P ggplot2        * 3.4.2      2023-04-03 [?] RSPM (R 4.1.3)
-#&gt;  P globals          0.16.2     2022-11-21 [?] RSPM (R 4.1.3)
-#&gt;  P glue             1.6.2      2022-02-24 [?] CRAN (R 4.0.5)
-#&gt;  P gower            1.0.0      2022-02-03 [?] CRAN (R 4.0.5)
-#&gt;  P gtable           0.3.3      2023-03-21 [?] RSPM (R 4.1.3)
-#&gt;  P hardhat          1.3.0      2023-03-30 [?] RSPM (R 4.1.3)
-#&gt;  P haven            2.5.0      2022-04-15 [?] CRAN (R 4.0.5)
-#&gt;  P hms              1.1.1      2021-09-26 [?] CRAN (R 4.0.5)
-#&gt;  P htmltools        0.5.5      2023-03-23 [?] RSPM (R 4.1.3)
-#&gt;  P httr             1.4.3      2022-05-04 [?] CRAN (R 4.0.5)
-#&gt;  P ipred            0.9-13     2022-06-02 [?] CRAN (R 4.0.5)
-#&gt;  P jsonlite         1.8.5      2023-06-05 [?] RSPM (R 4.1.3)
-#&gt;  P knitr            1.43       2023-05-25 [?] RSPM (R 4.1.3)
-#&gt;  P labeling         0.4.2      2020-10-20 [?] CRAN (R 4.0.5)
-#&gt;  P lattice          0.21-8     2023-04-05 [?] RSPM (R 4.1.3)
-#&gt;  P lava             1.6.10     2021-09-02 [?] CRAN (R 4.0.5)
-#&gt;  P lifecycle        1.0.3      2022-10-07 [?] RSPM (R 4.1.3)
-#&gt;  P listenv          0.8.0      2019-12-05 [?] CRAN (R 4.0.5)
-#&gt;  P lubridate        1.8.0      2021-10-07 [?] RSPM (R 4.1.3)
-#&gt;  P magrittr         2.0.3      2022-03-30 [?] CRAN (R 4.0.5)
-#&gt;  P MASS             7.3-60     2023-05-04 [?] RSPM (R 4.1.3)
-#&gt;  P Matrix           1.5-4.1    2023-05-18 [?] RSPM (R 4.1.3)
-#&gt;  P MatrixModels     0.5-1      2022-09-11 [?] RSPM (R 4.1.3)
-#&gt;  P MMWRweek         0.1.3      2020-04-22 [?] RSPM (R 4.1.3)
-#&gt;  P modelr           0.1.8      2020-05-19 [?] CRAN (R 4.0.5)
-#&gt;  P munsell          0.5.0      2018-06-12 [?] CRAN (R 4.0.5)
-#&gt;  P nnet             7.3-17     2022-01-16 [?] CRAN (R 4.1.3)
-#&gt;  P parallelly       1.32.0     2022-06-07 [?] CRAN (R 4.0.5)
-#&gt;  P parsnip        * 1.1.0      2023-04-12 [?] RSPM (R 4.1.3)
-#&gt;  P pillar           1.9.0      2023-03-22 [?] RSPM (R 4.1.3)
-#&gt;  P pkgconfig        2.0.3      2019-09-22 [?] CRAN (R 4.0.5)
-#&gt;  P prodlim          2019.11.13 2019-11-17 [?] CRAN (R 4.0.5)
-#&gt;  P purrr          * 1.0.1      2023-01-10 [?] RSPM (R 4.1.3)
-#&gt;  P quantreg         5.95       2023-04-08 [?] RSPM (R 4.1.3)
-#&gt;  P R.cache          0.16.0     2022-07-21 [?] RSPM (R 4.1.3)
-#&gt;  P R.methodsS3      1.8.2      2022-06-13 [?] RSPM (R 4.1.3)
-#&gt;  P R.oo             1.25.0     2022-06-12 [?] RSPM (R 4.1.3)
-#&gt;  P R.utils          2.12.2     2022-11-11 [?] RSPM (R 4.1.3)
-#&gt;  P R6               2.5.1      2021-08-19 [?] CRAN (R 4.0.5)
-#&gt;  P Rcpp             1.0.10     2023-01-22 [?] RSPM (R 4.1.3)
-#&gt;  P readr          * 2.1.2      2022-01-30 [?] CRAN (R 4.0.5)
-#&gt;  P readxl           1.4.0      2022-03-28 [?] CRAN (R 4.0.5)
-#&gt;  P recipes          1.0.6      2023-04-25 [?] RSPM (R 4.1.3)
-#&gt;  P renv             0.17.3     2023-04-06 [?] RSPM (R 4.1.3)
-#&gt;  P reprex           2.0.1      2021-08-05 [?] CRAN (R 4.0.5)
-#&gt;  P rlang            1.1.1      2023-04-28 [?] RSPM (R 4.1.3)
-#&gt;  P rmarkdown        2.22       2023-06-01 [?] RSPM (R 4.1.3)
-#&gt;  P rpart            4.1.16     2022-01-24 [?] CRAN (R 4.1.3)
-#&gt;  P rstudioapi       0.14       2022-08-22 [?] RSPM (R 4.1.3)
-#&gt;  P rvest            1.0.2      2021-10-16 [?] CRAN (R 4.0.5)
-#&gt;  P scales           1.2.1      2022-08-20 [?] RSPM (R 4.1.3)
-#&gt;  P sessioninfo      1.2.2      2021-12-06 [?] CRAN (R 4.1.3)
-#&gt;  P SparseM          1.81       2021-02-18 [?] RSPM (R 4.1.3)
-#&gt;  P stringi          1.7.12     2023-01-11 [?] RSPM (R 4.1.3)
-#&gt;  P stringr        * 1.5.0      2022-12-02 [?] RSPM (R 4.1.3)
-#&gt;  P styler           1.10.1     2023-06-05 [?] RSPM (R 4.1.3)
-#&gt;  P survival         3.2-13     2021-08-24 [?] CRAN (R 4.1.3)
-#&gt;  P tibble         * 3.2.1      2023-03-20 [?] RSPM (R 4.1.3)
-#&gt;  P tidyr          * 1.3.0      2023-01-24 [?] RSPM (R 4.1.3)
-#&gt;  P tidyselect       1.2.0      2022-10-10 [?] RSPM (R 4.1.3)
-#&gt;  P tidyverse      * 1.3.1      2021-04-15 [?] CRAN (R 4.0.5)
-#&gt;  P timeDate         3043.102   2018-02-21 [?] CRAN (R 4.0.5)
-#&gt;  P tsibble          1.1.3      2022-10-09 [?] RSPM (R 4.1.3)
-#&gt;  P tzdb             0.4.0      2023-05-12 [?] RSPM (R 4.1.3)
-#&gt;  P utf8             1.2.3      2023-01-31 [?] RSPM (R 4.1.3)
-#&gt;  P vctrs            0.6.3      2023-06-14 [?] CRAN (R 4.1.3)
-#&gt;  P viridisLite      0.4.2      2023-05-02 [?] RSPM (R 4.1.3)
-#&gt;  P withr            2.5.0      2022-03-03 [?] CRAN (R 4.0.5)
-#&gt;  P workflows        1.1.3      2023-02-22 [?] RSPM (R 4.1.3)
-#&gt;  P xfun             0.39       2023-04-20 [?] RSPM (R 4.1.3)
-#&gt;  P xml2             1.3.3      2021-11-30 [?] CRAN (R 4.0.5)
-#&gt;  P yaml             2.3.7      2023-01-23 [?] RSPM (R 4.1.3)
+#&gt;  P anytime          0.3.9      2020-08-27 [?] CRAN (R 4.3.0)
+#&gt;  P backports        1.4.1      2021-12-13 [?] CRAN (R 4.3.0)
+#&gt;  P checkmate        2.2.0      2023-04-27 [?] CRAN (R 4.3.0)
+#&gt;  P class            7.3-22     2023-05-03 [?] CRAN (R 4.3.0)
+#&gt;  P cli              3.6.1      2023-03-23 [?] CRAN (R 4.3.0)
+#&gt;  P codetools        0.2-19     2023-02-01 [?] CRAN (R 4.3.0)
+#&gt;  P colorspace       2.1-0      2023-01-23 [?] CRAN (R 4.3.0)
+#&gt;  P crayon           1.5.2      2022-09-29 [?] CRAN (R 4.3.0)
+#&gt;  P data.table       1.14.8     2023-02-17 [?] CRAN (R 4.3.0)
+#&gt;  P digest           0.6.31     2022-12-11 [?] CRAN (R 4.3.0)
+#&gt;  P distributional   0.3.2      2023-03-22 [?] CRAN (R 4.3.0)
+#&gt;  P dplyr          * 1.1.2      2023-04-20 [?] CRAN (R 4.3.0)
+#&gt;  P ellipsis         0.3.2      2021-04-29 [?] CRAN (R 4.3.0)
+#&gt;  P epidatasets    * 0.0.1      2023-06-17 [?] Github (cmu-delphi/epidatasets@cc8f2a0)
+#&gt;  P epidatr        * 0.6.0      2023-06-16 [?] Github (cmu-delphi/epidatr@46d2d54)
+#&gt;  P epipredict     * 0.0.5      2023-06-17 [?] Github (cmu-delphi/epipredict@206f0ef)
+#&gt;  P epiprocess     * 0.6.0.9999 2023-06-16 [?] Github (cmu-delphi/epiprocess@572f6e6)
+#&gt;  P evaluate         0.21       2023-05-05 [?] CRAN (R 4.3.0)
+#&gt;  P fansi            1.0.4      2023-01-22 [?] CRAN (R 4.3.0)
+#&gt;  P farver           2.1.1      2022-07-06 [?] CRAN (R 4.3.0)
+#&gt;  P fastmap          1.1.1      2023-02-24 [?] CRAN (R 4.3.0)
+#&gt;  P forcats        * 1.0.0      2023-01-29 [?] CRAN (R 4.3.0)
+#&gt;  P fs               1.6.2      2023-04-25 [?] CRAN (R 4.3.0)
+#&gt;  P future           1.32.0     2023-03-07 [?] CRAN (R 4.3.0)
+#&gt;  P future.apply     1.11.0     2023-05-21 [?] CRAN (R 4.3.0)
+#&gt;  P generics         0.1.3      2022-07-05 [?] CRAN (R 4.3.0)
+#&gt;  P ggplot2        * 3.4.2      2023-04-03 [?] CRAN (R 4.3.0)
+#&gt;  P globals          0.16.2     2022-11-21 [?] CRAN (R 4.3.0)
+#&gt;  P glue             1.6.2      2022-02-24 [?] CRAN (R 4.3.0)
+#&gt;  P gower            1.0.1      2022-12-22 [?] CRAN (R 4.3.0)
+#&gt;  P gtable           0.3.3      2023-03-21 [?] CRAN (R 4.3.0)
+#&gt;  P hardhat          1.3.0      2023-03-30 [?] CRAN (R 4.3.0)
+#&gt;  P hms              1.1.3      2023-03-21 [?] CRAN (R 4.3.0)
+#&gt;  P htmltools        0.5.5      2023-03-23 [?] CRAN (R 4.3.0)
+#&gt;  P httr             1.4.6      2023-05-08 [?] CRAN (R 4.3.0)
+#&gt;  P ipred            0.9-14     2023-03-09 [?] CRAN (R 4.3.0)
+#&gt;  P jsonlite         1.8.5      2023-06-05 [?] CRAN (R 4.3.0)
+#&gt;  P knitr            1.43       2023-05-25 [?] CRAN (R 4.3.0)
+#&gt;  P labeling         0.4.2      2020-10-20 [?] CRAN (R 4.3.0)
+#&gt;  P lattice          0.21-8     2023-04-05 [?] CRAN (R 4.3.0)
+#&gt;  P lava             1.7.2.1    2023-02-27 [?] CRAN (R 4.3.0)
+#&gt;  P lifecycle        1.0.3      2022-10-07 [?] CRAN (R 4.3.0)
+#&gt;  P listenv          0.9.0      2022-12-16 [?] CRAN (R 4.3.0)
+#&gt;  P lubridate      * 1.9.2      2023-02-10 [?] CRAN (R 4.3.0)
+#&gt;  P magrittr         2.0.3      2022-03-30 [?] CRAN (R 4.3.0)
+#&gt;  P MASS             7.3-60     2023-05-04 [?] CRAN (R 4.3.0)
+#&gt;  P Matrix           1.5-4      2023-04-04 [?] CRAN (R 4.3.0)
+#&gt;  P MatrixModels     0.5-1      2022-09-11 [?] CRAN (R 4.3.0)
+#&gt;  P MMWRweek         0.1.3      2020-04-22 [?] CRAN (R 4.3.0)
+#&gt;  P munsell          0.5.0      2018-06-12 [?] CRAN (R 4.3.0)
+#&gt;  P nnet             7.3-19     2023-05-03 [?] CRAN (R 4.3.0)
+#&gt;  P parallelly       1.36.0     2023-05-26 [?] CRAN (R 4.3.0)
+#&gt;  P parsnip        * 1.1.0      2023-04-12 [?] CRAN (R 4.3.0)
+#&gt;  P pillar           1.9.0      2023-03-22 [?] CRAN (R 4.3.0)
+#&gt;  P pkgconfig        2.0.3      2019-09-22 [?] CRAN (R 4.3.0)
+#&gt;  P prodlim          2023.03.31 2023-04-02 [?] CRAN (R 4.3.0)
+#&gt;  P purrr          * 1.0.1      2023-01-10 [?] CRAN (R 4.3.0)
+#&gt;  P quantreg         5.95       2023-04-08 [?] CRAN (R 4.3.0)
+#&gt;  P R.cache          0.16.0     2022-07-21 [?] CRAN (R 4.3.0)
+#&gt;  P R.methodsS3      1.8.2      2022-06-13 [?] CRAN (R 4.3.0)
+#&gt;  P R.oo             1.25.0     2022-06-12 [?] CRAN (R 4.3.0)
+#&gt;  P R.utils          2.12.2     2022-11-11 [?] CRAN (R 4.3.0)
+#&gt;  P R6               2.5.1      2021-08-19 [?] CRAN (R 4.3.0)
+#&gt;  P Rcpp             1.0.10     2023-01-22 [?] CRAN (R 4.3.0)
+#&gt;  P readr          * 2.1.4      2023-02-10 [?] CRAN (R 4.3.0)
+#&gt;  P recipes          1.0.6      2023-04-25 [?] CRAN (R 4.3.0)
+#&gt;    renv             0.17.3     2023-04-06 [1] CRAN (R 4.2.2)
+#&gt;  P rlang            1.1.1      2023-04-28 [?] CRAN (R 4.3.0)
+#&gt;  P rmarkdown        2.22       2023-06-01 [?] CRAN (R 4.3.0)
+#&gt;  P rpart            4.1.19     2022-10-21 [?] CRAN (R 4.3.0)
+#&gt;  P rstudioapi       0.14       2022-08-22 [?] CRAN (R 4.3.0)
+#&gt;  P scales           1.2.1      2022-08-20 [?] CRAN (R 4.3.0)
+#&gt;  P sessioninfo      1.2.2      2021-12-06 [?] CRAN (R 4.3.0)
+#&gt;  P SparseM          1.81       2021-02-18 [?] CRAN (R 4.3.0)
+#&gt;  P stringi          1.7.12     2023-01-11 [?] CRAN (R 4.3.0)
+#&gt;  P stringr        * 1.5.0      2022-12-02 [?] CRAN (R 4.3.0)
+#&gt;  P styler           1.10.1     2023-06-05 [?] CRAN (R 4.3.0)
+#&gt;  P survival         3.5-5      2023-03-12 [?] CRAN (R 4.3.0)
+#&gt;  P tibble         * 3.2.1      2023-03-20 [?] CRAN (R 4.3.0)
+#&gt;  P tidyr          * 1.3.0      2023-01-24 [?] CRAN (R 4.3.0)
+#&gt;  P tidyselect       1.2.0      2022-10-10 [?] CRAN (R 4.3.0)
+#&gt;  P tidyverse      * 2.0.0      2023-02-22 [?] CRAN (R 4.3.0)
+#&gt;  P timechange       0.2.0      2023-01-11 [?] CRAN (R 4.3.0)
+#&gt;  P timeDate         4022.108   2023-01-07 [?] CRAN (R 4.3.0)
+#&gt;  P tsibble          1.1.3      2022-10-09 [?] CRAN (R 4.3.0)
+#&gt;  P tzdb             0.4.0      2023-05-12 [?] CRAN (R 4.3.0)
+#&gt;  P usethis          2.2.0      2023-06-06 [?] CRAN (R 4.3.0)
+#&gt;  P utf8             1.2.3      2023-01-31 [?] CRAN (R 4.3.0)
+#&gt;  P vctrs            0.6.2      2023-04-19 [?] CRAN (R 4.3.0)
+#&gt;  P viridisLite      0.4.2      2023-05-02 [?] CRAN (R 4.3.0)
+#&gt;  P withr            2.5.0      2022-03-03 [?] CRAN (R 4.3.0)
+#&gt;  P workflows        1.1.3      2023-02-22 [?] CRAN (R 4.3.0)
+#&gt;  P xfun             0.39       2023-04-20 [?] CRAN (R 4.3.0)
+#&gt;  P xml2             1.3.4      2023-04-27 [?] CRAN (R 4.3.0)
+#&gt;  P yaml             2.3.7      2023-01-23 [?] CRAN (R 4.3.0)
 #&gt; 
-#&gt;  [1] /home/fullname/.cache/R/renv/library/delphi-tooling-book-1266ecb6/R-4.1/x86_64-redhat-linux-gnu
-#&gt;  [2] /home/fullname/.cache/R/renv/sandbox/R-4.1/x86_64-redhat-linux-gnu/60c4e220
+#&gt;  [1] /Users/dajmcdon/Library/Caches/org.R-project.R/R/renv/library/delphi-tooling-book-d37e2426/R-4.3/aarch64-apple-darwin20
+#&gt;  [2] /Users/dajmcdon/Library/Caches/org.R-project.R/R/renv/sandbox/R-4.3/aarch64-apple-darwin20/84ba8b13
 #&gt; 
 #&gt;  P ── Loaded and on-disk path mismatch.
 #&gt; 
@@ -746,6 +757,77 @@ Session Information.
 </details>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-R-epidatr" class="csl-entry" role="listitem">
+Bien, Jacob, Logan Brooks, David Farrow, Pedrito Maynard-Zhang, Alex Reinhart, Ryan Tibshirani, and Samuel Gratzl. 2023. <em>Epidatr: Client for Delphi’s Epidata API</em>. <a href="https://github.com/cmu-delphi/epidatr">https://github.com/cmu-delphi/epidatr</a>.
+</div>
+<div id="ref-R-epiprocess" class="csl-entry" role="listitem">
+Brooks, Logan, Daniel McDonald, Evan Ray, and Ryan Tibshirani. 2023. <em>Epiprocess: Tools for Basic Signal Processing in Epidemiology</em>. <a href="https://cmu-delphi.github.io/epiprocess/">https://cmu-delphi.github.io/epiprocess/</a>.
+</div>
+<div id="ref-Cramer2021" class="csl-entry" role="listitem">
+Cramer, Estee Y., Evan L. Ray, Velma K. Lopez, Johannes Bracher, Andrea Brennen, Alvaro J. Castro Rivadeneira, Aaron Gerding, et al. 2022. <span>“Evaluation of Individual and Ensemble Probabilistic Forecasts of COVID-19 Mortality in the United States.”</span> <em>Proceedings of the National Academy of Sciences</em> 119 (15): e2113561119. <a href="https://doi.org/10.1073/pnas.2113561119">https://doi.org/10.1073/pnas.2113561119</a>.
+</div>
+<div id="ref-lubridate2011" class="csl-entry" role="listitem">
+Grolemund, Garrett, and Hadley Wickham. 2011. <span>“Dates and Times Made Easy with <span class="nocase">lubridate</span>.”</span> <em>Journal of Statistical Software</em> 40 (3): 1–25. <a href="https://www.jstatsoft.org/v40/i03/">https://www.jstatsoft.org/v40/i03/</a>.
+</div>
+<div id="ref-R-parsnip" class="csl-entry" role="listitem">
+Kuhn, Max, and Davis Vaughan. 2023. <em>Parsnip: A Common API to Modeling and Analysis Functions</em>. <a href="https://CRAN.R-project.org/package=parsnip">https://CRAN.R-project.org/package=parsnip</a>.
+</div>
+<div id="ref-flusight2019" class="csl-entry" role="listitem">
+Lutz, Chelsea S, Mimi P Huynh, Monica Schroeder, Sophia Anyatonwu, F Scott Dahlgren, Gregory Danyluk, Danielle Fernandez, et al. 2019. <span>“Applying Infectious Disease Forecasting to Public Health: A Path Forward Using Influenza Forecasting Examples.”</span> <em>BMC Public Health</em> 19 (1): 1–12. <a href="https://doi.org/10.1186/s12889-019-7966-8">https://doi.org/10.1186/s12889-019-7966-8</a>.
+</div>
+<div id="ref-R-epidatasets" class="csl-entry" role="listitem">
+McDonald, Daniel J. 2023. <em>Epidatasets: Epidemiological Data for Delphi Tooling Examples</em>. <a href="https://cmu-delphi.github.io/epidatasets/">https://cmu-delphi.github.io/epidatasets/</a>.
+</div>
+<div id="ref-McDonaldBien2021" class="csl-entry" role="listitem">
+McDonald, Daniel J, Jacob Bien, Alden Green, Addison J Hu, Nat DeFries, Sangwon Hyun, Natalia L Oliveira, et al. 2021. <span>“Can Auxiliary Indicators Improve <span>COVID-19</span> Forecasting and Hotspot Prediction?”</span> <em>Proceedings of the National Academy of Sciences</em> 118: e2111453118. <a href="https://doi.org/10.1073/pnas.2111453118">https://doi.org/10.1073/pnas.2111453118</a>.
+</div>
+<div id="ref-R-epipredict" class="csl-entry" role="listitem">
+McDonald, Daniel, Ryan Tibshirani, Logan Brooks, Rachel Lobay, Maggie Liu, Ken Mawer, and Chloe You. 2023. <em>Epipredict: Basic Epidemiology Forecasting Methods</em>.
+</div>
+<div id="ref-R-tibble" class="csl-entry" role="listitem">
+Müller, Kirill, and Hadley Wickham. 2023. <em>Tibble: Simple Data Frames</em>. <a href="https://CRAN.R-project.org/package=tibble">https://CRAN.R-project.org/package=tibble</a>.
+</div>
+<div id="ref-R-base" class="csl-entry" role="listitem">
+R Core Team. 2023. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div id="ref-Reinhart2021" class="csl-entry" role="listitem">
+Reinhart, Alex, Logan Brooks, Maria Jahja, Aaron Rumack, Jingjing Tang, Wael Al Saeed, Taylor Arnold, et al. 2021. <span>“An Open Repository of Real-Time COVID-19 Indicators.”</span> <em>Proceedings of the National Academy of Sciences</em> 118: e2111452118. <a href="https://doi.org/10.1073/pnas.2111452118">https://doi.org/10.1073/pnas.2111452118</a>.
+</div>
+<div id="ref-R-lubridate" class="csl-entry" role="listitem">
+Spinu, Vitalie, Garrett Grolemund, and Hadley Wickham. 2023. <em>Lubridate: Make Dealing with Dates a Little Easier</em>. <a href="https://CRAN.R-project.org/package=lubridate">https://CRAN.R-project.org/package=lubridate</a>.
+</div>
+<div id="ref-ggplot22016" class="csl-entry" role="listitem">
+Wickham, Hadley. 2016. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>.
+</div>
+<div id="ref-R-stringr" class="csl-entry" role="listitem">
+———. 2022. <em>Stringr: Simple, Consistent Wrappers for Common String Operations</em>. <a href="https://CRAN.R-project.org/package=stringr">https://CRAN.R-project.org/package=stringr</a>.
+</div>
+<div id="ref-R-forcats" class="csl-entry" role="listitem">
+———. 2023a. <em>Forcats: Tools for Working with Categorical Variables (Factors)</em>. <a href="https://CRAN.R-project.org/package=forcats">https://CRAN.R-project.org/package=forcats</a>.
+</div>
+<div id="ref-R-tidyverse" class="csl-entry" role="listitem">
+———. 2023b. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
+</div>
+<div id="ref-tidyverse2019" class="csl-entry" role="listitem">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span class="nocase">tidyverse</span>.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+</div>
+<div id="ref-R-ggplot2" class="csl-entry" role="listitem">
+Wickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, and Dewey Dunnington. 2023. <em>Ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics</em>. <a href="https://CRAN.R-project.org/package=ggplot2">https://CRAN.R-project.org/package=ggplot2</a>.
+</div>
+<div id="ref-R-dplyr" class="csl-entry" role="listitem">
+Wickham, Hadley, Romain François, Lionel Henry, Kirill Müller, and Davis Vaughan. 2023. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.
+</div>
+<div id="ref-R-purrr" class="csl-entry" role="listitem">
+Wickham, Hadley, and Lionel Henry. 2023. <em>Purrr: Functional Programming Tools</em>. <a href="https://CRAN.R-project.org/package=purrr">https://CRAN.R-project.org/package=purrr</a>.
+</div>
+<div id="ref-R-readr" class="csl-entry" role="listitem">
+Wickham, Hadley, Jim Hester, and Jennifer Bryan. 2023. <em>Readr: Read Rectangular Text Data</em>. <a href="https://CRAN.R-project.org/package=readr">https://CRAN.R-project.org/package=readr</a>.
+</div>
+<div id="ref-R-tidyr" class="csl-entry" role="listitem">
+Wickham, Hadley, Davis Vaughan, and Maximilian Girlich. 2023. <em>Tidyr: Tidy Messy Data</em>. <a href="https://CRAN.R-project.org/package=tidyr">https://CRAN.R-project.org/package=tidyr</a>.
+</div>
+</div>
 </section>
 
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">

@@ -496,7 +496,7 @@ Note
 <span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>wf <span class="ot">&lt;-</span> <span class="fu">epi_workflow</span>(r, eng, f) <span class="sc">%&gt;%</span> <span class="fu">fit</span>(jhu)</span>
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">predict</span>(wf, latest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>All that really differs from the <code>arx_forecaster()</code> is the <code>recipe</code>, the test data, and the engine. The <code>frosting</code> is identical, as is the fitting and predicting procedure.</p>
+<p>The code for <code>arx_forecaster()</code> simply generalizes this, passing along arguments as needed.</p>
 <div class="cell" data-layout-align="center" data-hash="forecast-framework_cache/html/unnamed-chunk-12_b7f75d610d9c4f0ced30040e9aa3a481">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>preds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
