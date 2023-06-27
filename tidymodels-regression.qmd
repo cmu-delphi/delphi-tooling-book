@@ -96,13 +96,13 @@ tidy(lm_fit)
 glance(lm_fit) 
 ```
 
-Now, to make predictions, we simply use `predict()` on the parnsip model object. In there, we must specify the dataset we want to predict on in the `new_data` argument. Note that this may be a different dataset than we used for fitting the model, but this input data must include all predictor variables that were used to fit the model.
+Now, to make predictions, we simply use `predict()` on the parsnip model object. In there, we must specify the dataset we want to predict on in the `new_data` argument. Note that this may be a different dataset than we used for fitting the model, but this input data must include all predictor variables that were used to fit the model.
 
 ```{r}
 predict(lm_fit, new_data = penguins)
 ```
 
-For parnsip models, the predictions are always outputted in a tibble.
+For parsnip models, the predictions are always outputted in a tibble.
 
 To specify the type of prediction made, modify `type` argument. If we set `type = "conf_int"`, we get a 95% confidence interval.
 
@@ -110,7 +110,7 @@ To specify the type of prediction made, modify `type` argument. If we set `type 
 predict(lm_fit, new_data = penguins, type = "conf_int")
 ```
 
-To evaluate model predictive performance, it is logical to compare the each of the observed and predicted values. To see these values side-by-side we simply bind the two vectors of interest.
+To evaluate model predictive performance, it is logical to compare each of the observed and predicted values. To see these values side-by-side we simply bind the two vectors of interest.
 
 ```{r}
 bind_cols(
@@ -176,7 +176,7 @@ We shall now briefly walk you through what each plot means.
 
 The first two plots help us to examine the linearity of the errors versus the fitted values. Ideally, we want this error to be relatively flat and horizontal. The third plot is for checking homogeneity of the variance, where we want the points to be roughly the same distance from the line as this indicates similar dispersion. The fourth plot helps us to see if there are high leverage points - points that have command or influence over the model fit. As a result, these can have a great effect on the model predictions. So the removal of such points or modifications to the model may be necessary to deal with them. The fifth plot helps us to discern collinearity, which is when predictors are highly correlated. Since independent variables should be independent, this can throw off simple regression models (in standard error of coefficient estimates and the estimates themselves, which would likely be sensitive to changes in the predictors that are included in the model). The last plot enables us to check the normality of residuals. If the distribution of the model error is non-normal, then that suggests a linear model may not be appropriate. For a QQ plot, we want the points to fall along a straight diagonal line.
 
-For our example, we observe that there's a pretty high correlation between `body_mass_g` and `flipper_length_mm` (not quite in the red-zone of 10 and above, but close enough for concern). That is indicative of multicollinearity between them. Intuitively, it makes sense for the body mass and flipper length variables - we'd expect that as once increases, so should the other.
+For our example, we observe that there's a pretty high correlation between `body_mass_g` and `flipper_length_mm` (not quite in the red-zone of 10 and above, but close enough for concern). That is indicative of multicollinearity between them. Intuitively, it makes sense for the body mass and flipper length variables - we'd expect that as one increases, so should the other.
 
 We can take a closer look at the correlation by whipping up a correlation matrix by using base R's `cor()` function. Since for collinearity we're only usually interested in the numerical predictors, we'll only include the four numeric variables.
 

@@ -179,14 +179,14 @@ ewf %>% add_frosting(f) %>% predict(test_data)
 The above `get_test_data()` function examines the recipe and ensures that enough
 test data is available to create the necessary lags and produce a prediction
 for the desired future time point (after the end of the training data). This mimics
-what would happen if `jhu` contained the most recent available historical data and
+what would happen if `jhu` contained the most recently available historical data and
 we wanted to actually predict the future. We could have instead used any test data
 that contained the necessary predictors.
 
 :::{.callout-note}
 In the predictions above, you'll see a `time_value` column. That's because we 
 could use **any training data**. We happened to use training data corresponding
-to the most recent available, and it's lags. But we could have instead used
+to the most recently available data, and they lagged. But we could have instead used
 last week's or we could use the data that arrives next year, or we could use multiple
 `time_values` for multiple locations. This is completely allowed, though not
 necessarily what you expect.

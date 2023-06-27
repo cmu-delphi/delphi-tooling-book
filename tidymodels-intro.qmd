@@ -16,7 +16,7 @@ It is important to understand that the `tidymodels` packages do not aim to imple
 knitr::include_graphics("img/tidymodels_packages.png")
 ```
 
-Now, modelling can be broken down into several sub-tasks, and `tidymodels` recognizes this by providing different packages for different tasks. So `tidymodels` can be considered a metapackage - when you load `tidymodels`, several packages are in fact loaded including `rsample`, `recipes`, `parsniup` and `yardstick`. Each of these packages has their own role to play in the modelling process.
+Now, modelling can be broken down into several sub-tasks, and `tidymodels` recognizes this by providing different packages for different tasks. So `tidymodels` can be considered a metapackage - when you load `tidymodels`, several packages are in fact loaded including `rsample`, `recipes`, `parsnip` and `yardstick`. Each of these packages has its own role to play in the modelling process.
 
 -   `rsample` is intended for sampling and subsetting tasks (such as splitting the data into test and train sets)
 -   `recipes` allows the user to easily and neatly record the steps to take in data pre-processing
@@ -112,7 +112,7 @@ Now, after saying that you are making a recipe by way of the `recipe()` function
 
 -   `step_scale()` to normalize numeric data to have a standard deviation of one
 
-One of the advantages of having these pre-processing steps is that they help to simplify concepts that are difficult or a pain to enforce in coding. For example, centering could be a nuisance to implement from scratch because we would first have to calculate statistics (variable averages) from the training data and then use them on both the training and on the test data. Note that centering should not be done on the test data, rather on the training data to avoid data leakage (contamination of the test data by using statistics from the test data). In a recipe, the the estimation of the variable means using the training data and the application of these to center new data sets is done automatically, under the hood, and so spares the coder from having to manually implement it. The situation is similar for scaling numeric data (`step_scale()`).
+One of the advantages of having these pre-processing steps is that they help to simplify concepts that are difficult or a pain to enforce in coding. For example, centering could be a nuisance to implement from scratch because we would first have to calculate statistics (variable averages) from the training data and then use them on both the training and on the test data. Note that centering should not be done on the test data, rather on the training data to avoid data leakage (contamination of the test data by using statistics from the test data). In a recipe, the estimation of the variable means using the training data and the application of these to center new data sets are done automatically, under the hood, and so spare the coder from having to manually implement it. The situation is similar for scaling numeric data (`step_scale()`).
 
 Another useful feature of the `tidymodels` pre-processing interface is that each step can be applied to one specified variable, a group of variables, or all variables. The `all_predictors()` and `all_outcomes()` functions are particularly convenient to help minimize the amount of typing you need to do. For instance, if you wanted to apply `step_center()` to only the predictor variables, simply type `step_center(all_predictors())` instead of listing out each and every predictor in the step function.
 
@@ -137,9 +137,9 @@ penguins_recipe
 
 Recall that in R, the same type of model could be fit using several different packages, and each such package typically has it's own style of interface. Two popular packages to fit random forest models are `ranger` and `randomForest`. One way that their interfaces differ is in the parameter name for the number of trees - `ranger()` has the parameter `num.trees`, whereas in `randomForest` has parameter `ntree`. Such differences do not make it simple to run the model in the other package.
 
-`Tidymodels` created an single interface that supports the usage of both models. Moreover, this general interface supports an even wider range of functions that use perform random forest. The key part that points to the function and package to be used is the engine.
+`Tidymodels` created a single interface that supports the usage of both models. Moreover, this general interface supports an even wider range of functions that perform random forest. The key part that points to the function and package to be used is the engine.
 
-Let's see how this works in practice. In the below example, we'll use the general `rand_forest()` function from `tidymodels`. In there, we can specify the number of trees by using the `trees` argument. Then, in `set_engine()` we specify that we want to use ranger's version of random forest. Notice this follows the model specification format introduced in the \[Regression in Tidymodels\]<ADD LINK HERE> chapter.
+Let's see how this works in practice. In the below example, we'll use the general `rand_forest()` function from `tidymodels`. In there, we can specify the number of trees by using the `trees` argument. Then, in `set_engine()` we specify that we want to use ranger's version of random forest. Notice this follows the model specification format introduced in the [Regression in Tidymodels](https://cmu-delphi.github.io/delphi-tooling-book/tidymodels-regression.html) chapter.
 
 ```{r}
 penguins_ranger <- rand_forest(trees = 100, mode = "classification") %>%
@@ -153,7 +153,7 @@ penguins_rf <-  rand_forest(trees = 100, mode = "classification") %>%
   set_engine("randomForest") 
 ```
 
-For the remainder of this tutorial, we'll stick with using `ranger` for simplify. At this stage, we're ready to pre-process and model. The first task of those two is to apply our recipe before we train and test our model, in that we must
+For the remainder of this tutorial, we'll stick with using `ranger` for simplicity. At this stage, we're ready to pre-process and model. The first task of those two is to apply our recipe before we train and test our model, in that we must
 
 1.  Process the recipe using the training set.
 
@@ -161,7 +161,7 @@ For the remainder of this tutorial, we'll stick with using `ranger` for simplify
 
 3.  Use the recipe on the predictor set to get the test set.
 
-A workflow can be used to pair model and processing tasks together. When different recipes are needed for different models, this is very useful so that you don't have to keep track of separate model and recipe objects in your workspace. Hence, training and testing different workflows becomes easier.
+A workflow can be used to pair model and processing tasks together. When different recipes are needed for different models, this is very useful so that you don't have to keep track of separate model and recipe objects in your workspace. Hence, training and testing different workflows become easier.
 
 For our example, we'll try tidy model's workflows package to pair our model and our recipe together.
 
@@ -173,7 +173,7 @@ penguins_wflow <- workflow() %>%
 penguins_wflow
 ```
 
-After that, we're ready to fit the model to our training data. The `fit()` function is what we will use to prepare the the recipe and train the model from the finalized predictors.
+After that, we're ready to fit the model to our training data. The `fit()` function is what we will use to prepare the recipe and train the model from the finalized predictors.
 
 ```{r}
 penguins_fit <- penguins_wflow %>% fit(data = train_data)
@@ -185,7 +185,7 @@ The resulting object contains both the recipe and fitted model. To extract the m
 extract_fit_parsnip(penguins_fit) 
 ```
 
-One important thing to notice is that that if we wanted to use the `randomForest` model instead of the `ranger` model, all we'd need to do is replace the engine in the model specification; the rest of the code remains the same. We shall leave it to the reader to try this on their own and marvel at the beauty of having such a unifying interface.
+One important thing to notice is that if we wanted to use the `randomForest` model instead of the `ranger` model, all we'd need to do is to replace the engine in the model specification; the rest of the code remains the same. We shall leave it to the reader to try this on their own and marvel at the beauty of having such a unifying interface.
 
 ### Use a trained workflow to predict
 
@@ -227,11 +227,11 @@ penguins_aug <- augment(penguins_fit, test_data)
 penguins_aug 
 ```
 
-We can see from the first couple of rows shown that our model predicted the species correctly to be Adelie (in the `.pred_class` column) because the `.pred_Adelie` probabilities are by far the largest of the three predicted probabilities for each row. So while we can informally say that our model is doing well for predicting, how can we formally assess this? We would like to calculate a metric (well, probably more than one) to tell us how well our model predicts the species of penguins.
+We can see from the first couple of rows that our model predicted the species correctly to be Adelie (in the `.pred_class` column) because the `.pred_Adelie` probabilities are by far the largest of the three predicted probabilities for each row. So while we can informally say that our model is doing well for predicting, how can we formally assess this? We would like to calculate a metric (well, probably more than one) to tell us how well our model predicts the species of penguins.
 
 ### Model Validation
 
-The `metrics()` function from the `yardstick` package is helps to assess model performance. As suggested by its name, it will output some metrics, and as an added bonus, these will be automatically selected for the type of model that you construct. The input for this function is a tibble that contains the actual values and the predicted values. This way we can compare how close the model estimates are to the truth. To serve this purpose, we can use `penguins_aug`.
+The `metrics()` function from the `yardstick` package helps to assess model performance. As suggested by its name, it will output some metrics, and as an added bonus, these will be automatically selected for the type of model that you construct. The input for this function is a tibble that contains the actual values and the predicted values. This way we can compare how close the model estimates are to the truth. To serve this purpose, we can use `penguins_aug`.
 
 ```{r}
 penguins_aug %>%

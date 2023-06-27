@@ -117,7 +117,7 @@ extract_frosting(five_days_ahead$epi_workflow)
 ```
 
 
-The post-processing operations in the order the that were performed were to create the predictions and the predictive intervals, add the forecast and target dates and bound the predictions at zero.
+The post-processing operations in the order that were performed were to create the predictions and the predictive intervals, add the forecast and target dates and bound the predictions at zero.
 
 We can also easily examine the predictions themselves.
 

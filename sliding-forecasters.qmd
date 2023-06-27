@@ -136,7 +136,7 @@ ggplot(fc_cafl, aes(fc_target_date, group = time_value, fill = engine_type)) +
 
 For the two states of interest, simple linear regression clearly performs better
 than random forest in terms of accuracy of the predictions and does not
-result in such in overconfident predictions (overly narrow confidence bands).
+result in such overconfident predictions (overly narrow confidence bands).
 Though, in general, neither approach produces amazingly accurate forecasts. 
 This could be because
 the behaviour is rather different across states and the effects of other notable
@@ -145,7 +145,7 @@ in such forecasting. Including such factors as well as making enhancements such
 as correcting for outliers are some improvements one could make to this simple
 model.[^1]
 
-[^1]: Note that, despite the above caveats, simple models like this tend to out-perform many far more complicated models in the online Covid forecasting due to those models high variance predictions.
+[^1]: Note that, despite the above caveats, simple models like this tend to out-perform many far more complicated models in the online Covid forecasting due to those models' high variance predictions.
 
 ### Example using case data from Canada
 

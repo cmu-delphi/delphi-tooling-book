@@ -13,14 +13,14 @@ Serving both populations is the main motivation for our efforts, but at the same
 ## Baseline models
 
 We provide a set of basic, easy-to-use forecasters that work out of the box. 
-You should be able to do a reasonably limited amount of customization on them. Any serious customization happens with the framework discussed below).
+You should be able to do a reasonably limited amount of customization on them. Any serious customization happens with the framework discussed below.
 
 For the basic forecasters, we provide: 
     
 * Flatline (basic) forecaster 
 * Autoregressive forecaster
 * Autoregressive classifier
-* Smooth AR forecaster
+* Smooth autoregressive(AR) forecaster
 
 All the forcasters we provide are built on our framework. So we will use these basic models to illustrate its flexibility.
 
