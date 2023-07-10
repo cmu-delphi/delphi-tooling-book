@@ -171,7 +171,7 @@ penguins_wflow <- workflow() %>%
 penguins_wflow
 ```
 
-After that, we're ready to fit the model to our training data. The `fit()` function is what we will use to prepare the the recipe and train the model from the finalized predictors.
+After that, we're ready to fit the model to our training data. The `fit()` function is what we will use to prepare the recipe and train the model from the finalized predictors.
 
 ```{r}
 penguins_fit <- penguins_wflow %>% fit(data = train_data)
