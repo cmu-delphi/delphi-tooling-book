@@ -5,7 +5,7 @@
 source("_common.R")
 ```
 
-This vignette is a gentle introduction into performing simple and multiple linear regression using `tidymodels`. Model fitting will be done using [parsnip](https://www.tidymodels.org/start/models/), which provides a unifying interface for model fitting and the resulting output. This means that parsnip provides a single interface with standardized argument names for each class of models so that you don't have to directly deal with the different interfaces for different functions that aim to do the same thing (like linear regression). See [here](https://www.tidymodels.org/find/parsnip/) for a list of models that `parsnip` currently supports.
+This chapter is a gentle introduction into performing simple and multiple linear regression using `tidymodels`. Model fitting will be done using [parsnip](https://www.tidymodels.org/start/models/), which provides a unifying interface for model fitting and the resulting output. This means that parsnip provides a single interface with standardized argument names for each class of models so that you don't have to directly deal with the different interfaces for different functions that aim to do the same thing (like linear regression). See [here](https://www.tidymodels.org/find/parsnip/) for a list of models that `parsnip` currently supports.
 
 ## Libraries
 

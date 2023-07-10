@@ -43,6 +43,7 @@ book:
       - arx-forecaster.qmd
       - tidymodels-intro.qmd
       - tidymodels-regression.qmd
+      - tidymodels-regression-part2.qmd
       - preprocessing-and-models.qmd
       - sliding-forecasters.qmd
     - references.qmd
