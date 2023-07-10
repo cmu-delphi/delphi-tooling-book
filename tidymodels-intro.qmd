@@ -43,7 +43,7 @@ library(tidymodels)
 
 ### Simplify dataset
 
-To keep the focus on learning how to use `tidymodels`, we will work with a simplified version of the dataset in which we will only use the complete cases/rows in the `penguins` dataset
+To keep the focus on learning how to use `tidymodels`, we will only wretain the complete cases/rows in the `penguins` dataset
 
 ```{r}
 penguins <- penguins %>%
@@ -120,20 +120,20 @@ Note that centering should not be done on the test data, but rather on the train
 
 In a recipe, estimation of the variable means using the training data and the application of these to center new data is done automatically, under the hood, and so spares the coder from having to manually implement it. The situation is similar for scaling numeric data.
 
-Another feature of the `tidymodels` pre-processing interface is that each step can be applied to one specified variable, a group of variables, or all variables. The `all_predictors()` and `all_outcomes()` functions are particularly convenient to help minimize the amount of typing you need to do. For instance, if you wanted to apply `step_center()` to only the predictor variables, simply type `step_center(all_predictors())` instead of listing out each and every predictor in the step function.
+Another feature of the `tidymodels` pre-processing interface is that each step can be applied to one specified variable, a group of variables, or all variables. The `all_predictors()` and `all_outcomes()` functions are particularly convenient to help minimize the amount of typing you need to do. For instance, if you want to apply `step_center()` to only the predictor variables, simply type `step_center(all_predictors())` instead of listing out each and every predictor in the step function.
 
-Now, let's try this all out on our example.
+Now, let's try this out on our example.
 
 ```{r}
 penguins_recipe <- recipe(species ~ ., data = train_data) %>%
   step_corr(all_predictors()) %>%
-  step_center(all_predictors()) %>%
+  step_center(all_predictors()) %>% 
   step_scale(all_predictors()) 
 ```
 
 To summarize, we obtained a recipe object, `penguins_recipe`, by putting the `recipe()` and step functions together on our training data that we had ready to go from sampling.
 
-Now, to get the recipe details, simply call the recipe object. The operations section details what pre-processing steps we've applied to the data. Notice that the steps shown here are in the order that they were input into the recipe and they specify the variables used in each step.
+Now, to get the recipe details, simply call the recipe object. The operations section details what pre-processing steps we've applied to the data. Notice that the steps shown here are in the order that they were input into the recipe and they each indicate the variables that were used.
 
 ```{r}
 penguins_recipe
@@ -159,9 +159,9 @@ penguins_rf <-  rand_forest(trees = 100, mode = "classification") %>%
   set_engine("randomForest") 
 ```
 
-For the remainder of this tutorial, we'll stick with using `ranger` for simplicity. At this stage, we're ready to pre-process and model. A workflow can be used to pair model and processing tasks together. When different recipes are needed for different models, this is very useful so that you don't have to keep track of separate model and recipe objects in your workspace. So training and testing different workflows becomes easier.
+For the remainder of this tutorial, we'll stick with using `ranger` for simplicity. And at this stage, we're ready to pre-process and model. A workflow can be used to pair model and processing tasks together. When different recipes are needed for different models, this is very useful so that you don't have to keep track of separate model and recipe objects in your workspace. So training and testing different workflows becomes easier.
 
-For our example, we'll try tidy model's workflows package to pair our model and our recipe together.
+For our example, we'll employ the `workflows` package to pair our model and our recipe together.
 
 ```{r}
 penguins_wflow <- workflow() %>% 
@@ -276,15 +276,12 @@ penguins_aug %>%
 
 The diagonal shows the counts of correct predictions for each species, while the off-diagonal shows the counts of model misclassifications. As the metrics have indicated, our model performed magnificently on the test set as there was only three misclassifications of Adelie penguins as Chinstrap.
 
-## Concluding remarks
 
-In this vignette, we introduced `tidymodels` and illustrated how to its packages work together by way of example. Since this was an elementary example, so use this as a starting point and explore what more can be done with this wonderful set of packages. And yet, however wonderful they are, you may have already noticed that there are limitations like the glaring lack of a set of post-processing tools to refine the results. We fill this gap for epidemiological modelling with [frosting](https://cmu-delphi.github.io/epipredict/reference/add_frosting.html). This will be formally introduced in a later chapter, so stay tuned!\
-\
-🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧
+🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧  🐧
 
 ## Attribution
 
 
 This Chapter was largely adapted from [A Gentle Introduction to Tidymodels](https://rviews.rstudio.com/2019/06/19/a-gentle-intro-to-tidymodels/) as well as [Tidymodels - Getting Started](https://www.tidymodels.org/start/recipes/) and [Tidymodels](https://wec.wur.nl/dse/24-tidymodels.html). The diagrams are from [A Gentle Introduction to Tidymodels](https://rviews.rstudio.com/2019/06/19/a-gentle-intro-to-tidymodels/) and based on [R for Data Science](https://r4ds.had.co.nz/explore-intro.html).
 
-🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧
+🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧  🐧
