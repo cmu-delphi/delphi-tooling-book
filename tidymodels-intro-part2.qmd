@@ -1,0 +1,232 @@
+# Introduction to Tidymodels - Part 2
+
+```{r}
+#| echo: false
+source("_common.R")
+```
+
+## A gentle introduction to tidymodels - `epipredict` edition
+
+The `epipredict` package builds off of the `tidymodels` framework to help it run smoothly with epidemiological time series data that can be composed as an `epi_df`. To that end, let's see how some of the techniques we previously applied in the previous chapter fair on some real-world `epi_df` data.
+
+We'll start off by loading the `epipredict` and `tidymodels` packages.
+
+```{r, message = FALSE}
+library(epipredict)
+library(tidymodels)
+```
+
+The data we'll work with is a subset of the built-in `case_death_rate_subset` dataset that contains COVID-19 death and case rates from Johns Hopkins University. We're only going to use the data for California, New York, Arkansas, Texas, and Hawaii over the modest time window of Jan. 8, 2021 to March 8, 2021. 
+
+```{r}
+jhu <- case_death_rate_subset %>%
+  dplyr::filter(time_value >= "2021-01-08",
+                time_value <= "2021-03-08", 
+                geo_value %in% c("ca", "ny", "ar", "tx", "hi"))
+```
+
+Our goal for this example is to use this data to train a basic linear regression forecaster to predict the death rate one week ahead of the last time of March 8, 2021 using past (lagged) deaths and cases for each state. 
+
+We'll use `jhu` as our training data and we' will hold off on creating the test portion for now. One reason for this unexpected move can be understood by asking the question... Can we use the `initial_split()` function from the `rsample` package here in the way that we did before? Remember that we used it to randomly split the `penguins` dataset into a training and test set, where we used 70% of the data for training and reserved the remaining 30% for testing. But does such a random split make sense to use on time series data (and, moreover, on time series data that is grouped by state)? No. Now, the `rsample` package does offer `initial_time_split()`, which takes the first `prop` samples for training instead of a random selection (so this may be appropriate for time series data where we want to predict for one segment in the future given the past). And `group_initial_split()` creates splits of the data based on some grouping variable, but what we would ideally like is a function that accounts for both time and grouping. And to our knowledge, there's no `initial_time_group_split()` function in existence just yet. So we've got to come up with something else to do here. 
+
+### Pre-processing 
+
+The pre-processing steps are added to an `epi_recipe()` in the same way as for an ordinary `recipe()`. The major benefit from using an `epi_recipe()` is that we have more epi-themed steps at our disposal which allow for analysis that's more tailored to epidemiological data. These pre-processing transformations that are specific for such data often include the infix of `epi` as in `step_epi` to make the distinction between them and the steps that come with `tidymodels`. 
+
+And while there are many such transformations available, we will only showcase the following four in our example for the sake of simplicity.
+
+:::: {.columns}
+
+::: {.column width="52%"}
+- `step_epi_lag()` to lag specified columns ahead by some amount (generally these would be particular numeric predictors)
+
+- `step_epi_ahead()` to shift specified data ahead by some amount (generally this would be the response)
+
+- `step_center()` to normalize numeric data to have a mean of zero
+
+- `step_epi_naomit()` to omit NAs from both predictors and outcomes at training time to fit the model
+:::
+
+::: {.column width="1%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="47%"}
+
+```{r, echo = FALSE}
+knitr::include_graphics("img/epi_recipe_card.png")
+```
+:::
+
+::::
+
+In our case, we will center the numerical predictors to help level the playing field across them for a more meaningful interpretation of the intercept. Note that by default the ahead and lag steps assign analysis roles to the used inputted variables.  
+
+```{r}
+r <- epi_recipe(jhu) %>%
+  step_epi_lag(case_rate, death_rate, lag = c(0, 7, 14)) %>%
+  step_epi_ahead(death_rate, ahead = 7) %>%
+  step_center(contains("lag")) %>%
+  step_epi_naomit()
+```
+
+### Get test data
+
+Now that we've got our recipe wrapped up and ready to go, let's revisit the problem of getting test data. What we'll do use is a function from `epipredict` that's primed to receive an `epi_recipe`. This function gets test data for predictions based on the longest lag period in the recipe. The reason that we use the longest lag is that it is the farthest back we need to go to get the required values of the predictors to make the forecast. In our above recipe, the longest lag is 14 days. So, what `get_test_data()` does is that it will get the last 14 + 1 = 15 days for each `geo_value` and all together those comprise `latest`.
+
+```{r}
+latest <- get_test_data(recipe = r, x = jhu) 
+```
+
+### Model and use a trained epi_workflow to predict
+
+For our model, we'll opt for the classic least squares regression model. However, we should note that, while least squares is often computationally simple, it may be better to use something like quantile regression (using the `quantile_reg` engine) to create median predictions because it is more robust than least squares to the type of distribution. That is, no matter the underlying distribution of the data (which, in the case of pandemic data, may be unpredictable or hard to pin down), obtaining the median or other quantiles and minimizing the absolute residuals tends to work well and be a safe bet. 
+
+Below we create an `epi_workflow()`, which extends the functionality of a `workflow()` to handle the typical panel data structures found in epidemiology. It also has one other major perk. Whereas a `workflow` can take in a pre-processor and a parsnip model specification, an `epi_workflow` may take in up to three arguments: a pre-processor, a parsnip model specification, and a post-processor. So we've got additional capability here to post-process our results. For our example, since we only have a recipe, and a parsnip model, we will only fill in the first two arguments.
+
+```{r}
+wf <- epi_workflow(r, parsnip::linear_reg()) %>%
+  fit(jhu) 
+```
+
+Let's extract the model to briefly inspect it. We expect that it should contain three coefficients for the 0, 7, and 14 day lagged case rate predictors and three coefficients for the 0, 7, and 14 day lagged death rate predictors.
+
+```{r}
+wf %>% 
+  extract_fit_parsnip() 
+```
+
+Great! Now, we can use our trained workflow to predict the one-week-ahead death rate for each sampled state. 
+
+```{r}
+p <- predict(wf, latest)
+p
+```
+Success! Now, you may have been thinking that at this point it sure would be nice to clean up our predictions by bounding them to ensure that they are at least 0 and by converting them from rates to counts for a simpler view of the results. While post-processing is not currently supported by `tidymodels`, the good news is that `epipredict` does have such tools ready to be used. And what's great is that they are in a format that parallels what we've seen for adding pre-processing steps. 
+
+### Post-processing
+
+:::: {.columns}
+
+::: {.column width="75%"}
+
+Basically, each post-processing step is a layer to be added to the `frosting()`, which is a post-processing container that is akin to `recipe()`. To our `frosting()`, we'll add the following four layers
+
+- `layer_predict()` to add a prediction layer for post-processing
+
+- `layer_add_target_date()` to add the target date (ie. the date that the forecast is for)
+
+- `layer_threshold()` to set the predictions to be at least 0
+
+- `layer_population_scaling()` to "undo" per-capita scaling by state to get counts from rates
+:::
+
+::: {.column width="1%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="24%"}
+
+```{r, echo = FALSE}
+knitr::include_graphics("img/postprocessing_cupcake.png")
+```
+:::
+
+::::
+
+Note that, as with the pre-processing steps, order matters like when you follow a recipe. Thus, put the layers in so that they result in the chain of events that you want to happen and not something that belongs on Hell's Kitchen. In general, put `layer_predict()` in first and then what you want to do to the predictions after. That is, `layer_predict()` should be the first layer to make an appearance after `frosting()`, then input whatever other layers you want in the order you want them carried out. In our example, it is logical to add the layer to bound our predictions at 0 before scaling them.
+
+But first we should ready the dataframe that contains the population data. We'll use the 2019 US Census data that comes built-in with the `epipredict` package and just select the two columns that we need - the state abbreviation and corresponding population estimate. 
+
+```{r}
+pop_dat <- state_census %>% select(abbr, pop)
+```
+
+Now, let's go ahead and do the post-processing that we outlined above.
+
+```{r}
+f <- frosting() %>%
+  layer_predict() %>% 
+  layer_add_target_date() %>% 
+  layer_threshold(.pred, lower = 0) %>%
+  layer_population_scaling(
+    .pred,  
+    df = pop_dat, 
+    rate_rescaling = 1e5,
+    by = c("geo_value" = "abbr"), 
+    df_pop_col = "pop")
+```
+
+Everything is pretty straight forward, but there's perhaps one curious choice... Why did we pick `1e5` for `rescaling_rate`? This is because the rates are "per 100,000 people" rather than "per person" as can be seen in the dataset documentation (have a look at `?case_death_rate_subset`).
+
+Now, we predict by inputting a workflow and the test data into `predict()` the same way as before.
+
+```{r}
+p <- predict(wf, latest)
+p
+```
+
+It's good practice to perform a quick inspection of the predictions before moving on. But when we do that here, something doesn't quite add up... Notice that we have a negative prediction for `hi`. And the predictions look to still be rates and not counts. It looks like the postprocessing wasn't implemented at all... So what is the problem? The answer is that we forgot to add the frosting to the `epi_workflow`. Once we do that and pop the updated workflow into `predict()`, then we should get predictions that align more with our expectations.
+
+```{r}
+wf_fixed <- wf %>%  
+  add_frosting(f)
+wf_fixed
+```
+
+```{r}
+p_round2 <- predict(wf_fixed, latest)
+p_round2
+```
+
+Much better! 
+
+### Model validation
+
+Let's now get out the true death rates for these dates from the `case_death_rate_subset` data. One thing to keep in mind is that in epidemiological modelling, there often times may not be true values to validate against - especially in the midst of an epidemic or pandemic. For instance, if you are predicting case or death rates one week ahead during the COVID-19 pandemic, at the time you are predicting you will not have the true case or death rates at your disposal. In contrast, when you are doing retrospective analysis, you should have some estimate of the truth on hand, and it is of course recommended that you put it to good use in validation as we are doing here. 
+
+```{r}
+true_death_rates <- case_death_rate_subset %>% 
+  filter(geo_value %in% c("ca", "ny", "ar", "tx", "hi") &
+      time_value == "2021-03-15") %>% 
+  select(geo_value, death_rate) 
+```
+
+To adjoin the two dataframes containing the truth and the predictions, we could force `bind_cols()` to work, but one important thing is that the order of the rows (states) should match up in both otherwise we could mismatch data (meant for one state to another). For instance, in our example notice that the first `geo_value` in `true_death_rates` is for `ar`, while it is for `ak` in `p_round2`. And if we had more states to deal with, it could be especially troublesome to have to go in and re-organize the rows. In such situations, we can turn to `dplyr`'s `left_join()` function to add `true_death_rates` values as a column to the `p_round2` dataframe by `geo_value`. The order of the rows doesn't matter for this function because it matches based on the linking variable `geo_value`.
+
+```{r}
+p_w_truth <- left_join(p_round2, true_death_rates, by = "geo_value")
+p_w_truth
+```
+
+Now let's use `metrics()` function to briefly assess our model performance. 
+
+```{r}
+p_w_truth %>%
+  metrics(truth = death_rate, estimate = .pred)
+```
+
+As before, let's briefly go through the metrics that were produced. Root mean square error (RMSE) is the square root of the average squared difference between the predicted and the actual values. So it is a measure of accuracy because it informs us how well the model hit the mark (the truth). Since this is an error, lower values are better as you might expect, and the absolute minimum value that could be achieved is 0. 
+
+Mean absolute error (MAE) is the average absolute difference between the predicted and the actual values. It's interpretation is similar to RMSE in that lower values are better and the minimum that can be achieved is also 0. A major difference between them is how much each error contributes. RMSE is more sensitive to outliers (just think of what happens when you square a large value - ie. a large difference between the predicted and the truth), so the impact of larger errors is magnified, while smaller errors don't contribute as much. In contrast, the error contribution in MAE increases linearly (ex. an error of 4 would contribute twice as much as an error of 2). 
+
+R-squared (Rsq) or the coefficient of determination tells us what proportion variation of the response is explained or captured by the independent variables. So if R-squared is 0.7, this means that the predictors explain about 70% of the variability in the response. It's calculated as the squared correlation coefficient, so it also ranges between 0 and 1, and being closer to 1 (ie. explaining more of the variance in the response) is better.
+
+```{r, echo = FALSE, out.width = "80%"}
+knitr::include_graphics("img/RMSE_MAE_RSq_oh_my.png")
+```
+
+Overall, even though RMSE, MAE, and Rsq are all considered measures of goodness of (model) fit, their views on it are different. RMSE and MAE look at accuracy of predictions (in terms of small residuals), whereas R-squared looks at how the predictors are fairing (in terms of explaining the response).
+
+While it can be difficult to pinpoint how well exactly each metric is performing for real life data (what are "good" values of each metric depends on the situation), from a quick inspection the values that `metrics()` churned out, we can say that roughly-speaking the RMSE and MAE look low enough to not set off any major alarm bells. And as for R-squared, though it is perhaps not as high as we'd like, it is decent.
+
+We will leave it at that and not venture further into model-validation territory here as it can get quite murky for epidemiological data (ex. consider the question of what to do about validating COVID-19 infection estimates), but feel free to venture further on your own. We recommend [this book](https://www.google.ca/books/edition/Medical_Risk_Prediction_Models/VQEWEAAAQBAJ?hl=en&gbpv=1&printsec=frontcover) on medical risk prediction models for further reading on the subject.
+
+## Concluding remarks
+
+In these past two chapters, we introduced `tidymodels` and illustrated how to its packages work together by way of example. Since they were both elementary examples, use them as a starting point to explore what more can be done with this wonderful set of packages. And yet, however wonderful they are, there are limitations like the glaring lack of a set of post-processing tools to refine the results. We fill this gap for epidemiological modelling with [frosting](https://cmu-delphi.github.io/epipredict/reference/add_frosting.html), which will be demonstrated in greater detail in later chapters, so stay tuned!
+
+## Attribution
+
+This vignette was largely adapted from [A Gentle Introduction to Tidymodels](https://rviews.rstudio.com/2019/06/19/a-gentle-intro-to-tidymodels/) as well as [Tidymodels - Getting Started](https://www.tidymodels.org/start/recipes/) and [Tidymodels](https://wec.wur.nl/dse/24-tidymodels.html). 
+
