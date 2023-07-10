@@ -227,7 +227,7 @@ all_the_states_df <- out_df %>%
   pivot_wider(names_from = tau, values_from = q)
 ```
 
-Remember the adapted "Customize choropleth code" that we introduced at the end of the [Regression In Tidymodels - Part 2](tidymodels-regression-part2.qmd#sec-interactive-plot)? Well all we got to do is make a few select changes to that code to get a slider bar so that we may see what happens over time for each state. The two key changes to make to that code are to convert the target dates vector to a character vector (to be compatible with `plotly`) and to specify that frame is based on `target_date` when initializing the plotly-geo object (in `plot_geo()`). 
+Remember the adapted "Customize choropleth code" that we introduced at the end of [Regression In Tidymodels - Part 2](tidymodels-regression-part2.qmd#sec-interactive-plot)? Well all we got to do is make a few select changes to that code to get a slider bar so that we may see what happens over time for each state. The two key changes to make to that code are to convert the target dates vector to a character vector (to be compatible with `plotly`) and to specify that frame is based on `target_date` when initializing the plotly-geo object (in `plot_geo()`). 
 That's all it takes.
 
 ```{r}
