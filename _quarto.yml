@@ -39,12 +39,12 @@ book:
       chapters:
       - epipredict.qmd
       - forecast-framework.qmd
-      - flatline-forecaster.qmd
-      - arx-forecaster.qmd
-      - tidymodels-intro.qmd
-      - tidymodels-intro-part2.qmd
       - tidymodels-regression.qmd
       - tidymodels-regression-part2.qmd
+      - tidymodels-intro.qmd
+      - tidymodels-intro-part2.qmd
+      - flatline-forecaster.qmd
+      - arx-forecaster.qmd
       - preprocessing-and-models.qmd
       - sliding-forecasters.qmd
     - references.qmd
