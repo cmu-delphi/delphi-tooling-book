@@ -206,7 +206,7 @@ all_the_states$predictions
 
 Neat! We'll learn more about this and other forecasters in later chapters.
 
-## Interactive plot of predictions
+## Interactive plot of predictions {#sec-interactive-plot}
 
 Let's finish off by producing an interactive `plotly` choropleth map of our above predictions (along with the 90% predictive intervals) to get a sense of how they may be geospatially related.
 
