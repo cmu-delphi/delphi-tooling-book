@@ -31,7 +31,7 @@ knitr::include_graphics("img/tidymodels_model_substeps.png")
 
 ## An example using the penguins dataset
 
-We will now explore the `tidymodels` functions using the `penguins` dataset that we introduced and used in [Regression in Tidymodels](LINK%20TO%20VIGNETTE).
+We will now explore the `tidymodels` functions using the `penguins` dataset that we introduced and used in [Regression in Tidymodels](tidymodels-regression.qmd#sec-slr-intro).
 
 ### Load packages
 
@@ -94,7 +94,7 @@ The main goal of this step is to use data transformations to make the data suita
 
 Before training the model, a recipe can be used to carry out the pre-processing required by the model.
 
-The `recipe()` has two main arguments: a formula (with the same format as when doing <regression in tidymodels>\[LINK TO VIGNETTE\]) and a data argument, which is usually the training set as that is the data used to create the model. Hence, we have `data = train_data` here.
+The `recipe()` has two main arguments: a formula (with the same format as when doing [regression in tidymodels](tidymodels-regression.qmd#sec-slr-intro)) and a data argument, which is usually the training set as that is the data used to create the model. Hence, we have `data = train_data` here.
 
 In our example, suppose that our goal is to predict penguin species from bill length, bill depth and flipper length, then our recipe function would look as follows:
 
@@ -145,7 +145,7 @@ Recall that in R, the same type of model could be fit using several different pa
 
 `Tidymodels` created an single interface that supports the usage of both models. Moreover, this general interface supports an even wider range of functions that use perform random forest. The key part that points to the function and package to be used is the engine.
 
-Let's see how this works in practice. In the below example, we'll use the general `rand_forest()` function from `tidymodels`. In there, we can specify the number of trees by using the `trees` argument. Then, in `set_engine()` we specify that we want to use ranger's version of random forest. Notice this follows the model specification format introduced in the \[Regression in Tidymodels\]<ADD LINK HERE> chapter.
+Let's see how this works in practice. In the below example, we'll use the general `rand_forest()` function from `tidymodels`. In there, we can specify the number of trees by using the `trees` argument. Then, in `set_engine()` we specify that we want to use ranger's version of random forest. Notice this follows the model specification format introduced in the [Regression in Tidymodels](tidymodels-regression.qmd#sec-slr-intro) chapter.
 
 ```{r}
 penguins_ranger <- rand_forest(trees = 100, mode = "classification") %>%

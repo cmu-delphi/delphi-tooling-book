@@ -15,7 +15,7 @@ library(broom)
 library(performance)
 ```
 
-## Simple linear regression
+## Simple linear regression {#sec-slr-intro}
 
 The key steps to perform linear regression in `tidymodels` are to first specify the model type and then to specify the model form and the data to be used to construct it.
 
