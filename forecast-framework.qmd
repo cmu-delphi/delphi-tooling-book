@@ -6,7 +6,7 @@ source("_common.R")
 ```
 
 Underneath the hood, the `arx_forecaster()` (and all our canned
-forecasters) creates (and returns) an `epi_workflow`. 
+forecasters) creates and returns an `epi_workflow`. 
 Essentially, this is a big S3 object that wraps up the 4 modular steps 
 (preprocessing - postprocessing) described in the last chapter.
 
@@ -17,7 +17,7 @@ Essentially, this is a big S3 object that wraps up the 4 modular steps
 
 Let's investigate how these interact with `{tidymodels}` and why it's important
 to think of forecasting this way. To have something to play with, we'll continue
-to examine the data and an estimated canned corecaster.
+to examine the data and an estimated canned forecaster.
 
 
 ```{r demo-workflow}

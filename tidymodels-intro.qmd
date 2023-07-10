@@ -10,7 +10,7 @@ R contains a universe of packages that each have their own unique interfaces (fu
 
 If only there was a unifying interface available to help simplify and streamline the modelling process. This is the purpose of `tidymodels`, which provides a unified interface for modeling that abides by the [tidy philosphy](https://tidyverse.tidyverse.org/articles/paper.html#:~:text=Its%20primary%20goal%20is%20to,easier%20to%20learn%20the%20next) and that fits nicely into the tidyverse. From pre-processing to model training to prediction to validation, `tidymodels` provides the necessary tools to perform many modelling tasks.
 
-It is important to understand that the `tidymodels` packages do not aim to implement the algorithms themseves, rather they provide the interface to bring together many disparate approaches under the same roof. And as a result of this, model fitting tasks are easier to carry out. In the grand scheme of things, here's where `tidymodels` tends to fit into a data analysis project.
+It is important to understand that the `tidymodels` packages do not aim to implement the algorithms themselves, rather they provide the interface to bring together many disparate approaches under the same roof. And as a result of this, model fitting tasks are easier to carry out. In the grand scheme of things, here's where `tidymodels` tends to fit into a data analysis project.
 
 ```{r, echo = FALSE}
 knitr::include_graphics("img/tidymodels_packages.png")
@@ -112,17 +112,23 @@ Now, after saying that you are making a recipe by way of the `recipe()` function
 
 -   `step_scale()` to normalize numeric data to have a standard deviation of one
 
-One of the advantages of having these pre-processing steps is that they help to simplify concepts that are difficult or a pain to enforce in coding. For example, centering could be a nuisance to implement from scratch because we would first have to calculate statistics (variable averages) from the training data and then use them on both the training and on the test data. Note that centering should not be done on the test data, rather on the training data to avoid data leakage (contamination of the test data by using statistics from the test data). In a recipe, the the estimation of the variable means using the training data and the application of these to center new data sets is done automatically, under the hood, and so spares the coder from having to manually implement it. The situation is similar for scaling numeric data (`step_scale()`).
+One of the advantages of having these pre-processing steps is that they help to simplify the process of applying training statistics to test data. For example, centering could be a nuisance to implement from scratch because we would first have to calculate statistics (variable averages) from the training data and then use them on both the training and test data. 
 
-Another useful feature of the `tidymodels` pre-processing interface is that each step can be applied to one specified variable, a group of variables, or all variables. The `all_predictors()` and `all_outcomes()` functions are particularly convenient to help minimize the amount of typing you need to do. For instance, if you wanted to apply `step_center()` to only the predictor variables, simply type `step_center(all_predictors())` instead of listing out each and every predictor in the step function.
+:::{.callout-note}
+Note that centering should not be done on the test data, but rather on the training data to avoid data leakage - contamination of the test data by using statistics from the test data. 
+:::
+
+In a recipe, estimation of the variable means using the training data and the application of these to center new data is done automatically, under the hood, and so spares the coder from having to manually implement it. The situation is similar for scaling numeric data.
+
+Another feature of the `tidymodels` pre-processing interface is that each step can be applied to one specified variable, a group of variables, or all variables. The `all_predictors()` and `all_outcomes()` functions are particularly convenient to help minimize the amount of typing you need to do. For instance, if you wanted to apply `step_center()` to only the predictor variables, simply type `step_center(all_predictors())` instead of listing out each and every predictor in the step function.
 
 Now, let's try this all out on our example.
 
 ```{r}
 penguins_recipe <- recipe(species ~ ., data = train_data) %>%
   step_corr(all_predictors()) %>%
-  step_center(all_predictors(), -all_outcomes()) %>%
-  step_scale(all_predictors(), -all_outcomes()) 
+  step_center(all_predictors()) %>%
+  step_scale(all_predictors()) 
 ```
 
 To summarize, we obtained a recipe object, `penguins_recipe`, by putting the `recipe()` and step functions together on our training data that we had ready to go from sampling.
@@ -153,15 +159,7 @@ penguins_rf <-  rand_forest(trees = 100, mode = "classification") %>%
   set_engine("randomForest") 
 ```
 
-For the remainder of this tutorial, we'll stick with using `ranger` for simplify. At this stage, we're ready to pre-process and model. The first task of those two is to apply our recipe before we train and test our model, in that we must
-
-1.  Process the recipe using the training set.
-
-2.  Use the recipe on the training set to get the finalized predictor set.
-
-3.  Use the recipe on the predictor set to get the test set.
-
-A workflow can be used to pair model and processing tasks together. When different recipes are needed for different models, this is very useful so that you don't have to keep track of separate model and recipe objects in your workspace. Hence, training and testing different workflows becomes easier.
+For the remainder of this tutorial, we'll stick with using `ranger` for simplicity. At this stage, we're ready to pre-process and model. A workflow can be used to pair model and processing tasks together. When different recipes are needed for different models, this is very useful so that you don't have to keep track of separate model and recipe objects in your workspace. So training and testing different workflows becomes easier.
 
 For our example, we'll try tidy model's workflows package to pair our model and our recipe together.
 
