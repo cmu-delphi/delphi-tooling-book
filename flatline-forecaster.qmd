@@ -27,12 +27,17 @@ jhu
 
 ### The basic mechanics of the flatline forecaster
 
-The simplest way to create and train a flatline forecaster to predict the 
-death rate one week into the future, is to input the `epi_df` and the name of 
-the column from it that we want to predict in the `flatline_forecaster` function.
+Suppose that our goal is to predict death rates one week ahead of the last date available for each state. Mathematically, on day $t$, we want to predict new deaths $y$ that are $h$ days ahead at many locations $j$. So for each location, we'll predict
+$$
+\hat{y}_{j, {t+h}} = y_{j, t}
+$$
+where $t$ is 2021-12-31, $h$ is 7 days, and $j$ is the state in our example.
+
+Now, the simplest way to create and train a flatline forecaster to predict the death rate one week into the future is to input the `epi_df` and the name of the column from it that we want to predict in the `flatline_forecaster` function. 
 
 ```{r}
-one_week_ahead <- flatline_forecaster(jhu, outcome = "death_rate")
+one_week_ahead <- flatline_forecaster(jhu, 
+                                      outcome = "death_rate")
 one_week_ahead
 ```
 
@@ -65,7 +70,8 @@ interval.
 five_days_ahead <- flatline_forecaster(
   jhu, 
   outcome = "death_rate",
-  flatline_args_list(ahead = 5L, levels = c(0.1, 0.9))
+  flatline_args_list(ahead = 5L, 
+                     levels = c(0.1, 0.9))
 )
 
 five_days_ahead
@@ -98,7 +104,6 @@ extract_preprocessor(five_days_ahead$epi_workflow)
 extract_preprocessor(five_days_ahead$epi_workflow)
 ```
 
-
 Under Operations, we can see that the pre-processing operations were to lead the
 death rate by 5 days (`step_epi_ahead()`) and that the \# of recent observations
 used in the training window were not limited (in `step_training_window()` as
@@ -119,7 +124,6 @@ extract_frosting(five_days_ahead$epi_workflow)
 extract_frosting(five_days_ahead$epi_workflow)
 ```
 
-
 The post-processing operations in the order the that were performed were to create the predictions and the prediction intervals, add the forecast and target dates and bound the predictions at zero.
 
 We can also easily examine the predictions themselves.
@@ -130,7 +134,7 @@ five_days_ahead$predictions
 
 The results above show a distributional forecast produced using data through the end of 2021 for the January 5, 2022. A prediction for the death rate per 100K inhabitants along with a 80% prediction interval is available for every state (`geo_value`).
 
-The figure below displays the prediction and prediction interval for three sample states: Arizona, New York, and Florida.
+The figure below displays the prediction and prediction interval for three sample states: Arizona, Florida, and New York.
 
 ```{r}
 #| fig-height: 5
@@ -161,7 +165,7 @@ ggplot(hist, aes(color = geo_value)) +
 
 The vertical black line is the forecast date. Here the forecast seems pretty reasonable based on the past observations shown. In cases where the recent past is highly predictive of the near future, a simple flatline forecast may be respectable, but in more complex situations where there is more uncertainty of what's to come, the flatline forecaster may be best relegated to being a baseline model and nothing more.
 
-Take for example what happens when we consider a wider range of target dates. That is, we will now predict for several different horizons or `ahead` values - in our case, 1 to 28 days ahead, inclusive. Since the flatline forecaster function forecasts at a single unique `ahead` value, we can use the `map()` function from `purrr` to apply the forecaster to each ahead value we want to use. Then, we row bind the list of results.
+Take for example what happens when we consider a wider range of target dates. That is, we will now predict for several different horizons or `ahead` values - in our case, 1 to 28 days ahead, inclusive. Since the flatline forecaster function forecasts at a single unique `ahead` value, we can use the `map()` function from `purrr` to apply the forecaster to each ahead value we want to use. And then we row bind the list of results.
 
 ```{r}
 out_df <- map(1:28, ~ flatline_forecaster(
@@ -171,7 +175,7 @@ out_df <- map(1:28, ~ flatline_forecaster(
   list_rbind()
 ```
 
-Then, we proceed as we did before. The only difference from before is that we're using `out_df` where we had `five_days_ahead$predictions`.
+Then we proceed as we did before. The only difference from before is that we're using `out_df` where we had `five_days_ahead$predictions`.
 
 ```{r}
 #| fig-height: 5
@@ -200,7 +204,7 @@ ggplot(hist) +
 
 Now you can really see the flat line trend in the predictions. And you may also observe that as we get further away from the forecast date, the more unnerving using a flatline prediction becomes. It feels increasingly unnatural.
 
-So naturally the choice of forecaster relates to the time frame being considered. In general, using a flatline forecaster makes more sense for short-term forecasts than for long-term forecasts and for periods of great stability than in less stable times. Realistically, periods of great stability are rare. Moreover, in our model of choice we want to take into account more information about the past than just what happened at the most recent time point. So simple forecasters like the flatline forecaster don't cut it as actual contenders in many real-life situations. However, they are not useless, just used for a different purpose. A simple model is often used to compare a more complex model to, which is why you may have seen such a model used as a baseline in the [COVID Forecast Hub](https://covid19forecasthub.org). The following [blog post](https://delphi.cmu.edu/blog/2021/09/30/on-the-predictability-of-covid-19/#ensemble-forecast-performance) from Delphi explores the Hub's ensemble accuracy relative to such a baseline model.
+So naturally the choice of forecaster relates to the time frame being considered. In general, using a flatline forecaster makes more sense for short-term forecasts than for long-term forecasts and for periods of great stability than in less stable times. Realistically, periods of great stability are rare. And moreover, in our model of choice we want to take into account more information about the past than just what happened at the most recent time point. So simple forecasters like the flatline forecaster don't cut it as actual contenders in many real-life situations. However, they are not useless, just used for a different purpose. A simple model is often used to compare a more complex model to, which is why you may have seen such a model used as a baseline in the [COVID Forecast Hub](https://covid19forecasthub.org). The following [blog post](https://delphi.cmu.edu/blog/2021/09/30/on-the-predictability-of-covid-19/#ensemble-forecast-performance) from Delphi explores the Hub's ensemble accuracy relative to such a baseline model.
 
 ## What we've learned in a nutshell
 
