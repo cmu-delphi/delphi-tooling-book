@@ -15,7 +15,7 @@ library(broom)
 library(performance)
 ```
 
-## Simple linear regression
+## Simple linear regression {#sec-slr-intro}
 
 The key steps to perform linear regression in `tidymodels` are to first specify the model type and then to specify the model form and the data to be used to construct it.
 
@@ -174,7 +174,7 @@ Notice that on each plot it says what we should expect to see if the model assum
 
 We shall now briefly walk you through what each plot means.
 
-The first two plots help us to examine the linearity of the errors versus the fitted values. Ideally, we want this error to be relatively flat and horizontal. The third plot is for checking homogeneity of the variance, where we want the points to be roughly the same distance from the line as this indicates similar dispersion. The fourth plot helps us to see if there are high leverage points - points that have command or influence over the model fit. As a result, these can have a great effect on the model predictions. So the removal of such points or modifications to the model may be necessary to deal with them. The fifth plot helps us to discern collinearity, which is when predictors are highly correlated. Since independent variables should be independent, this can throw off simple regression models (in standard error of coefficient estimates and the estimates themselves, which would likely be sensitive to changes in the predictors that are included in the model). The last plot enables us to check the normality of residuals. If the distribution of the model error is non-normal, then that suggests a linear model may not be appropriate. For a QQ plot, we want the points to fall along a straight diagonal line.
+The first two plots help us to examine the linearity of the errors versus the fitted values. Ideally, we want this error to be relatively flat and horizontal. The third plot is for checking homogeneity of the variance, where we want the points to be roughly the same distance from the line as this indicates similar dispersion. The fourth plot helps us to see if there are high leverage points - points that have command or influence over the model fit. As a result, these can have a great effect on the model predictions. So the removal of such points or modifications to the model may be necessary to deal with them. The fifth plot helps us to discern collinearity, which is when predictors are highly correlated. Since independent variables should be independent, this can throw off simple regression models (in the standard error of coefficient estimates and the estimates themselves, which would likely be sensitive to changes in the predictors that are included in the model). The last plot enables us to check the normality of residuals. If the distribution of the model error is non-normal, then that suggests a linear model may not be appropriate. For a QQ plot, we want the points to fall along a straight diagonal line.
 
 For our example, we observe that there's a pretty high correlation between `body_mass_g` and `flipper_length_mm` (not quite in the red-zone of 10 and above, but close enough for concern). That is indicative of multicollinearity between them. Intuitively, it makes sense for the body mass and flipper length variables - we'd expect that as once increases, so should the other.
 
@@ -216,7 +216,7 @@ In general, the syntax to add an interaction term to a formula is as follows:
 - `x:y` denotes an interaction term between `x` and `y`.
 - `x*y` denotes the interaction between `x` and `y` as well as `x` and `y`; that is, `x + y + x*y`.
 
-It is important to note that this syntax is not compatible with all engines. Thus, we shall explain how to bypass this issue by adding an interaction term in a recipe later on. For now, let's start simple by adding an interaction term between `species` and `bill_length_mm`, which allows for a species-specific slope.
+Let's start simple by adding an interaction term between `species` and `bill_length_mm`, which allows for a species-specific slope.
 
 ```{r}
 lm_fit4 <- lm_spec %>% fit(
@@ -226,7 +226,9 @@ lm_fit4 <- lm_spec %>% fit(
 lm_fit4
 ```
 
-Using recipes, the interaction term is specified by using `step_interact()`. Then we construct a workflow object, where we add the linear regression model specification and recipe. Finally, we fit the model as we did for a `parsnip` model. Note that the workflow object does not need the variables that were specified in the recipe to be specified again.
+It is important to note that this formula-based syntax is not compatible with all engines. Thus, we'll now go over how to bypass this problem by adding an interaction term in a recipe.
+
+Using `recipes`, the interaction term is specified by using `step_interact()`. Then we construct a workflow object, where we add the linear regression model specification and recipe. Finally, we fit the model as we did for a `parsnip` model. Note that the workflow object does not need the variables that were specified in the recipe to be specified again.
 
 ```{r}
 rec_spec_interact <- recipe(
@@ -248,9 +250,19 @@ To read more about formula syntax, see [?formula](https://rdrr.io/r/stats/formul
 
 ## Non-linear transformations of the predictors
 
-Similar to how we were able to add an interaction term using recipes, we can also perform a transformation as a pre-processing step. The function used for this is `step_mutate()` (which acts like `dplyr`'s `mutate`).
+While in base R, you can add a non-linear transformation to a formula like so, 
 
-Note that, in general, if you are specifying a recipe aim to keep as much of the pre-processing in your recipe specification as possible. This helps to ensure that the transformation will be applied to new data consistently.
+```{r}
+lm_fit5 <- lm_spec %>%
+  # let's square bill_depth_mm
+  fit(bill_length_mm ~ bill_depth_mm + I(bill_depth_mm^2), data = penguins) 
+
+lm_fit5
+```
+
+you cannot do this in a formula in a recipe. 
+
+Fortunately, we can deal with this in a similar way as we did to add an interaction term to a recipe. We can add non-linear transformation as a pre-processing step. The function used for this is `step_mutate()` (which acts like `dplyr`'s `mutate`). Thus, we can perform the above square transformation in a recipe as follows:
 
 ```{r}
 rec_spec_pow2 <- recipe(bill_length_mm ~ bill_depth_mm, data = penguins) %>%
@@ -263,7 +275,7 @@ lm_wf_pow2 <- workflow() %>%
 lm_wf_pow2 %>% fit(penguins)
 ```
 
-There are many transformations already built into recipes such as `step_log()`. So, for basic transformations, there's often no need to make your own transformation from scratch. See [here](https://recipes.tidymodels.org/reference/#section-step-functions-individual-transformations) for a comprehensive list of the transformations that are offered in recipes.
+There are many transformations already built into `recipes` such as `step_log()`. So, for basic transformations, there's often no need to make your own transformation from scratch. See [here](https://recipes.tidymodels.org/reference/#section-step-functions-individual-transformations) for a comprehensive list of the transformations that are offered in `recipes`.
 
 ```{r}
 rec_spec_log <- recipe(bill_length_mm ~ bill_depth_mm, data = penguins) %>%
@@ -283,6 +295,6 @@ lm_wf_log %>% fit(penguins)
 
 ## Attribution
 
-This Chapter was largely adapted from [Chapter 3 of ISLR tidymodels labs](https://emilhvitfeldt.github.io/ISLR-tidymodels-labs/03-linear-regression.html). Checking linear regression assumptions using the performance package is based on [this article](https://easystats.github.io/performance/reference/check_model.html) and [this blog post](https://www.r-bloggers.com/2021/07/easystats-quickly-investigate-model-performance/) on investigating model performance. The artwork used is by [Allison Horst](https://twitter.com/allison_horst).[Allison Horst](https://twitter.com/allison_horst).
+This Chapter was largely adapted from [Chapter 3 of ISLR tidymodels labs](https://emilhvitfeldt.github.io/ISLR-tidymodels-labs/03-linear-regression.html). Checking linear regression assumptions using the performance package is based on [this article](https://easystats.github.io/performance/reference/check_model.html) and [this blog post](https://www.r-bloggers.com/2021/07/easystats-quickly-investigate-model-performance/) on investigating model performance. The artwork used is by [Allison Horst](https://twitter.com/allison_horst).
 
 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧
