@@ -1,6 +1,6 @@
 # Introducing the flatline forecaster
 
-The flatline forecaster is a very simple forecasting model intended for `epi_df` data, where the most recent observation is used as the forecast for any future date. In other words, the last observation is propagated forward. Hence, a flat line phenomenon is observed for the point predictions. The predictive intervals are produced from the quantiles of the residuals of such a forecast over all of the training data. By default, these intervals will be obtained separately for each combination of keys (`geo_value` and any additional keys) in the `epi_df`. Thus, the output is a data frame of point (and optionally interval) forecasts at a single unique horizon (`ahead`) for each unique combination of key variables. This forecaster is comparable to the baseline used by the [COVID Forecast Hub](https://covid19forecasthub.org).
+The flatline forecaster is a very simple forecasting model intended for `epi_df` data, where the most recent observation is used as the forecast for any future date. In other words, the last observation is propagated forward. Hence, a flat line phenomenon is observed for the point predictions. The prediction intervals are produced from the quantiles of the residuals of such a forecast over all of the training data. By default, these intervals will be obtained separately for each combination of keys (`geo_value` and any additional keys) in the `epi_df`. Thus, the output is a data frame of point (and optionally interval) forecasts at a single unique horizon (`ahead`) for each unique combination of key variables. This forecaster is comparable to the baseline used by the [COVID Forecast Hub](https://covid19forecasthub.org).
 
 ## Example of using the flatline forecaster
 
@@ -55,8 +55,8 @@ five_days_ahead <- flatline_forecaster(
 five_days_ahead
 ```
 
-We could also specify that we want a 80% predictive interval by changing the 
-levels. The default 0.05 and 0.95 levels/quantiles give us 90% predictive 
+We could also specify that we want a 80% prediction interval by changing the 
+levels. The default 0.05 and 0.95 levels/quantiles give us 90% prediction 
 interval.
 
 ```{r}
@@ -117,7 +117,7 @@ extract_frosting(five_days_ahead$epi_workflow)
 ```
 
 
-The post-processing operations in the order that were performed were to create the predictions and the predictive intervals, add the forecast and target dates and bound the predictions at zero.
+The post-processing operations in the order that were performed were to create the predictions and the prediction intervals, add the forecast and target dates and bound the predictions at zero.
 
 We can also easily examine the predictions themselves.
 
@@ -125,7 +125,7 @@ We can also easily examine the predictions themselves.
 five_days_ahead$predictions
 ```
 
-The results above show a distributional forecast produced using data through the end of 2021 for the January 5, 2022. A prediction for the death rate per 100K inhabitants along with a 95% predictive interval is available for every state (`geo_value`).
+The results above show a distributional forecast produced using data through the end of 2021 for the January 5, 2022. A prediction for the death rate per 100K inhabitants along with a 95% prediction interval is available for every state (`geo_value`).
 
 The figure below displays the prediction and prediction interval for three sample states: Arizona, New York, and Florida.
 

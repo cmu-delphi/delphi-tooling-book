@@ -89,7 +89,7 @@ er <- epi_recipe(jhu) %>%
 ```
 
 While `{recipes}` provides a function `step_lag()`, it assumes that the data
-have no breaks in the sequence of `time_values`. This is a bit dangerous, so
+has no breaks in the sequence of `time_values`. This is a bit dangerous, so
 we avoid that behaviour. Our `lag/ahead` functions also appropriately adjust the
 amount of data to avoid accidentally dropping recent predictors from the test
 data.

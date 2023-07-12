@@ -1,11 +1,12 @@
-# Regression in Tidymodels
+# Regression in Tidymodels {#sec-tidy-regression}
 
 ```{r}
 #| echo: false
+#| warning: false
 source("_common.R")
 ```
 
-This vignette is a gentle introduction into performing simple and multiple linear regression using `tidymodels`. Model fitting will be done using [parsnip](https://www.tidymodels.org/start/models/), which provides a unifying interface for model fitting and the resulting output. This means that parsnip provides a single interface with standardized argument names for each class of models so that you don't have to directly deal with the different interfaces for different functions that aim to do the same thing (like linear regression). See [here](https://www.tidymodels.org/find/parsnip/) for a list of models that `parsnip` currently supports.
+This vignette is a gentle introduction into performing simple and multiple linear regression using `{tidymodels}`. Model fitting will be done using [parsnip](https://www.tidymodels.org/start/models/), which provides a unifying interface for model fitting and the resulting output. This means that parsnip provides a single interface with standardized argument names for each class of models so that you don't have to directly deal with the different interfaces for different functions that aim to do the same thing (like linear regression). See [here](https://www.tidymodels.org/find/parsnip/) for a list of models that `{parsnip}` currently supports.
 
 ## Libraries
 
@@ -17,9 +18,9 @@ library(performance)
 
 ## Simple linear regression
 
-The key steps to perform linear regression in `tidymodels` are to first specify the model type and then to specify the model form and the data to be used to construct it.
+The key steps to perform linear regression in `{tidymodels}` are to first specify the model type and then to specify the model form and the data to be used to construct it.
 
-To illustrate, we shall look to `penguins` dataset from the `tidymodels`' `modeldata` package. This dataset contains measurements for 344 penguins from three islands in Palmer Archipelago, Antarctica, and includes information on their species, island home, size (flipper length, body mass, bill dimensions), and sex.
+To illustrate, we shall look to `penguins` dataset from the `{tidymodels}`' `{modeldata}` package. This dataset contains measurements for 344 penguins from three islands in Palmer Archipelago, Antarctica, and includes information on their species, island home, size (flipper length, body mass, bill dimensions), and sex.
 
 ```{r, echo = FALSE, out.width = "75%", fig.align = "center"}
 knitr::include_graphics("img/palmer_penguin_species.png")
@@ -45,7 +46,7 @@ Much better! We will now build a simple linear regression model to model bill le
 knitr::include_graphics("img/bill_length_depth.png")
 ```
 
-In `parsnip`, the model specification is broken down into small functions such as `set_mode()` and `set_engine()` to make the interface more flexible and readable. The general structure is to first specify a mode (regression or classification) and then an engine to indicate what software (or implementation of the algorithm) will be used to fit the model. For our purposes, the mode is `regression` and the engine is `lm` for ordinary least squares. You may note that setting the mode is unnecessary for linear regression, but we include it here as it is a good practice.
+In `{parsnip}`, the model specification is broken down into small functions such as `set_mode()` and `set_engine()` to make the interface more flexible and readable. The general structure is to first specify a mode (regression or classification) and then an engine to indicate what software (or implementation of the algorithm) will be used to fit the model. For our purposes, the mode is `regression` and the engine is `lm` for ordinary least squares. You may note that setting the mode is unnecessary for linear regression, but we include it here as it is a good practice.
 
 ```{r}
 lm_spec <- linear_reg() %>% 
@@ -74,7 +75,7 @@ lm_fit <- lm_spec %>%
 lm_fit
 ```
 
-The resulting `parsnip` object includes basic information about the fit such as the model coefficients. To access the underlying fit object, we could use the standard `lm_fit$fit` or with `purrr`'s `pluck()` function.
+The resulting `parsnip` object includes basic information about the fit such as the model coefficients. To access the underlying fit object, we could use the standard `lm_fit$fit` or with `{purrr}`'s `pluck()` function.
 
 ```{r}
 lm_fit %>% 
@@ -160,7 +161,7 @@ lm_fit3
 
 ## Checking model assumptions
 
-After fitting a model, it is good to check whether the assumptions of linear regression are met. For this, we will use the `performance` package, in particular the `check_model()` function to produce several helpful plots we may use to check the assumptions for our first multiple linear regression model.
+After fitting a model, it is good to check whether the assumptions of linear regression are met. For this, we will use the `{performance}` package, in particular the `check_model()` function to produce several helpful plots we may use to check the assumptions for our first multiple linear regression model.
 
 ```{r}
 #| fig-height: 8
@@ -248,7 +249,7 @@ To read more about formula syntax, see [?formula](https://rdrr.io/r/stats/formul
 
 ## Non-linear transformations of the predictors
 
-Similar to how we were able to add an interaction term using recipes, we can also perform a transformation as a pre-processing step. The function used for this is `step_mutate()` (which acts like `dplyr`'s `mutate`).
+Similar to how we were able to add an interaction term using recipes, we can also perform a transformation as a pre-processing step. The function used for this is `step_mutate()` (which acts like `{dplyr}`'s `mutate`).
 
 Note that, in general, if you are specifying a recipe aim to keep as much of the pre-processing in your recipe specification as possible. This helps to ensure that the transformation will be applied to new data consistently.
 

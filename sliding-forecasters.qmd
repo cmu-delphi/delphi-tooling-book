@@ -2,13 +2,14 @@
 
 ```{r}
 #| echo: false
+#| warning: false
 source("_common.R")
 ```
 
 
 A key function from the epiprocess package is `epi_slide()`, which allows the
 user to apply a function or formula-based computation over variables in an
-`epi_df` over a running window of `n` time steps (see the following `epiprocess`
+`epi_df` over a running window of `n` time steps (see the following `{epiprocess}`
 vignette to go over the basics of the function: ["Slide a computation over
 signal values"](https://cmu-delphi.github.io/epiprocess/articles/slide.html)).
 The equivalent sliding method for an `epi_archive` object can be called by using
@@ -149,13 +150,13 @@ model.[^1]
 
 ### Example using case data from Canada
 
-By leveraging the flexibility of `epiprocess`, we can apply the same techniques
+By leveraging the flexibility of `{epiprocess}`, we can apply the same techniques
 to data from other sources. Since some collaborators are in British Columbia,
 Canada, we'll do essentially the same thing for Canada as we did above.
 
 The [COVID-19 Canada Open Data Working Group](https://opencovid.ca/) collects
 daily time series data on COVID-19 cases, deaths, recoveries, testing and
-vaccinations at the health region and province levels. Data are collected from
+vaccinations at the health region and province levels. Data is collected from
 publicly available sources such as government datasets and news releases.
 Unfortunately, there is no simple versioned source, so we have created our own
 from the Github commit history.

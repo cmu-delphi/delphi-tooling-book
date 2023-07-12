@@ -10,21 +10,22 @@ At a high level, our goal with `{epipredict}` is to make running simple machine 
 Serving both populations is the main motivation for our efforts, but at the same time, we have tried hard to make it useful.
 
 
-## Baseline models
+## Canned forecasters
 
-We provide a set of basic, easy-to-use forecasters that work out of the box. 
-You should be able to do a reasonably limited amount of customization on them. Any serious customization happens with the framework discussed below.
+We provide a set of basic, easy-to-use forecasters that work out of the box: 
 
-For the basic forecasters, we provide: 
-    
 * Flatline (basic) forecaster 
 * Autoregressive forecaster
 * Autoregressive classifier
 * Smooth autoregressive(AR) forecaster
 
-All the forcasters we provide are built on our framework. So we will use these basic models to illustrate its flexibility.
+These forecasters encapsulate a series of operations (including data preprocessing, model fitting and etc.) all in instant one-liners. 
+They are basically alternatives to each other. The main difference is the use of different models. Three forecasters use different regression models and the other one use a classification model. 
 
-## Forecasting framework
+The operations within canned forecasters all follow our uniform **framework**.  
+Although these one-liners allow a reasonably limited amount of customization, to uncover any serious customization you need more knowledge on our framework explained in @sec-framework. 
+
+## Forecasting framework {#sec-framework}
 
 At its core, `{epipredict}` is a **framework** for creating custom forecasters.
 By that we mean that we view the process of creating custom forecasters as
@@ -47,8 +48,7 @@ Therefore, if you want something from this -verse, it should "just work" (we hop
 The reason for the overlap is that `{workflows}` _already implements_ the first 
 three steps. And it does this very well. However, it is missing the 
 postprocessing stage and currently has no plans for such an implementation. 
-And this feature is important. The baseline forecaster we provide _requires_
-postprocessing. Anything more complicated (which is nearly everything) 
+And this feature is important. All forecasters need post-processing. Anything more complicated (which is nearly everything) 
 needs this as well.
 
 The second omission from `{tidymodels}` is support for panel data. Besides
@@ -64,14 +64,14 @@ into an `epi_df` as described in @sec-additional-keys.
 
 ## Why doesn't this package already exist?
 
--   Parts of it actually DO exist. There's a universe called `tidymodels`. It 
+-   Parts of it actually DO exist. There's a universe called `{tidymodels}`. It 
 handles pre-processing, training, and prediction, bound together, through a 
-package called workflows. We built `epipredict` on top of that setup. In this 
+package called workflows. We built `{epipredict}` on top of that setup. In this 
 way, you CAN use almost everything they provide.
 -   However, workflows doesn't do post-processing to the extent envisioned here.
-And nothing in `tidymodels` handles panel data.
+And nothing in `{tidymodels}` handles panel data.
 -   The tidy-team doesn't have plans to do either of these things. (We checked).
--   There are two packages that do time series built on `tidymodels`, but it's 
+-   There are two packages that do time series built on `{tidymodels}`, but it's 
 "basic" time series: 1-step AR models, exponential smoothing, STL decomposition,
 etc.[^1] 
 
@@ -101,7 +101,7 @@ out <- arx_forecaster(
 )
 ```
 
-This call produces a warning, which we'll ignore for now. But essentially, it's telling us that our data comes from May 2022 but we're trying to do a forecast for January 2022. The result is likely not an accurate measure of real-time forecast performance, because the data have been revised over time. 
+This call produces a warning, which we'll ignore for now. But essentially, it's telling us that our data comes from May 2022 but we're trying to do a forecast for January 2022. The result is likely not an accurate measure of real-time forecast performance, because the data has been revised over time. 
 
 ```{r}
 out
@@ -115,7 +115,7 @@ of what the predictions are for. It contains three main components:
 ```{r}
 str(out$metadata)
 ```
-2. The predictions in a tibble. The columns give the predictions for each location along with additional columns. By default, these are a 90% predictive interval, the `forecast_date` (the date on which the forecast was putatively made) and the `target_date` (the date for which the forecast is being made).
+2. The predictions in a tibble. The columns give the predictions for each location along with additional columns. By default, these are a 90% prediction interval, the `forecast_date` (the date on which the forecast was putatively made) and the `target_date` (the date for which the forecast is being made).
 ```{r}
 out$predictions
 ```
@@ -159,7 +159,7 @@ likely increase the variance of the model, and therefore, may lead to less
 accurate forecasts for the variable of interest.
 
 
-Another property of the basic model is the predictive interval. We describe this in more detail in a coming chapter, but it is easy to request multiple quantiles.
+Another property of the basic model is the prediction interval. We describe this in more detail in a coming chapter, but it is easy to request multiple quantiles.
 
 ```{r differential-levels}
 out_q <- arx_forecaster(jhu, "death_rate", c("case_rate", "death_rate"),
