@@ -1,4 +1,3 @@
-
 # Introduction to Tidymodels
 
 ```{r}
@@ -7,24 +6,24 @@
 source("_common.R")
 ```
 
-R contains a universe of packages that each have their own unique interfaces (functions and argument names) and return types. For instance, simple linear regression in R is traditionally performed using `lm()` from the stats package, but there's also the option to use `glm`, `glmnet` or other packages. Similarly for random forest - a user has the option to use `ranger`, `randomForest`, or `xgboost` amongst other options. Having such a bevy of options is great, but it also adds complications to the modelling process.
+R contains a universe of packages that each have their own unique interfaces (functions and argument names) and return types. For instance, simple linear regression in R is traditionally performed using `lm()` from the `stats` package, but there's also the option to use `glm()`, `glmnet::glmnet()` or other packages. Similarly for random forest - a user has the option to use `{ranger}`, `{randomForest}`, or `{xgboost}` amongst other options. Having such a bevy of options is great, but it also adds complications to the modelling process.
 
-If only there was a unifying interface available to help simplify and streamline the modelling process. This is the purpose of `{tidymodels}`, which provides a unified interface for modeling that abides by the [tidy philosphy](https://tidyverse.tidyverse.org/articles/paper.html#:~:text=Its%20primary%20goal%20is%20to,easier%20to%20learn%20the%20next) and that fits nicely into the tidyverse. From pre-processing to model training to prediction to validation, `{tidymodels}` provides the necessary tools to perform many modelling tasks.
+If only there was a unifying interface available to help simplify and streamline the modelling process. This is the purpose of `{tidymodels}`, which provides a unified interface for modeling that abides by the [tidy philosphy](https://tidyverse.tidyverse.org/articles/paper.html#:~:text=Its%20primary%20goal%20is%20to,easier%20to%20learn%20the%20next) and that fits nicely into the tidyverse. From pre-processing to model training to prediction to validation, `tidymodels` provides the necessary tools to perform many modelling tasks.
 
-It is important to understand that the `{tidymodels}` packages do not aim to implement the algorithms themselves, rather they provide the interface to bring together many disparate approaches under the same roof. And as a result of this, model fitting tasks are easier to carry out. In the grand scheme of things, here's where `{tidymodels}` tends to fit into a data analysis project.
+It is important to understand that the `tidymodels` packages do not aim to implement the algorithms themselves, rather they provide the interface to bring together many disparate approaches under the same roof. And as a result of this, model fitting tasks are easier to carry out. In the grand scheme of things, here's where `tidymodels` tends to fit into a data analysis project.
 
 ```{r, echo = FALSE}
 knitr::include_graphics("img/tidymodels_packages.png")
 ```
 
-Now, modelling can be broken down into several sub-tasks, and `{tidymodels}` recognizes this by providing different packages for different tasks. So `{tidymodels}` can be considered a metapackage - when you load `{tidymodels}`, several packages are in fact loaded including `{rsample}`, `{recipes}`, `{parsnip}` and `{yardstick}`. Each of these packages has its own role to play in the modelling process.
+Now, modelling can be broken down into several sub-tasks, and `tidymodels` recognizes this by providing different packages for different tasks. So `tidymodels` can be considered a metapackage - when you load `tidymodels`, several packages are in fact loaded including `rsample`, `recipes`, `parsnip` and `yardstick`. Each of these packages has its own role to play in the modelling process.
 
 -   `{rsample}` is intended for sampling and subsetting tasks (such as splitting the data into test and train sets)
 -   `{recipes}` allows the user to easily and neatly record the steps to take in data pre-processing
 -   `{parsnip}` provides a common interface for model training to help standardize the interface for model fitting and output
 -   `{yardstick}` gives access to model performance measures
 
-The following diagram shows where each package comes into play in a general workflow for modelling using `{tidymodels}`.
+The following diagram shows where each package comes into play in a general workflow for modelling using `tidymodels`.
 
 ```{r, echo = FALSE}
 knitr::include_graphics("img/tidymodels_model_substeps.png")
@@ -32,11 +31,11 @@ knitr::include_graphics("img/tidymodels_model_substeps.png")
 
 ## An example using the penguins dataset
 
-We will now explore the `{tidymodels}` functions using the `penguins` dataset that we introduced and used in [Regression in Tidymodels](LINK%20TO%20VIGNETTE).
+We will now explore the `tidymodels` functions using the `penguins` dataset that we introduced and used in [Regression in Tidymodels](LINK%20TO%20VIGNETTE).
 
 ### Load packages
 
-Note that `{tidymodels}` automatically loads some very useful `{tidyverse}` packages for us, including fan favourites like `{dplyr}` and `{ggplot2}`.
+Note that `tidymodels` automatically loads some very useful `{tidyverse}` packages for us, including fan favourites like `{dplyr}` and `{ggplot2}`.
 
 ```{r, message = FALSE}
 library(tidymodels)
@@ -44,7 +43,7 @@ library(tidymodels)
 
 ### Simplify dataset
 
-To keep the focus on learning how to use `{tidymodels}`, we will work with a simplified version of the dataset in which we will only use the complete cases/rows in the `penguins` dataset
+To keep the focus on learning how to use `tidymodels`, we will work with a simplified version of the dataset in which we will only use the complete cases/rows in the `penguins` dataset
 
 ```{r}
 penguins <- penguins %>%
@@ -64,9 +63,10 @@ penguins <- penguins %>%
 
 After fitting a model, make sure it is a good model. That is, don't forget to test how the model performs. For this reason, it is customary to split data into distinct training and test sets at the onset. The training data is used to fit the model and the test data is used to assess model performance.
 
-The `initial_split()` function from the `{rsample}` package is what we will use to split our dataset into a training and test set. The function by default uses 3/4 of data for training and reserves the remaining 1/4 for testing. Use the `prop` argument to change the proportion used for training. Note that this function gives a `rsplit` object and not a data frame and the output of the object shows the number of rows used for testing, training and the grand total.
+The `initial_split()` function from the `rsample` package is what we will use to split our dataset into a training and test set. The function by default uses 3/4 of data for training and reserves the remaining 1/4 for testing. Use the `prop` argument to change the proportion used for training. Note that this function gives a `rsplit` object and not a data frame and the output of the object shows the number of rows used for testing, training and the grand total.
 
 ```{r}
+library(rsample)
 set.seed(123) # For reproduciblity, as when we split the data below
 penguins_split <- initial_split(penguins, prop = 0.7)
 penguins_split
@@ -100,10 +100,11 @@ The `recipe()` has two main arguments: a formula (with the same format as when d
 In our example, suppose that our goal is to predict penguin species from bill length, bill depth and flipper length, then our recipe function would look as follows:
 
 ```{r}
+library(recipes)
 recipe(species ~ ., data = train_data) 
 ```
 
-The point of recipe is to be a more general purpose formula. A number of packages are not formula-based. The ever-popular `glmnet()` function is one example because it takes in matrices for the x and y variables instead of a formula. So a recipe is useful because you can use a package like `{glmnet}` by following the same standard formula-based recipe format and simply specify later on in the modelling stage that the you would like to use `{glmnet}`.
+The point of recipe is to be a more general purpose formula. A number of packages are not formula-based. The ever-popular `glmnet::glmnet()` function is one example because it takes in matrices for the x and y variables instead of a formula. So a recipe is useful because you can use a package like `glmnet` by following the same standard formula-based recipe format and simply specify later on in the modelling stage that the you would like to use `glmnet`.
 
 Now, after saying that you are making a recipe by way of the `recipe()` function, simply specify the transformations that you want to apply to your data in the necessary steps. Each data transformation is one step and all of the available pre-processing transformations all have the prefix of `step_`. Now, while there are many step functions available ([here's](https://recipes.tidymodels.org/reference/index.html) a list), we will only use the following three in our example.
 
@@ -113,7 +114,7 @@ Now, after saying that you are making a recipe by way of the `recipe()` function
 
 One of the advantages of having these pre-processing steps is that they help to simplify concepts that are difficult or a pain to enforce in coding. For example, centering could be a nuisance to implement from scratch because we would first have to calculate statistics (variable averages) from the training data and then use them on both the training and on the test data. Note that centering should not be done on the test data, rather on the training data to avoid data leakage (contamination of the test data by using statistics from the test data). In a recipe, the estimation of the variable means using the training data and the application of these to center new data sets are done automatically, under the hood, and so spare the coder from having to manually implement it. The situation is similar for scaling numeric data (`step_scale()`).
 
-Another useful feature of the `{tidymodels}` pre-processing interface is that each step can be applied to one specified variable, a group of variables, or all variables. The `all_predictors()` and `all_outcomes()` functions are particularly convenient to help minimize the amount of typing you need to do. For instance, if you wanted to apply `step_center()` to only the predictor variables, simply type `step_center(all_predictors())` instead of listing out each and every predictor in the step function.
+Another useful feature of the `tidymodels` pre-processing interface is that each step can be applied to one specified variable, a group of variables, or all variables. The `all_predictors()` and `all_outcomes()` functions are particularly convenient to help minimize the amount of typing you need to do. For instance, if you wanted to apply `step_center()` to only the predictor variables, simply type `step_center(all_predictors())` instead of listing out each and every predictor in the step function.
 
 Now, let's try this all out on our example.
 
@@ -136,15 +137,16 @@ penguins_recipe
 
 ### Model Training
 
-Recall that in R, the same type of model could be fit using several different packages, and each such package typically has it's own style of interface. Two popular packages to fit random forest models are `ranger` and `randomForest`. One way that their interfaces differ is in the parameter name for the number of trees - `ranger()` has the parameter `num.trees`, whereas in `randomForest` has parameter `ntree`. Such differences do not make it seamless to run the model in the other package.
+Recall that in R, the same type of model could be fit using several different packages, and each such package typically has it's own style of interface. Two popular packages to fit random forest models are `{ranger}` and `{randomForest}`. One way that their interfaces differ is in the parameter name for the number of trees - `ranger()` has the parameter `num.trees`, whereas `randomForest()` has parameter `ntree`. Such differences do not make it seamless to run the model in the other package.
 
 `{tidymodels}` created a single interface that supports the usage of both models. Moreover, this general interface supports an even wider range of functions that perform random forest. The key part that points to the function and package to be used is the engine.
 
-Let's see how this works in practice. In the below example, we'll use the general `rand_forest()` function from `{tidymodels}`. In there, we can specify the number of trees by using the `trees` argument. Then, in `set_engine()` we specify that we want to use ranger's version of random forest. Notice this follows the model specification format introduced in the [Regression in Tidymodels](https://cmu-delphi.github.io/delphi-tooling-book/tidymodels-regression.html) chapter.
+Let's see how this works in practice. In the below example, we'll use the general `rand_forest()` function from `parsnip`. In there, we can specify the number of trees by using the `trees` argument. Then, in `set_engine()` we specify that we want to use ranger's version of random forest. Notice this follows the model specification format introduced in the [Regression in Tidymodels](https://cmu-delphi.github.io/delphi-tooling-book/tidymodels-regression.html) chapter.
 
 ```{r}
+library(parsnip)
 penguins_ranger <- rand_forest(trees = 100, mode = "classification") %>%
-  set_engine("ranger") 
+  parsnip::set_engine("ranger") 
 ```
 
 Now, if we wanted to use a different package's version of random forest, we could easily do that by simply swapping out the engine. To try this out, let's use `randomForest` instead of `ranger`.
@@ -165,6 +167,7 @@ A workflow can be used to pair model and processing tasks together. When differe
 For our example, we'll try tidy model's workflows package to pair our model and our recipe together.
 
 ```{r}
+library(workflows)
 penguins_wflow <- workflow() %>% 
   add_model(penguins_ranger) %>% 
   add_recipe(penguins_recipe)
@@ -230,13 +233,14 @@ We can see from the first couple of rows that our model predicted the species co
 The `metrics()` function from the `{yardstick}` package helps to assess model performance. As suggested by its name, it will output some metrics, and as an added bonus, these will be automatically selected for the type of model that you construct. The input for this function is a tibble that contains the actual values and the predicted values. This way we can compare how close the model estimates are to the truth. To serve this purpose, we can use `penguins_aug`.
 
 ```{r}
+library(yardstick)
 penguins_aug %>%
   metrics(truth = species, .pred_Adelie:.pred_Gentoo, estimate = .pred_class)
 ```
 
 Let's briefly go through the metrics that were generated. Accuracy is simply the proportion of values that are predicted correctly, while kappa is similar to accuracy, but is normalized by the accuracy that would be expected by chance (you can think of it as a measure that compares observed accuracy to expected accuracy from random chance alone). For our example, both the accuracy and kappa value estimates are extremely high (near to the upper limit of 1) and similar in value, indicating that our model performs very well for prediction on the test data. Log loss is a measure of the performance of a classification model and a perfect model has a log loss of 0, so our model performs pretty well in that respect. Finally, `roc_auc` is the area under ROC curve and we'll explain this very shortly so stay tuned (for now, just note that a value close to 1, like we have, is the goal). All in all, our model fairs very well.
 
-Since it is often not enough to rely purely on one number summaries of model performance, we'll also look to graphical, curve-based metrics. We'll walk through producing the classic ROC curve, which is computed using `roc_curve()` and `roc_auc()` from `{yardstick}`.
+Since it is often not enough to rely purely on one number summaries of model performance, we'll also look to graphical, curve-based metrics. We'll walk through producing the classic ROC curve, which is computed using `roc_curve()` and `roc_auc()` from `yardstick`.
 
 To get ourselves an ROC curve, we need to input the actual values and the columns of predicted class probabilities into `roc_curve()`. We finish off by piping into the `autoplot()` function.
 
@@ -248,7 +252,7 @@ penguins_aug %>%
 
 Notice that the x-axis displays 1 - specificity, which is otherwise known as the false positive rate. So on this plot, we can visualize the trade-off between the false positive (1 - specificity) and the true positive (sensitivity) rates. Since the best classification would be where all positives are correctly classified as positive (sensitivity = 1), and no negatives are incorrect classified as positive (specificity = 0), curves closer to the top left corner (and, hence, an area under the curve of about 1) is what we're hoping for.
 
-So, we can see that the curves for each of our species are looking pretty close to perfection (save for Adelie, which still does very well). To estimate the area under the curves, we can use `roc_auc` (or look to the summary of our metrics above for this very value).
+So, we can see that the curves for each of our species are looking pretty close to perfection (save for Adelie, which still does very well). To estimate the area under the curves, we can use `roc_auc()` (or look to the summary of our metrics above for this very value).
 
 ```{r}
 penguins_aug %>% 
@@ -257,7 +261,7 @@ penguins_aug %>%
 
 As expected, the estimated area is very close to 1, indicating near-perfect discrimination.
 
-The `{yardstick}` package also offers other standard tools for model assessment like a confusion matrix, from which we can inspect the counts of correct classifications and miclassifications.
+The `yardstick` package also offers other standard tools for model assessment like a confusion matrix, from which we can inspect the counts of correct classifications and miclassifications.
 
 ```{r}
 penguins_aug %>% 
@@ -276,12 +280,11 @@ The diagonal shows the counts of correct predictions for each species, while the
 
 ## Concluding remarks
 
-In this vignette, we introduced `{tidymodels}` and illustrated how to its packages work together by way of example. Since this was an elementary example, so use this as a starting point and explore what more can be done with this wonderful set of packages. And yet, however wonderful they are, you may have already noticed that there are limitations like the glaring lack of a set of post-processing tools to refine the results. We fill this gap for epidemiological modelling with [frosting](https://cmu-delphi.github.io/epipredict/reference/add_frosting.html). This will be formally introduced in a later chapter, so stay tuned!\
+In this vignette, we introduced `tidymodels` and illustrated how to its packages work together by way of example. Since this was an elementary example, so use this as a starting point and explore what more can be done with this wonderful set of packages. And yet, however wonderful they are, you may have already noticed that there are limitations like the glaring lack of a set of post-processing tools to refine the results. We fill this gap for epidemiological modelling with [frosting](https://cmu-delphi.github.io/epipredict/reference/add_frosting.html). This will be formally introduced in a later chapter, so stay tuned!\
 \
 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧
 
 ## Attribution
-
 
 This Chapter was largely adapted from [A Gentle Introduction to Tidymodels](https://rviews.rstudio.com/2019/06/19/a-gentle-intro-to-tidymodels/) as well as [Tidymodels - Getting Started](https://www.tidymodels.org/start/recipes/) and [Tidymodels](https://wec.wur.nl/dse/24-tidymodels.html). The diagrams are from [A Gentle Introduction to Tidymodels](https://rviews.rstudio.com/2019/06/19/a-gentle-intro-to-tidymodels/) and based on [R for Data Science](https://r4ds.had.co.nz/explore-intro.html).
 

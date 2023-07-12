@@ -13,14 +13,14 @@ source("_common.R")
 
 
 We will continue to use the `case_death_rate_subset` dataset that comes with the
-`epipredict` package. In brief, this is a subset of the JHU daily COVID-19 cases
+`{epipredict}` package. In brief, this is a subset of the JHU daily COVID-19 cases
 and deaths by state. While this dataset ranges from Dec 31, 2020 to Dec 31, 
 2021, we will only consider a small subset at the end of that range to keep our
 example relatively simple.
 
 ```{r}
 jhu <- case_death_rate_subset %>%
-  dplyr::filter(time_value >= as.Date("2021-09-01"))
+  filter(time_value >= as.Date("2021-09-01"))
 
 jhu
 ```
@@ -32,6 +32,7 @@ eath rate one week into the future, is to input the `epi_df` and the name of
 the column from it that we want to predict in the `flatline_forecaster` function.
 
 ```{r}
+library(epipredict)
 one_week_ahead <- flatline_forecaster(jhu, outcome = "death_rate")
 one_week_ahead
 ```

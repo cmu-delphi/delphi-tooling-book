@@ -6,7 +6,7 @@
 source("_common.R")
 ```
 
-This vignette is a gentle introduction into performing simple and multiple linear regression using `{tidymodels}`. Model fitting will be done using [parsnip](https://www.tidymodels.org/start/models/), which provides a unifying interface for model fitting and the resulting output. This means that parsnip provides a single interface with standardized argument names for each class of models so that you don't have to directly deal with the different interfaces for different functions that aim to do the same thing (like linear regression). See [here](https://www.tidymodels.org/find/parsnip/) for a list of models that `{parsnip}` currently supports.
+This vignette is a gentle introduction into performing simple and multiple linear regression using `{tidymodels}`. Model fitting will be done using [parsnip](https://www.tidymodels.org/start/models/), which provides a unifying interface for model fitting and the resulting output. This means that parsnip provides a single interface with standardized argument names for each class of models so that you don't have to directly deal with the different interfaces for different functions that aim to do the same thing (like linear regression). See [here](https://www.tidymodels.org/find/parsnip/) for a list of models that `parsnip` currently supports.
 
 ## Libraries
 
@@ -14,13 +14,16 @@ This vignette is a gentle introduction into performing simple and multiple linea
 library(tidymodels)
 library(broom)
 library(performance)
+library(epipredict)
+library(recipes)
+library(workflows)
 ```
 
 ## Simple linear regression
 
 The key steps to perform linear regression in `{tidymodels}` are to first specify the model type and then to specify the model form and the data to be used to construct it.
 
-To illustrate, we shall look to `penguins` dataset from the `{tidymodels}`' `{modeldata}` package. This dataset contains measurements for 344 penguins from three islands in Palmer Archipelago, Antarctica, and includes information on their species, island home, size (flipper length, body mass, bill dimensions), and sex.
+To illustrate, we shall look to `penguins` dataset from the `tidymodels`' `{modeldata}` package. This dataset contains measurements for 344 penguins from three islands in Palmer Archipelago, Antarctica, and includes information on their species, island home, size (flipper length, body mass, bill dimensions), and sex.
 
 ```{r, echo = FALSE, out.width = "75%", fig.align = "center"}
 knitr::include_graphics("img/palmer_penguin_species.png")
@@ -75,11 +78,11 @@ lm_fit <- lm_spec %>%
 lm_fit
 ```
 
-The resulting `parsnip` object includes basic information about the fit such as the model coefficients. To access the underlying fit object, we could use the standard `lm_fit$fit` or with `{purrr}`'s `pluck()` function.
+The resulting `parsnip` object includes basic information about the fit such as the model coefficients. To access the underlying fit object, we could use the standard `lm_fit$fit` or with `purrr::pluck()` function.
 
 ```{r}
 lm_fit %>% 
-  pluck("fit")
+  purrr::pluck("fit")
 ```
 
 To get additional information about the fit (such as standard errors, and goodness-of-fit statistics), we can get a summary of the model fit as follows:
@@ -208,7 +211,9 @@ lm_fit3 %>%
   check_model()
 ```
 
-Overall, the plots look pretty good. For details on how to interpret each of these plots and more details about model assumptions please see [here](https://easystats.github.io/see/articles/performance.html) and [here](https://rdrr.io/cran/performance/man/check_model.html).
+Overall, the plots look pretty good. For details on how to interpret each of these plots and more details about model assumptions please see the function documentation `check_model()` and the plotting functions in `see` package for the `performance` package [here](https://easystats.github.io/see/articles/performance.html).
+
+
 
 ## Interaction terms
 
@@ -245,11 +250,11 @@ lm_wf_interact %>% fit(penguins)
 
 Notice the variable name for the interaction term is not the same as it is in base R (which is simply of the form `x:y`). In `step_interact()`, the default separator between the variable names is `_x_`. You can change this default by specifying the `sep` argument in the function.
 
-To read more about formula syntax, see [?formula](https://rdrr.io/r/stats/formula.html).
+To read more about formula syntax, see `formula()`.
 
 ## Non-linear transformations of the predictors
 
-Similar to how we were able to add an interaction term using recipes, we can also perform a transformation as a pre-processing step. The function used for this is `step_mutate()` (which acts like `{dplyr}`'s `mutate`).
+Similar to how we were able to add an interaction term using recipes, we can also perform a transformation as a pre-processing step. The function used for this is `step_mutate()` (which acts like `dplyr::mutate()`).
 
 Note that, in general, if you are specifying a recipe aim to keep as much of the pre-processing in your recipe specification as possible. This helps to ensure that the transformation will be applied to new data consistently.
 
@@ -264,7 +269,7 @@ lm_wf_pow2 <- workflow() %>%
 lm_wf_pow2 %>% fit(penguins)
 ```
 
-There are many transformations already built into recipes such as `step_log()`. So, for basic transformations, there's often no need to make your own transformation from scratch. See [here](https://recipes.tidymodels.org/reference/#section-step-functions-individual-transformations) for a comprehensive list of the transformations that are offered in recipes.
+There are many transformations already built into recipes such as `step_log()`. So, for basic transformations, there's often no need to make your own transformation from scratch. See  [here](https://recipes.tidymodels.org/reference/#section-step-functions-individual-transformations) for a comprehensive list of the transformations that are offered in recipes.
 
 ```{r}
 rec_spec_log <- recipe(bill_length_mm ~ bill_depth_mm, data = penguins) %>%
@@ -284,6 +289,6 @@ lm_wf_log %>% fit(penguins)
 
 ## Attribution
 
-This Chapter was largely adapted from [Chapter 3 of ISLR tidymodels labs](https://emilhvitfeldt.github.io/ISLR-tidymodels-labs/03-linear-regression.html). Checking linear regression assumptions using the performance package is based on [this article](https://easystats.github.io/performance/reference/check_model.html) and [this blog post](https://www.r-bloggers.com/2021/07/easystats-quickly-investigate-model-performance/) on investigating model performance. The artwork used is by [Allison Horst](https://twitter.com/allison_horst).[Allison Horst](https://twitter.com/allison_horst).
+This Chapter was largely adapted from [Chapter 3 of ISLR tidymodels labs](https://emilhvitfeldt.github.io/ISLR-tidymodels-labs/03-linear-regression.html). Checking linear regression assumptions using the performance package is based on [this article](https://easystats.github.io/performance/reference/check_model.html) and [this blog post](https://www.r-bloggers.com/2021/07/easystats-quickly-investigate-model-performance/) on investigating model performance. The artwork used is by [Allison Horst](https://twitter.com/allison_horst). 
 
 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧 🐧

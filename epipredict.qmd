@@ -39,24 +39,24 @@ There are four types of components:
 3. Predictor: make predictions, using a fitted model object and processed test data
 4. Postprocessor: manipulate or transform the predictions before returning
     
-Users familiar with [`{tidymodels}`](https://www.tidymodels.org) and especially 
-the [`{workflows}`](https://workflows.tidymodels.org) package will notice a lot 
+Users familiar with `{tidymodels}` and especially 
+the `{workflows}` package will notice a lot 
 of overlap. This is by design, and is in fact a feature. The truth is that
 `{epipredict}` is a wrapper around much that is contained in these packages.
 Therefore, if you want something from this -verse, it should "just work" (we hope).
 
-The reason for the overlap is that `{workflows}` _already implements_ the first 
+The reason for the overlap is that `workflows` _already implements_ the first 
 three steps. And it does this very well. However, it is missing the 
 postprocessing stage and currently has no plans for such an implementation. 
 And this feature is important. All forecasters need post-processing. Anything more complicated (which is nearly everything) 
 needs this as well.
 
-The second omission from `{tidymodels}` is support for panel data. Besides
+The second omission from `tidymodels` is support for panel data. Besides
 epidemiological data, economics, psychology, sociology, and many other areas
-frequently deal with data of this type. So the framework of behind `{epipredict}`
+frequently deal with data of this type. So the framework of behind `epipredict`
 implements this. In principle, this has nothing to do with epidemiology, and 
 one could simply use this package as a solution for the missing functionality in
-`{tidymodels}`. Again, this should "just work" (we hope).
+`tidymodels`. Again, this should "just work" (we hope).
 
 All of the _panel data_ functionality is implemented through the `epi_df` data type
 described in the previous part. If you have different panel data, just force it
@@ -64,14 +64,14 @@ into an `epi_df` as described in @sec-additional-keys.
 
 ## Why doesn't this package already exist?
 
--   Parts of it actually DO exist. There's a universe called `{tidymodels}`. It 
+-   Parts of it actually DO exist. There's a universe called `tidymodels`. It 
 handles pre-processing, training, and prediction, bound together, through a 
-package called workflows. We built `{epipredict}` on top of that setup. In this 
+package called workflows. We built `epipredict` on top of that setup. In this 
 way, you CAN use almost everything they provide.
 -   However, workflows doesn't do post-processing to the extent envisioned here.
-And nothing in `{tidymodels}` handles panel data.
+And nothing in `tidymodels` handles panel data.
 -   The tidy-team doesn't have plans to do either of these things. (We checked).
--   There are two packages that do time series built on `{tidymodels}`, but it's 
+-   There are two packages that do time series built on `tidymodels`, but it's 
 "basic" time series: 1-step AR models, exponential smoothing, STL decomposition,
 etc.[^1] 
 
@@ -94,6 +94,7 @@ in the built-in data frame).
 jhu <- case_death_rate_subset %>% 
   filter(time_value >= max(time_value) - 30)
 
+library(epipredict)
 out <- arx_forecaster(
   jhu, 
   outcome = "death_rate",
@@ -128,7 +129,7 @@ By default, the forecaster predicts the outcome (`death_rate`) 1-week ahead,
 using 3 lags of each predictor (`case_rate` and `death_rate`) at 0 (today), 
 1 week back and 2 weeks back. The predictors and outcome can be changed 
 directly. The rest of the defaults are encapsulated into a list of arguments. 
-This list is produced by `arx_args_list()`.
+This list is produced by `arx_args_list()`. 
 
 ## Simple adjustments
 
@@ -197,7 +198,7 @@ arx_args_list(
 
 So far, our forecasts have been produced using simple linear regression. But this is not the only way to estimate such a model.
 The `trainer` argument determines the type of model we want. 
-This takes a [`{parsnip}`](https://parsnip.tidymodels.org) model. The default is linear regression, but we could instead use a random forest with the `{ranger}` package:
+This takes a `{parsnip}` model. The default is linear regression, but we could instead use a random forest with the `{ranger}` package:
 
 ```{r ranger, warning = FALSE}
 out_rf <- arx_forecaster(jhu, "death_rate", c("case_rate", "death_rate"),

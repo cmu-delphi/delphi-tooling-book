@@ -9,7 +9,7 @@ source("_common.R")
 
 A key function from the epiprocess package is `epi_slide()`, which allows the
 user to apply a function or formula-based computation over variables in an
-`epi_df` over a running window of `n` time steps (see the following `{epiprocess}`
+`epi_df` over a running window of `n` time steps (see the following `epiprocess`
 vignette to go over the basics of the function: ["Slide a computation over
 signal values"](https://cmu-delphi.github.io/epiprocess/articles/slide.html)).
 The equivalent sliding method for an `epi_archive` object can be called by using
@@ -41,6 +41,7 @@ version of each observation can be carried forward to extrapolate unavailable
 versions for the less up-to-date input archive.
 
 ```{r grab-epi-data}
+library(epipredict)
 us_raw_history_dfs <-
   readRDS(system.file("extdata", "all_states_covidcast_signals.rds",
                       package = "epipredict", mustWork = TRUE))
@@ -242,7 +243,7 @@ ggplot(can_fc %>% filter(engine_type == "xgboost"),
 Both approaches tend to produce quite volatile forecasts (point predictions)
 and/or are overly confident (very narrow bands), particularly when boosted
 regression trees are used. But as this is meant to be a simple demonstration of
-sliding with different engines in `arx_forecaster`, we may devote another
+sliding with different engines in `arx_forecaster()`, we may devote another
 vignette to work on improving the predictive modelling using the suite of tools
 available in epipredict.
 

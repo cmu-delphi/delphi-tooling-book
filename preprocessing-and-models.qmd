@@ -10,19 +10,16 @@ source("_common.R")
 ## Introduction 
 
 The `{epipredict}` package uses the `{tidymodels}` framework, namely 
-[`{recipes}`](https://recipes.tidymodels.org/) for 
-[dplyr](https://dplyr.tidyverse.org/)-like pipeable sequences 
-of feature engineering and [`{parsnip}`](https://parsnip.tidymodels.org/) 
-for a unified interface to a range of models. 
+`{recipes}` for `{dplyr}`-like pipeable sequences of feature engineering and `{parsnip}` for a unified interface to a range of models. 
 
-`{epipredict}` has additional customized feature engineering and preprocessing 
+`epipredict` has additional customized feature engineering and preprocessing 
 steps that specifically work with panel data in this context, for example,
 `step_epi_lag()`, `step_population_scaling()`, 
 `step_epi_naomit()`. They can be used along with most
-steps from the `{recipes}` package for more feature engineering. 
+steps from the `recipes` package for more feature engineering. 
 
-In this vignette, we will illustrate some examples of how to use `{epipredict}`
-with `{recipes}` and `{parsnip}` for different purposes of 
+In this vignette, we will illustrate some examples of how to use `epipredict`
+with `recipes` and `parsnip` for different purposes of 
 epidemiological forecasting.
 We will focus on basic autoregressive models, in which COVID cases and 
 deaths in the near future are predicted using a linear combination of cases
@@ -40,6 +37,7 @@ library(epipredict)
 library(recipes)
 library(workflows)
 library(poissonreg)
+library(epidatasets)
 ```
 
 ## Poisson Regression 
@@ -53,12 +51,10 @@ deploying control measures.
 One of the outcomes that the CDC forecasts is [death counts from COVID-19](https://www.cdc.gov/coronavirus/2019-ncov/science/forecasting/forecasting-us.html).
 Although there are many state-of-the-art models, we choose to use Poisson 
 regression, the textbook example for modeling count data, as an illustration
-for using the `{epipredict}` package with other existing `{tidymodels}` packages. 
+for using the `epipredict` package with other existing `tidymodels` packages. 
 
 The (folded) code below gives the necessary commands to download this data
-from the Delphi Epidata API, but it is also built into the
-[`{epidatasets}`](https://cmu-delphi.github.io/epidatasets/reference/counts_subset.html)
-package.
+`counts_subset` from the Delphi Epidata API, but it is also built into the `{epidatasets}` package.
 
 ```{r poisson-reg-data}
 #| eval: false
@@ -92,7 +88,7 @@ counts_subset <- full_join(x, y, by = c("geo_value", "time_value")) %>%
 data(counts_subset, package = "epidatasets")
 ```
 
-The `counts_subset` dataset
+The `epidatasets::counts_subset` dataset
 contains the number of confirmed cases and deaths from June 4, 2021 to 
 Dec 31, 2021 in some U.S. states. 
 
@@ -113,11 +109,11 @@ $s_{\text{state}}$ are dummy variables for each state and take values of either
 0 or 1.
 
 Preprocessing steps will be performed to prepare the
-data for model fitting. But before diving into them, it will be helpful to understand what `roles` are in the `{recipes}` framework. 
+data for model fitting. But before diving into them, it will be helpful to understand what `roles` are in the `recipes` framework. 
 
 ---
 
-#### Aside on `{recipes}` {.unnumbered}
+#### Aside on `recipes` {.unnumbered}
 
 `{recipes}` can assign one or more roles to each column in the data. The roles 
 are not restricted to a predefined set; they can be anything. 
@@ -133,7 +129,7 @@ that are unique to the `epipredict` package. Since we work with `epi_df`
 objects, all datasets should have `geo_value` and `time_value` passed through
 automatically with these two roles assigned to the appropriate columns in the data.
  
-The `{recipes}` package also allows [manual alterations of roles](https://recipes.tidymodels.org/reference/roles.html) 
+The `recipes` package also allows [manual alterations of roles](https://recipes.tidymodels.org/reference/roles.html) 
 in bulk. There are a few handy functions that can be used together to help us 
 manipulate variable roles easily. 
 
@@ -194,8 +190,8 @@ extract_fit_engine(wf)
 ```
 
 Alternative forms of Poisson regression or particular computational approaches
-can be applied via arguments to `parsnip::poisson_reg()` for some common
-settings, and by using `parsnip::set_engine()` to use a specific Poisson
+can be applied via arguments to `poisson_reg()` for some common
+settings, and by using `set_engine()` to use a specific Poisson
 regression engine and to provide additional engine-specific customization.
 
 
@@ -207,8 +203,8 @@ However, the Delphi Group preferred to train on rate data instead, because it
 puts different locations on a similar scale (eliminating the need for location-specific intercepts). 
 We can use a linear regression to predict the death rates and use state
 population data to scale the rates to counts.[^pois] We will do so using
-`layer_population_scaling()` from the `{epipredict}` package. (We could also use
-`step_population_scaling()` from the `{epipredict}` package to prepare rate data
+`layer_population_scaling()` from the `epipredict` package. (We could also use
+`step_population_scaling()` to prepare rate data
 from count data in the preprocessing recipe.)
 
 [^pois]: We could continue with the Poisson model, but we'll switch to the Gaussian likelihood just for simplicity.
@@ -263,7 +259,7 @@ pop_dat <- state_census %>% select(abbr, pop)
 ```
 
 State-wise population data from the 2019 U.S. Census is
-available from `{epipredict}` and will be used in `layer_population_scaling()`.
+available from `epipredict` and will be used in `layer_population_scaling()`. 
 
 
 
@@ -296,9 +292,9 @@ jhu <- filter(
 )
 ```
 
-Preprocessing steps will again rely on functions from the `{epipredict}` package 
-as well as the `{recipes}` package.
-There are also many functions in the `{recipes}` package that allow for 
+Preprocessing steps will again rely on functions from the `epipredict` package 
+as well as the `recipes` package.
+There are also many functions in the `recipes` package that allow for 
 [scalar transformations](https://recipes.tidymodels.org/reference/#step-functions-individual-transformations),
 such as log transformations and data centering. In our case, we will 
 center the numerical predictors to allow for a more meaningful interpretation of
@@ -437,7 +433,7 @@ $$
 
 Preprocessing steps are similar to the previous models with an additional step 
 of categorizing the response variables. Again, we will use a subset of death rate and case rate data from our built-in dataset 
-`case_death_rate_subset`.
+`epipredict::case_death_rate_subset`.
 ```{r}
 jhu_rates <- case_death_rate_subset %>%
   dplyr::filter(

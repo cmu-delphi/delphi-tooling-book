@@ -54,4 +54,4 @@ format:
       sidebar-width: 400px
       body-width: 600px
     theme: [cosmo, delphi-epitools.scss]
-
+    code-link: true

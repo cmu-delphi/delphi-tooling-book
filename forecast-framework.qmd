@@ -21,6 +21,7 @@ to examine the data and an estimated canned corecaster.
 
 
 ```{r demo-workflow}
+library(epipredict)
 jhu <- case_death_rate_subset %>% 
   filter(time_value >= max(time_value) - 30)
 
@@ -31,18 +32,18 @@ out_gb <- arx_forecaster(jhu, "death_rate", c("case_rate", "death_rate"),
 ## Preprocessing
 
 Preprocessing is accomplished through a `recipe` (imagine baking a cake) as 
-provided in the [`{recipes}`](https://recipes.tidymodels.org) package. 
+provided in the `{recipes}` package. 
 We've made a few modifications (to handle
 panel data) as well as added some additional options. The recipe gives a
 specification of how to handle training data. Think of it like a fancified
 `formula` that you would pass to `lm()`: `y ~ x1 + log(x2)`. In general, 
-there are 2 extensions to the `formula` that `{recipes}` handles: 
+there are 2 extensions to the `formula` that `recipes` handles: 
 
   1. Doing transformations of both training and test data that can always be 
   applied. These are things like taking the log of a variable, leading or 
   lagging, filtering out rows, handling dummy variables, etc.
   2. Using statistics from the training data to eventually process test data. 
-    This is a major benefit of `{recipes}`. It prevents what the tidy team calls
+    This is a major benefit of `recipes`. It prevents what the tidy team calls
     "data leakage". A simple example is centering a predictor by its mean. We
     need to store the mean of the predictor from the training data and use that
     value on the test data rather than accidentally calculating the mean of
@@ -88,7 +89,7 @@ er <- epi_recipe(jhu) %>%
   step_epi_naomit()
 ```
 
-While `{recipes}` provides a function `step_lag()`, it assumes that the data
+While `recipes` provides a function `step_lag()`, it assumes that the data
 has no breaks in the sequence of `time_values`. This is a bit dangerous, so
 we avoid that behaviour. Our `lag/ahead` functions also appropriately adjust the
 amount of data to avoid accidentally dropping recent predictors from the test
@@ -97,9 +98,9 @@ data.
 ## The model specification
 
 Users familiar with the `{parsnip}` package will have no trouble here.
-Basically, `{parsnip}` unifies the function signature across statistical models.
+Basically, `parsnip` unifies the function signature across statistical models.
 For example, `lm()` "likes" to work with formulas, but `glmnet::glmnet()` uses
-`x` and `y` for predictors and response. `{parsnip}` is agnostic. Both of these
+`x` and `y` for predictors and response. `parsnip` is agnostic. Both of these
 do "linear regression". Above we switched from `lm()` to `xgboost()` without 
 any issue despite the fact that these functions couldn't be more different.
 
@@ -109,7 +110,7 @@ lm(
   model = TRUE, x = FALSE, y = FALSE, qr = TRUE, singular.ok = TRUE, 
   contrasts = NULL, offset, ...)
 
-xgboost(
+xgboost::xgboost(
   data = NULL, label = NULL, missing = NA, weight = NULL, 
   params = list(), nrounds, verbose = 1, print_every_n = 1L, 
   early_stopping_rounds = NULL, maximize = NULL, save_period = NULL, 
