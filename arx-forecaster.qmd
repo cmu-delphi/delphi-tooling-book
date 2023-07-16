@@ -177,20 +177,23 @@ preds <- out_df %>%
   unnest(q) %>%
   pivot_wider(names_from = tau, values_from = q)
 
-ggplot(hist, aes(color = geo_value)) +
+ggplot(hist) +
   geom_line(aes(time_value, death_rate)) +
-  theme_bw() +
-  geom_errorbar(data = preds, aes(x = target_date, ymin = `0.05`, ymax = `0.95`)) +
-  geom_point(data = preds, aes(target_date, .pred)) +
+  geom_ribbon(
+    data = preds,
+    aes(x = target_date, ymin = `0.05`, ymax = `0.95`, fill = geo_value)
+  ) +
+  geom_point(data = preds, aes(target_date, .pred, colour = geo_value)) +
   geom_vline(data = preds, aes(xintercept = forecast_date)) +
-  scale_colour_viridis_d(name = "") +
+  scale_colour_viridis_d() +
+  scale_fill_viridis_d(alpha = .4) +
   scale_x_date(date_labels = "%b %Y") +
   facet_grid(rows = vars(geo_value)) +
-  theme(legend.position = "bottom") +
+  theme(legend.position = "none") +
   labs(x = "", y = "Incident deaths per 100K\n inhabitants")
 ```
 
-All three bear a striking resemblance to what we'd expect when using the flatline forecaster. So, our simple ARX model either failed to capture the rise or fall in death rates or it does align with the truth and there was a period of relative stability. Since we have the true number of deaths over the prediction period in the `case_death_rate_subset` data, let's go ahead and overlay them on our plot to see for ourselves how our model faired. The way we'll get the job done is to not impose an upper bound the data used in `hist` to make the death rate lines (so that we get all data available from our Sept. 2, 2021 start until the last date of Dec. 31, 2021).
+All three bear a striking resemblance to what we'd expect when using the flatline forecaster. So, our simple ARX model either failed to capture the rise or fall in death rates or it does align with the truth and there was a period of relative stability. Since we have the true number of deaths over the prediction period in the `case_death_rate_subset` data, let's go ahead and overlay them on our plot to see for ourselves how our model faired. The way we'll get the job done to make the death rate lines is to not impose an upper bound the data used in `hist` (so that we get all data available from our Sept. 2, 2021 start until the last date of Dec. 31, 2021).
 
 ```{r}
 #| fig-height: 5
@@ -198,17 +201,20 @@ All three bear a striking resemblance to what we'd expect when using the flatlin
 hist <- case_death_rate_subset %>%
   dplyr::filter(time_value >= as.Date("2021-09-01")) %>%# No ub so we get up to the last date of Dec. 31, 2021
   filter(geo_value %in% samp_geos)
-                
-ggplot(hist, aes(color = geo_value)) +
+  
+ggplot(hist) +
   geom_line(aes(time_value, death_rate)) +
-  theme_bw() +
-  geom_errorbar(data = preds, aes(x = target_date, ymin = `0.05`, ymax = `0.95`)) +
-  geom_point(data = preds, aes(target_date, .pred)) +
+  geom_ribbon(
+    data = preds,
+    aes(x = target_date, ymin = `0.05`, ymax = `0.95`, fill = geo_value)
+  ) +
+  geom_point(data = preds, aes(target_date, .pred, colour = geo_value)) +
   geom_vline(data = preds, aes(xintercept = forecast_date)) +
-  scale_colour_viridis_d(name = "") +
+  scale_colour_viridis_d(alpha = .7) +
+  scale_fill_viridis_d(alpha = .4) +
   scale_x_date(date_labels = "%b %Y") +
   facet_grid(rows = vars(geo_value)) +
-  theme(legend.position = "bottom") +
+  theme(legend.position = "none") +
   labs(x = "", y = "Incident deaths per 100K\n inhabitants")
 ```
 
@@ -270,7 +276,7 @@ fig <- fig %>% layout(
 fig
 ```
 
-You can either hit play in the resulting plot and then sit back and watch what happens over time or you can manually slide the bar at the bottom across time and inspect the states of interest by hovering over them.
+You can either hit play in the above plot and sit back and watch what happens over time or you can manually slide the bar at the bottom across time and inspect the states of interest by hovering over them.
 
 A possible improvement to make to the above plot is to add the true death rates to it or to a similar plot that is positioned beside it. We'll leave this as an exercise to the reader that would like to take this opportunity to level up their skills.
 
