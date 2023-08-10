@@ -2,7 +2,6 @@
 
 ```{r}
 #| echo: false
-#| warning: false
 source("_common.R")
 ```
 

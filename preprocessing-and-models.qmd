@@ -2,7 +2,6 @@
 
 ```{r}
 #| echo: false
-#| warning: false
 source("_common.R")
 ```
 
@@ -93,7 +92,7 @@ contains the number of confirmed cases and deaths from June 4, 2021 to
 Dec 31, 2021 in some U.S. states. 
 
 We wish to predict the 7-day ahead death counts with lagged cases and deaths.
-Furthermore, we will let each state be a dummy variable. Using differential 
+Furthermore, we will include the categorical variable, *states*, as dummy variables. Using different 
 intercept coefficients, we can allow for an intercept shift between states.
 
 One possible model takes the form

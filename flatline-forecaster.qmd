@@ -6,8 +6,6 @@ The flatline forecaster is a very simple forecasting model intended for `epi_df`
 
 ```{r}
 #| echo: false
-#| message: false
-#| warning: false
 source("_common.R")
 ```
 
@@ -27,8 +25,7 @@ jhu
 
 ### The basic mechanics of the flatline forecaster
 
-The simplest way to create and train a flatline forecaster to predict the d
-eath rate one week into the future, is to input the `epi_df` and the name of 
+The simplest way to create and train a flatline forecaster to predict the death rate one week into the future, is to input the `epi_df` and the name of 
 the column from it that we want to predict in the `flatline_forecaster` function.
 
 ```{r}

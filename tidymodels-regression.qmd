@@ -2,7 +2,6 @@
 
 ```{r}
 #| echo: false
-#| warning: false
 source("_common.R")
 ```
 
@@ -256,7 +255,7 @@ To read more about formula syntax, see `formula()`.
 
 Similar to how we were able to add an interaction term using recipes, we can also perform a transformation as a pre-processing step. The function used for this is `step_mutate()` (which acts like `dplyr::mutate()`).
 
-Note that, in general, if you are specifying a recipe aim to keep as much of the pre-processing in your recipe specification as possible. This helps to ensure that the transformation will be applied to new data consistently.
+Note that, in general, when specifying a recipe, we aim to keep as much of the pre-processing in the recipe specification as possible. This helps to ensure that the transformation will be applied to new data consistently.
 
 ```{r}
 rec_spec_pow2 <- recipe(bill_length_mm ~ bill_depth_mm, data = penguins) %>%
