@@ -84,7 +84,7 @@ ca_subset_wlag <- ca_case_death_rate_subset %>%
 Then, we can create our recipe, adding a `lag_1_day_case_rate` column in the same way as we added a non-linear transformation of a predictor previously - by using `step_mutate()` on the predictor that's been specified in the recipe formula.
 
 ```{r}
-rec_spec_lag <- recipe(death_rate ~ case_rate + lag_1_death_rate, data = ca_subset_wlag) %>%
+rec_spec_wlag <- recipe(death_rate ~ case_rate + lag_1_death_rate, data = ca_subset_wlag) %>%
   step_mutate(lag_1_case_rate = lag(case_rate, 1))
 ```
 
@@ -93,7 +93,7 @@ Next, we input the model and recipe into our workflow and then fit the model to 
 ```{r}
 lm_wf_lag <- workflow() %>%
   add_model(lm_spec) %>%
-  add_recipe(rec_spec_lag)
+  add_recipe(rec_spec_wlag)
 
 ca_lm_fit_lag <- lm_wf_lag %>% fit(ca_subset_wlag)
 ca_lm_fit_lag
@@ -104,7 +104,7 @@ As a result, we obtain a trained workflow that has undergone both pre-processing
 Now, we'll use our model to predict the death rate for a day beyond the last in the dataset (so our target date is Jan. 1, 2022). Suppose that a reliable source tells us that the case rate for that day is 84.7 (cases per 100,000 population). From the last row of our dataset, we can see that the lagged 1-day case rate is about 84.4 and the lagged death rate is about 0.142 (deaths per 100,000 population). We'll put this information in a short dataframe:
 
 ```{r}
-jan_1_df <- data.frame(geo_value = "ca",
+ca_jan1_df <- data.frame(geo_value = "ca",
                        time_value = as.Date("2022-01-01"), 
                        case_rate = 84.7, 
                        lag_1_death_rate = last(ca_subset_wlag)$death_rate)
@@ -114,16 +114,16 @@ Notice that we included `lag_1_death_rate`, but no `lag_1_case_rate` in the abov
 
 ```{r}
 # Add new row of to ca_subset_wlag
-ca_subset_plus_row <- bind_rows(
+ca_subset_wlag_jan1 <- bind_rows(
   ca_subset_wlag,
-  jan_1_df
+  ca_jan1_df
 )
 ```
 
 And then input that into predict...
 
 ```{r}
-predict(ca_lm_fit_lag, new_data = ca_subset_plus_row) %>%
+predict(ca_lm_fit_lag, new_data = ca_subset_wlag_jan1) %>%
   tail(n = 1)
 ```
 Wonderful. We've successfully obtained a prediction. But it was a lot of work to to force recipes work with such data. How can we simplify things for ourselves? Well `epipredict` offers two clear options...
@@ -145,7 +145,7 @@ Then, input the `epi_recipe` into an `epi_workflow()`, fit the linear model, and
 ca_epi_wf <- epi_workflow(ca_epi_r, lm_spec) %>%
   fit(ca_case_death_rate_subset)
 
-predict(ca_epi_wf, ca_subset_plus_row %>% select(-lag_1_death_rate)) %>% 
+predict(ca_epi_wf, ca_subset_wlag_jan1 %>% select(-lag_1_death_rate)) %>% 
   filter(time_value == "2022-01-01")
 ```
 
@@ -156,8 +156,8 @@ As expected, we obtain the same prediction as when we used the first approach.
 The `epipredict` package has the `arx_forecaster()` function that pre-processes, trains the model, predicts, and performs some basic post-processing all in one go. The reason why we can use this model is that the task of predicting the death rate for one day ahead using the lagged 1-day death and case rates is a type of autoregressive (AR) model (in which a linear combination of previous values are use forecast the variable of interest). 
 
 ```{r, warning = FALSE}
-ca_arx_pred_jan_22 <- arx_forecaster(
-  ca_subset_plus_row %>% select(-lag_1_death_rate), 
+ca_arx_jan_22 <- arx_forecaster(
+  ca_subset_wlag_jan1 %>% select(-lag_1_death_rate), 
   outcome = "death_rate", 
   predictors = c("death_rate", "case_rate"),
   args_list = arx_args_list(
@@ -165,14 +165,13 @@ ca_arx_pred_jan_22 <- arx_forecaster(
     ahead = 0L
   )
 ) 
-ca_arx_pred_jan_22$predictions
+ca_arx_jan_22$predictions
 ```
-
 We can easily add more lags for the case and death rates into the function. All that we must do is add a couple of choice numbers to the `lags` argument. This is preferable to the (longwinded) alternative of adding them one by one to `step_mutate()`. So let's go ahead and try adding various lags for the case and death rates to `arx_forecaster()`:
 
 ```{r, warning = FALSE}
 lots_of_lags_ca <- arx_forecaster(
-  ca_subset_plus_row %>% select(-lag_1_death_rate), 
+  ca_subset_wlag_jan1 %>% select(-lag_1_death_rate), 
   outcome = "death_rate", 
   predictors = c("case_rate", "death_rate"),
   args_list = arx_args_list(
@@ -183,7 +182,7 @@ lots_of_lags_ca <- arx_forecaster(
 lots_of_lags_ca$predictions
 ```
 
-The other major benefit of the forecaster is that it is equipped to handle panel data. This means that we could input several other states worth of data, and get a prediction for each state. For example, we can try plugging in the entirety of the original `case_death_rate_subset` and get a prediction of the death rate on Jan. 1, 2022 for each state. 
+The other major benefit of the forecaster is that it is equipped to handle panel data. This means that we could input several other states worth of data, and get a prediction for each state. For example, we can try plugging in the entirety of the original `case_death_rate_subset` and get a prediction of the death rate on Jan. 1, 2022 for each state: 
 
 ```{r, warning = FALSE}
 all_the_states <- arx_forecaster(
