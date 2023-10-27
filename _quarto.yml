@@ -42,7 +42,7 @@ book:
       - tidymodels-regression.qmd
       - tidymodels-regression-part2.qmd
       - tidymodels-intro.qmd
-      - tidymodels-intro-part2.qmd
+      - tidymodels-epipredict.qmd
       - flatline-forecaster.qmd
       - arx-forecaster.qmd
       - preprocessing-and-models.qmd
