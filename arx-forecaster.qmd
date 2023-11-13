@@ -1,12 +1,12 @@
 # Introducing the ARX forecaster
 
-The ARX forecaster built-in to the `epipredict` package is an autoregressive forecasting model that is intended for `epi_df` data. This is a direct forecasting approach, which means that it will estimate a model for a particular target horizon. It is based upon the widely used autoregressive (AR) model, in which events in the future using a linear combination of events in the near past. An ARX model is an extension to the basic AR model where exogenous variables are included as predictors. Exogenous variables are incorporated as predictors into a forecasting model not because they are being predicted themselves, but because they add measurable value to it. So they are sometimes referred to as features or additional covariates. 
+The built-in ARX forecaster is a direct forecasting approach used to estimate a model for a particular target horizon. It is based upon the widely used autoregressive (AR) model, in which events in the future using a linear combination of events in the near past. An ARX model is an extension to the basic AR model where exogenous variables are included as predictors. Exogenous variables are incorporated as predictors into a forecasting model not because they are being predicted themselves, but because they add measurable value to it. So they are sometimes referred to as features or additional covariates. 
 
 ::: {.callout-note}
-It can be quite the task to prepare exogenous variables for input into the model. For example, we may have to modify these variables match the temporal resolution of the variable being forecasted upon. In addition, there may be other considerations such as correlation or interaction between the exogenous variables. Since these are endeavours in feature selection and/or engineering, we will hold off on having that discussion here and instead reserve it for its own chapter.
+Preparing exogenous variables for input into an ARX model is not necessarily a simple task. For instance, it is fairly common to have to modify such variables to match the temporal resolution of the variable being forecasted upon. Additionally, there may be other considerations such as correlation or interactions between the exogenous variables. Since these are endeavours in feature selection and/or engineering, we will reserve further discussion of this for its own chapter.
 :::
 
-Similar to the flatline forecaster, prediction intervals based on the quantiles of the residuals of the training data are obtained separately for each combination of keys (most commonly by `geo_value`). So as before the output is a data frame of point (optionally interval) forecasts at a single unique horizon (`ahead`) for each unique combination of keys. The ARX forecaster (using quantile regression) is comparable to the what the Delphi forecast team used for its COVID-19 forecasts over the course of the pandemic. 
+Similar to the flatline forecaster, prediction intervals based on the quantiles of the residuals of the training data are obtained separately for each combination of keys (most commonly by `geo_value`). Hence, the output is a data frame of point (optionally interval) forecasts at a single unique horizon for each unique combination of keys. The ARX forecaster (using quantile regression) is comparable to what the Delphi forecast team used for its COVID-19 forecasts over the course of the pandemic. 
 
 ## Example of using the ARX forecaster
 
@@ -28,7 +28,7 @@ library(plotly)
 
 ### A brief re-introduction to the dataset
 
-In our guided example using the ARX forecaster, we'll use the same `case_death_rate_subset` dataset that we used to showcase the flatline forecaster (that comes with the `epipredict` package) that is a subset of COVID-19 cases and deaths for US states and territories. To keep our example simple, we will only consider the data from Sept. 1, 2021 to Dec. 1, 2021.
+In our guided example using the ARX forecaster, we'll use the same `case_death_rate_subset` dataset that we used to showcase the flatline forecasterm which contains a subset of COVID-19 cases and deaths for US states and territories. To keep our example simple, we will only consider the data from Sept. 1 to Dec. 1, 2021.
 
 ```{r}
 jhu <- case_death_rate_subset %>%
@@ -39,20 +39,20 @@ jhu
 
 ### The basic mechanics of the ARX forecaster
 
-Suppose that our goal is to predict death rates one week ahead of the last date available for each state as with the flatline forecaster. Mathematically, on day $t$, we want to predict new deaths $y$ that are $h$ days ahead at many locations $j$ using the death rate from today, 1 week ago, and 2 weeks ago. So for each location, we'll predict
+Suppose that our primary goal is to predict death rates one week ahead of the last date available for each state. Mathematically, on day $t$, we want to predict new deaths $y$ that are $h$ days ahead at many locations $j$ using the death rate from today, 1 week ago, and 2 weeks ago. So for each location, we'll predict
 $$
 \hat{y}_{j,{t+h}} = \mu + a_0y_{j, t} +  a_7y_{j, t-7} + a_{14}y_{j, t-14}
 $$
-where $t$ is 2021-12-01, $h$ is 7 days, and $j$ is the state in our example. The $a_0$, $a_7$, and $a_14$ are the coefficients that are obtained from fitting a model to the training data.
+where $t$ is 2021-12-01, $h$ is 7 days, and $j$ is the state in our example. The $a_0$, $a_7$, and $a_14$ coefficients are obtained from fitting a model to the training data.
 
-From the above, we can gather that the the `arx_forecaster()` function must have a predictors parameter in addition to a paramter for the data and the outcome. This is because there must be at least one predictor that is based on past values of the outcome. Hence, the simplest way to use the `arx_forecaster()` function to predict the death rate one week into the future, is to create an AR-type model. And to do this, we must input at minimum three arguments in the `arx_forecaster() function`: the `epi_df` data followed by the outcome of `"death_rate"`, and predictors of `"death_rate"`. As we can see in the above equation and from the `arx_args_list()` documentation) the default number of lags used for the predictors are 0, 7, and 14 days. In other words, what this forecaster aims to do is to predict the outcome (`death_rate`) one week ahead based on the predictor (`death_rate`) values from today, 1 week ago and 2 weeks ago.
+The above formulation makes it clear that the `arx_forecaster` function must have a predictors parameter in addition to a parameter for the data and the outcome. This is because there must be at least one predictor that is based on past values of the outcome. So the simplest way to use `arx_forecaster()` to predict the death rate one week into the future, is to create an AR-type model. And to do this, we must input a minimum of three arguments: the `epi_df` data, the outcome of `"death_rate"`, and the predictors that are based on `"death_rate"`. As we can see in the above equation and from the `arx_args_list()` documentation, the default number of lags used for the predictors are 0, 7, and 14 days. In other words, what this forecaster aims to do is to predict the outcome (`death_rate`) one week ahead based on the predictor (`death_rate`) values from today, 1 week ago and 2 weeks ago.
 
 ```{r}
 ar_one_week_ahead <- arx_forecaster(jhu, outcome = "death_rate", predictors = "death_rate")
 ar_one_week_ahead
 ```
 
-To make sure we understand exactly how the predictors were created from the training data (lags and all), we can compare the the molded/pre-processed training data that's contained in `one_week_ahead$epi_workflow$pre` to the raw training data.
+To make sure we understand exactly how the predictors were created from the training data (lags and all), we can compare the molded/pre-processed training data that is contained in `one_week_ahead$epi_workflow$pre` to the raw training data.
 
 ```{r}
 cbind(ar_one_week_ahead$epi_workflow$pre$mold$extras$roles$geo_value, 
@@ -61,22 +61,22 @@ cbind(ar_one_week_ahead$epi_workflow$pre$mold$extras$roles$geo_value,
   head()
 ```
 
-Now, let's just focus on the first row for `ak` and filter the corresponding raw data for that `geo_value` and any dates before the `time_value` given (as we only need to consider lags here).
+Now, let's just focus on the first row for `ak` and filter the corresponding raw data for that `geo_value` and any dates before the `time_value` given (since we only need to consider lags of `death_rate` to construct the predictors).
 
 ```{r}
 jhu %>% filter(geo_value == "ak" & time_value <= "2021-09-15")
 ```
 
-We can then check whether the predictor values from the pre-processed data have been correctly taken from the raw data. For example, the `lag_0_death_rate` should be the `death_rate` on the `time_value` of 2021-09-15 for `ak` in the raw data. And indeed it is. Similarly, we can confirm that the `lag_7_death_rate` is the value from "2021-09-08" in the raw `jhu` data and the `lag_14_death_rate` is the value from "2021-09-01". In this way, we can manually check that the model used the correct predictor data if we're so inclined.
+We can then check whether the predictor values from the pre-processed data have been correctly taken from the raw data. For example, the `lag_0_death_rate` should be the `death_rate` on the `time_value` of 2021-09-15 for `ak` in the raw data. And indeed it is. Similarly, we can confirm that the `lag_7_death_rate` is the value from "2021-09-08" and `lag_14_death_rate` is the value from "2021-09-01" in the raw `jhu` data. In this way, we can manually check that the model used the correct predictor data if we are so inclined.
 
-Now that we are crystal clear on how the lags work, we can kick our model up a notch and go from an AR model to an ARX model by adding additional predictors (for any additional time-varying covariates that are being treated as exogenous variables).
+Now that we are clear on how the lags work, we can proceed from a basic AR model to an ARX model by adding additional predictors (for any additional time-varying covariates that are being treated as exogenous variables).
 
 ```{r}
 arx_one_week_ahead <- arx_forecaster(jhu, outcome = "death_rate", predictors = c("death_rate", "case_rate"))
 arx_one_week_ahead
 ```
 
-Like with the flatline model, the result is an S3 object that by default outputs a short summary of the training data and the predictions. The object itself contains three components, which are the metadata, the `epi_workflow`, and a tibble of predictions as usual. We should take note that from the summary we can see that the predictions are for the target date of Dec. 8, 2021, which is 7 days after the Dec. 1, 2021 forecast date (aka. the date on which the forecast was made). This implies that the 7 days is yet again the default for how many days the target date is ahead of the forecast date. And as we saw for the flatline forecaster, to change this, you must change the ahead parameter in the additional arguments list `arx_args_list()`. If you look at the help file for that function, you will see that the key difference between this list and that for the flatline forecaster is that  here there's a lags parameter that is for enumerating the lags for predictors in autoregressive-type models. And we can tailor the number of lags to the predictor. For some practice, we'll change the lags argument for each of our `case_rate` and `death_rate` predictors as well as the ahead value to 5 days.
+As with the flatline model, the result is an S3 object that by default outputs a short summary of the training data and the predictions. The object itself contains three components: the metadata, the `epi_workflow`, and the tibble of predictions. From the summary, we can note that the predictions are for the target date of Dec. 8, 2021, which is 7 days after the Dec. 1, 2021 forecast date (aka. the date on which the forecast was made). This implies that the 7 days ahead of the forecast date is the default for the target date. And as we saw for the flatline forecaster, to change this you must change the ahead parameter in the additional arguments list, `arx_args_list()`. If you look at the help file for that function, you will see that the key difference between this list and that for the flatline forecaster is that  here there's a lags parameter to enumerate the lags for predictors in autoregressive-type models. And we can tailor the number of lags to the predictor. For some practice, we'll change the lags argument for each of our `case_rate` and `death_rate` predictors as well as the ahead value to 5 days.
 
 ```{r}
 arx_five_days_ahead_many_lags <- arx_forecaster(
@@ -92,18 +92,18 @@ arx_five_days_ahead_many_lags
 
 Now, instead of just inspecting the summary, we'll go a little deeper this time around and look into the `epi_workflow` as well as the pre-processing and post-processing operations that were carried out.
 
-The `epi_workflow` is contains everything necessary to produce the predictions from pre-processing, to the model, to post-processing operations performed.
+The `epi_workflow` is contains everything necessary to produce the predictions from the pre-processing, to the model fitting, to post-processing operations performed.
 
 ```{r}
 arx_one_week_ahead$epi_workflow
 ```
-Let's walk through the pre-processing that was done. The easy way to get this is to use `extract_preprocessor()` on the `epi_workflow` as follows:
+Let's walk through the pre-processing that was done. The easy way to obtain that is to use `extract_preprocessor()` on the `epi_workflow` as follows:
 
 ```{r}
 extract_preprocessor(arx_five_days_ahead_many_lags$epi_workflow)
 ```
 
-Under Operations, we can see that the pre-processing operations in the order they were carried out were to lag the death and case rates by the stated lags (`step_epi_lag()`), lead the death rate by 5 days (`step_epi_ahead()`), remove rows containing any NAs for the predictors or outcomes, and finally the number of recent observations used in the training window were not restricted (as in `step_training_window()` `n_training = Inf`). So, more was done here in comparison to the flatline forecaster. In particular, we now have steps to lag each of the predictor variables as well as to remove any rows containing a NA for any of the variables that make an appearance in the model.
+Under Operations, we can see the pre-processing operations in the order they are carried out. Firstly lag the death and case rates by the stated lags (`step_epi_lag()`), then lead the death rate by 5 days (`step_epi_ahead()`), remove the rows containing NAs in the predictors or outcomes, and finally, do not restrict of the number of recent observations used in the training window (as in `step_training_window()` `n_training = Inf`). More pre-processing is done here in comparison to the flatline forecaster. In particular, there are now steps to lag each the predictor variables as well as to remove any rows that contain a NA value.
 
 Next, let's have a brief look at the post-processing operations, which we can easily extract by using the `extract_frosting()` function on the `epi_workflow`.
 
@@ -111,7 +111,7 @@ Next, let's have a brief look at the post-processing operations, which we can ea
 extract_frosting(arx_five_days_ahead_many_lags$epi_workflow)
 ```
 
-We can see that the post-processing operations were to create the predictions and the corresponding 90% prediction intervals, add the forecast and target dates and lower bound the predictions at zero. You may note that what was done here is the same as for the flatline forecaster.
+We can see that the post-processing operations were to create the predictions and the corresponding 90% prediction intervals, add the forecast and target dates, and bound the predictions at zero. You may note that what was done here is the same as for the flatline forecaster.
 
 Let's now move on to examining the predictions themselves. 
 
@@ -149,9 +149,9 @@ ggplot(hist, aes(color = geo_value)) +
   theme(legend.position = "none") +
   labs(x = "", y = "Incident deaths per 100K\n inhabitants")
 ```
-You may have noticed that the above figure mirrors looks a lot like that for the flatline forecaster. The vertical black line marks the forecast date, the point beyond that is the prediction, and the band about that is the 90% prediction interval. So, nothing new there. The key difference is that here the predictions are not simply the last value each state pulled forward in time. In those shown here, there is more variability, more separation from the recent past, as we would expect to see in nature.
+You may have noticed that the above figure mirrors that for the flatline forecaster. The vertical black line marks the forecast date. The point beyond that is the prediction and the band about it is the 90% prediction interval. In comparison to the flatline forecaster, the key difference is that these predictions are not simply the last values pulled forward in time. Rather, there's more variability, more separation from the recent past, as we would expect to see in nature.
 
-Ok. That's for a single ahead that is not very far off from the forecast date, but how about when we look at the predictions for various aheads. What do we see then?
+What we've explored so far is for for a single ahead that is not very far off from the forecast date, but what do we see when we look at the predictions for various aheads?
 
 Let's create predictions (and prediction intervals) for each of 1 to 28 days beyond the forecast date. To do this, we'll again use `map()` from `purrr` to apply the forecaster to each ahead value and then row bind the list of results.
 
@@ -193,7 +193,7 @@ ggplot(hist) +
   labs(x = "", y = "Incident deaths per 100K\n inhabitants")
 ```
 
-All three bear a striking resemblance to what we'd expect when using the flatline forecaster. So, our simple ARX model either failed to capture the rise or fall in death rates or it does align with the truth and there was a period of relative stability. Since we have the true number of deaths over the prediction period in the `case_death_rate_subset` data, let's go ahead and overlay them on our plot to see for ourselves how our model faired. The way we'll get the job done to make the death rate lines is to not impose an upper bound the data used in `hist` (so that we get all data available from our Sept. 2, 2021 start until the last date of Dec. 31, 2021).
+All three bear a striking resemblance to what we'd expect when using the flatline forecaster. So, our simple ARX model either failed to capture the rise or fall in death rates or it aligns with the truth (there was a period of relative stability). Since we have the true number of deaths over the prediction period in the `case_death_rate_subset` data, let's go ahead and overlay them on our plot to see for ourselves how our model fared. The way that we will extend the black death rate lines is to not impose an upper bound of the data used in `hist` (so that we use all data available from our Sept. 2, 2021 start until the last date of Dec. 31, 2021).
 
 ```{r}
 #| fig-height: 5
@@ -218,11 +218,11 @@ ggplot(hist) +
   labs(x = "", y = "Incident deaths per 100K\n inhabitants")
 ```
 
-As our predictions get farther away from the forecast date, they don't seem unreasonable - sure they get increasingly questionable (as indicated by the larger prediction bands), but they are still not entirely unreasonable. Certainly they are more more sensible than the flatline forecaster (in which we simply propagated the last observation forward). The major philosophical difference between the two is that the ARX forecaster is built on the premise that the recent past is indicative of the future, whereas the flatline forecaster proceeds as though nothing but the single most recent instance is worthwhile for the future. And while we don't want to rule that out (it is possible), it is not usually something to base the future on; it is like saying that only what happened yesterday matters for today and for the rest of the month.
+We can see that the predictions get increasingly questionable as they get farther away from the forecast date (as indicated by the larger prediction bands), but still they are not entirely unreasonable. Certainly they are more more sensible than those produced by the flatline forecaster (in which we simply propagated the last observation forward). The major philosophical difference between the two forecasters is that the ARX forecaster is built on the premise that the recent past is indicative of the future, whereas the flatline forecaster proceeds as though nothing but the single most recent instance is indicative of the future.
 
-It is clear that the ARX forecaster is almost always more justifiable than the flatline forecaster to make farther-reaching predictions. And yet, however reasonable the long-term forecasts can seem, we should be careful to not overreach and make major long term predictions with a model that only uses data from the recent past. Such predictions have little to no practical value. So, in general, the ARX forecaster is more suited for short-term forecasts than for long-term forecasts and for instances where we think the future is well-represented by the past. For instance, if we expect there to be a period of major volatility coming up, but the past leading up to it has been relatively stable and uneventful, then a basic ARX model trained on the most recent past will not capture the upcoming insanity. In that case, amendments should be made and another model should be tried (though it may be hard to construct a good predictive model even in the best of such circumstances - in some cases it may be like trying to predict the unpredictable). This is an ever-present danger when modelling things like infectious diseases where there can be an explosion of cases or deaths rapidly and without much warning.
+It is clear that the ARX forecaster is almost always more justifiable than the flatline forecaster to make farther-reaching predictions. And yet, however reasonable its long-term forecasts can seem, we should be careful to not overreach and make major long term predictions with a model that only uses data from the recent past. Such predictions have little to no practical value. That is, in general, the ARX forecaster is more suited for short-term forecasts than for long-term forecasts and for instances where the future is well-represented by the past. For instance, if we expect there to be a period of major volatility coming up, but the recent past has been stable and uneventful, then a basic ARX model trained solely on the most recent past will fail to capture the volatility. In that case, amendments should be made or another model should be tried (though it may be hard to construct a good predictive model even in the best of such circumstances - in some cases it may be like trying to predict the unpredictable). This is an ever-present danger when modelling infectious diseases where there can be an explosion of cases or deaths rapidly and without much warning.
 
-To wrap this up this discussion, let's visually inspect how our predictions change over time and how they may be geospatially related. To do this, we'll make a dynamic chloropleth plot using `plotly`.
+To wrap up this discussion, let's visually inspect how our predictions change over time and how they may be geospatially related. We will construct a dynamic chloropleth plot using `plotly`.
 
 To prepare the data, we must extract the quantiles that make up the 90% predictive intervals (nested inside `.pred_distn`).
 
@@ -233,8 +233,8 @@ all_the_states_df <- out_df %>%
   pivot_wider(names_from = tau, values_from = q)
 ```
 
-Remember the adapted "Customize choropleth code" that we introduced at the end of [Regression In Tidymodels - Part 2](tidymodels-regression-part2.qmd#sec-interactive-plot)? Well all we got to do is make a few select changes to that code to get a slider bar so that we may see what happens over time for each state. The two key changes to make to that code are to convert the target dates vector to a character vector (to be compatible with `plotly`) and to specify that frame is based on `target_date` when initializing the plotly-geo object (in `plot_geo()`). 
-That's all it takes.
+We will base our code on that from the "Customize choropleth code" that we introduced at the end of [Regression In Tidymodels - Part 2](tidymodels-regression-part2.qmd#sec-interactive-plot). The two key changes to make to that code are to convert the target dates vector to a character vector (to be compatible with `plotly`) and to specify that frame is based on `target_date` when initializing the plotly-geo object (in `plot_geo()`). Making these changes will give us a slider bar so that we may see what happens over time for each state. 
+
 
 ```{r}
 #| fig-height: 1.75
@@ -276,10 +276,10 @@ fig <- fig %>% layout(
 fig
 ```
 
-You can either hit play in the above plot and sit back and watch what happens over time or you can manually slide the bar at the bottom across time and inspect the states of interest by hovering over them.
+Now, you can either hit play in the above plot and watch what happens over time or you can manually slide the bar at the bottom and inspect the states by hovering over them.
 
-A possible improvement to make to the above plot is to add the true death rates to it or to a similar plot that is positioned beside it. We'll leave this as an exercise to the reader that would like to take this opportunity to level up their skills.
+One possible improvement to make to the above plot is to add the true death rates to it or to a similar plot that is positioned beside it. We will leave this extension as an exercise to the reader.
 
 ## What we've learned in a nutshell
 
-While the ARX forecaster is a simple model at it core, it is competitive with more complicated forecasters. So mastering the basics of this forecaster and equipping yourself with the knowledge to customize it can be a fantastic to have in your forecasting toolbox.
+While the ARX forecaster is a simple and intuitive model at it core, it is competitive with more complicated forecasters. So mastering the basics of this forecaster and equipping yourself with the knowledge to customize it can be fantastic to have in your forecasting toolbox.
