@@ -1,0 +1,267 @@
+# Regression in Tidymodels - Part 2
+
+```{r}
+#| echo: false
+source("_common.R")
+```
+
+## Libraries and data
+
+```{r, message = FALSE}
+# Load necessary packages
+library(tidymodels)
+library(plotly)
+```
+
+As a follow-up to the [Regression in Tidymodels chapter](tidymodels-regression.qmd), we're going to look at how the functions we used to perform linear regression fare when applied to a small set of epidemiological time series data. We'll be working with the built-in JHU data on daily confirmed COVID-19 case and death rates for California over Dec. 31, 2020 to Dec. 31, 2021.
+
+Note that while data is available for all states, we're focusing on just one state's worth of data to avoid having to manage multiple regions (panel data). 
+
+```{r}
+# Load and subset data
+ca_case_death_rate_subset <- case_death_rate_subset %>% 
+  filter(geo_value == "ca")
+```
+
+## Simple linear regression
+
+Our goal for this exercise is to construct a simple linear regression model of daily death rate as a function of daily case rate. To do this, we'll apply the sequence of steps to build a model that we went through in the previous chapter (only in a different scenario). Thus, we'll opt for the same linear regression model specification. 
+
+```{r, echo = FALSE, out.width = "50%", fig.align='center'}
+knitr::include_graphics("img/set_engine.png")
+```
+
+```{r}
+lm_spec <- linear_reg() 
+```
+
+We made two simplifications to the linear regression model specification shown in the previous chapter. Firstly, setting the mode is unnecessary for linear regression, and, secondly, `lm` is the default engine for linear regression, so we do not have to include either.
+
+Now we fit our model by inputting the formula (of the form `y ~ x`) `death_rate ~ case_rate` and the `ca_case_death_rate_subset` into the `fit()` function.
+
+```{r}
+ca_lm_fit <- lm_spec %>%
+  fit(death_rate ~ case_rate, data = ca_case_death_rate_subset)
+ca_lm_fit
+```
+
+As before, let's use `purrr`’s `pluck()` function to access the underlying fit and then pipe that into `summary()` to get a basic synopsis of our model.
+
+```{r}
+ca_lm_fit %>% 
+  pluck("fit") %>%
+  summary()
+```
+
+Now we may generate predictions for the dataset. 
+
+```{r}
+predict(ca_lm_fit, new_data = ca_case_death_rate_subset)
+```
+To get a side-by-side view of the observed and predicted values for an informal comparison, we'll use `augment()`.
+
+```{r}
+# adjoin the model predictions to `ca_case_death_rate_subset`).
+augment(ca_lm_fit, new_data = ca_case_death_rate_subset) %>% 
+  select(death_rate, .pred)
+```
+
+All in all, everything that we did before seems to translate seamlessly over to handling this epidemiological time series data. But realistically, if we're tasked with predicting COVID-19 deaths, we do not only want to consider the concurrent case information. Since what happened in the past can inform us where things are heading, it is natural to include past case rates and death rates as predictors.
+
+## Adding lagged predictors and predicting for a target date
+
+At this point, it is important to consider how far back in the past to look. More specifically, we should consider what past case and death rates are most predictive of current deaths. If you are interested, conducting a lagged correlation analysis as in the [Correlate signals over space and time chapter](correlations.qmd) is one way to start exploring this. We will not take that route because it ventures into model selection territory, which is beyond the scope of this article. Instead, we will take a more ad hoc approach for deciding what lagged predictors to include.
+
+To begin, we will add predictors for the lagged 1-day death and case rates as those seem to be the most sensible choices (because it is reasonable to expect that yesterday is more predictive of today than two weeks ago).
+
+So first, let's add a column for the lagged 1-day death rates by using `dplyr`'s `mutate()` function.
+
+```{r}
+ca_subset_wlag <- ca_case_death_rate_subset %>%
+  mutate(lag_1_death_rate = lag(death_rate, 1))
+```
+
+Then, we can create our recipe, adding a `lag_1_day_case_rate` column in the same way as we added a non-linear transformation of a predictor previously - by using `step_mutate()` on the predictor that's been specified in the recipe formula.
+
+```{r}
+rec_spec_wlag <- recipe(death_rate ~ case_rate + lag_1_death_rate, data = ca_subset_wlag) %>%
+  step_mutate(lag_1_case_rate = lag(case_rate, 1))
+```
+
+Next, we input the model and recipe into our workflow and then fit the model to our dataset in the same way as we did before.
+
+```{r}
+lm_wf_lag <- workflow() %>%
+  add_model(lm_spec) %>%
+  add_recipe(rec_spec_wlag)
+
+ca_lm_fit_lag <- lm_wf_lag %>% fit(ca_subset_wlag)
+ca_lm_fit_lag
+```
+
+As a result, we obtain a trained workflow that has undergone both pre-processing (`step_mutate` to add the 1-day lagged case rate as a predictor) and model fitting. 
+
+Now, we'll use our model to predict the death rate for a day beyond the last in the dataset (so our target date is Jan. 1, 2022). Suppose that a reliable source tells us that the case rate for that day is 84.7 (cases per 100,000 population). From the last row of our dataset, we can see that the lagged 1-day case rate is about 84.4 and the lagged death rate is about 0.142 (deaths per 100,000 population). We'll put this information in a short dataframe:
+
+```{r}
+ca_jan1_df <- data.frame(geo_value = "ca",
+                       time_value = as.Date("2022-01-01"), 
+                       case_rate = 84.7, 
+                       lag_1_death_rate = last(ca_subset_wlag)$death_rate)
+```
+
+Notice that we included `lag_1_death_rate`, but no `lag_1_case_rate` in the above dataframe. The reason for this is that there is `lag_1_death_rate` in the `ca_subset_wlag` dataset that we used to construct the recipe. So the recipe expects that variable. In contrast, we used `step_mutate` to dynamically add the lagged case rate variable as a predictor. It was not part of the original recipe specification. This means that we do not want to designate a variable `lag_1_case_rate`, rather we just need enough rows of data in `new_data` so that when it undergoes the pre-processing step, that step can reach back to grab the lagged 1-day case rate from the `case_rate` variable. The easy way to ensure this can happen is to append `jan_1_df` to `ca_subset_wlag` using `bind_rows()`:
+
+```{r}
+# Add new row of to ca_subset_wlag
+ca_subset_wlag_jan1 <- bind_rows(
+  ca_subset_wlag,
+  ca_jan1_df
+)
+```
+
+And then input that into predict...
+
+```{r}
+predict(ca_lm_fit_lag, new_data = ca_subset_wlag_jan1) %>%
+  tail(n = 1)
+```
+Wonderful. We've successfully obtained a prediction. But it was a lot of work to to force recipes work with such data. How can we simplify things for ourselves? Well `epipredict` offers two clear options...
+
+### Option 1 - manually create our own `epi_recipe`
+
+It is more advantageous to use an `epi_recipe` than a `recipe` on an `epi_df` because it unlocks a number of features specific to epidemiological data such as tailored pre-processing steps like creating columns of lagged data. So, instead of using the `mutate()` and `step_mutate()` combination to get the lagged case and death rate variables, we can write the following where we use `step_epi_lag` to lag the predictors and specify how far ahead we want to predict the outcome using `step_epi_ahead`.
+
+```{r}
+ca_epi_r <- epi_recipe(ca_case_death_rate_subset) %>%
+  step_epi_lag(case_rate, lag = c(0, 1)) %>% 
+  step_epi_lag(death_rate, lag = 1) %>% 
+  step_epi_ahead(death_rate, ahead = 0)
+```
+
+Then, input the `epi_recipe` into an `epi_workflow()`, fit the linear model, and predict in the same way as before.
+
+```{r}
+ca_epi_wf <- epi_workflow(ca_epi_r, lm_spec) %>%
+  fit(ca_case_death_rate_subset)
+
+predict(ca_epi_wf, ca_subset_wlag_jan1 %>% select(-lag_1_death_rate)) %>% 
+  filter(time_value == "2022-01-01")
+```
+
+As expected, we obtain the same prediction as when we used the first approach.
+
+### Option 2 - let the `arx_forecaster()` do the work for us
+
+The `epipredict` package has the `arx_forecaster()` function that pre-processes, trains the model, predicts, and performs some basic post-processing all in one go. The reason why we can use this model is that the task of predicting the death rate for one day ahead using the lagged 1-day death and case rates is a type of autoregressive (AR) model (in which a linear combination of previous values are use forecast the variable of interest). 
+
+```{r, warning = FALSE}
+ca_arx_jan_22 <- arx_forecaster(
+  ca_subset_wlag_jan1 %>% select(-lag_1_death_rate), 
+  outcome = "death_rate", 
+  predictors = c("death_rate", "case_rate"),
+  args_list = arx_args_list(
+    lags = list(death_rate = c(1), case_rate = c(0,1)),
+    ahead = 0L
+  )
+) 
+ca_arx_jan_22$predictions
+```
+We can easily add more lags for the case and death rates into the function. All that we must do is add a couple of choice numbers to the `lags` argument. This is preferable to the (longwinded) alternative of adding them one by one to `step_mutate()`. So let's go ahead and try adding various lags for the case and death rates to `arx_forecaster()`:
+
+```{r, warning = FALSE}
+lots_of_lags_ca <- arx_forecaster(
+  ca_subset_wlag_jan1 %>% select(-lag_1_death_rate), 
+  outcome = "death_rate", 
+  predictors = c("case_rate", "death_rate"),
+  args_list = arx_args_list(
+    lags = list(case_rate = c(0, 1, 2, 3, 4, 7), death_rate = c(1, 2, 3, 4, 7)),
+    ahead = 0L
+  )
+) 
+lots_of_lags_ca$predictions
+```
+
+The other major benefit of the forecaster is that it is equipped to handle panel data. This means that we could input several other states worth of data, and get a prediction for each state. For example, we can try plugging in the entirety of the original `case_death_rate_subset` and get a prediction of the death rate on Jan. 1, 2022 for each state: 
+
+```{r, warning = FALSE}
+all_the_states <- arx_forecaster(
+  case_death_rate_subset, 
+  outcome = "death_rate", 
+  predictors = c("case_rate", "death_rate"),
+  args_list = arx_args_list(
+    lags = list(c(0, 1, 2, 3, 4, 7), c(1, 2, 3, 4, 7)),
+    ahead = 1L
+  )
+) 
+all_the_states$predictions
+```
+
+Awesome! We'll learn more about this and other forecasters in later chapters.
+
+## Interactive plot of predictions {#sec-interactive-plot}
+
+Let's finish off by producing an interactive `plotly` choropleth map of our above predictions (along with the 90% predictive intervals) to get a sense of how they may be geospatially related.
+
+First we'll ready our data. The key part is the extraction of the quantiles that make up the 90% predictive intervals. These are by default contained inside a distribution (`.pred_distn`) which we must unnest to get to.
+
+```{r}
+# Rename df of predictions to shorten up
+all_the_states_df <- all_the_states$predictions
+
+# Extract nested quantiles
+all_the_states_df <- all_the_states_df %>% 
+  mutate(q = nested_quantiles(.pred_distn)) %>% 
+  unnest(q) %>%
+  pivot_wider(names_from = tau, values_from = q)
+
+```
+
+Then, we adapted the "Customize choropleth code" from the [plotly website](https://plotly.com/r/choropleth-maps/) to our data. The two major changes we made are that we specified the text we would like to reveal when we hover (the predictions and the corresponding 90% predictive interval) and we modified the trace so that the predictions determine the colour of the state and the locations are based on the state abbreviations in `geo_value`.
+
+```{r}
+#| fig-height: 1.75
+#| code-fold: true
+# See on hover
+all_the_states_df$hover <- with(all_the_states_df, 
+                                     paste(toupper(geo_value), "<br>", 
+                                           "Pred death rate:", round(.pred, digits = 3), "<br>", 
+                                           "90% pred distn:", paste(round(`0.05`, digits = 3), 
+                                                                    round(`0.95`, digits = 3), sep = ", ")))
+
+# Give state boundaries a white border
+l <- list(color = toRGB("white"), width = 2)
+
+# Specify some map projection/options
+g <- list(
+  scope = 'usa',
+  projection = list(type = 'albers usa'),
+  showlakes = TRUE,
+  lakecolor = toRGB('white')
+)
+
+fig <- plot_geo(all_the_states_df, locationmode = 'USA-states')
+fig <- fig %>% add_trace(
+    z = ~.pred, text = ~hover, hoverinfo = 'text', locations = ~toupper(geo_value),
+    color = ~.pred, colors = 'Purples'
+  ) 
+
+# Add titles and such
+fig <- fig %>% colorbar(title = "Death rate")
+fig <- fig %>% layout(
+    title = '2022-01-01 predicted death rate (per 100,000) by state<br>(Hover for breakdown)',
+    geo = g
+  )
+
+fig
+
+```
+Not bad for a quick adaptation of existing `plotly` code. 
+
+At this point, it is good to do your own sanity check to make sure that the prediction values shown on the plot match up to those shown in the output (`all_the_states$predictions`) for each state. From our quick inspection, that checks out.
+
+Finally, it's good to consider what modifications we could make to improve the plot. For instance, if we had the true death rates, then we could show them on the same or on another choropleth map that's side-by-side to the one with the predictions. We'll leave it to the reader to try implementing such extensions on their own.
+
+## Attribution
+
+This vignette was largely adapted from [Chapter 3 of ISLR tidymodels labs](https://emilhvitfeldt.github.io/ISLR-tidymodels-labs/03-linear-regression.html). 
