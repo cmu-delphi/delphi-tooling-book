@@ -222,7 +222,7 @@ We can see that the predictions get increasingly questionable as they get farthe
 
 It is clear that the ARX forecaster is almost always more justifiable than the flatline forecaster to make farther-reaching predictions. And yet, however reasonable its long-term forecasts can seem, we should be careful to not overreach and make major long term predictions with a model that only uses data from the recent past. Such predictions have little to no practical value. That is, in general, the ARX forecaster is more suited for short-term forecasts than for long-term forecasts and for instances where the future is well-represented by the past. For instance, if we expect there to be a period of major volatility coming up, but the recent past has been stable and uneventful, then a basic ARX model trained solely on the most recent past will fail to capture the volatility. In that case, amendments should be made or another model should be tried (though it may be hard to construct a good predictive model even in the best of such circumstances - in some cases it may be like trying to predict the unpredictable). This is an ever-present danger when modelling infectious diseases where there can be an explosion of cases or deaths rapidly and without much warning.
 
-To wrap up this discussion, let's visually inspect how our predictions change over time and how they may be geospatially related. We will construct a dynamic chloropleth plot using `plotly`.
+To wrap up this discussion, let's visually inspect how our predictions change over time and how they may be geospatially related. We will construct a dynamic choropleth plot using `plotly`.
 
 To prepare the data, we must extract the quantiles that make up the 90% predictive intervals (nested inside `.pred_distn`).
 

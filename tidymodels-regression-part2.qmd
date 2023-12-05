@@ -260,7 +260,7 @@ Not bad for a quick adaptation of existing `plotly` code.
 
 At this point, it is good to do your own sanity check to make sure that the prediction values shown on the plot match up to those shown in the output (`all_the_states$predictions`) for each state. From our quick inspection, that checks out.
 
-Finally, it's good to consider what modifications we could make to improve the plot. For instance, if we had the true death rates, then we could show them on the same or on another chloropleth map that's side-by-side to the one with the predictions. We'll leave it to the reader to try implementing such extensions on their own.
+Finally, it's good to consider what modifications we could make to improve the plot. For instance, if we had the true death rates, then we could show them on the same or on another choropleth map that's side-by-side to the one with the predictions. We'll leave it to the reader to try implementing such extensions on their own.
 
 ## Attribution
 
