@@ -211,8 +211,8 @@ When merging archives, unless the archives have identical data release patterns,
 ```{r, message = FALSE, warning = FALSE,eval=FALSE}
 # This code is for illustration and doesn't run. 
 # The result is saved/loaded in the (hidden) next chunk from `{epidatasets}`
-y <- covidcast(
-  data_source = "jhu-csse",
+y <- pub_covidcast(
+  source = "jhu-csse",
   signals = "confirmed_7dav_incidence_prop",
   time_type = "day",
   geo_type = "state",
@@ -220,7 +220,6 @@ y <- covidcast(
   geo_values = "ca,fl,ny,tx",
   issues = epirange(20200601, 20211201)
 ) %>%
-  fetch() %>%
   select(geo_value, time_value, version = issue, case_rate_7d_av = value) %>%
   as_epi_archive(compactify = TRUE)
 

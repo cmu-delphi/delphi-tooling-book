@@ -55,15 +55,15 @@ five_days_ahead <- flatline_forecaster(
 five_days_ahead
 ```
 
-We could also specify that we want a 80% predictive interval by changing the 
-levels. The default 0.05 and 0.95 levels/quantiles give us 90% predictive 
-interval.
+We could also specify that we want a 80% predictive interval by changing the
+quantile levels. The default 0.05 and 0.95 levels/quantiles give us 90%
+predictive intervals.
 
 ```{r}
 five_days_ahead <- flatline_forecaster(
   jhu, 
   outcome = "death_rate",
-  flatline_args_list(ahead = 5L, levels = c(0.1, 0.9))
+  flatline_args_list(ahead = 5L, quantile_levels = c(0.1, 0.9))
 )
 
 five_days_ahead
@@ -72,7 +72,13 @@ five_days_ahead
 To see the other arguments that you may modify, please see `?flatline_args_list()`. For now, we will move on to looking at the workflow.
 
 ```{r}
+#| results: false
 five_days_ahead$epi_workflow
+```
+
+```{r}
+#| echo: false
+with_messages_cat_to_stdout(print(five_days_ahead$epi_workflow))
 ```
 
 The fitted model here was based on minimal pre-processing of the data, 
@@ -88,10 +94,7 @@ extract_preprocessor(five_days_ahead$epi_workflow)
 
 ```{r}
 #| echo: false
-#| results: asis
-#| message: true
-#| collapse: true
-extract_preprocessor(five_days_ahead$epi_workflow)
+with_messages_cat_to_stdout(print(extract_preprocessor(five_days_ahead$epi_workflow)))
 ```
 
 
@@ -110,10 +113,7 @@ extract_frosting(five_days_ahead$epi_workflow)
 
 ```{r}
 #| echo: false
-#| collapse: true
-#| results: false
-#| message: true
-extract_frosting(five_days_ahead$epi_workflow)
+with_messages_cat_to_stdout(print(extract_frosting(five_days_ahead$epi_workflow)))
 ```
 
 
@@ -139,9 +139,7 @@ hist <- jhu %>%
 
 preds <- five_days_ahead$predictions %>% 
   filter(geo_value %in% samp_geos) %>% 
-  mutate(q = nested_quantiles(.pred_distn)) %>% 
-  unnest(q) %>%
-  pivot_wider(names_from = tau, values_from = q)
+  pivot_quantiles_wider(.pred_distn)
 
 ggplot(hist, aes(color = geo_value)) +
   geom_line(aes(time_value, death_rate)) +
@@ -175,9 +173,7 @@ Then, we proceed as we did before. The only difference from before is that we're
 #| code-fold: true
 preds <- out_df %>% 
   filter(geo_value %in% samp_geos) %>% 
-  mutate(q = nested_quantiles(.pred_distn)) %>% 
-  unnest(q) %>%
-  pivot_wider(names_from = tau, values_from = q)
+  pivot_quantiles_wider(.pred_distn)
 
 ggplot(hist) +
   geom_line(aes(time_value, death_rate)) +

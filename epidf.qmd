@@ -31,14 +31,14 @@ library(epidatr)
 library(epiprocess)
 library(withr)
 
-cases <- covidcast(
-  data_source = "jhu-csse",
+cases <- pub_covidcast(
+  source = "jhu-csse",
   signals = "confirmed_cumulative_num",
   time_type = "day",
   geo_type = "state",
   time_values = epirange(20200301, 20220131),
   geo_values = "ca,fl,ny,tx"
-) %>% fetch()
+)
 
 colnames(cases)
 ```
