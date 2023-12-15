@@ -172,7 +172,7 @@ arx_forecaster <- function(
     args_list = arx_args_list(
       lags = c(0, 7, 14), 
       ahead = 7,
-      levels = c(0.05, 0.95)
+      quantile_levels = c(0.05, 0.95)
     )
 )
 
@@ -205,7 +205,7 @@ fcasts <- epi_slide(
 fcasts <- fcasts %>%
   select(geo_value, time_value, cases_7dav,
          contains("_distn"), fc_target_date) %>%
-  pivot_quantiles(contains("_distn"))
+  pivot_quantiles_wider(contains("_distn"))
 fcasts
 ```
 
@@ -239,7 +239,7 @@ k_week_ahead <- function(ahead = 7) {
     new_col_name = "fc") %>%
     select(geo_value, time_value, cases_7dav, contains("_distn"), 
            fc_target_date) %>%
-    pivot_quantiles(contains("_distn"))
+    pivot_quantiles_wider(contains("_distn"))
 }
 
 # First generate the forecasts, and bind them together

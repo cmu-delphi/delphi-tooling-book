@@ -63,24 +63,22 @@ package.
 #| eval: false
 #| code-fold: true
 geos <- c("ca", "fl", "tx", "ny", "nj")
-x <- covidcast(
-  data_source = "jhu-csse",
+x <- pub_covidcast(
+  source = "jhu-csse",
   signals = "confirmed_incidence_num",
   time_type = "day",
   geo_type = "state",
   time_values = epirange(20210604, 20211231),
   geo_values = geos) %>%
-  fetch() %>%
   select(geo_value, time_value, cases = value)
 
-y <- covidcast(
-  data_source = "jhu-csse",
+y <- pub_covidcast(
+  source = "jhu-csse",
   signals = "deaths_incidence_num",
   time_type = "day",
   geo_type = "state",
   time_values = epirange(20210604, 20211231),
   geo_values = geos) %>%
-  fetch() %>%
   select(geo_value, time_value, deaths = value)
 
 counts_subset <- full_join(x, y, by = c("geo_value", "time_value")) %>%
@@ -232,24 +230,22 @@ in public in the past 7 days maintained a distance of at least 6 feet.
 #| eval: false
 #| code-fold: true
 # Download the raw data as used in {epidatasets}
-behav_ind_mask <- covidcast(
-  data_source = "fb-survey",
+behav_ind_mask <- pub_covidcast(
+  source = "fb-survey",
   signals = "smoothed_wwearing_mask_7d",
   time_type = "day",
   geo_type = "state",
   time_values = epirange(20210604, 20211231),
   geo_values = geos)  %>%
-  fetch() %>%
   select(geo_value, time_value, masking = value)
 
-behav_ind_distancing <- covidcast(
-  data_source = "fb-survey",
+behav_ind_distancing <- pub_covidcast(
+  source = "fb-survey",
   signals = "smoothed_wothers_distanced_public",
   time_type = "day",
   geo_type = "state",
   time_values = epirange(20210604, 20211231),
   geo_values = geos)  %>%
-  fetch() %>%
   select(geo_value, time_value, distancing = value) 
 
 ctis_covid_behaviours <- behav_ind_mask %>%
@@ -349,7 +345,7 @@ f <- frosting() %>%
     by = c("geo_value" = "abbr"), 
     df_pop_col = "pop")
 
-wf <- epi_workflow(r, quantile_reg(tau = c(.05, .5, .95))) %>%
+wf <- epi_workflow(r, quantile_reg(quantile_levels = c(.05, .5, .95))) %>%
   fit(jhu) %>%
   add_frosting(f)
 
@@ -367,7 +363,7 @@ To look at the prediction intervals:
 ```{r}
 p %>%
   select(geo_value, target_date, .pred_scaled, .pred_distn_scaled) %>%
-  pivot_quantiles(.pred_distn_scaled)
+  pivot_quantiles_wider(.pred_distn_scaled)
 ```
 
 

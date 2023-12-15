@@ -100,7 +100,7 @@ fc <- bind_rows(
   )) %>%
     list_rbind()
 ) %>% 
-  pivot_quantiles(contains("_distn"))
+  pivot_quantiles_wider(contains("_distn"))
 ```
 
 Here, `arx_forecaster()` does all the heavy lifting. It creates leads of the
@@ -193,7 +193,7 @@ can_fc <- bind_rows(
   )) %>%
     list_rbind()
 ) %>%
-  pivot_quantiles(contains("_distn"))
+  pivot_quantiles_wider(contains("_distn"))
 ```
 
 The first figure shows the results for all of the provinces using linear regression. 
@@ -284,7 +284,7 @@ k_week_versioning <- function(ahead, version = c("faithful", "unfaithful")) {
 fc <- bind_rows(
   map(aheads, ~ k_week_versioning(.x, "faithful")) %>% list_rbind(),
   map(aheads, ~ k_week_versioning(.x, "unfaithful")) %>% list_rbind()
-) %>% pivot_quantiles(fc_.pred_distn) 
+) %>% pivot_quantiles_wider(fc_.pred_distn)
 ```
 
 Now we can plot the results on top of the latest case rates. As before, we will only display and focus on the results for FL and CA for simplicity.
