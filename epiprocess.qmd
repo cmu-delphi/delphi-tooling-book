@@ -15,17 +15,17 @@ contains the most up-to-date values of the signals variables, as of a given
 time.
 
 By convention, functions in the `epiprocess` package that operate on `epi_df`
-objects begin with `epi`. For example: 
+objects begin with `epi`. For example:
 
 - `epi_slide()`, for iteratively applying a custom computation to a variable in
   an `epi_df` object over sliding windows in time;
-  
+
 - `epi_cor()`, for computing lagged correlations between variables in an
   `epi_df` object, (allowing for grouping by geo value, time value, or any other
   variables).
 
 Functions in the package that operate directly on given variables do not begin
-  with `epi`. For example: 
+  with `epi`. For example:
 
 - `growth_rate()`, for estimating the growth rate of a given signal at given
   time values, using various methodologies;
@@ -35,20 +35,18 @@ Functions in the package that operate directly on given variables do not begin
 
 ## `epi_archive`: full version history of a data set
 
-The second main data structure in the package is called
-[`epi_archive`]. This is a special class (R6 format) 
-wrapped around a data table that stores the archive (version history) of some
-signal variables of interest.
+The second main data structure in the package is called [`epi_archive`]. This is
+an S3 class containing a data table that stores the archive (version history) of
+some signal variables of interest.
 
 By convention, functions in the `epiprocess` package that operate on
 `epi_archive` objects begin with `epix` (the "x" is meant to remind you of
-"archive"). These are just wrapper functions around the public methods for the
-`epi_archive` R6 class. For example:
+"archive"). For example:
 
 - `epix_as_of()`, for generating a snapshot in `epi_df` format from the data
   archive, which represents the most up-to-date values of the signal variables,
   as of the specified version;
-  
+
 - `epix_fill_through_version()`, for filling in some fake version data following
   simple rules, for use when downstream methods expect an archive that is more
   up-to-date (e.g., if it is a forecasting deadline date and one of our data
