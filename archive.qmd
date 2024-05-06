@@ -55,7 +55,7 @@ print(x)
 ```
 
 An `epi_archive` is an S3 class. Its primary field is a data table `DT`, which
-is of class `data.table` (from the `data.table` package), and has columns
+is of class `data.table` (from the `{data.table}` package), and has columns
 `geo_value`, `time_value`, `version`, as well as any number of additional
 columns.
 
