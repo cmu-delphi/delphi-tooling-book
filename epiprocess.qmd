@@ -39,7 +39,7 @@ The second main data structure in the package is called [`epi_archive`]. This is
 an S3 class containing a data table that stores the archive (version history) of
 some signal variables of interest.
 
-By convention, functions in the `epiprocess` package that operate on
+By convention, functions in the `{epiprocess}` package that operate on
 `epi_archive` objects begin with `epix` (the "x" is meant to remind you of
 "archive"). For example:
 
