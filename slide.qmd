@@ -148,7 +148,7 @@ As a more complex example, we preview some of the functionality of `{epipredict}
 local (in time)
 autoregression or "AR model". AR models can be fit in numerous ways 
 (using base R
-functions and various packages), but here we the `arx_forecaster()`, implemented in `{epipredict}` both
+functions and various packages), but here the `arx_forecaster()`, implemented in `{epipredict}` both
 provides a more advanced example of sliding a function over an `epi_df` object,
 and it allows us to be a bit more flexible in defining a *probabilistic*
 forecaster: one that outputs not just a point prediction, but a notion of
