@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.361">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Epidemiological Forecasting - 3&nbsp; Sliding computations</title>
+<title>3&nbsp; Sliding computations – Introduction to Epidemiological Forecasting</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -58,6 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -100,7 +101,13 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -109,14 +116,42 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -126,13 +161,13 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./epiprocess.html">epiprocess</a></li><li class="breadcrumb-item"><a href="./slide.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sliding computations</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./epiprocess.html">epiprocess</a></li><li class="breadcrumb-item"><a href="./slide.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sliding computations</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -141,24 +176,24 @@ div.csl-indent {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Introduction to Epidemiological Forecasting</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/cmu-delphi/delphi-tooling-book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-              <i class="bi bi-bi-twitter pe-1"></i>
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-bi-facebook pe-1"></i>
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
@@ -188,9 +223,9 @@ div.csl-indent {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">epiprocess</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -241,9 +276,9 @@ div.csl-indent {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">epipredict</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -287,7 +322,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sliding-forecasters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Pseudo-prospective forecast inspection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Sliding version-unaware and version-aware ARX forecasters across dates</span></span></a>
   </div>
 </li>
       </ul>
@@ -301,24 +336,25 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#slide-with-a-formula" id="toc-slide-with-a-formula" class="nav-link active" data-scroll-target="#slide-with-a-formula"><span class="header-section-number">3.1</span> Slide with a formula</a></li>
-  <li><a href="#slide-with-a-function" id="toc-slide-with-a-function" class="nav-link" data-scroll-target="#slide-with-a-function"><span class="header-section-number">3.2</span> Slide with a function</a></li>
+  <li><a href="#optimized-rolling-mean-and-sums" id="toc-optimized-rolling-mean-and-sums" class="nav-link active" data-scroll-target="#optimized-rolling-mean-and-sums"><span class="header-section-number">3.1</span> Optimized rolling mean and sums</a></li>
+  <li><a href="#general-sliding-with-a-formula" id="toc-general-sliding-with-a-formula" class="nav-link" data-scroll-target="#general-sliding-with-a-formula"><span class="header-section-number">3.2</span> General sliding with a formula</a></li>
   <li><a href="#slide-the-tidy-way" id="toc-slide-the-tidy-way" class="nav-link" data-scroll-target="#slide-the-tidy-way"><span class="header-section-number">3.3</span> Slide the tidy way</a></li>
-  <li><a href="#sec-local-forecaster" id="toc-sec-local-forecaster" class="nav-link" data-scroll-target="#sec-local-forecaster"><span class="header-section-number">3.4</span> Running a local forecaster</a></li>
+  <li><a href="#slide-with-a-function" id="toc-slide-with-a-function" class="nav-link" data-scroll-target="#slide-with-a-function"><span class="header-section-number">3.4</span> Slide with a function</a></li>
+  <li><a href="#sec-local-forecaster" id="toc-sec-local-forecaster" class="nav-link" data-scroll-target="#sec-local-forecaster"><span class="header-section-number">3.5</span> Running a local forecaster</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/cmu-delphi/delphi-tooling-book/blob/main/slide.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/cmu-delphi/delphi-tooling-book/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/cmu-delphi/delphi-tooling-book/edit/main/slide.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/cmu-delphi/delphi-tooling-book/blob/main/slide.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/cmu-delphi/delphi-tooling-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/cmu-delphi/delphi-tooling-book/edit/main/slide.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./epiprocess.html">epiprocess</a></li><li class="breadcrumb-item"><a href="./slide.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sliding computations</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span id="sec-sliding" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sliding computations</span></span></h1>
 </div>
@@ -333,10 +369,12 @@ div.csl-indent {
   </div>
   
 
+
 </header>
 
-<p>A central tool in the <code>{epiprocess}</code> package is <code>epi_slide()</code>, which is based on the powerful functionality provided in the <a href="https://cran.r-project.org/web/packages/slider"><code>slider</code></a> package. In <code>{epiprocess}</code>, to “slide” means to apply a computation—represented as a function or formula—over a sliding/rolling data window. Suitable groupings can always be achieved by a preliminary call to <code>group_by()</code>.</p>
-<p>By default, the meaning of one time step is inferred from the <code>time_value</code> column of the <code>epi_df</code> object under consideration, based on the way this column understands addition and subtraction. For example, if the time values are coded as <code>Date</code> objects, then one time step is one day, since <code>as.Date("2022-01-01") + 1</code> equals <code>as.Date("2022-01-02")</code>. Alternatively, the time step can be specified manually in the call to <code>epi_slide()</code>; you can read the documentation for more details. Furthermore, the alignment of the running window used in <code>epi_slide()</code> can be “right”, “center”, or “left”; the default is “right”, and is what we use in this vignette.</p>
+
+<p>A central tool in the <code>{epiprocess}</code> package is <code>epi_slide()</code>, which is based on the powerful functionality provided in the <a href="https://cran.r-project.org/web/packages/slider"><code>slider</code></a> package. In <code>epiprocess</code>, to “slide” means to apply a computation—represented as a function or formula—over a sliding/rolling data window. The function always applies the slide inside each group and the grouping is assumed to be across all group keys of the <code>epi_df</code> (this is the grouping used by default if you do not group the <code>epi_df</code> with a <code>group_by()</code>).</p>
+<p>By default, the <code>.window_size</code> units depend on the <code>time_type</code> of the <code>epi_df</code>, which is determined from the types in the <code>time_value</code> column of the <code>epi_df</code>. See the “Details” in <code>epi_slide()</code> for more.</p>
 <p>As in getting started guide, we’ll fetch daily reported COVID-19 cases from CA, FL, NY, and TX (note: here we’re using new, not cumulative cases) using the <a href="https://github.com/cmu-delphi/epidatr"><code>epidatr</code></a> package, and then convert this to <code>epi_df</code> format.</p>
 <div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-2_feb3ab09af2a656b7552aabd4fb92768">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epidatr)</span>
@@ -344,28 +382,84 @@ div.csl-indent {
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epipredict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The example data we’ll use is part of the package and has 2,684 rows and 3 columns.</p>
-<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-3_de5ebab547ecc5d1e32e4f6b65aac60b">
+<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-3_b89fbf7446d0088fa754a437bf6f03e8">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(jhu_csse_daily_subset)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> jhu_csse_daily_subset <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>edf <span class="ot">&lt;-</span> jhu_csse_daily_subset <span class="sc">%&gt;%</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(geo_value, time_value, cases) <span class="sc">%&gt;%</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(geo_value, time_value) <span class="sc">%&gt;%</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_epi_df</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="slide-with-a-formula" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="slide-with-a-formula"><span class="header-section-number">3.1</span> Slide with a formula</h2>
-<p>We first demonstrate how to apply a 7-day trailing average to the daily cases in order to smooth the signal, by passing in a formula for the first argument of <code>epi_slide()</code>. To do this computation per state, we first call <code>group_by()</code>.</p>
-<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-4_13b28969f566d77bd0c5e1e88a551491">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&gt;%</span></span>
+<section id="optimized-rolling-mean-and-sums" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="optimized-rolling-mean-and-sums"><span class="header-section-number">3.1</span> Optimized rolling mean and sums</h2>
+<p>For the two most common sliding operations, we offer two optimized versions: <code>epi_slide_mean()</code> and <code>epi_slide_sum()</code>. This example gets the 7-day trailing average of the daily cases. Note that the name of the column(s) that we want to average is specified as the first argument of <code>epi_slide_mean()</code>.</p>
+<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-4_a2804c3f9814a21c5786987a3f2838e3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>edf <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(geo_value) <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">epi_slide</span>(<span class="sc">~</span> <span class="fu">mean</span>(.x<span class="sc">$</span>cases), <span class="at">before =</span> <span class="dv">6</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">epi_slide_mean</span>(<span class="st">"cases"</span>, <span class="at">.window_size =</span> <span class="dv">7</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; An `epi_df` object, 4,026 x 4 with metadata:
+<pre><code>#&gt; An `epi_df` object, 10 x 4 with metadata:
 #&gt; * geo_type  = state
 #&gt; * time_type = day
-#&gt; * as_of     = 2022-05-23 13:17:07.044666
+#&gt; * as_of     = 2024-08-22 19:40:48.296938
 #&gt; 
-#&gt; # A tibble: 4,026 × 4
+#&gt; # A tibble: 10 × 4
+#&gt;   geo_value time_value cases slide_value_cases
+#&gt; * &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt;             &lt;dbl&gt;
+#&gt; 1 ca        2020-03-01     6              6   
+#&gt; 2 ca        2020-03-02     4              5   
+#&gt; 3 ca        2020-03-03     6              5.33
+#&gt; 4 ca        2020-03-04    11              6.75
+#&gt; 5 ca        2020-03-05    10              7.4 
+#&gt; 6 ca        2020-03-06    18              9.17
+#&gt; # ℹ 4 more rows</code></pre>
+</div>
+</div>
+<p>Note that we passed <code>na.rm = TRUE</code> to <code>data.table::frollmean()</code> via <code>...</code> to <code>epi_slide_mean</code>.</p>
+<p>The following computes the 7-day trailing sum of daily cases (and passed <code>na.rm</code> to <code>data.table::frollsum()</code> similarly):</p>
+<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-5_5f3bbe76c94ac276d887fce7ad154af5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>edf <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(geo_value) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">epi_slide_sum</span>(<span class="st">"cases"</span>, <span class="at">.window_size =</span> <span class="dv">7</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; An `epi_df` object, 10 x 4 with metadata:
+#&gt; * geo_type  = state
+#&gt; * time_type = day
+#&gt; * as_of     = 2024-08-22 19:40:48.296938
+#&gt; 
+#&gt; # A tibble: 10 × 4
+#&gt;   geo_value time_value cases slide_value_cases
+#&gt; * &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt;             &lt;dbl&gt;
+#&gt; 1 ca        2020-03-01     6                 6
+#&gt; 2 ca        2020-03-02     4                10
+#&gt; 3 ca        2020-03-03     6                16
+#&gt; 4 ca        2020-03-04    11                27
+#&gt; 5 ca        2020-03-05    10                37
+#&gt; 6 ca        2020-03-06    18                55
+#&gt; # ℹ 4 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="general-sliding-with-a-formula" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="general-sliding-with-a-formula"><span class="header-section-number">3.2</span> General sliding with a formula</h2>
+<p>The previous computations can also be performed using <code>epi_slide()</code>, which can be used for more general sliding computations (but is much slower for the specific cases of mean and sum).</p>
+<p>The same 7-day trailing average of daily cases can be computed by passing in a formula for the first argument of <code>epi_slide()</code>:</p>
+<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-6_a5a7685ae8752595826c00ed5173f752">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>edf <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(geo_value) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">epi_slide</span>(<span class="sc">~</span> <span class="fu">mean</span>(.x<span class="sc">$</span>cases, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.window_size =</span> <span class="dv">7</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; An `epi_df` object, 10 x 4 with metadata:
+#&gt; * geo_type  = state
+#&gt; * time_type = day
+#&gt; * as_of     = 2024-08-22 19:40:48.296938
+#&gt; 
+#&gt; # A tibble: 10 × 4
 #&gt;   geo_value time_value cases slide_value
 #&gt; * &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt;       &lt;dbl&gt;
 #&gt; 1 ca        2020-03-01     6        6   
@@ -374,59 +468,149 @@ div.csl-indent {
 #&gt; 4 ca        2020-03-04    11        6.75
 #&gt; 5 ca        2020-03-05    10        7.4 
 #&gt; 6 ca        2020-03-06    18        9.17
-#&gt; # ℹ 4,020 more rows</code></pre>
+#&gt; # ℹ 4 more rows</code></pre>
 </div>
 </div>
-<p>The formula specified has access to all non-grouping columns present in the original <code>epi_df</code> object (and must refer to them with the prefix <code>.x$</code>). As we can see, the function <code>epi_slide()</code> returns an <code>epi_df</code> object with a new column appended that contains the results (from sliding), named <code>slide_value</code> as the default. We can of course change this post hoc, or we can instead specify a new name up front using the <code>new_col_name</code> argument:</p>
-<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-5_cf02a2675d6bbdf3eb316e16406a82e5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(geo_value) <span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">epi_slide</span>(<span class="sc">~</span> <span class="fu">mean</span>(.x<span class="sc">$</span>cases), <span class="at">before =</span> <span class="dv">6</span>, <span class="at">new_col_name =</span> <span class="st">"cases_7dav"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If your formula returns a data.frame, then the columns of the data.frame will be unpacked into the resulting <code>epi_df</code>. For example, the following computes the 7-day trailing average of daily cases and the 7-day trailing sum of daily cases:</p>
+<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-7_3f4404872d142bf1fb425e712231a143">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>edf <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(geo_value) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">epi_slide</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span> <span class="fu">data.frame</span>(<span class="at">cases_mean =</span> <span class="fu">mean</span>(.x<span class="sc">$</span>cases, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">cases_sum =</span> <span class="fu">sum</span>(.x<span class="sc">$</span>cases, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.window_size =</span> <span class="dv">7</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; An `epi_df` object, 4,026 x 4 with metadata:
+<pre><code>#&gt; An `epi_df` object, 10 x 5 with metadata:
 #&gt; * geo_type  = state
 #&gt; * time_type = day
-#&gt; * as_of     = 2022-05-23 13:17:07.044666
+#&gt; * as_of     = 2024-08-22 19:40:48.296938
 #&gt; 
-#&gt; # A tibble: 4,026 × 4
-#&gt;   geo_value time_value cases cases_7dav
-#&gt; * &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-#&gt; 1 ca        2020-03-01     6       6   
-#&gt; 2 ca        2020-03-02     4       5   
-#&gt; 3 ca        2020-03-03     6       5.33
-#&gt; 4 ca        2020-03-04    11       6.75
-#&gt; 5 ca        2020-03-05    10       7.4 
-#&gt; 6 ca        2020-03-06    18       9.17
-#&gt; # ℹ 4,020 more rows</code></pre>
+#&gt; # A tibble: 10 × 5
+#&gt;   geo_value time_value cases cases_mean cases_sum
+#&gt; * &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+#&gt; 1 ca        2020-03-01     6       6            6
+#&gt; 2 ca        2020-03-02     4       5           10
+#&gt; 3 ca        2020-03-03     6       5.33        16
+#&gt; 4 ca        2020-03-04    11       6.75        27
+#&gt; 5 ca        2020-03-05    10       7.4         37
+#&gt; 6 ca        2020-03-06    18       9.17        55
+#&gt; # ℹ 4 more rows</code></pre>
 </div>
 </div>
+<p>Note that this formula has access to all non-grouping columns present in the original <code>epi_df</code> object and must refer to them with the prefix <code>.x$...</code>. As we can see, the function <code>epi_slide()</code> returns an <code>epi_df</code> object with a new column appended that contains the results (from sliding), named <code>slide_value</code> as the default.</p>
 <p>Some other information is available in additional variables:</p>
 <ul>
 <li><code>.group_key</code> is a one-row tibble containing the values of the grouping variables for the associated group</li>
 <li><code>.ref_time_value</code> is the reference time value the time window was based on</li>
 </ul>
-<p>Like in <code>group_modify()</code>, there are alternative names for these variables as well: <code>.</code> can be used instead of <code>.x</code>, <code>.y</code> instead of <code>.group_key</code>, and <code>.z</code> instead of <code>.ref_time_value</code>.</p>
-</section>
-<section id="slide-with-a-function" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="slide-with-a-function"><span class="header-section-number">3.2</span> Slide with a function</h2>
-<p>We can also pass a function for the first argument in <code>epi_slide()</code>. In this case, the passed function must accept the following arguments:</p>
-<p>In this case, the passed function <code>f</code> must accept the following arguments: a data frame with the same column names as the original object, minus any grouping variables, containing the time window data for one group-<code>ref_time_value</code> combination; followed by a one-row tibble containing the values of the grouping variables for the associated group; followed by the associated <code>ref_time_value</code>. It can accept additional arguments; <code>epi_slide()</code> will forward any <code>...</code> args it receives to <code>f</code>.</p>
-<p>Recreating the last example of a 7-day trailing average:</p>
-<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-6_63c4174606b3c7249ee9ddd5f3171d78">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(geo_value) <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">epi_slide</span>(<span class="cf">function</span>(x, gk, rtv) <span class="fu">mean</span>(x<span class="sc">$</span>cases),</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">before =</span> <span class="dv">6</span>, <span class="at">new_col_name =</span> <span class="st">"cases_7dav"</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-8_6fef540b7403e96758a8385c45ac0b68">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Returning geo_value in the formula</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>edf <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(geo_value) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">epi_slide</span>(<span class="sc">~</span> .x<span class="sc">$</span>geo_value[[<span class="dv">1</span>]], <span class="at">.window_size =</span> <span class="dv">7</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; An `epi_df` object, 4,026 x 4 with metadata:
+<pre><code>#&gt; An `epi_df` object, 10 x 4 with metadata:
 #&gt; * geo_type  = state
 #&gt; * time_type = day
-#&gt; * as_of     = 2022-05-23 13:17:07.044666
+#&gt; * as_of     = 2024-08-22 19:40:48.296938
 #&gt; 
-#&gt; # A tibble: 4,026 × 4
+#&gt; # A tibble: 10 × 4
+#&gt;   geo_value time_value cases slide_value
+#&gt; * &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
+#&gt; 1 ca        2020-03-01     6 ca         
+#&gt; 2 ca        2020-03-02     4 ca         
+#&gt; 3 ca        2020-03-03     6 ca         
+#&gt; 4 ca        2020-03-04    11 ca         
+#&gt; 5 ca        2020-03-05    10 ca         
+#&gt; 6 ca        2020-03-06    18 ca         
+#&gt; # ℹ 4 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Returning time_value in the formula</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>edf <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(geo_value) <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">epi_slide</span>(<span class="sc">~</span> .x<span class="sc">$</span>time_value[[<span class="dv">1</span>]], <span class="at">.window_size =</span> <span class="dv">7</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; An `epi_df` object, 10 x 4 with metadata:
+#&gt; * geo_type  = state
+#&gt; * time_type = day
+#&gt; * as_of     = 2024-08-22 19:40:48.296938
+#&gt; 
+#&gt; # A tibble: 10 × 4
+#&gt;   geo_value time_value cases slide_value
+#&gt; * &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt; &lt;date&gt;     
+#&gt; 1 ca        2020-03-01     6 2020-02-24 
+#&gt; 2 ca        2020-03-02     4 2020-02-25 
+#&gt; 3 ca        2020-03-03     6 2020-02-26 
+#&gt; 4 ca        2020-03-04    11 2020-02-27 
+#&gt; 5 ca        2020-03-05    10 2020-02-28 
+#&gt; 6 ca        2020-03-06    18 2020-02-29 
+#&gt; # ℹ 4 more rows</code></pre>
+</div>
+</div>
+<p>While the computations above do not look very useful, these can be used as building blocks for computations that do something different depending on the geo_value or ref_time_value.</p>
+</section>
+<section id="slide-the-tidy-way" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="slide-the-tidy-way"><span class="header-section-number">3.3</span> Slide the tidy way</h2>
+<p>Perhaps the most convenient way to setup a computation in <code>epi_slide()</code> is to pass in an expression for tidy evaluation. In this case, we can simply define the name of the new column directly as part of the expression, setting it equal to a computation in which we can access any columns of <code>.x</code> by name, just as we would in a call to <code>dplyr::mutate()</code>, or any of the <code>dplyr</code> verbs. For example:</p>
+<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-9_099c56974dc1b1b9333fc886ce5e0236">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>slide_output <span class="ot">&lt;-</span> edf <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(geo_value) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">epi_slide</span>(<span class="at">cases_7dav =</span> <span class="fu">mean</span>(cases, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.window_size =</span> <span class="dv">7</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In addition to referring to individual columns by name, you can refer to <code>epi_df</code> time window as <code>.x</code> (<code>.group_key</code> and <code>.ref_time_value</code> are still available). Also, the tidyverse “pronouns” <code>.data</code> and <code>.env</code> can also be used if you need distinguish between the data and environment.</p>
+<p>As a simple sanity check, we visualize the 7-day trailing averages computed on top of the original counts:</p>
+<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-10_4334cefaa041ba7576fa06309b28992d">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(slide_output, <span class="fu">aes</span>(<span class="at">x =</span> time_value)) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">y =</span> cases, <span class="at">fill =</span> geo_value), <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> cases_7dav, <span class="at">col =</span> geo_value), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>geo_value, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">minor_breaks =</span> <span class="st">"month"</span>, <span class="at">date_labels =</span> <span class="st">"%b %y"</span>) <span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date"</span>, <span class="at">y =</span> <span class="st">"Reported COVID-19 cases"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="slide_files/figure-html/unnamed-chunk-10-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As we can see from the top right panel, it looks like Texas moved to weekly reporting of COVID-19 cases in summer of 2021.</p>
+</section>
+<section id="slide-with-a-function" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="slide-with-a-function"><span class="header-section-number">3.4</span> Slide with a function</h2>
+<p>We can also pass a function to the second argument in <code>epi_slide()</code>. In this case, the passed function <code>.f</code> must have the form <code>function(x, g, t, ...)</code>, where</p>
+<ul>
+<li>“x” is an epi_df with the same column names as the archive’s <code>DT</code>, minus the <code>version</code> column</li>
+<li>“g” is a one-row tibble containing the values of the grouping variables for the associated group</li>
+<li>“t” is the ref_time_value for the current window</li>
+<li>“…” are additional arguments</li>
+</ul>
+<p>Recreating the last example of a 7-day trailing average:</p>
+<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-11_12a17a34c13a7e8307744518a41d53a4">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> edf <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(geo_value) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">epi_slide</span>(<span class="cf">function</span>(x, g, t) <span class="fu">mean</span>(x<span class="sc">$</span>cases, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.window_size =</span> <span class="dv">7</span>, <span class="at">.new_col_name =</span> <span class="st">"cases_7dav"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&gt;%</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; An `epi_df` object, 10 x 4 with metadata:
+#&gt; * geo_type  = state
+#&gt; * time_type = day
+#&gt; * as_of     = 2024-08-22 19:40:48.296938
+#&gt; 
+#&gt; # A tibble: 10 × 4
 #&gt;   geo_value time_value cases cases_7dav
 #&gt; * &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt;      &lt;dbl&gt;
 #&gt; 1 ca        2020-03-01     6       6   
@@ -435,159 +619,140 @@ div.csl-indent {
 #&gt; 4 ca        2020-03-04    11       6.75
 #&gt; 5 ca        2020-03-05    10       7.4 
 #&gt; 6 ca        2020-03-06    18       9.17
-#&gt; # ℹ 4,020 more rows</code></pre>
+#&gt; # ℹ 4 more rows</code></pre>
 </div>
 </div>
-</section>
-<section id="slide-the-tidy-way" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="slide-the-tidy-way"><span class="header-section-number">3.3</span> Slide the tidy way</h2>
-<p>Perhaps the most convenient way to setup a computation in <code>epi_slide()</code> is to pass in an expression for tidy evaluation. In this case, we can simply define the name of the new column directly as part of the expression, setting it equal to a computation in which we can access any columns of <code>x</code> by name, just as we would in a call to <code>dplyr::mutate()</code>, or any of the <code>dplyr</code> verbs. For example:</p>
-<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-7_86937bdc4f9b436be5721bf89cb48542">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> x <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(geo_value) <span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">epi_slide</span>(<span class="at">cases_7dav =</span> <span class="fu">mean</span>(cases), <span class="at">before =</span> <span class="dv">6</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>In addition to referring to individual columns by name, you can refer to the time window data as an <code>epi_df</code> or <code>tibble</code> using <code>.x</code>. Similarly, the other arguments of the function format are available through the magic names <code>.group_key</code> and <code>.ref_time_value</code>, and the tidyverse “pronouns” <code>.data</code> and <code>.env</code> can also be used.</p>
-<p>As a simple sanity check, we visualize the 7-day trailing averages computed on top of the original counts.</p>
-<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-8_4be7d7ffd8b84de93dbeff6c68bf1113">
-<details>
+<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-12_34e93e3b2dc10094fb15530dac8e7f0f">
+<details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="dv">7</span>, <span class="st">"Set1"</span>)[<span class="sc">-</span><span class="dv">6</span>]</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(x, <span class="fu">aes</span>(<span class="at">x =</span> time_value)) <span class="sc">+</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">y =</span> cases, <span class="at">fill =</span> geo_value),</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">show.legend =</span> <span class="cn">FALSE</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>))) <span class="sc">+</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> cases_7dav, <span class="at">col =</span> geo_value), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> cols) <span class="sc">+</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> cols) <span class="sc">+</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>geo_value, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">minor_breaks =</span> <span class="st">"month"</span>, <span class="at">date_labels =</span> <span class="st">"%b %Y"</span>) <span class="sc">+</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date"</span>, <span class="at">y =</span> <span class="st">"Reported COVID-19 cases"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="dv">7</span>, <span class="st">"Set1"</span>)[<span class="sc">-</span><span class="dv">6</span>]</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(x, <span class="fu">aes</span>(<span class="at">x =</span> time_value)) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">y =</span> cases, <span class="at">fill =</span> geo_value),</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">show.legend =</span> <span class="cn">FALSE</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>))) <span class="sc">+</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> cases_7dav, <span class="at">col =</span> geo_value), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> cols) <span class="sc">+</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> cols) <span class="sc">+</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>geo_value, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">minor_breaks =</span> <span class="st">"month"</span>, <span class="at">date_labels =</span> <span class="st">"%b %Y"</span>) <span class="sc">+</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date"</span>, <span class="at">y =</span> <span class="st">"Reported COVID-19 cases"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="slide_files/figure-html/unnamed-chunk-8-1.svg" class="img-fluid figure-img" style="width:90.0%"></p>
+<p><img src="slide_files/figure-html/unnamed-chunk-12-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>As we can see from the center top panel, it looks like Florida moved to weekly reporting of COVID-19 cases in summer of 2021, while California occasionally reported negative cases counts!</p>
 </section>
-<section id="sec-local-forecaster" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="sec-local-forecaster"><span class="header-section-number">3.4</span> Running a local forecaster</h2>
+<section id="sec-local-forecaster" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="sec-local-forecaster"><span class="header-section-number">3.5</span> Running a local forecaster</h2>
 <p>As a more complex example, we preview some of the functionality of <code>{epipredict}</code> described in future chapters, and use a forecaster based on a local (in time) autoregression or “AR model”. AR models can be fit in numerous ways (using base R functions and various packages), but here we the <code>arx_forecaster()</code>, implemented in <code>{epipredict}</code> both provides a more advanced example of sliding a function over an <code>epi_df</code> object, and it allows us to be a bit more flexible in defining a <em>probabilistic</em> forecaster: one that outputs not just a point prediction, but a notion of uncertainty around this. In particular, our forecaster will output a point prediction along with an 90% uncertainty band, represented by a predictive quantiles at the 5% and 95% levels (lower and upper endpoints of the uncertainty band).</p>
 <p>The function signature below, is a probabilistic AR forecaster. The <code>lags</code> argument indicates which lags to use in the model, and <code>ahead</code> indicates how far ahead in the future to make forecasts (both are encoded in terms of the units of the <code>time_value</code> column; so, days, in the working <code>epi_df</code> being considered in this vignette).</p>
-<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-9_bf2bf3063005fa308698ea53fdd30f5f">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>arx_forecaster <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    epi_df, </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    outcome, <span class="co"># the outcome column name in `epi_df`</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    predictors, <span class="co"># a character vector, containing 1 or more predictors in `epi_df`</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">trainer =</span> <span class="fu">quantile_reg</span>(), </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">args_list =</span> <span class="fu">arx_args_list</span>(</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">lags =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">14</span>), </span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">ahead =</span> <span class="dv">7</span>,</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>)</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-13_190292c89295d7aec9312bafe5b82171">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>arx_forecaster <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    epi_df,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    outcome, <span class="co"># the outcome column name in `epi_df`</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    predictors, <span class="co"># a character vector, containing 1 or more predictors in `epi_df`</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">trainer =</span> <span class="fu">quantile_reg</span>(),</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">args_list =</span> <span class="fu">arx_args_list</span>(</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">lags =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">14</span>),</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">ahead =</span> <span class="dv">7</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">quantile_levels =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    )) {</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We go ahead and slide this AR forecaster over the working <code>epi_df</code> of COVID-19 cases. Note that we actually model the <code>cases_7dav</code> column, to operate on the scale of smoothed COVID-19 cases. This is clearly equivalent, up to a constant, to modeling weekly sums of COVID-19 cases.</p>
-<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-10_4ecf05c582d8dec6a2a1625d5edcaeda">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fc_time_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">from =</span> <span class="fu">as.Date</span>(<span class="st">"2020-06-01"</span>),</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">to =</span> <span class="fu">as.Date</span>(<span class="st">"2021-12-01"</span>),</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"1 months"</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>fcasts <span class="ot">&lt;-</span> <span class="fu">epi_slide</span>(</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  x,</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span> <span class="fu">arx_forecaster</span>(</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">epi_data =</span> .x,</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">outcome =</span> <span class="st">"cases_7dav"</span>,</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">predictors =</span> <span class="st">"cases_7dav"</span>,</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">trainer =</span> <span class="fu">quantile_reg</span>(),</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">args_list =</span> <span class="fu">arx_args_list</span>(<span class="at">ahead =</span> <span class="dv">7</span>)</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span>predictions,</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">before =</span> <span class="dv">119</span>,</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">ref_time_values =</span> fc_time_values,</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">new_col_name =</span> <span class="st">"fc"</span></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co"># grab just the relevant columns, and make them easier to plot</span></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>fcasts <span class="ot">&lt;-</span> fcasts <span class="sc">%&gt;%</span></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    geo_value, time_value, cases_7dav,</span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">contains</span>(<span class="st">"_distn"</span>), fc_target_date</span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_quantiles</span>(<span class="fu">contains</span>(<span class="st">"_distn"</span>))</span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>fcasts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-14_122fc4479578275735303f9c21ce9c5e">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>fc_time_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">from =</span> <span class="fu">as.Date</span>(<span class="st">"2020-06-01"</span>),</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">to =</span> <span class="fu">as.Date</span>(<span class="st">"2021-12-01"</span>),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"1 months"</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>fcasts <span class="ot">&lt;-</span> <span class="fu">epi_slide</span>(</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  x,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">.f =</span> <span class="sc">~</span> <span class="fu">arx_forecaster</span>(</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">epi_data =</span> .x,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">outcome =</span> <span class="st">"cases_7dav"</span>,</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">predictors =</span> <span class="st">"cases_7dav"</span>,</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">trainer =</span> <span class="fu">quantile_reg</span>(),</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">args_list =</span> <span class="fu">arx_args_list</span>(<span class="at">ahead =</span> <span class="dv">7</span>)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span>predictions,</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">.window_size =</span> <span class="dv">120</span>,</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">.ref_time_values =</span> fc_time_values</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co"># grab just the relevant columns, and make them easier to plot</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>fcasts <span class="ot">&lt;-</span> fcasts <span class="sc">%&gt;%</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(geo_value, time_value, cases_7dav, .pred, .pred_distn) <span class="sc">%&gt;%</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_quantiles_wider</span>(<span class="st">".pred_distn"</span>)</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>fcasts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; # A tibble: 114 × 7
-#&gt;   geo_value time_value cases_7dav fc_target_date `0.05` `0.5` `0.95`
-#&gt;   &lt;chr&gt;     &lt;date&gt;          &lt;dbl&gt; &lt;date&gt;          &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-#&gt; 1 ca        2020-06-01      2655. 2020-06-08      1940. 2694.  3840.
-#&gt; 2 fl        2020-06-01       726. 2020-06-08       558.  747.  1290.
-#&gt; 3 ga        2020-06-01       643. 2020-06-08       520.  638.  1083.
-#&gt; 4 ny        2020-06-01      1278. 2020-06-08       821. 1044.  1864.
-#&gt; 5 pa        2020-06-01       603. 2020-06-08       450.  570.  1080.
-#&gt; 6 tx        2020-06-01      1002. 2020-06-08       716. 1134.  1950.
+#&gt; # Groups:   geo_value [6]
+#&gt;   geo_value time_value cases_7dav .pred `0.05` `0.5` `0.95`
+#&gt;   &lt;chr&gt;     &lt;date&gt;          &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; 1 ca        2020-06-01      2694  2332.  2266. 2332.  2957.
+#&gt; 2 ca        2020-07-01      6722  7979.  7081. 7979.  8999.
+#&gt; 3 ca        2020-08-01      8284. 7339.  6745. 7339.  7630.
+#&gt; 4 ca        2020-09-01      4707. 3291.  3264. 3291.  7571.
+#&gt; 5 ca        2020-10-01      3360. 4270.  3213. 4270.  5714.
+#&gt; 6 ca        2020-11-01      4441. 4172.  4028. 4172.  5491.
 #&gt; # ℹ 108 more rows</code></pre>
 </div>
 </div>
-<p>Note that here we have used an argument <code>ref_time_values</code> to perform the sliding computation (here, compute a forecast) at a specific subset of reference time values. We get out 4 new columns: <code>fc_target_date</code>, <code>0.05</code>, <code>0.5</code>, <code>0.95</code> that correspond to the date the forecast is for (rather than the date it was made on, the point forecast, and the lower and upper endpoints of the 95% prediction band.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Note that we have used the argument <code>.ref_time_values</code> to compute the forecast at a specific subset of reference time values. We get out 4 new columns: <code>fc_target_date</code>, <code>0.05</code>, <code>0.5</code>, <code>0.95</code> that correspond to the date the forecast is for (rather than the date it was made on), the point forecast, and the lower and upper endpoints of the 95% prediction band.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>To finish off, we plot the forecasts at some times (spaced out by a few months) over the last year, at multiple horizons: 7, 14, 21, and 28 days ahead. To do so, we encapsulate the process of generating forecasts into a simple function, so that we can call it a few times.</p>
-<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-11_7f504b8f9472dc792d7a362b1998339e">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>k_week_ahead <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">ahead =</span> <span class="dv">7</span>) {</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">epi_slide</span>(</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    x,</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span> <span class="fu">arx_forecaster</span>(</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">epi_data =</span> .x,</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">outcome =</span> <span class="st">"cases_7dav"</span>,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">predictors =</span> <span class="st">"cases_7dav"</span>,</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">trainer =</span> <span class="fu">quantile_reg</span>(),</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">args_list =</span> <span class="fu">arx_args_list</span>(<span class="at">ahead =</span> ahead)</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    )<span class="sc">$</span>predictions,</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">before =</span> <span class="dv">119</span>,</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">ref_time_values =</span> fc_time_values,</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">new_col_name =</span> <span class="st">"fc"</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>      geo_value, time_value, cases_7dav, <span class="fu">contains</span>(<span class="st">"_distn"</span>),</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>      fc_target_date</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_quantiles</span>(<span class="fu">contains</span>(<span class="st">"_distn"</span>))</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co"># First generate the forecasts, and bind them together</span></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">14</span>, <span class="dv">21</span>, <span class="dv">28</span>), k_week_ahead) <span class="sc">%&gt;%</span> <span class="fu">list_rbind</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-15_70aa61239ab94d7efb5385e12b4cccb7">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>k_week_ahead <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">ahead =</span> <span class="dv">7</span>) {</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">epi_slide</span>(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    x,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span> <span class="fu">arx_forecaster</span>(</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">epi_data =</span> .x,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">outcome =</span> <span class="st">"cases_7dav"</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">predictors =</span> <span class="st">"cases_7dav"</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">trainer =</span> <span class="fu">quantile_reg</span>(),</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">args_list =</span> <span class="fu">arx_args_list</span>(<span class="at">ahead =</span> ahead)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    )<span class="sc">$</span>predictions,</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">.window_size =</span> <span class="dv">120</span>,</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">.ref_time_values =</span> fc_time_values</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(geo_value, time_value, cases_7dav, .pred, .pred_distn) <span class="sc">%&gt;%</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_quantiles_wider</span>(<span class="st">".pred_distn"</span>)</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="co"># First generate the forecasts, and bind them together</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">14</span>, <span class="dv">21</span>, <span class="dv">28</span>), k_week_ahead) <span class="sc">%&gt;%</span> <span class="fu">list_rbind</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Then we can plot the on top of the observed data</p>
-<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-12_f17b1e21df0fa2849ed240533f7e168f">
-<details>
+<div class="cell" data-layout-align="center" data-hash="slide_cache/html/unnamed-chunk-16_b4bf5f3aa24918e1188f8225b7963187">
+<details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(z) <span class="sc">+</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> x, <span class="fu">aes</span>(<span class="at">x =</span> time_value, <span class="at">y =</span> cases_7dav), <span class="at">color =</span> <span class="st">"gray50"</span>) <span class="sc">+</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> fc_target_date, <span class="at">ymin =</span> <span class="st">`</span><span class="at">0.05</span><span class="st">`</span>, <span class="at">ymax =</span> <span class="st">`</span><span class="at">0.95</span><span class="st">`</span>,</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> time_value, <span class="at">fill =</span> geo_value</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> fc_target_date, <span class="at">y =</span> <span class="st">`</span><span class="at">0.5</span><span class="st">`</span>, <span class="at">group =</span> time_value)) <span class="sc">+</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> fc_target_date, <span class="at">y =</span> <span class="st">`</span><span class="at">0.5</span><span class="st">`</span>, <span class="at">group =</span> time_value), <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># geom_vline(data = tibble(x = fc_time_values), aes(xintercept = x),</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#           linetype = 2, alpha = 0.5) +</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(geo_value), <span class="at">scales =</span> <span class="st">"free_y"</span>, <span class="at">nrow =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>))) <span class="sc">+</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">minor_breaks =</span> <span class="st">"1 months"</span>, <span class="at">date_labels =</span> <span class="st">"%b %Y"</span>) <span class="sc">+</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">guide =</span> <span class="st">"none"</span>, <span class="at">end =</span> .<span class="dv">9</span>) <span class="sc">+</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date"</span>, <span class="at">y =</span> <span class="st">"Reported COVID-19 cases"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(z) <span class="sc">+</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> x, <span class="fu">aes</span>(<span class="at">x =</span> time_value, <span class="at">y =</span> cases_7dav), <span class="at">color =</span> <span class="st">"gray50"</span>) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> time_value, <span class="at">ymin =</span> <span class="st">`</span><span class="at">0.05</span><span class="st">`</span>, <span class="at">ymax =</span> <span class="st">`</span><span class="at">0.95</span><span class="st">`</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> time_value, <span class="at">fill =</span> geo_value</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> time_value, <span class="at">y =</span> <span class="st">`</span><span class="at">0.5</span><span class="st">`</span>, <span class="at">group =</span> time_value)) <span class="sc">+</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> time_value, <span class="at">y =</span> <span class="st">`</span><span class="at">0.5</span><span class="st">`</span>, <span class="at">group =</span> time_value), <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># geom_vline(data = tibble(x = fc_time_values), aes(xintercept = x),</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#           linetype = 2, alpha = 0.5) +</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(geo_value), <span class="at">scales =</span> <span class="st">"free_y"</span>, <span class="at">nrow =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>))) <span class="sc">+</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">minor_breaks =</span> <span class="st">"1 months"</span>, <span class="at">date_labels =</span> <span class="st">"%b %Y"</span>) <span class="sc">+</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">guide =</span> <span class="st">"none"</span>, <span class="at">end =</span> .<span class="dv">9</span>) <span class="sc">+</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date"</span>, <span class="at">y =</span> <span class="st">"Reported COVID-19 cases"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="slide_files/figure-html/unnamed-chunk-12-1.svg" class="img-fluid figure-img" style="width:90.0%"></p>
+<p><img src="slide_files/figure-html/unnamed-chunk-16-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -596,7 +761,7 @@ div.csl-indent {
 <p>Second, the AR forecaster here is using finalized data, meaning, it uses the latest versions of signal values (reported COVID-19 cases) available, for both training models and making predictions historically. However, this is not reflective of the provisional nature of the data that it must cope with in a true forecast task. Training and making predictions on finalized data can lead to an overly optimistic sense of accuracy; see, for example, <span class="citation" data-cites="McDonaldBien2021">(<a href="references.html#ref-McDonaldBien2021" role="doc-biblioref">McDonald et al. 2021</a>)</span> and references therein. Fortunately, the <code>epiprocess</code> package provides a data structure called <code>epi_archive</code> that can be used to store all data revisions, and furthermore, an <code>epi_archive</code> object knows how to slide computations in the correct version-aware sense (for the computation at each reference time <span class="math inline">\(t\)</span>, it uses only data that would have been available as of <span class="math inline">\(t\)</span>). We will revisit this example in the <a href="https://cmu-delphi.github.io/epiprocess/articles/archive.html">archive vignette</a>.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-McDonaldBien2021" class="csl-entry" role="listitem">
 McDonald, Daniel J, Jacob Bien, Alden Green, Addison J Hu, Nat DeFries, Sangwon Hyun, Natalia L Oliveira, et al. 2021. <span>“Can Auxiliary Indicators Improve <span>COVID-19</span> Forecasting and Hotspot Prediction?”</span> <em>Proceedings of the National Academy of Sciences</em> 118: e2111453118. <a href="https://doi.org/10.1073/pnas.2111453118">https://doi.org/10.1073/pnas.2111453118</a>.
 </div>
@@ -645,18 +810,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -688,11 +842,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -702,8 +895,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -715,7 +917,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -759,6 +1084,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -784,6 +1110,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -845,12 +1197,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./epidf.html" class="pagination-link">
+      <a href="./epidf.html" class="pagination-link" aria-label="Getting data into epi_df format">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting data into epi_df format</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./growth-rates.html" class="pagination-link">
+      <a href="./growth-rates.html" class="pagination-link" aria-label="Estimate growth rates in signals">
         <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estimate growth rates in signals</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -861,12 +1213,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">These Delphi Epitooling Materials were written by Daniel J. McDonald, Logan C. Brooks, and Ryan J. Tibshirani.</div>
+    <div class="nav-footer-center">
+<p>These Delphi Epitooling Materials were written by Daniel J. McDonald, Logan C. Brooks, and Ryan J. Tibshirani.</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cmu-delphi/delphi-tooling-book/blob/main/slide.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/cmu-delphi/delphi-tooling-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/cmu-delphi/delphi-tooling-book/edit/main/slide.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
+
 
 
 

@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.361">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Epidemiological Forecasting - 10&nbsp; Introducing the flatline forecaster</title>
+<title>10&nbsp; Introducing the flatline forecaster – Introduction to Epidemiological Forecasting</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -81,7 +81,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -90,6 +96,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -105,13 +112,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./epipredict.html">epipredict</a></li><li class="breadcrumb-item"><a href="./flatline-forecaster.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./epipredict.html">epipredict</a></li><li class="breadcrumb-item"><a href="./flatline-forecaster.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -120,24 +127,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Introduction to Epidemiological Forecasting</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/cmu-delphi/delphi-tooling-book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-              <i class="bi bi-bi-twitter pe-1"></i>
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-bi-facebook pe-1"></i>
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
@@ -167,9 +174,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">epiprocess</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -220,9 +227,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">epipredict</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -266,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sliding-forecasters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Pseudo-prospective forecast inspection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Sliding version-unaware and version-aware ARX forecasters across dates</span></span></a>
   </div>
 </li>
       </ul>
@@ -280,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -293,12 +300,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#what-weve-learned-in-a-nutshell" id="toc-what-weve-learned-in-a-nutshell" class="nav-link" data-scroll-target="#what-weve-learned-in-a-nutshell"><span class="header-section-number">10.2</span> What we’ve learned in a nutshell</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/cmu-delphi/delphi-tooling-book/blob/main/flatline-forecaster.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/cmu-delphi/delphi-tooling-book/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/cmu-delphi/delphi-tooling-book/edit/main/flatline-forecaster.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/cmu-delphi/delphi-tooling-book/blob/main/flatline-forecaster.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/cmu-delphi/delphi-tooling-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/cmu-delphi/delphi-tooling-book/edit/main/flatline-forecaster.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./epipredict.html">epipredict</a></li><li class="breadcrumb-item"><a href="./flatline-forecaster.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Introducing the flatline forecaster</span></h1>
 </div>
@@ -313,7 +320,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <p>The flatline forecaster is a very simple forecasting model intended for <code>epi_df</code> data, where the most recent observation is used as the forecast for any future date. In other words, the last observation is propagated forward. Hence, a flat line phenomenon is observed for the point predictions. The predictive intervals are produced from the quantiles of the residuals of such a forecast over all of the training data. By default, these intervals will be obtained separately for each combination of keys (<code>geo_value</code> and any additional keys) in the <code>epi_df</code>. Thus, the output is a data frame of point (and optionally interval) forecasts at a single unique horizon (<code>ahead</code>) for each unique combination of key variables. This forecaster is comparable to the baseline used by the <a href="https://covid19forecasthub.org">COVID Forecast Hub</a>.</p>
 <section id="example-of-using-the-flatline-forecaster" class="level2" data-number="10.1">
@@ -328,7 +337,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>#&gt; An `epi_df` object, 6,832 x 4 with metadata:
 #&gt; * geo_type  = state
 #&gt; * time_type = day
-#&gt; * as_of     = 2022-05-31 12:08:25.791826
+#&gt; * as_of     = 2022-05-31 12:08:25
 #&gt; 
 #&gt; # A tibble: 6,832 × 4
 #&gt;   geo_value time_value case_rate death_rate
@@ -352,7 +361,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>#&gt; 
 #&gt; ══ A basic forecaster of type flatline ══════════════════════════════════════
 #&gt; 
-#&gt; This forecaster was fit on 2023-06-19 20:31:13
+#&gt; This forecaster was fit on 2023-12-15 04:53:28
 #&gt; 
 #&gt; Training data was an `epi_df` with
 #&gt; • Geography: state,
@@ -372,7 +381,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>five_days_ahead <span class="ot">&lt;-</span> <span class="fu">flatline_forecaster</span>(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  jhu,</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="st">"death_rate"</span>,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">flatline_args_list</span>(<span class="at">ahead =</span> 5L)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">flatline_args_list</span>(<span class="at">ahead =</span> <span class="dv">5</span>L)</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>five_days_ahead</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -380,7 +389,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>#&gt; 
 #&gt; ══ A basic forecaster of type flatline ══════════════════════════════════════
 #&gt; 
-#&gt; This forecaster was fit on 2023-06-19 20:31:14
+#&gt; This forecaster was fit on 2023-12-15 04:53:28
 #&gt; 
 #&gt; Training data was an `epi_df` with
 #&gt; • Geography: state,
@@ -395,12 +404,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #&gt; • For target dates: 2022-01-05.</code></pre>
 </div>
 </div>
-<p>We could also specify that we want a 80% predictive interval by changing the levels. The default 0.05 and 0.95 levels/quantiles give us 90% predictive interval.</p>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-5_04fc200f272f42d862a3c5693cc610b6">
+<p>We could also specify that we want a 80% predictive interval by changing the quantile levels. The default 0.05 and 0.95 levels/quantiles give us 90% predictive intervals.</p>
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-5_d198fa2e7b1019a625462597c0bb5e44">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>five_days_ahead <span class="ot">&lt;-</span> <span class="fu">flatline_forecaster</span>(</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  jhu,</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="st">"death_rate"</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">flatline_args_list</span>(<span class="at">ahead =</span> 5L, <span class="at">levels =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">flatline_args_list</span>(<span class="at">ahead =</span> <span class="dv">5</span>L, <span class="at">quantile_levels =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>five_days_ahead</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -408,7 +417,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>#&gt; 
 #&gt; ══ A basic forecaster of type flatline ══════════════════════════════════════
 #&gt; 
-#&gt; This forecaster was fit on 2023-06-19 20:31:14
+#&gt; This forecaster was fit on 2023-12-15 04:53:29
 #&gt; 
 #&gt; Training data was an `epi_df` with
 #&gt; • Geography: state,
@@ -424,8 +433,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>To see the other arguments that you may modify, please see <code>?flatline_args_list()</code>. For now, we will move on to looking at the workflow.</p>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-6_23d12864d38c6b2fb9458907db32530f">
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-6_f92b9552034cb6e9cb468a203402d459">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>five_days_ahead<span class="sc">$</span>epi_workflow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-7_7fcfe8b9cf9e732fc9711a48dd0a6447">
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; ══ Epi Workflow [trained] ═══════════════════════════════════════════════════
 #&gt; Preprocessor: Recipe
@@ -435,8 +446,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #&gt; ── Preprocessor ─────────────────────────────────────────────────────────────
 #&gt; 2 Recipe Steps
 #&gt; 
-#&gt; • step_epi_ahead()
-#&gt; • step_training_window()
+#&gt; 1. step_epi_ahead()
+#&gt; 2. step_training_window()
 #&gt; 
 #&gt; ── Model ────────────────────────────────────────────────────────────────────
 #&gt; Flatline forecaster
@@ -447,71 +458,75 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #&gt; ── Postprocessor ────────────────────────────────────────────────────────────
 #&gt; 5 Frosting Layers
 #&gt; 
-#&gt; • layer_predict()
-#&gt; • layer_residual_quantiles()
-#&gt; • layer_add_forecast_date()
-#&gt; • layer_add_target_date()
-#&gt; • layer_threshold()</code></pre>
+#&gt; 1. layer_predict()
+#&gt; 2. layer_residual_quantiles()
+#&gt; 3. layer_add_forecast_date()
+#&gt; 4. layer_add_target_date()
+#&gt; 5. layer_threshold()</code></pre>
 </div>
 </div>
 <p>The fitted model here was based on minimal pre-processing of the data, estimating a flatline model, and then post-processing the results to be meaningful for epidemiological tasks. To look deeper into the pre-processing, model and processing parts individually, you may use the <code>$</code> operator after <code>epi_workflow</code>. For example, let’s examine the pre-processing part in more detail.</p>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-7_7ebad54744c08badf9d3dac19334894f">
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-8_fbd01388131646dfe7fbad6fff23bad6">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(workflows)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_preprocessor</span>(five_days_ahead<span class="sc">$</span>epi_workflow)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-8_3b5f80e746b0846bc6204aa82a69e29e">
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-9_538e8da583cba9d8903f91cbbc6e57a4">
+<div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
-#&gt; ── Recipe ───────────────────────────────────────────────────────────────────
+#&gt; ── Epi Recipe ───────────────────────────────────────────────────────────────
 #&gt; 
-#&gt; ── Inputs
+#&gt; ── Inputs 
 #&gt; Number of variables by role
 #&gt; predictor:  3
 #&gt; geo_value:  1
 #&gt; raw:        1
 #&gt; time_value: 1
 #&gt; 
-#&gt; ── Operations
-#&gt; • Leading: death_rate by 5
-#&gt; • # of recent observations per key limited to:: Inf</code></pre>
+#&gt; ── Operations 
+#&gt; 1. Leading: death_rate by 5
+#&gt; 2. • # of recent observations per key limited to:: Inf</code></pre>
+</div>
 </div>
 <p>Under Operations, we can see that the pre-processing operations were to lead the death rate by 5 days (<code>step_epi_ahead()</code>) and that the # of recent observations used in the training window were not limited (in <code>step_training_window()</code> as <code>n_training = Inf</code> in <code>flatline_args_list()</code>). You should also see the molded/pre-processed training data.</p>
 <p>For symmetry, let’s have a look at the post-processing.</p>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-9_0808824fe21d98fc697b5f19bc27352c">
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-10_1ffcc771d298d8777adb14da4c33af11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_frosting</span>(five_days_ahead<span class="sc">$</span>epi_workflow)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-10_72d5eb3c2909ae3ae55f4bacd445ad68">
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-11_5f0f138a1844d85ed0f9ee1615974a55">
+<div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt; ── Frosting ─────────────────────────────────────────────────────────────────
 #&gt; 
-#&gt; ── Layers
-#&gt; • Creating predictions: "&lt;calculated&gt;"
-#&gt; • Resampling residuals for predictive quantiles: "&lt;calculated&gt;" levels 0.1,
-#&gt;   0.9
-#&gt; • Adding forecast date: "2021-12-31"
-#&gt; • Adding target date: "2022-01-05"
-#&gt; • Thresholding predictions: dplyr::starts_with(".pred") to ]0, Inf)</code></pre>
+#&gt; ── Layers 
+#&gt; 1. Creating predictions: "&lt;calculated&gt;"
+#&gt; 2. Resampling residuals for predictive quantiles: "&lt;calculated&gt;"
+#&gt; quantile_levels 0.1, 0.9
+#&gt; 3. Adding forecast date: "2021-12-31"
+#&gt; 4. Adding target date: "2022-01-05"
+#&gt; 5. Thresholding predictions: dplyr::starts_with(".pred") to [0, Inf)</code></pre>
+</div>
 </div>
 <p>The post-processing operations in the order the that were performed were to create the predictions and the predictive intervals, add the forecast and target dates and bound the predictions at zero.</p>
 <p>We can also easily examine the predictions themselves.</p>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-11_926c2f170768c33a5e9312e52477a59e">
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-12_7b35816dbfa62bfcb0cd758284b972ae">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>five_days_ahead<span class="sc">$</span>predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; # A tibble: 56 × 5
-#&gt;   geo_value  .pred       .pred_distn forecast_date target_date
-#&gt;   &lt;chr&gt;      &lt;dbl&gt;            &lt;dist&gt; &lt;date&gt;        &lt;date&gt;     
-#&gt; 1 ak        0.0395 [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 2 al        0.107  [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 3 ar        0.490  [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 4 as        0      [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 5 az        0.608  [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
-#&gt; 6 ca        0.142  [0.1, 0.9]&lt;q-rng&gt; 2021-12-31    2022-01-05 
+#&gt;   geo_value  .pred        .pred_distn forecast_date target_date
+#&gt;   &lt;chr&gt;      &lt;dbl&gt;             &lt;dist&gt; &lt;date&gt;        &lt;date&gt;     
+#&gt; 1 ak        0.0395 quantiles(0.11)[2] 2021-12-31    2022-01-05 
+#&gt; 2 al        0.107  quantiles(0.14)[2] 2021-12-31    2022-01-05 
+#&gt; 3 ar        0.490  quantiles(0.49)[2] 2021-12-31    2022-01-05 
+#&gt; 4 as        0      quantiles(0.09)[2] 2021-12-31    2022-01-05 
+#&gt; 5 az        0.608  quantiles(0.61)[2] 2021-12-31    2022-01-05 
+#&gt; 6 ca        0.142  quantiles(0.16)[2] 2021-12-31    2022-01-05 
 #&gt; # ℹ 50 more rows</code></pre>
 </div>
 </div>
 <p>The results above show a distributional forecast produced using data through the end of 2021 for the January 5, 2022. A prediction for the death rate per 100K inhabitants along with a 95% predictive interval is available for every state (<code>geo_value</code>).</p>
 <p>The figure below displays the prediction and prediction interval for three sample states: Arizona, New York, and Florida.</p>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-12_338012827629211189d9c8b338a8fa27">
-<details>
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-13_6e5e32ad4dda558766ca9090bf4e927c">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>samp_geos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"az"</span>, <span class="st">"ny"</span>, <span class="st">"fl"</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -520,33 +535,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> five_days_ahead<span class="sc">$</span>predictions <span class="sc">%&gt;%</span></span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(geo_value <span class="sc">%in%</span> samp_geos) <span class="sc">%&gt;%</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">q =</span> <span class="fu">nested_quantiles</span>(.pred_distn)) <span class="sc">%&gt;%</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(q) <span class="sc">%&gt;%</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> tau, <span class="at">values_from =</span> q)</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hist, <span class="fu">aes</span>(<span class="at">color =</span> geo_value)) <span class="sc">+</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(time_value, death_rate)) <span class="sc">+</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">x =</span> target_date, <span class="at">ymin =</span> <span class="st">`</span><span class="at">0.1</span><span class="st">`</span>, <span class="at">ymax =</span> <span class="st">`</span><span class="at">0.9</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(target_date, .pred)) <span class="sc">+</span></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">xintercept =</span> forecast_date)) <span class="sc">+</span></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_d</span>(<span class="at">name =</span> <span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%b %Y"</span>, <span class="at">date_breaks =</span> <span class="st">"1 month"</span>) <span class="sc">+</span></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(geo_value <span class="sc">~</span> ., <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Incident deaths per 100K</span><span class="sc">\n</span><span class="st"> inhabitants"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_quantiles_wider</span>(.pred_distn)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hist, <span class="fu">aes</span>(<span class="at">color =</span> geo_value)) <span class="sc">+</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(time_value, death_rate)) <span class="sc">+</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">x =</span> target_date, <span class="at">ymin =</span> <span class="st">`</span><span class="at">0.1</span><span class="st">`</span>, <span class="at">ymax =</span> <span class="st">`</span><span class="at">0.9</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(target_date, .pred)) <span class="sc">+</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">xintercept =</span> forecast_date)) <span class="sc">+</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_d</span>(<span class="at">name =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%b %Y"</span>, <span class="at">date_breaks =</span> <span class="st">"1 month"</span>) <span class="sc">+</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(geo_value <span class="sc">~</span> ., <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Incident deaths per 100K</span><span class="sc">\n</span><span class="st"> inhabitants"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="flatline-forecaster_files/figure-html/unnamed-chunk-12-1.svg" class="img-fluid figure-img" style="width:90.0%"></p>
+<p><img src="flatline-forecaster_files/figure-html/unnamed-chunk-13-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The vertical black line is the forecast date. Here the forecast seems pretty reasonable based on the past observations shown. In cases where the recent past is highly predictive of the near future, a simple flatline forecast may be respectable, but in more complex situations where there is more uncertainty of what’s to come, the flatline forecaster may be best relegated to being a baseline model and nothing more.</p>
 <p>Take for example what happens when we consider a wider range of target dates. That is, we will now predict for several different horizons or <code>ahead</code> values - in our case, 5 to 25 days ahead, inclusive. Since the flatline forecaster function forecasts at a single unique <code>ahead</code> value, we can use the <code>map()</code> function from <code>purrr</code> to apply the forecaster to each ahead value we want to use. Then, we row bind the list of results.</p>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-13_7cca912cb9c507cdcc24b5736638e0bd">
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-14_fef7cecf6c6cefba67f0fca89b6f3083">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>out_df <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">28</span>, <span class="sc">~</span> <span class="fu">flatline_forecaster</span>(</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">epi_data =</span> jhu,</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="st">"death_rate"</span>,</span>
@@ -555,35 +568,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list_rbind</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then, we proceed as we did before. The only difference from before is that we’re using <code>out_df</code> where we had <code>five_days_ahead$predictions</code>.</p>
-<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-14_1548e56fb2990349e1650fd2101d3bf7">
-<details>
+<div class="cell" data-layout-align="center" data-hash="flatline-forecaster_cache/html/unnamed-chunk-15_3eaf57af002d2a17112638dd3f149e0e">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> out_df <span class="sc">%&gt;%</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(geo_value <span class="sc">%in%</span> samp_geos) <span class="sc">%&gt;%</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">q =</span> <span class="fu">nested_quantiles</span>(.pred_distn)) <span class="sc">%&gt;%</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(q) <span class="sc">%&gt;%</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> tau, <span class="at">values_from =</span> q)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hist) <span class="sc">+</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(time_value, death_rate)) <span class="sc">+</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> preds,</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> target_date, <span class="at">ymin =</span> <span class="st">`</span><span class="at">0.05</span><span class="st">`</span>, <span class="at">ymax =</span> <span class="st">`</span><span class="at">0.95</span><span class="st">`</span>, <span class="at">fill =</span> geo_value)</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(target_date, .pred, <span class="at">colour =</span> geo_value)) <span class="sc">+</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">xintercept =</span> forecast_date)) <span class="sc">+</span></span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_d</span>() <span class="sc">+</span></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%b %Y"</span>, <span class="at">date_breaks =</span> <span class="st">"1 month"</span>) <span class="sc">+</span></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">05</span>))) <span class="sc">+</span></span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(geo_value <span class="sc">~</span> ., <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Incident deaths per 100K</span><span class="sc">\n</span><span class="st"> inhabitants"</span>) <span class="sc">+</span></span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_quantiles_wider</span>(.pred_distn)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hist) <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(time_value, death_rate)) <span class="sc">+</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> preds,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> target_date, <span class="at">ymin =</span> <span class="st">`</span><span class="at">0.05</span><span class="st">`</span>, <span class="at">ymax =</span> <span class="st">`</span><span class="at">0.95</span><span class="st">`</span>, <span class="at">fill =</span> geo_value)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(target_date, .pred, <span class="at">colour =</span> geo_value)) <span class="sc">+</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">xintercept =</span> forecast_date)) <span class="sc">+</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%b %Y"</span>, <span class="at">date_breaks =</span> <span class="st">"1 month"</span>) <span class="sc">+</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">05</span>))) <span class="sc">+</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(geo_value <span class="sc">~</span> ., <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Incident deaths per 100K</span><span class="sc">\n</span><span class="st"> inhabitants"</span>) <span class="sc">+</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="flatline-forecaster_files/figure-html/unnamed-chunk-14-1.svg" class="img-fluid figure-img" style="width:90.0%"></p>
+<p><img src="flatline-forecaster_files/figure-html/unnamed-chunk-15-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -635,18 +646,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -678,11 +678,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -692,8 +731,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -705,7 +753,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -749,6 +920,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -774,6 +946,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -835,12 +1033,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./forecast-framework.html" class="pagination-link">
+      <a href="./forecast-framework.html" class="pagination-link" aria-label="Inner workings of the framework">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Inner workings of the framework</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./tidymodels-intro.html" class="pagination-link">
+      <a href="./tidymodels-intro.html" class="pagination-link" aria-label="Introduction to Tidymodels">
         <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Introduction to Tidymodels</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -851,12 +1049,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">These Delphi Epitooling Materials were written by Daniel J. McDonald, Logan C. Brooks, and Ryan J. Tibshirani.</div>
+    <div class="nav-footer-center">
+<p>These Delphi Epitooling Materials were written by Daniel J. McDonald, Logan C. Brooks, and Ryan J. Tibshirani.</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cmu-delphi/delphi-tooling-book/blob/main/flatline-forecaster.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/cmu-delphi/delphi-tooling-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/cmu-delphi/delphi-tooling-book/edit/main/flatline-forecaster.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
+
 
 
 
