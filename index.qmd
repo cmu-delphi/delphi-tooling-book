@@ -211,9 +211,7 @@ hist <- jhu %>%
          time_value >= max(time_value) - 90L)
 preds <- two_week_ahead$predictions %>% 
   filter(geo_value %in% samp_geos) %>% 
-  mutate(q = nested_quantiles(.pred_distn)) %>% 
-  unnest(q) %>%
-  pivot_wider(names_from = tau, values_from = q)
+  pivot_quantiles_wider(.pred_distn)
 
 ggplot(hist, aes(color = geo_value)) +
   geom_line(aes(time_value, death_rate)) +

@@ -42,3 +42,14 @@ options(
 
 ggplot2::theme_set(ggplot2::theme_bw())
 
+# Workaround for interleaved `cat`s and `message`s (from `cli`) getting
+# intercepted and not combined properly by `collapse: true`:
+with_messages_cat_to_stdout <- function(code) {
+  withCallingHandlers(
+    code,
+    message = function(m) {
+      cat(m$message)
+      tryInvokeRestart("muffleMessage")
+    }
+  )
+}

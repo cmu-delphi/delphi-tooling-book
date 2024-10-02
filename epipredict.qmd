@@ -164,7 +164,7 @@ Another property of the basic model is the predictive interval. We describe this
 ```{r differential-levels}
 out_q <- arx_forecaster(jhu, "death_rate", c("case_rate", "death_rate"),
   args_list = arx_args_list(
-    levels = c(.01, .025, seq(.05, .95, by = .05), .975, .99))
+    quantile_levels = c(.01, .025, seq(.05, .95, by = .05), .975, .99))
   )
 ```
 
@@ -188,7 +188,7 @@ Additional simple adjustments to the basic forecaster can be made using the func
 ```{r, eval = FALSE}
 arx_args_list(
   lags = c(0L, 7L, 14L), ahead = 7L, n_training = Inf, 
-  forecast_date = NULL, target_date = NULL, levels = c(0.05, 0.95),
+  forecast_date = NULL, target_date = NULL, quantile_levels = c(0.05, 0.95),
   symmetrize = TRUE, nonneg = TRUE, quantile_by_key = "geo_value"
 )
 ```

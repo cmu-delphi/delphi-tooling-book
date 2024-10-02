@@ -66,10 +66,8 @@ extract_recipe(out_gb$epi_workflow)
 ```
 
 ```{r}
-#| message: true
 #| echo: false
-#| collapse: true
-extract_recipe(out_gb$epi_workflow)
+with_messages_cat_to_stdout(print(extract_recipe(out_gb$epi_workflow)))
 ```
 
 
@@ -144,10 +142,7 @@ extract_frosting(out_gb$epi_workflow)
 
 ```{r}
 #| echo: false
-#| results: asis
-#| message: true
-#| collapse: true
-extract_frosting(out_gb$epi_workflow)
+with_messages_cat_to_stdout(print(extract_frosting(out_gb$epi_workflow)))
 ```
 
 
@@ -162,7 +157,7 @@ intervals at 0. The code to do this (inside the forecaster) is
 f <- frosting() %>%
   layer_predict() %>%
   layer_residual_quantiles(
-    probs = c(.01, .025, seq(.05, .95, by = .05), .975, .99), 
+    quantile_levels = c(.01, .025, seq(.05, .95, by = .05), .975, .99),
     symmetrize = TRUE) %>%
   layer_add_forecast_date() %>%
   layer_add_target_date() %>%
