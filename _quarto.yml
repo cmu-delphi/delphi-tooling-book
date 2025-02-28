@@ -44,6 +44,7 @@ book:
       - tidymodels-regression.qmd
       - preprocessing-and-models.qmd
       - sliding-forecasters.qmd
+      - smooth-qr.qmd
     - references.qmd
 
 bibliography: [packages.bib, references.bib]
